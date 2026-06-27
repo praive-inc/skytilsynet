@@ -1,0 +1,5130 @@
+{
+  "head" : {
+    "vars" : [ "item", "itemLabel", "website", "orgnr" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q497248"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hemsedal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hemsedal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499397"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.fjaler.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Fjaler"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499429"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.aure.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Aure"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499446"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.valer-of.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Våler"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499455"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://bremanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bremanger"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499485"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.utsira.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Utsira"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499575"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://haram.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Haram"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q499761"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.overhalla.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Overhalla"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q500186"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.skaun.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Skaun"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q500194"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.salangen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Salangen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q500205"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rauma.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rauma"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q500223"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.klepp.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Klepp"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q500227"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vennesla.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vennesla"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q501413"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vaaler-he.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Våler"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q501510"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sande-mr.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sande"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q501518"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gran.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gran"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q502197"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vindafjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vindafjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q502217"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lavangen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lavangen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q503591"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.leka.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Leka"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q503612"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.luster.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Luster"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q503637"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vang.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vang"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q503654"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vefsn.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vefsn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q503660"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.verdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Verdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q504817"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.askvoll.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Askvoll"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q505952"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lyngdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lyngdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q507201"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vestvagoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vestvågøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q507499"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sel.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sel"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q507524"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sula.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sula"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q507549"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tolga.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tolga"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q507562"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://os.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Os"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q515536"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q649541"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kvafjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kvæfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1215658"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.narvik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Narvik"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1324436"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.trondheim.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Trondheim"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "942110464"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5245991"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.oslo.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Oslo kommune"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "958935420"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10428388"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bergen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bergen kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10428388"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://bergen.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bergen kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25428806"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.indrefosen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Indre Fosen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41030999"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.orkland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Orkland"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42293305"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.io.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Indre Østfold"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "920123899"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42320251"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.faerder.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Færder"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q45303406"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nordrefollo.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nordre Follo"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48475310"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.heim.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Heim"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q52368284"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.naroysund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nærøysund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56249968"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.senja.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Senja"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56404228"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://alver.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Alver"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "920290922"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56405258"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://midt-telemark.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Midt-Telemark"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56405940"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://kinn.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kinn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56406057"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://sunnfjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sunnfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60742846"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://bjornafjorden.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bjørnafjorden"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60777023"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://hustadvika.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hustadvika"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60806432"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lillestrom.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lillestrøm"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61015259"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://stad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63644915"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.nyeoygardenkommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Øygarden"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65230514"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.fjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Fjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q80571266"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lindesnes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lindesnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q80593157"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.asker.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Asker"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q80678654"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://ullensvang.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ullensvang"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136456276"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://nykommuneilofoten.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vest-Lofoten kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90597"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tvedestrand.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tvedestrand"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90598"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.valle.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Valle"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90600"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vegarshei.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vegårshei"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90601"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.amli.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Åmli"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q93633"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.flesberg.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Flesberg"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q93703"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.flaa.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Flå"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q101341"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lillehammer.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lillehammer"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "945578564"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104095"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.molde.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Molde"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104379"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vadso.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vadsø"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104400"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hamar.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hamar"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107135"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.fredrikstad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Fredrikstad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107351"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://hammerfest.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hammerfest"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107392"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tonsberg.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tønsberg"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108025"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sarpsborg.com/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sarpsborg"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "974560569"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108031"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gjovik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gjøvik"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108983"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vardo.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vardø"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108988"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kongsberg.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kongsberg"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "942402465"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q108999"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://roros.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Røros"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109005"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sandefjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sandefjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109021"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.moss.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Moss"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109025"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hitra.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hitra"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109031"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://voss.herad.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Voss"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109036"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.haugesund.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Haugesund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109042"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.halden.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Halden"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109048"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.horten.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Horten"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109140"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.elverum.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Elverum"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109483"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kristiansund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kristiansund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109489"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.berlevag.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Berlevåg"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "962388108"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109499"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kongsvinger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kongsvinger"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109841"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hasvik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hasvik"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110311"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://ovre-eiker.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Øvre Eiker"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110431"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.steinkjer.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Steinkjer"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q110848"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ringerike.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ringerike"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q111039"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://namsos.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Namsos"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112855"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.bronnoy.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Brønnøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113438"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vaga.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vågå"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113466"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ringsaker.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ringsaker"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113491"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.fitjar.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Fitjar"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113538"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.aal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ål"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113552"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bomlo.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bømlo"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113595"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.oppdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Oppdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113662"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nesseby.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nesseby"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113697"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.masoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Måsøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113710"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.andoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Andøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113720"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hoyanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Høyanger"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q113729"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gamvik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gamvik"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q128762"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.skjervoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Skjervøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130048"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://rost.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Røst"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156125"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.larvik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Larvik"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156420"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.skiptvet.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Skiptvet kommune"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "941962726"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156453"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.orsta.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ørsta"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q162144"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hoylandet.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Høylandet"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q175704"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.gratangen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gratangen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q202605"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.modalen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Modalen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q215374"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://askoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Askøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q216430"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.levanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Levanger"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "938587051"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q217793"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gulen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gulen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q217802"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.stjordal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stjørdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q217808"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.alstahaug.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Alstahaug"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q221119"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://bodo.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bodø"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q250055"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hjelmeland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hjelmeland"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q252381"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.dyroy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Dyrøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q255148"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gjesdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gjesdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q258084"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.grong.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Grong"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q270835"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.afjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Åfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q271063"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.amot.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Åmot"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q271140"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ardal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Årdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q271275"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://aseral.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Åseral"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q281835"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sirdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sirdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q303521"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vik kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q308134"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.oksnes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Øksnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q308245"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://orland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ørland"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q308420"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ostre-toten.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Østre Toten"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q316779"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.oyer.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Øyer"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q329894"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.oystre-slidre.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Øystre Slidre"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "961382068"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q383492"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://gloppen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gloppen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483871"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.holmestrand.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Holmestrand"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483877"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.eigersund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Eigersund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483885"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.porsanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Porsanger"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483899"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.smola.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Smøla"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483902"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.karmoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Karmøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483906"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rade.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Råde"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483911"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rollag.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rollag"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483964"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tana.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tana"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483969"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rakkestad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rakkestad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483977"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.eidfjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Eidfjord kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483986"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.nes-bu.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nesbyen"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "964951640"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484001"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.modum.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Modum"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484008"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.austevoll.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Austevoll"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484012"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.boe.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bø"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484043"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hadsel.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hadsel"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484052"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bamble.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bamble"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484057"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hol.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hol"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "944889116"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484064"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.folldal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Folldal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484070"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kvinnherad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kvinnherad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484074"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nord-aurdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nord-Aurdal kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484080"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.austrheim.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Austrheim"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484084"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://holtalen.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Holtålen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484088"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.royrvik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Røyrvik kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484093"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sondre-land.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Søndre Land"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484097"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sorfold.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sørfold"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484111"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.averoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Averøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484116"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.skjaak.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Skjåk"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484119"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.froya.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Frøya"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484208"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gildeskal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gildeskål"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484213"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.fedje.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Fedje"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484218"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nord-odal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nord-Odal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484252"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lodingen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lødingen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484257"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.osen.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Osen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q484322"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rana.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rana"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "872418032"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q485253"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.stord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q485297"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sauda.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sauda"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q485608"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ha.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hå kommune"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "964969590"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486677"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.dovre.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Dovre"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486700"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://aurland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Aurland"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486704"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.jevnaker.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Jevnaker"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486713"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gausdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gausdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486717"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.balsfjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Balsfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486726"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sigdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sigdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486736"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.marker.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Marker"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q486741"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nordre-land.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nordre Land"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q487524"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.beiarn.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Beiarn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q487529"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kvam.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kvam"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q487538"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hamaroy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hamarøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q487636"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://moskenes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Moskenes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q487711"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ulvik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ulvik kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488026"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488046"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rodoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rødøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488049"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.etnedal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Etnedal kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488054"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sor-fron.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sør-Fron"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488060"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vestnes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vestnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488067"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.osteroy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Osterøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488124"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rennebu.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rennebu"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488229"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rendalen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rendalen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488234"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.samnanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Samnanger"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488242"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.rindal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rindal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488252"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tingvoll.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tingvoll"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488258"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ibestad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ibestad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488375"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.vega.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vega"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488384"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://hattfjelldal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hattfjelldal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488395"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lom.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488398"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lunner.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lunner"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488401"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nord-fron.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nord-Fron"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488405"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lesja.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lesja"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488435"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hvaler.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hvaler"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488439"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vestre-slidre.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vestre Slidre"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488445"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.volda.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Volda"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488607"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lier.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488622"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hole.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hole"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488747"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kvinesdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kvinesdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488762"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.melhus.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Melhus"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488776"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hemnes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hemnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488779"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tynset.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tynset"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488783"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.grue.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Grue"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488948"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sola.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sola"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488951"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.loten.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Løten"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488955"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.malselv.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Målselv"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488959"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kvanangen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kvænangen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488962"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.haegebostad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hægebostad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488970"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.inderoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Inderøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q488975"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.laerdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lærdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q489342"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.aukra.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Aukra"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q489347"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.donna.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Dønna"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q489351"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://bokn.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bokn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q489362"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bindal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bindal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q489374"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.frosta.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Frosta"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q490246"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://vagan.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vågan"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "938644500"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q490462"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.farsund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Farsund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q490923"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sogndal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sogndal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q492115"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.randaberg.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Randaberg"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q492209"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.selbu.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Selbu"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q492244"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.mgk.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Midtre Gauldal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493283"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gjemnes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gjemnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493301"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gol.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gol"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493308"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bjerkreim.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bjerkreim"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493315"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bardu.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bardu kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493481"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.flekkefjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Flekkefjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493758"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.grane.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Grane"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493762"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.heroy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Herøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493846"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.snasa.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Snåsa"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493932"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.heroy-no.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Herøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493942"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kafjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kåfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493961"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ulstein.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ulstein"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493977"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tysver.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tysvær"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493981"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.time.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Time"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493988"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.malvik.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Malvik"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493992"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vanylven.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vanylven"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493996"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.namsskogan.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Namsskogan kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q493999"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lierne.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lierne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494005"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.steigen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Steigen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494018"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lyngen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lyngen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494024"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kvitsoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kvitsøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494029"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hareid.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hareid"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494037"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hyllestad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hyllestad kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494053"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tydal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tydal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494059"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nordreisa.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nordreisa"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494062"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nesna.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nesna"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494068"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.vevelstad.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vevelstad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494670"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.giske.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Giske"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q494680"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://flakstad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Flakstad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1825"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.karasjok.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Karasjok"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1881"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.fyresdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Fyresdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2229"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nissedal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nissedal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2232"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kviteseid.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kviteseid"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2236"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.seljord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Seljord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2241"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tokke.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tokke"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2245"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vinje.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vinje"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2272"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.skien.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Skien"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2290"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.porsgrunn.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Porsgrunn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2308"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.siljan.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Siljan"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2326"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.notodden.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Notodden"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2354"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hjartdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hjartdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2365"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tinn.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tinn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2367"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "http://www.drangedal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Drangedal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2372"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kragero.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kragerø"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2375"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nome.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nome"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2415"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.kristiansand.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kristiansand"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "820852982"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5223"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://stryn.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stryn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6459"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.guovdageainnu.suohkan.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Kautokeino"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6535"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.alta.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Alta"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "944588132"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25416"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.stavanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stavanger"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "964965226"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26087"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://tromso.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tromsø"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "940101808"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26525"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.drammen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Drammen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q27587"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sandnes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sandnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48276"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.flatanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Flatanger"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48299"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.masfjorden.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Masfjorden kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48316"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tysnes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tysnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48323"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.meloy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Meløy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48325"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sorreisa.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sørreisa"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48341"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.luroy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lurøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48393"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.aremark.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Aremark"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48414"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sor-aurdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sør-Aurdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48501"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.stranda.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stranda"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "964980098"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48508"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sykkylven.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sykkylven"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48518"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sveio.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sveio"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48521"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sunndal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sunndal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48526"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.stor-elvdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stor-Elvdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48529"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.trysil.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Trysil"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48542"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.stange.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Stange"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48545"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.surnadal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Surnadal"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "964981892"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48577"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.suldal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Suldal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48591"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.strand.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Strand"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48610"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.somna.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sømna"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48615"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sor-odal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sør-Odal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48620"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.trana.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Træna"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48629"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://varoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Værøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48637"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ringebu.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ringebu"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48647"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.solund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Solund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48657"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.storfjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Storfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48696"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.fauske.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Fauske"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48717"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vestre-toten.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vestre Toten"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48723"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.alvdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Alvdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48728"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.karlsoy.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Karlsøy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48732"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.meraker.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Meråker"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48760"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lebesby.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lebesby"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48769"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://asnes.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Åsnes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48782"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.etne.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Etne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48801"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.tjeldsund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Tjeldsund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48813"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.batsfjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Båtsfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48827"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sor-varanger.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sør-Varanger"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48844"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sortland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sortland"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48848"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.loppa.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Loppa"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48858"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.sokndal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Sokndal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48870"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.leirfjord.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Leirfjord"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48880"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.saltdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Saltdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48886"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.krodsherad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Krødsherad kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48897"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.evenes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Evenes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48909"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.engerdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Engerdal kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48913"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.eidskog.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Eidskog"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48924"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nore-og-uvdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nore og Uvdal"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "964950946"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48928"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vaksdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vaksdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54062"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://as.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ås"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56915"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.aurskog-holand.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Aurskog-Høland"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57076"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://baerum.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bærum"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57080"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.eidsvoll.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Eidsvoll"
+      },
+      "orgnr" : {
+        "type" : "literal",
+        "value" : "964950113"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57081"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.enebakk.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Enebakk"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57083"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.frogn.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Frogn"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57084"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gjerdrum.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gjerdrum kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57858"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.hurdal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Hurdal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57860"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lorenskog.kommune.no//"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lørenskog"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57862"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nannestad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nannestad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57864"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nesodden.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nesodden"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57865"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nittedal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nittedal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57870"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ralingen.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Rælingen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57917"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.ullensaker.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ullensaker"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57918"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.vestby.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Vestby"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57919"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.arendal.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Arendal"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q62140"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.harstad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Harstad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q62266"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://alesund.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Ålesund"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q62641"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.nordkapp.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Nordkapp"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q88802"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.birkenes.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Birkenes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q88804"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bygland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bygland"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q88806"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.bykle.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Bykle kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q88808"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.e-h.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Evje og Hornnes kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q88810"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.froland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Froland kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q88813"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.gjerstad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Gjerstad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90590"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.grimstad.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Grimstad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90592"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.iveland.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Iveland kommune"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90593"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.lillesand.kommune.no/"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Lillesand"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90595"
+      },
+      "website" : {
+        "type" : "uri",
+        "value" : "https://www.risor.kommune.no"
+      },
+      "itemLabel" : {
+        "xml:lang" : "nb",
+        "type" : "literal",
+        "value" : "Risør"
+      }
+    } ]
+  }
+}

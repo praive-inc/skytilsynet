@@ -1,0 +1,73 @@
+# Skytilsynet — agent contract
+
+Skytilsynet is a **public-facing civic transparency tracker**: it shows how
+dependent Norwegian public bodies are on foreign cloud technology (starting with
+municipal email), derives the jurisdiction that data answers to, and points to
+European alternatives. It is a real public website (skytilsynet.no), not an
+internal tool.
+
+It is the **public-sector surface** of BetterWorld's "one engine, many surfaces"
+architecture (BetterWorld RFC-001). See [`docs/scorecard-spec.md`](docs/scorecard-spec.md)
+for scope and methodology (originated as BetterWorld RFC-017).
+
+## The rules you must keep
+
+These are non-negotiable. A change that breaks one is wrong even if it compiles.
+
+1. **Factual over moralizing.** Every claim shown about a public body carries a
+   citable source (the actual DNS records, the contract — a `sourceUrl` +
+   `sourceDate` on the record behind it). State the fact — *"Email runs on
+   Microsoft 365 (United States; CLOUD Act jurisdiction)"* — never *"bad"*. If you
+   cannot cite it, you cannot display it. Inherited from BetterWorld RFC-001 P1.
+
+2. **Not a government body — the disclaimer is load-bearing.** The public-facing
+   site MUST prominently state that Skytilsynet is independent and not affiliated
+   with, operated by, or endorsed by any Norwegian public authority. Never remove,
+   bury, or weaken this. The `-tilsynet` name makes it a legal requirement, not a
+   nicety. Current wording: [`web/index.html`](web/index.html).
+
+3. **The scoring brain stays BetterWorld's.** This repo owns the **scanner** and
+   the **presentation**. Do NOT fork or reimplement the multi-axis SovereigntyScore
+   logic here. When we grow past the email axis, consume BetterWorld's engine via
+   an API or shared package.
+
+4. **Open by default.** Code is open source (MIT); the dataset is CC BY 4.0. Every
+   data record carries its source + date. Don't bake in non-redistributable data.
+
+5. **Offer correction, retain nothing personal.** Provide a visible correction
+   channel (reduces defamation risk + is the honest thing). The activism funnel
+   keeps **no per-citizen records** — aggregate only.
+
+6. **Messaging: durable change, not a flippable IT decision.** CTA copy frames the
+   ask as procurement-rule / strategy change (the Munich LiMux lesson), never a
+   personal attack on named officials.
+
+## Stack & layout
+
+```
+scanner/   Python 3 DNS pipeline (stdlib + `dig`). scan.py writes dated snapshots
+           under snapshots/ and appends history.json. transition.py diffs runs.
+web/       the public site. Holding page is a single static index.html today;
+           the live tracker is the build target (a static/SSR web app — keep it
+           lightweight, EU-hosted, no US-managed dependencies for anything serving
+           user requests, mirroring BetterWorld RFC-001 P5).
+data/      published open dataset (CC BY 4.0).
+docs/      methodology + scope.
+```
+
+### Run
+
+```bash
+cd scanner && python3 scan.py        # needs dig; no auth, no cost
+cd scanner && python3 transition.py  # trend + which kommuner moved
+```
+
+## How to work here
+
+- **Simplest thing that solves it.** This is a small civic tool; don't add an
+  engine, a database, or a framework before it's needed.
+- **One concern per commit.** Subject ≤70 chars, imperative; body explains *why*.
+  Add the AI co-author trailer on agent-assisted commits.
+- **Honesty about limits.** Email is one axis; the 90.2% is a floor (gateway-fronted
+  backends aren't all unmasked). Say so — don't overstate. Credibility is the
+  whole product.

@@ -1,0 +1,2866 @@
+[
+  {
+    "domain": "nykommuneilofoten.no",
+    "platform": "EU_SOVEREIGN",
+    "mx": "mx.domeneshop.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Vest-Lofoten kommune"
+  },
+  {
+    "domain": "guovdageainnu.suohkan.no",
+    "platform": "NONE",
+    "mx": null,
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Kautokeino"
+  },
+  {
+    "domain": "alvdal.kommune.no",
+    "platform": "OTHER",
+    "mx": "se.mx2.mx25.net se.mx3.mailanyone.net se.mx4.mx25.net se.mx1.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Alvdal"
+  },
+  {
+    "domain": "aurskog-holand.kommune.no",
+    "platform": "OTHER",
+    "mx": null,
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Aurskog-Høland"
+  },
+  {
+    "domain": "folldal.kommune.no",
+    "platform": "OTHER",
+    "mx": "se.mx2.mx25.net se.mx1.mailanyone.net se.mx3.mailanyone.net se.mx4.mx25.net",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Folldal"
+  },
+  {
+    "domain": "fyresdal.kommune.no",
+    "platform": "OTHER",
+    "mx": "vtds.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Fyresdal"
+  },
+  {
+    "domain": "grue.kommune.no",
+    "platform": "OTHER",
+    "mx": "mail1.hedmark-ikt.no mail3.hedmark-ikt.no mail2.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Grue"
+  },
+  {
+    "domain": "hamar.kommune.no",
+    "platform": "OTHER",
+    "mx": "mail1.hedmark-ikt.no mail3.hedmark-ikt.no mail2.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Hamar"
+  },
+  {
+    "domain": "hareid.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx1.hc1299-98.c3s2.iphmx.com mx2.hc1299-98.c3s2.iphmx.com",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Hareid"
+  },
+  {
+    "domain": "heroy.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx1.hc1299-98.c3s2.iphmx.com mx2.hc1299-98.c3s2.iphmx.com",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Herøy"
+  },
+  {
+    "domain": "ha.no",
+    "platform": "OTHER",
+    "mx": null,
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Hå kommune"
+  },
+  {
+    "domain": "kongsvinger.kommune.no",
+    "platform": "OTHER",
+    "mx": "mail1.hedmark-ikt.no mail2.hedmark-ikt.no mail3.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Kongsvinger"
+  },
+  {
+    "domain": "kvam.no",
+    "platform": "OTHER",
+    "mx": null,
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Kvam"
+  },
+  {
+    "domain": "kviteseid.kommune.no",
+    "platform": "OTHER",
+    "mx": "vtds.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Kviteseid"
+  },
+  {
+    "domain": "loten.kommune.no",
+    "platform": "OTHER",
+    "mx": "mail2.hedmark-ikt.no mail1.hedmark-ikt.no mail3.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Løten"
+  },
+  {
+    "domain": "midt-telemark.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx.webhuset.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Midt-Telemark"
+  },
+  {
+    "domain": "nord-odal.kommune.no",
+    "platform": "OTHER",
+    "mx": "mail2.hedmark-ikt.no mail1.hedmark-ikt.no mail3.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Nord-Odal"
+  },
+  {
+    "domain": "rendalen.kommune.no",
+    "platform": "OTHER",
+    "mx": "se.mx3.mailanyone.net se.mx1.mailanyone.net se.mx4.mx25.net se.mx2.mx25.net",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Rendalen"
+  },
+  {
+    "domain": "ringsaker.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx10.electric.net mx11.electric.net",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Ringsaker"
+  },
+  {
+    "domain": "sande-mr.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx2.hc1299-98.c3s2.iphmx.com mx1.hc1299-98.c3s2.iphmx.com",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Sande"
+  },
+  {
+    "domain": "stange.kommune.no",
+    "platform": "OTHER",
+    "mx": "mail2.hedmark-ikt.no mail3.hedmark-ikt.no mail1.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Stange"
+  },
+  {
+    "domain": "sor-odal.kommune.no",
+    "platform": "OTHER",
+    "mx": "mail3.hedmark-ikt.no mail2.hedmark-ikt.no mail1.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Sør-Odal"
+  },
+  {
+    "domain": "sor-varanger.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx.osl.bedsys.net mx2.osl.bedsys.net",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Sør-Varanger"
+  },
+  {
+    "domain": "tokke.kommune.no",
+    "platform": "OTHER",
+    "mx": "vtds.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Tokke"
+  },
+  {
+    "domain": "tolga.kommune.no",
+    "platform": "OTHER",
+    "mx": "se.mx4.mx25.net se.mx3.mailanyone.net se.mx1.mailanyone.net se.mx2.mx25.net",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Tolga"
+  },
+  {
+    "domain": "tynset.kommune.no",
+    "platform": "OTHER",
+    "mx": "se.mx2.mx25.net se.mx3.mailanyone.net se.mx4.mx25.net se.mx1.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Tynset"
+  },
+  {
+    "domain": "ulstein.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx1.hc1299-98.c3s2.iphmx.com mx2.hc1299-98.c3s2.iphmx.com",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Ulstein"
+  },
+  {
+    "domain": "vinje.kommune.no",
+    "platform": "OTHER",
+    "mx": "vtds.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Vinje"
+  },
+  {
+    "domain": "volda.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx2.hc1299-98.c3s2.iphmx.com mx1.hc1299-98.c3s2.iphmx.com",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Volda"
+  },
+  {
+    "domain": "orsta.kommune.no",
+    "platform": "OTHER",
+    "mx": "mx1.hc1299-98.c3s2.iphmx.com mx2.hc1299-98.c3s2.iphmx.com",
+    "behind_gateway": true,
+    "fingerprint": null,
+    "kommune": "Ørsta"
+  },
+  {
+    "domain": "nyeoygardenkommune.no",
+    "platform": "OTHER",
+    "mx": null,
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Øygarden"
+  },
+  {
+    "domain": "larvik.kommune.no",
+    "platform": "US_GOOGLE",
+    "mx": "aspmx.l.google.com alt3.aspmx.l.google.com alt4.aspmx.l.google.com alt1.aspmx.l.google.com alt2.aspmx.l.google.com",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Larvik"
+  },
+  {
+    "domain": "narvik.kommune.no",
+    "platform": "US_GOOGLE",
+    "mx": "aspmx.l.google.com aspmx3.googlemail.com alt2.aspmx.l.google.com aspmx2.googlemail.com alt1.aspmx.l.google.com",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Narvik"
+  },
+  {
+    "domain": "trondheim.kommune.no",
+    "platform": "US_GOOGLE",
+    "mx": "aspmx.l.google.com alt1.aspmx.l.google.com alt3.aspmx.l.google.com alt2.aspmx.l.google.com alt4.aspmx.l.google.com",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Trondheim"
+  },
+  {
+    "domain": "ullensvang.kommune.no",
+    "platform": "US_GOOGLE",
+    "mx": "alt4.aspmx.l.google.com alt1.aspmx.l.google.com aspmx.l.google.com alt2.aspmx.l.google.com alt3.aspmx.l.google.com",
+    "behind_gateway": false,
+    "fingerprint": null,
+    "kommune": "Ullensvang"
+  },
+  {
+    "domain": "alstahaug.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "alstahaug-kommune-no.mx2.comendosystems.net alstahaug-kommune-no.mx1.comendosystems.com",
+    "behind_gateway": false,
+    "fingerprint": "autodiscover",
+    "kommune": "Alstahaug"
+  },
+  {
+    "domain": "alta.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mail.alta.kommune.no",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Alta"
+  },
+  {
+    "domain": "alver.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "alver-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Alver"
+  },
+  {
+    "domain": "andoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "andoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Andøy"
+  },
+  {
+    "domain": "aremark.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "aremark-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Aremark"
+  },
+  {
+    "domain": "arendal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "arendal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Arendal"
+  },
+  {
+    "domain": "asker.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "askerkommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Asker"
+  },
+  {
+    "domain": "askvoll.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "askvoll-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Askvoll"
+  },
+  {
+    "domain": "askoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "askoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Askøy"
+  },
+  {
+    "domain": "aukra.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "aukra-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Aukra"
+  },
+  {
+    "domain": "aure.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "aure-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Aure"
+  },
+  {
+    "domain": "aurland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "aurland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Aurland"
+  },
+  {
+    "domain": "austevoll.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "austevoll-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Austevoll"
+  },
+  {
+    "domain": "austrheim.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "austrheim-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Austrheim"
+  },
+  {
+    "domain": "averoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "averoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Averøy"
+  },
+  {
+    "domain": "balsfjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "balsfjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Balsfjord"
+  },
+  {
+    "domain": "bamble.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bamble-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bamble"
+  },
+  {
+    "domain": "bardu.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bardu-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bardu kommune"
+  },
+  {
+    "domain": "beiarn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "beiarnkommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Beiarn"
+  },
+  {
+    "domain": "bergen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bergen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bergen kommune"
+  },
+  {
+    "domain": "berlevag.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "berlevag-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Berlevåg"
+  },
+  {
+    "domain": "bindal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bindal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bindal"
+  },
+  {
+    "domain": "birkenes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "birkenes-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Birkenes"
+  },
+  {
+    "domain": "bjerkreim.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bjerkreim-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bjerkreim"
+  },
+  {
+    "domain": "bjornafjorden.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bjornafjorden-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bjørnafjorden"
+  },
+  {
+    "domain": "bodo.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bodo-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bodø"
+  },
+  {
+    "domain": "bokn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bokn-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bokn"
+  },
+  {
+    "domain": "bremanger.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bremanger-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bremanger"
+  },
+  {
+    "domain": "bronnoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bronnoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Brønnøy"
+  },
+  {
+    "domain": "bygland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bygland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bygland"
+  },
+  {
+    "domain": "bykle.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "bykle-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bykle kommune"
+  },
+  {
+    "domain": "batsfjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "batsfjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Båtsfjord"
+  },
+  {
+    "domain": "baerum.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "baerum-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bærum"
+  },
+  {
+    "domain": "boe.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "boe-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bø"
+  },
+  {
+    "domain": "bomlo.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mx.bomlo.kommune.no mx2.bomlo.kommune.no",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Bømlo"
+  },
+  {
+    "domain": "dovre.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "dovre-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Dovre"
+  },
+  {
+    "domain": "drammen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "drammen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Drammen"
+  },
+  {
+    "domain": "drangedal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "drangedal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Drangedal"
+  },
+  {
+    "domain": "dyroy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mx2.osl.bedsys.net mx.osl.bedsys.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Dyrøy"
+  },
+  {
+    "domain": "donna.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "donna-kommune-no.mx1.comendosystems.com donna-kommune-no.mx2.comendosystems.net",
+    "behind_gateway": false,
+    "fingerprint": "autodiscover",
+    "kommune": "Dønna"
+  },
+  {
+    "domain": "eidfjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "eidfjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Eidfjord kommune"
+  },
+  {
+    "domain": "eidskog.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "eidskog-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Eidskog"
+  },
+  {
+    "domain": "eidsvoll.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx1.mailanyone.net se.mx2.mx25.net se.mx3.mailanyone.net se.mx4.mx25.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Eidsvoll"
+  },
+  {
+    "domain": "eigersund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "eigersund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Eigersund"
+  },
+  {
+    "domain": "elverum.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mail.elverum.kommune.no",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Elverum"
+  },
+  {
+    "domain": "enebakk.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Enebakk"
+  },
+  {
+    "domain": "engerdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "engerdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Engerdal kommune"
+  },
+  {
+    "domain": "etne.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "etne-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Etne"
+  },
+  {
+    "domain": "etnedal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "etnedal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Etnedal kommune"
+  },
+  {
+    "domain": "evenes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "evenes-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Evenes"
+  },
+  {
+    "domain": "e-h.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "eh-kommune-no0c.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Evje og Hornnes kommune"
+  },
+  {
+    "domain": "farsund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "farsund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Farsund"
+  },
+  {
+    "domain": "fauske.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "fauske-kommune-no.mx2.staysecuregroup.net fauske-kommune-no.mx1.staysecuregroup.com",
+    "behind_gateway": false,
+    "fingerprint": "autodiscover",
+    "kommune": "Fauske"
+  },
+  {
+    "domain": "fedje.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "fedje-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Fedje"
+  },
+  {
+    "domain": "fitjar.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "fitjar-kommune-no.k-v1.mx.microsoft",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Fitjar"
+  },
+  {
+    "domain": "fjaler.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "fjaler-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Fjaler"
+  },
+  {
+    "domain": "fjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ekommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Fjord"
+  },
+  {
+    "domain": "flakstad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "d212610.a.ess.uk.barracudanetworks.com d212610.b.ess.uk.barracudanetworks.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Flakstad"
+  },
+  {
+    "domain": "flatanger.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "flatanger-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Flatanger"
+  },
+  {
+    "domain": "flekkefjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "flekkefjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Flekkefjord"
+  },
+  {
+    "domain": "flesberg.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "flesberg-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Flesberg"
+  },
+  {
+    "domain": "flaa.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "flaa-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Flå"
+  },
+  {
+    "domain": "fredrikstad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "fredrikstad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Fredrikstad"
+  },
+  {
+    "domain": "frogn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxa-009d3c02.gslb.pphosted.com mxb-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Frogn"
+  },
+  {
+    "domain": "froland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "froland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Froland kommune"
+  },
+  {
+    "domain": "frosta.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "frosta-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Frosta"
+  },
+  {
+    "domain": "froya.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "froya-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Frøya"
+  },
+  {
+    "domain": "faerder.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "faerder-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Færder"
+  },
+  {
+    "domain": "gamvik.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gamvikkommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Gamvik"
+  },
+  {
+    "domain": "gausdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Gausdal"
+  },
+  {
+    "domain": "gildeskal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "beiarnkommune.in.tmes.trendmicro.eu beiarnkommune.in.tmes.trendmicro.eu gildeskal-kommune-no.mx2-dk.mailanyone.net",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Gildeskål"
+  },
+  {
+    "domain": "giske.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ekommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Giske"
+  },
+  {
+    "domain": "gjemnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gjemnes-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gjemnes"
+  },
+  {
+    "domain": "gjerdrum.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx2.mx25.net se.mx1.mailanyone.net se.mx4.mx25.net se.mx3.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gjerdrum kommune"
+  },
+  {
+    "domain": "gjerstad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gjerstad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gjerstad"
+  },
+  {
+    "domain": "gjesdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gjesdal-kommune-no.mx1.staysecuregroup.com gjesdal-kommune-no.mx2.staysecuregroup.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gjesdal"
+  },
+  {
+    "domain": "gjovik.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gjovik-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gjøvik"
+  },
+  {
+    "domain": "gloppen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gloppen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gloppen"
+  },
+  {
+    "domain": "gol.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gol-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gol"
+  },
+  {
+    "domain": "gran.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gran-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gran"
+  },
+  {
+    "domain": "grane.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx1.mailanyone.net se.mx4.mx25.net se.mx2.mx25.net se.mx3.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Grane"
+  },
+  {
+    "domain": "gratangen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gratangen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gratangen"
+  },
+  {
+    "domain": "grimstad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "grimstad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Grimstad"
+  },
+  {
+    "domain": "grong.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "iktinn.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Grong"
+  },
+  {
+    "domain": "gulen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "gulen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Gulen"
+  },
+  {
+    "domain": "hadsel.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hadsel-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hadsel"
+  },
+  {
+    "domain": "halden.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "halden-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Halden"
+  },
+  {
+    "domain": "hamaroy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hamaroy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hamarøy"
+  },
+  {
+    "domain": "hammerfest.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hammerfestkommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Hammerfest"
+  },
+  {
+    "domain": "haram.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ekommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Haram"
+  },
+  {
+    "domain": "harstad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "harstad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Harstad"
+  },
+  {
+    "domain": "hasvik.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hasvik-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hasvik"
+  },
+  {
+    "domain": "hattfjelldal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx1.mailanyone.net se.mx2.mx25.net se.mx4.mx25.net se.mx3.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hattfjelldal"
+  },
+  {
+    "domain": "haugesund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "haugesund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Haugesund"
+  },
+  {
+    "domain": "heim.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "heim-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Heim"
+  },
+  {
+    "domain": "hemnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hemnes-kommune-no.mx1.comendosystems.com hemnes-kommune-no.mx2.comendosystems.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hemnes"
+  },
+  {
+    "domain": "hemsedal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hemsedal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hemsedal"
+  },
+  {
+    "domain": "heroy-no.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "heroy-no-kommune-no.mx1.comendosystems.com heroy-no-kommune-no.mx2.comendosystems.net",
+    "behind_gateway": false,
+    "fingerprint": "autodiscover",
+    "kommune": "Herøy"
+  },
+  {
+    "domain": "hitra.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hitrakommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Hitra"
+  },
+  {
+    "domain": "hjartdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hjartdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hjartdal"
+  },
+  {
+    "domain": "hjelmeland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hjelmeland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hjelmeland"
+  },
+  {
+    "domain": "hol.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hol-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hol"
+  },
+  {
+    "domain": "hole.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hole-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hole"
+  },
+  {
+    "domain": "holmestrand.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "holmestrand-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Holmestrand"
+  },
+  {
+    "domain": "holtalen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "holtalen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Holtålen"
+  },
+  {
+    "domain": "horten.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "horten-kommune-no.n-v1.mx.microsoft",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Horten"
+  },
+  {
+    "domain": "hurdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx2.mx25.net se.mx4.mx25.net se.mx1.mailanyone.net se.mx3.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hurdal"
+  },
+  {
+    "domain": "hustadvika.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hustadvika-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hustadvika"
+  },
+  {
+    "domain": "hvaler.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "frk-mail-onmicrosoft-com.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hvaler"
+  },
+  {
+    "domain": "hyllestad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hyllestad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hyllestad kommune"
+  },
+  {
+    "domain": "haegebostad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "haegebostad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Hægebostad"
+  },
+  {
+    "domain": "hoyanger.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hoyanger-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Høyanger"
+  },
+  {
+    "domain": "hoylandet.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "iktinn.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Høylandet"
+  },
+  {
+    "domain": "ibestad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ibestad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Ibestad"
+  },
+  {
+    "domain": "inderoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "inderoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Inderøy"
+  },
+  {
+    "domain": "indrefosen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "indrefosen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Indre Fosen"
+  },
+  {
+    "domain": "io.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxa-009d3c02.gslb.pphosted.com mxb-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Indre Østfold"
+  },
+  {
+    "domain": "iveland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "iveland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Iveland kommune"
+  },
+  {
+    "domain": "jevnaker.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxa-009d3c02.gslb.pphosted.com mxb-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Jevnaker"
+  },
+  {
+    "domain": "karasjok.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mail.karasjok.kommune.no eu-esec-02.heimdalsecurity.com eu-esec-01.heimdalsecurity.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Karasjok"
+  },
+  {
+    "domain": "karlsoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "karlsoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Karlsøy"
+  },
+  {
+    "domain": "karmoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "karmoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Karmøy"
+  },
+  {
+    "domain": "kinn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kinn-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kinn"
+  },
+  {
+    "domain": "klepp.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "klepp-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Klepp"
+  },
+  {
+    "domain": "kongsberg.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kongsberg-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kongsberg"
+  },
+  {
+    "domain": "kragero.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kragero-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kragerø"
+  },
+  {
+    "domain": "kristiansand.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kristiansand-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kristiansand"
+  },
+  {
+    "domain": "kristiansund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kristiansund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kristiansund"
+  },
+  {
+    "domain": "krodsherad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "krodsherad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Krødsherad kommune"
+  },
+  {
+    "domain": "kvinesdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kvinesdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kvinesdal"
+  },
+  {
+    "domain": "kvinnherad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "pmg.kvinnherad.kommune.no",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kvinnherad"
+  },
+  {
+    "domain": "kvitsoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kvitsoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kvitsøy"
+  },
+  {
+    "domain": "kvafjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kvafjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kvæfjord"
+  },
+  {
+    "domain": "kvanangen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kvanangen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kvænangen"
+  },
+  {
+    "domain": "kafjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "kafjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Kåfjord"
+  },
+  {
+    "domain": "lavangen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lavangen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lavangen"
+  },
+  {
+    "domain": "lebesby.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lebesby.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Lebesby"
+  },
+  {
+    "domain": "leirfjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "leirfjord-kommune-no.mx2.comendosystems.net leirfjord-kommune-no.mx1.comendosystems.com",
+    "behind_gateway": false,
+    "fingerprint": "autodiscover",
+    "kommune": "Leirfjord"
+  },
+  {
+    "domain": "leka.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "naroysund.in.tmes.trendmicro.eu leka-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Leka"
+  },
+  {
+    "domain": "lesja.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lesja-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lesja"
+  },
+  {
+    "domain": "levanger.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "levanger-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Levanger"
+  },
+  {
+    "domain": "lier.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lierkommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Lier"
+  },
+  {
+    "domain": "lierne.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "iktinn.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Lierne"
+  },
+  {
+    "domain": "lillehammer.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "autodiscover",
+    "kommune": "Lillehammer"
+  },
+  {
+    "domain": "lillesand.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lillesand-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lillesand"
+  },
+  {
+    "domain": "lillestrom.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lillestrom-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lillestrøm"
+  },
+  {
+    "domain": "lindesnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lindesnes-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lindesnes"
+  },
+  {
+    "domain": "lom.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lom-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lom"
+  },
+  {
+    "domain": "loppa.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "loppa-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Loppa"
+  },
+  {
+    "domain": "lund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lund"
+  },
+  {
+    "domain": "lunner.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lunner-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lunner"
+  },
+  {
+    "domain": "luroy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "luroy-kommune-no.mx1.comendosystems.com luroy-kommune-no.mx2.comendosystems.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lurøy"
+  },
+  {
+    "domain": "luster.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "luster-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Luster"
+  },
+  {
+    "domain": "lyngdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lyngdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lyngdal"
+  },
+  {
+    "domain": "lyngen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lyngen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lyngen"
+  },
+  {
+    "domain": "laerdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "laerdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lærdal"
+  },
+  {
+    "domain": "lodingen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lodingen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lødingen"
+  },
+  {
+    "domain": "lorenskog.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "lorenskog-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Lørenskog"
+  },
+  {
+    "domain": "malvik.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "malvik-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Malvik"
+  },
+  {
+    "domain": "marker.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "marker-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Marker"
+  },
+  {
+    "domain": "masfjorden.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "masfjorden-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Masfjorden kommune"
+  },
+  {
+    "domain": "melhus.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "melhus.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "autodiscover",
+    "kommune": "Melhus"
+  },
+  {
+    "domain": "meloy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "meloy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Meløy"
+  },
+  {
+    "domain": "meraker.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "meraker-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Meråker"
+  },
+  {
+    "domain": "mgk.no",
+    "platform": "US_MICROSOFT",
+    "mx": "melhus.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "autodiscover",
+    "kommune": "Midtre Gauldal"
+  },
+  {
+    "domain": "modalen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "modalen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Modalen"
+  },
+  {
+    "domain": "modum.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "modum-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Modum"
+  },
+  {
+    "domain": "molde.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "molde-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Molde"
+  },
+  {
+    "domain": "moskenes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "d212609.a.ess.uk.barracudanetworks.com d212609.b.ess.uk.barracudanetworks.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Moskenes"
+  },
+  {
+    "domain": "moss.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "moss-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Moss"
+  },
+  {
+    "domain": "malselv.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mx1-eu1.ppe-hosted.com mx2-eu1.ppe-hosted.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Målselv"
+  },
+  {
+    "domain": "masoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "hammerfestkommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Måsøy"
+  },
+  {
+    "domain": "namsos.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "namsos-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Namsos"
+  },
+  {
+    "domain": "namsskogan.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "iktinn.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Namsskogan kommune"
+  },
+  {
+    "domain": "nannestad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx4.mx25.net se.mx3.mailanyone.net se.mx1.mailanyone.net se.mx2.mx25.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nannestad"
+  },
+  {
+    "domain": "nes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx2.mx25.net se.mx3.mailanyone.net se.mx4.mx25.net se.mx1.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nes"
+  },
+  {
+    "domain": "nes-bu.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nesbu-kommune-no0i.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nesbyen"
+  },
+  {
+    "domain": "nesna.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mx6.comendosystems.net mx12.comendosystems.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nesna"
+  },
+  {
+    "domain": "nesodden.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Nesodden"
+  },
+  {
+    "domain": "nesseby.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nesseby-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nesseby"
+  },
+  {
+    "domain": "nissedal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vtds.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "autodiscover",
+    "kommune": "Nissedal"
+  },
+  {
+    "domain": "nittedal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nittedal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nittedal"
+  },
+  {
+    "domain": "nome.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "intk.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Nome"
+  },
+  {
+    "domain": "nord-aurdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nordaurdal-kommune-no01b.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nord-Aurdal kommune"
+  },
+  {
+    "domain": "nord-fron.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nordfron-kommune-no01b.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nord-Fron"
+  },
+  {
+    "domain": "nordkapp.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nordkapp-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nordkapp"
+  },
+  {
+    "domain": "nordrefollo.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nordrefollo-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nordre Follo"
+  },
+  {
+    "domain": "nordre-land.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nordreland-kommune-no01e.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nordre Land"
+  },
+  {
+    "domain": "nordreisa.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nordreisa-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nordreisa"
+  },
+  {
+    "domain": "nore-og-uvdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "noreuvdal-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nore og Uvdal"
+  },
+  {
+    "domain": "notodden.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "notodden-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Notodden"
+  },
+  {
+    "domain": "naroysund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "naroysund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Nærøysund"
+  },
+  {
+    "domain": "oppdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "oppdal.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Oppdal"
+  },
+  {
+    "domain": "orkland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "orkland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Orkland"
+  },
+  {
+    "domain": "os.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "os-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Os"
+  },
+  {
+    "domain": "osen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "osen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Osen"
+  },
+  {
+    "domain": "oslo.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "oslokommune.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Oslo kommune"
+  },
+  {
+    "domain": "osteroy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "osteroy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Osterøy"
+  },
+  {
+    "domain": "overhalla.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "overhalla-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Overhalla"
+  },
+  {
+    "domain": "porsanger.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "porsanger-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Porsanger"
+  },
+  {
+    "domain": "porsgrunn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "porsgrunn-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Porsgrunn"
+  },
+  {
+    "domain": "rakkestad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rakkestad-kommune-no.mail.protection.outlook.com rakkestad-kommune-no-2.fortimailcloud.com rakkestad-kommune-no-1.fortimailcloud.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Rakkestad"
+  },
+  {
+    "domain": "rana.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rana-kommune-no.mx2.comendosystems.net rana-kommune-no.mx1.comendosystems.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Rana"
+  },
+  {
+    "domain": "randaberg.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "randaberg-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Randaberg"
+  },
+  {
+    "domain": "rauma.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rauma-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Rauma"
+  },
+  {
+    "domain": "rennebu.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rennebu.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "autodiscover",
+    "kommune": "Rennebu"
+  },
+  {
+    "domain": "rindal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rindal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Rindal"
+  },
+  {
+    "domain": "ringebu.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "se.mx1.mailanyone.net se.mx2.mx25.net se.mx4.mx25.net se.mx3.mailanyone.net",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Ringebu"
+  },
+  {
+    "domain": "ringerike.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ringerike-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Ringerike"
+  },
+  {
+    "domain": "risor.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "risor-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Risør"
+  },
+  {
+    "domain": "rollag.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rollag-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Rollag"
+  },
+  {
+    "domain": "rade.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rade-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Råde"
+  },
+  {
+    "domain": "ralingen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Rælingen"
+  },
+  {
+    "domain": "rodoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rodoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Rødøy"
+  },
+  {
+    "domain": "roros.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "roros-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Røros"
+  },
+  {
+    "domain": "rost.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "rost-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Røst"
+  },
+  {
+    "domain": "royrvik.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "iktinn.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Røyrvik kommune"
+  },
+  {
+    "domain": "salangen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "salangen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Salangen"
+  },
+  {
+    "domain": "saltdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "saltdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Saltdal"
+  },
+  {
+    "domain": "samnanger.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "samnanger-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Samnanger"
+  },
+  {
+    "domain": "sandefjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sandefjordkommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Sandefjord"
+  },
+  {
+    "domain": "sandnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sandnes-kommune-no.n-v1.mx.microsoft",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sandnes"
+  },
+  {
+    "domain": "sarpsborg.com",
+    "platform": "US_MICROSOFT",
+    "mx": "sarpsborg-com.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sarpsborg"
+  },
+  {
+    "domain": "sauda.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sauda-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sauda"
+  },
+  {
+    "domain": "sel.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sel-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sel"
+  },
+  {
+    "domain": "selbu.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "selbu-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Selbu"
+  },
+  {
+    "domain": "seljord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vtds.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "autodiscover",
+    "kommune": "Seljord"
+  },
+  {
+    "domain": "senja.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "senja-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Senja"
+  },
+  {
+    "domain": "sigdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sigdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sigdal"
+  },
+  {
+    "domain": "siljan.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "siljan-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Siljan"
+  },
+  {
+    "domain": "sirdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sirdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sirdal"
+  },
+  {
+    "domain": "skaun.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "melhus.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "autodiscover",
+    "kommune": "Skaun"
+  },
+  {
+    "domain": "skien.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "skien-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Skien"
+  },
+  {
+    "domain": "skiptvet.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "skiptvet-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Skiptvet kommune"
+  },
+  {
+    "domain": "skjervoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "skjervoy-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Skjervøy"
+  },
+  {
+    "domain": "skjaak.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "skjaak-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Skjåk"
+  },
+  {
+    "domain": "smola.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "smola-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Smøla"
+  },
+  {
+    "domain": "snasa.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "snasa-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Snåsa"
+  },
+  {
+    "domain": "sogndal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sogndal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sogndal"
+  },
+  {
+    "domain": "sokndal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sokndal-kommune-no.k-v1.mx.microsoft",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sokndal"
+  },
+  {
+    "domain": "sola.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sola-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sola"
+  },
+  {
+    "domain": "solund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "solund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Solund"
+  },
+  {
+    "domain": "sortland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sortland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sortland"
+  },
+  {
+    "domain": "stad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "stad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Stad"
+  },
+  {
+    "domain": "stavanger.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "stavanger-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Stavanger"
+  },
+  {
+    "domain": "steigen.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "steigen-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Steigen"
+  },
+  {
+    "domain": "steinkjer.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "steinkjer-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Steinkjer"
+  },
+  {
+    "domain": "stjordal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "stjordal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Stjørdal"
+  },
+  {
+    "domain": "stor-elvdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "storelvdal-kommune-no01b.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Stor-Elvdal"
+  },
+  {
+    "domain": "stord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "stord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Stord"
+  },
+  {
+    "domain": "storfjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "storfjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Storfjord"
+  },
+  {
+    "domain": "strand.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "strand-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Strand"
+  },
+  {
+    "domain": "stranda.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "stranda-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Stranda"
+  },
+  {
+    "domain": "stryn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "stryn-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Stryn"
+  },
+  {
+    "domain": "sula.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ekommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Sula"
+  },
+  {
+    "domain": "suldal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "suldal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Suldal"
+  },
+  {
+    "domain": "sunndal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sunndal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sunndal"
+  },
+  {
+    "domain": "sunnfjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sunnfjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sunnfjord"
+  },
+  {
+    "domain": "surnadal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "surnadal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Surnadal"
+  },
+  {
+    "domain": "sveio.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sveio-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sveio"
+  },
+  {
+    "domain": "sykkylven.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sykkylven-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sykkylven"
+  },
+  {
+    "domain": "somna.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "somna-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sømna"
+  },
+  {
+    "domain": "sondre-land.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sondreland-kommune-no01e.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Søndre Land"
+  },
+  {
+    "domain": "sor-aurdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "soraurdal-kommune-no0i.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sør-Aurdal"
+  },
+  {
+    "domain": "sor-fron.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sor-fron.kommune.no.mx1.staysecuregroup.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sør-Fron"
+  },
+  {
+    "domain": "sorfold.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sorfold-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sørfold"
+  },
+  {
+    "domain": "sorreisa.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "sorreisa-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Sørreisa"
+  },
+  {
+    "domain": "tana.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tana-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tana"
+  },
+  {
+    "domain": "time.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "time-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Time"
+  },
+  {
+    "domain": "tingvoll.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tingvoll-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tingvoll"
+  },
+  {
+    "domain": "tinn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tinn-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tinn"
+  },
+  {
+    "domain": "tjeldsund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tjeldsund-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tjeldsund"
+  },
+  {
+    "domain": "tromso.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tromso-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tromsø"
+  },
+  {
+    "domain": "trysil.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "trysil-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Trysil"
+  },
+  {
+    "domain": "trana.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "trana-kommune-no.mail.protection.outlook.com mx2-eu1.ppe-hosted.com mx1-eu1.ppe-hosted.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Træna"
+  },
+  {
+    "domain": "tvedestrand.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tvedestrand-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tvedestrand"
+  },
+  {
+    "domain": "tydal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tydal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tydal"
+  },
+  {
+    "domain": "tysnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tysnes-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tysnes"
+  },
+  {
+    "domain": "tysver.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tysver-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tysvær"
+  },
+  {
+    "domain": "tonsberg.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "tonsberg-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Tønsberg"
+  },
+  {
+    "domain": "ullensaker.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ullensaker-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Ullensaker"
+  },
+  {
+    "domain": "ulvik.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ulvik-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Ulvik kommune"
+  },
+  {
+    "domain": "utsira.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "utsira-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Utsira"
+  },
+  {
+    "domain": "vadso.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "nobile.vadso.kommune.no",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vadsø"
+  },
+  {
+    "domain": "vaksdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vaksdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vaksdal"
+  },
+  {
+    "domain": "valle.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "valle-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Valle"
+  },
+  {
+    "domain": "vang.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vang-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vang"
+  },
+  {
+    "domain": "vanylven.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vanylven-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vanylven"
+  },
+  {
+    "domain": "vardo.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vardo-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vardø"
+  },
+  {
+    "domain": "vefsn.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vefsn-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vefsn"
+  },
+  {
+    "domain": "vega.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vega-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vega"
+  },
+  {
+    "domain": "vegarshei.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vegarshei-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vegårshei"
+  },
+  {
+    "domain": "vennesla.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vennesla-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vennesla"
+  },
+  {
+    "domain": "verdal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "verdal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Verdal"
+  },
+  {
+    "domain": "vestby.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Vestby"
+  },
+  {
+    "domain": "vestnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vestnes-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vestnes"
+  },
+  {
+    "domain": "vestre-slidre.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vestreslidre-kommune-no01e.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vestre Slidre"
+  },
+  {
+    "domain": "vestre-toten.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vestretoten-kommune-no01e.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vestre Toten"
+  },
+  {
+    "domain": "vestvagoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "d235440.a.ess.uk.barracudanetworks.com d235440.b.ess.uk.barracudanetworks.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Vestvågøy"
+  },
+  {
+    "domain": "vevelstad.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vevelstad-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vevelstad"
+  },
+  {
+    "domain": "vik.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vik-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vik kommune"
+  },
+  {
+    "domain": "vindafjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vindafjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vindafjord"
+  },
+  {
+    "domain": "voss.herad.no",
+    "platform": "US_MICROSOFT",
+    "mx": "voss-herad-no.q-v1.mx.microsoft",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Voss"
+  },
+  {
+    "domain": "vagan.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "d212591.b.ess.uk.barracudanetworks.com d212591.a.ess.uk.barracudanetworks.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Vågan"
+  },
+  {
+    "domain": "vaga.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "vaga-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Vågå"
+  },
+  {
+    "domain": "valer-of.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "valerof-kommune-no01c.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Våler"
+  },
+  {
+    "domain": "vaaler-he.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mail2.hedmark-ikt.no mail1.hedmark-ikt.no mail3.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Våler"
+  },
+  {
+    "domain": "varoy.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "d212608.b.ess.uk.barracudanetworks.com d212608.a.ess.uk.barracudanetworks.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Værøy"
+  },
+  {
+    "domain": "afjord.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "afjord-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Åfjord"
+  },
+  {
+    "domain": "aal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "aal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Ål"
+  },
+  {
+    "domain": "alesund.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ekommune.in.tmes.trendmicro.eu",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Ålesund"
+  },
+  {
+    "domain": "amli.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "amli-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Åmli"
+  },
+  {
+    "domain": "amot.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "amot-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Åmot"
+  },
+  {
+    "domain": "ardal.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ardal-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Årdal"
+  },
+  {
+    "domain": "as.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Ås"
+  },
+  {
+    "domain": "aseral.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "aseral-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Åseral"
+  },
+  {
+    "domain": "asnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mail1.hedmark-ikt.no mail3.hedmark-ikt.no mail2.hedmark-ikt.no",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Åsnes"
+  },
+  {
+    "domain": "oksnes.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "oksnes-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Øksnes"
+  },
+  {
+    "domain": "orland.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "orland-kommune-no.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Ørland"
+  },
+  {
+    "domain": "ostre-toten.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ostretoten-kommune-no01c.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Østre Toten"
+  },
+  {
+    "domain": "ovre-eiker.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "ovreeiker-kommune-no01b.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Øvre Eiker"
+  },
+  {
+    "domain": "oyer.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "mxb-009d3c02.gslb.pphosted.com mxa-009d3c02.gslb.pphosted.com",
+    "behind_gateway": true,
+    "fingerprint": "mx/spf",
+    "kommune": "Øyer"
+  },
+  {
+    "domain": "oystre-slidre.kommune.no",
+    "platform": "US_MICROSOFT",
+    "mx": "oystreslidre-kommune-no01e.mail.protection.outlook.com",
+    "behind_gateway": false,
+    "fingerprint": "mx/spf",
+    "kommune": "Øystre Slidre"
+  }
+]
