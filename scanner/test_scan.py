@@ -362,6 +362,29 @@ class Record(unittest.TestCase):
         self.assertEqual(rec["platform"], "US_MICROSOFT")
         self.assertNotIn("federated", rec["flags"])
 
+    def test_record_carries_governance_rating(self):
+        # issue #9: the jurisdiction resolves to a cited governance rating.
+        rec = scan.make_record("US", "x.no", "x.no",
+                               ev(mx=["0 x.mail.protection.outlook.com"]), "2026-06-28")
+        self.assertEqual(rec["governance"]["country"], "United States")
+        self.assertEqual(rec["governance"]["tier"], "democracy")
+        self.assertIn("freedomhouse.org", rec["governance"]["sourceUrl"])
+
+    def test_eu_sovereign_record_carries_governance(self):
+        rec = scan.make_record("NO", "x.no", "x.no",
+                               ev(mx=["10 mx.domeneshop.no"]), "2026-06-28")
+        self.assertEqual(rec["jurisdiction"], "Norway (EEA)")
+        self.assertEqual(rec["governance"]["country"], "Norway")
+        self.assertEqual(rec["governance"]["tier"], "democracy")
+
+    def test_undetermined_jurisdiction_has_no_governance(self):
+        # OTHER -> jurisdiction "Undetermined" -> no rating to cite.
+        rec = scan.make_record("Coop", "x.no", "x.no",
+                               ev(mx=["10 post.ssikt.no"], spf="v=spf1 -all"),
+                               "2026-06-28")
+        self.assertEqual(rec["jurisdiction"], "Undetermined")
+        self.assertIsNone(rec["governance"])
+
 
 class Aggregate(unittest.TestCase):
     def test_floor_is_stated_and_unmasked_counted(self):

@@ -31,6 +31,8 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from collections import Counter
 
+import governance
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC  = os.path.join(HERE, "kommuner_wikidata.json")
 OVERRIDES_FILE = os.path.join(HERE, "mail_domain_overrides.json")
@@ -407,6 +409,7 @@ def make_record(name, website_domain, domain, ev, date):
         "website_domain": website_domain,
         "platform": platform,
         "jurisdiction": jurisdiction,
+        "governance": governance.governance_for(jurisdiction),
         "alternative": alternative,
         "behind_gateway": behind_gateway,
         "fingerprint": fp,

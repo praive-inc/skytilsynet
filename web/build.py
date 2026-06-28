@@ -365,6 +365,10 @@ _TEMPLATE = r"""<!doctype html>
     backend_unmasked: "Bak e-postgateway — bakomliggende plattform ikke avdekket (tallet er et gulv)",
     mail_domain_differs_from_website: "E-postdomenet er et annet enn nettstedet"
   };
+  // Governance frame (issue #9): the regime tier of the jurisdiction's country,
+  // derived from the cited Freedom House status. Factual label, not editorial.
+  var TIER_NO = {democracy:"Demokrati", "partly free":"Delvis fritt",
+    authoritarian:"Autoritært styre"};
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
   function slug(name){return name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
@@ -471,6 +475,20 @@ _TEMPLATE = r"""<!doctype html>
         '</div>';
     }).join("")+'</div>';
   }
+  // The governance verdict, cited: tier + the Freedom House status/score it is
+  // derived from + a source link. Empty when the jurisdiction is undetermined.
+  function govFact(k){
+    var g = k.governance;
+    if(!g) return "";
+    var tier = TIER_NO[g.tier] || g.tier;
+    var src = esc(g.index.split(" (")[0])+": "+esc(g.status)+" "+esc(g.score)+
+      "/100 ("+esc(g.year)+")";
+    var v = esc(tier)+
+      '<div style="font-size:12px;font-weight:400;color:var(--muted);margin-top:4px">'+
+        esc(g.country)+' · <a href="'+esc(g.sourceUrl)+'" target="_blank" '+
+        'rel="noopener">'+src+'</a></div>';
+    return fact("Styresett i jurisdiksjonen", v);
+  }
   function renderDetail(k){
     var m = platMeta(k);
     var resid = (k.platform==="EU_SOVEREIGN")
@@ -493,6 +511,7 @@ _TEMPLATE = r"""<!doctype html>
       '<div class="facts">'+
         renderVerdict(k)+
         fact("Operatørens jurisdiksjon", esc(m.juris), m.vcls)+
+        govFact(k)+
         fact("Datas oppholdssted", resid)+
         fact("Kontraktsverdi", "Ikke kartlagt (denne aksen dekker kun e-post via DNS)")+
       '</div>'+
