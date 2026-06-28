@@ -31,6 +31,30 @@ signals, strongest last:
 3. **autodiscover CNAME** — `autodiscover.<domain>` → `autodiscover.outlook.com`
    is the canonical Microsoft 365 tenancy fingerprint, independent of MX/SPF.
 
+When those three leave a domain **masked** (a mail-security gateway — Cisco
+IronPort `*.iphmx.com`, Trend Micro, Comendo — or a regional IKT co-op fronting an
+unknown backend) or **unresolved**, three further no-auth signals unmask it. They
+run *only* for those few domains, never all 358:
+
+4. **DKIM selectors (DNS)** — `selector1/2._domainkey.<domain>` CNAME into
+   `*.onmicrosoft.com` is airtight Microsoft 365; a `google._domainkey.<domain>`
+   TXT is Google Workspace.
+5. **SPF IP-range match** — an `ip4:` in the SPF that falls inside a Microsoft EOP
+   range (`40.92.0.0/15`, `40.107.0.0/16`, `52.100–103.x`, `104.47.0.0/17`, …).
+   Catches **flattened SPF** that inlines raw MS IPs instead of the
+   `spf.protection.outlook.com` include (the reason Alvdal was missed).
+6. **Azure AD realm** — one HTTPS GET to `login.microsoftonline.com/getuserrealm.srf`.
+   `<NameSpaceType>` `Managed` = a cloud M365 tenant (airtight); `Federated` =
+   the domain is federated into Azure AD, so an M365 tenant exists — labelled
+   Microsoft with a **`federated`** flag (tenant proven, email inferred
+   high-confidence; we don't overclaim it as hard M365); `Unknown` = no tenant.
+
+Precedence: airtight Microsoft (DKIM→onmicrosoft **or** SPF-MS-IP **or**
+realm=Managed) → `US_MICROSOFT`; realm=Federated only → `US_MICROSOFT` +
+`federated`; `google._domainkey` → `US_GOOGLE`; a domain stays `OTHER` only when
+**no** signal fires. Each resolved record carries the signal that resolved it
+(`fingerprint` + the value under `evidence`: `dkim` / `spf_ms_ip` / `realm`).
+
 **Website ≠ mail domain.** A municipality's website domain sometimes carries only
 a null-sending `v=spf1 -all` record (or nothing) because its mail lives elsewhere.
 We resolve the real mail domain by probing candidate domains in order — the
@@ -49,9 +73,14 @@ recommended European `alternative`. Never a classification without its source
 The data model encodes the **sovereignty-washing traps** (scorecard-spec §3) as
 per-record `flags`:
 
-- `backend_unmasked` — a mail-security gateway hides the real backend and SPF did
-  not reveal it. **These mean the Microsoft/US share is a floor, not a ceiling**
-  (`summary.floor_note` + `summary.backend_unmasked` state this explicitly).
+- `federated` — the domain is federated into Azure AD (getuserrealm=Federated): an
+  M365 tenant is proven, but email is inferred high-confidence rather than directly
+  observed, so it is a **visible qualifier**, not silently merged into hard M365
+  (`summary.federated` counts them).
+- `backend_unmasked` — a mail-security gateway hides the real backend and neither
+  SPF nor the deep probe (DKIM / realm) revealed it. **These mean the Microsoft/US
+  share is a floor, not a ceiling** (`summary.floor_note` +
+  `summary.backend_unmasked` state this explicitly).
 - `non_eu_jurisdiction` — EU-*located* ≠ EU-*owned*: a provider whose owner sits
   outside EU law (e.g. Proton, Switzerland).
 - `russian_origin` — Russian-heritage suite (OnlyOffice / MyOffice).
@@ -62,24 +91,22 @@ per-record `flags`:
 
 | Platform | Count | Share |
 |---|---:|---:|
-| **Microsoft 365** | **328** | **91.6%** |
+| **Microsoft 365** | **353** | **98.6%** |
 | Google Workspace | 4 | 1.1% |
 | EU-sovereign (domeneshop.no) | 1 | 0.3% |
-| Other (regional NO co-ops / unmasked gateway backend) | 25 | 7.0% |
+| Other (regional NO co-ops / unmasked gateway backend) | 0 | 0.0% |
 | Unresolved | 0 | 0.0% |
 
-- **91.6% on Microsoft 365; 92.7% on a US hyperscaler — and that is a floor.**
-  10 of the 25 "other" rows are mail-security gateways (Trend Micro EU, Cisco
-  IronPort, Proofpoint) fronting a backend we could not definitively unmask; some
-  are likely Microsoft too. This independently corroborates digitaliseringsminister
-  Karianne Tung's "~75% of public-sector software is Microsoft" — the email layer
-  is even more concentrated.
-- **The genuinely non-US tail is regional/self-hosted:** the **Hedmark IKT** co-op
-  (Hamar, Kongsvinger, Løten, Nord-Odal, Stange, Sør-Odal, Grue), a
-  **Fjellregionen** cluster (Alvdal, Folldal, Rendalen, Tolga, Tynset),
-  **Sunnmøre IKT** (Hareid, Herøy, Sande, Ulstein, Volda, Ørsta), plus a handful
-  of Norwegian hosts (domeneshop, webhuset, bedsys). ~25 municipalities — the
-  entire sovereign tail fits on one screen.
+- **98.6% on Microsoft 365; 99.7% on a US hyperscaler.** The deep-unmask probe
+  resolved all 25 previously-`OTHER` rows — gateway-fronted (Cisco IronPort, Trend
+  Micro) and regional IKT co-ops (Hedmark IKT, Sunnmøre IKT, Fjellregionen) — to
+  Microsoft 365: 8 via airtight signals (DKIM→onmicrosoft / SPF-MS-IP), 17 via an
+  Azure AD federation (`federated`-flagged: tenant proven, email inferred). This
+  sharpens the corroboration of digitaliseringsminister Karianne Tung's "~75% of
+  public-sector software is Microsoft" — the email layer is far more concentrated.
+- **The non-US tail is now a single municipality** on `domeneshop.no` (Norway) plus
+  four on Google Workspace. The regional co-ops that *looked* sovereign were
+  Microsoft tenants behind a co-op gateway all along.
 
 ## Output
 
@@ -107,8 +134,9 @@ Then `python3 transition.py` surfaces which municipalities moved since the prior
 
 - Email is **one axis**. A full scorecard adds web hosting/CDN signatures,
   procurement contracts (TED API + Doffin CSV), and org resolution (Brønnøysund).
-- Gateway backends could be unmasked further (login.microsoftonline.com realm
-  check) to tighten the floor toward the true number.
+- The `MS_EOP_RANGES` prefix list in `scan.py` is static; refresh it periodically
+  from `https://endpoints.office.com` (service id `Exchange`) so flattened-SPF
+  matching keeps up with Microsoft's IP allocations.
 - `transition.py` keys the per-kommune diff by name; the three duplicate-name
   municipalities (two Vålers, two Herøys) are kept distinct in the dataset by
   their separate domains but collide in that one diff view — a known, minor limit.

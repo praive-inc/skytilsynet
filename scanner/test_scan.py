@@ -10,11 +10,29 @@ import unittest
 import scan
 
 
-def ev(mx=None, spf="", auto=""):
+def ev(mx=None, spf="", auto="", dkim="", dkim_google=False, realm=None):
     """Build the evidence dict classify_evidence/make_record consume."""
     mx = mx or []
     mx_hosts = " ".join(scan.re.sub(r"^\d+\s+", "", m) for m in mx)
-    return {"mx": mx, "mx_hosts": mx_hosts.strip(), "spf": spf, "autodiscover": auto}
+    return {"mx": mx, "mx_hosts": mx_hosts.strip(), "spf": spf, "autodiscover": auto,
+            "dkim": dkim, "dkim_google": dkim_google, "realm": realm}
+
+
+class FakeResp:
+    """Minimal context-manager HTTP response for getuserrealm tests."""
+    def __init__(self, body): self._b = body.encode()
+    def read(self): return self._b
+    def __enter__(self): return self
+    def __exit__(self, *a): return False
+
+
+def opener_returning(body):
+    return lambda url, timeout=None: FakeResp(body)
+
+
+def dig_from(table):
+    """Fake dig: (name, rtype) -> list of records, else []."""
+    return lambda name, rtype: table.get((name, rtype), [])
 
 
 class ClassifyEvidence(unittest.TestCase):
@@ -55,6 +73,71 @@ class ClassifyEvidence(unittest.TestCase):
     def test_null_spf_only_is_none(self):
         # A bare "v=spf1 -all" null-sending record means mail is elsewhere.
         self.assertEqual(scan.classify_evidence(ev(spf="v=spf1 -all"))[0], "NONE")
+
+
+class DeepSignals(unittest.TestCase):
+    """Gateway/co-op unmasking via DKIM, SPF-IP and the Azure AD realm."""
+
+    def test_realm_managed_is_hard_microsoft(self):
+        # getuserrealm=Managed proves a cloud M365 tenant.
+        self.assertEqual(scan.classify_evidence(ev(realm="Managed")),
+                         ("US_MICROSOFT", "realm-managed"))
+
+    def test_realm_federated_is_microsoft_federated(self):
+        # Federated proves a tenant exists; email inferred (don't overclaim).
+        self.assertEqual(scan.classify_evidence(ev(realm="Federated")),
+                         ("US_MICROSOFT", "realm-federated"))
+
+    def test_realm_unknown_alone_is_none(self):
+        self.assertEqual(scan.classify_evidence(ev(realm="Unknown"))[0], "NONE")
+
+    def test_realm_unknown_behind_gateway_stays_other(self):
+        # No tenant + a masking gateway MX -> still genuinely unresolved.
+        e = ev(mx=["10 vtds.in.tmes.trendmicro.eu"], realm="Unknown")
+        self.assertEqual(scan.classify_evidence(e), ("OTHER", None))
+
+    def test_dkim_onmicrosoft_is_hard_microsoft(self):
+        e = ev(dkim="selector1-x-no._domainkey.contoso.onmicrosoft.com")
+        self.assertEqual(scan.classify_evidence(e), ("US_MICROSOFT", "dkim"))
+
+    def test_dkim_google_selector_is_google(self):
+        self.assertEqual(scan.classify_evidence(ev(dkim_google=True)),
+                         ("US_GOOGLE", "dkim-google"))
+
+    def test_spf_ms_ip_range_is_hard_microsoft(self):
+        # Flattened SPF replaces the outlook include with raw EOP IPs (Alvdal).
+        e = ev(spf="v=spf1 ip4:40.92.1.5 ip4:104.47.50.0/24 -all")
+        self.assertEqual(scan.classify_evidence(e), ("US_MICROSOFT", "spf-ms-ip"))
+
+    def test_spf_ms_ip_match(self):
+        self.assertTrue(scan.spf_ms_ip_match("v=spf1 ip4:40.92.1.5 -all"))
+        self.assertTrue(scan.spf_ms_ip_match("v=spf1 ip4:104.47.50.0/24 -all"))
+        self.assertIsNone(scan.spf_ms_ip_match("v=spf1 ip4:8.8.8.8 -all"))
+        self.assertIsNone(
+            scan.spf_ms_ip_match("v=spf1 include:spf.protection.outlook.com -all"))
+
+    def test_dkim_probe_reads_onmicrosoft_cname(self):
+        dig = dig_from({
+            ("selector1._domainkey.x.no", "CNAME"):
+                ["selector1-x-no._domainkey.contoso.onmicrosoft.com"],
+        })
+        out = scan.dkim_probe("x.no", dig=dig)
+        self.assertIn("onmicrosoft.com", out["dkim"])
+        self.assertFalse(out["dkim_google"])
+
+    def test_dkim_probe_detects_google_selector(self):
+        dig = dig_from({("google._domainkey.x.no", "TXT"): ["v=DKIM1; k=rsa; p=AAA"]})
+        out = scan.dkim_probe("x.no", dig=dig)
+        self.assertTrue(out["dkim_google"])
+
+    def test_getuserrealm_parses_namespacetype(self):
+        body = "<RealmInfo><NameSpaceType>Managed</NameSpaceType></RealmInfo>"
+        self.assertEqual(
+            scan.getuserrealm("x.no", opener=opener_returning(body)), "Managed")
+
+    def test_getuserrealm_network_failure_returns_none(self):
+        def boom(url, timeout=None): raise OSError("no network")
+        self.assertIsNone(scan.getuserrealm("x.no", opener=boom))
 
 
 class Candidates(unittest.TestCase):
@@ -102,6 +185,37 @@ class Resolve(unittest.TestCase):
         self.assertEqual(rec["domain"], "x.kommune.no")
         self.assertNotIn("mail_domain_differs_from_website", rec["flags"])
 
+    def test_deep_probe_unmasks_gateway_backend_to_microsoft(self):
+        # Base pass sees only a masking gateway MX -> OTHER, then the deep probe
+        # (realm=Managed) resolves it to Microsoft with no floor flag left.
+        gw = ev(mx=["10 cust.iphmx.com"], spf="v=spf1 -all")
+        rec = scan.resolve("Masked", "masked.kommune.no", {}, "2026-06-28",
+                           fetch=lambda d: gw,
+                           deep=lambda d: {"dkim": "", "dkim_google": False,
+                                           "realm": "Managed"})
+        self.assertEqual(rec["platform"], "US_MICROSOFT")
+        self.assertEqual(rec["fingerprint"], "realm-managed")
+        self.assertNotIn("backend_unmasked", rec["flags"])
+        self.assertEqual(rec["evidence"]["realm"], "Managed")
+
+    def test_deep_probe_not_run_when_base_pass_resolves(self):
+        # A clean Microsoft MX must not trigger the (costly) HTTPS realm probe.
+        def deep_must_not_run(d): raise AssertionError("deep probe should be skipped")
+        rec = scan.resolve("X", "x.kommune.no", {}, "2026-06-28",
+                           fetch=lambda d: ev(mx=["0 x.mail.protection.outlook.com"]),
+                           deep=deep_must_not_run)
+        self.assertEqual(rec["platform"], "US_MICROSOFT")
+
+    def test_deep_probe_leaves_genuinely_none_as_other(self):
+        # Co-op MX, no Azure tenant, no DKIM -> stays OTHER (floor flag absent:
+        # not a gateway substring, but genuinely unresolved Microsoft-wise).
+        coop = ev(mx=["10 post.ssikt.no"], spf="v=spf1 -all")
+        rec = scan.resolve("Coop", "coop.kommune.no", {}, "2026-06-28",
+                           fetch=lambda d: coop,
+                           deep=lambda d: {"dkim": "", "dkim_google": False,
+                                           "realm": "Unknown"})
+        self.assertEqual(rec["platform"], "OTHER")
+
 
 class Record(unittest.TestCase):
     def test_carries_evidence_and_sourcedate(self):
@@ -138,6 +252,20 @@ class Record(unittest.TestCase):
         rec = scan.make_record("Demo", "x.no", "x.no", e, "2026-06-28")
         self.assertEqual(rec["jurisdiction"], "Switzerland (non-EU)")
         self.assertIn("non_eu_jurisdiction", rec["flags"])
+
+    def test_federated_is_a_visible_qualifier(self):
+        # Federated -> Microsoft, but flagged so it is not merged into hard M365.
+        rec = scan.make_record("Fed", "x.no", "x.no", ev(realm="Federated"),
+                               "2026-06-28")
+        self.assertEqual(rec["platform"], "US_MICROSOFT")
+        self.assertIn("federated", rec["flags"])
+        self.assertEqual(rec["evidence"]["realm"], "Federated")
+
+    def test_managed_is_not_federated_flagged(self):
+        rec = scan.make_record("Man", "x.no", "x.no", ev(realm="Managed"),
+                               "2026-06-28")
+        self.assertEqual(rec["platform"], "US_MICROSOFT")
+        self.assertNotIn("federated", rec["flags"])
 
 
 class Aggregate(unittest.TestCase):
