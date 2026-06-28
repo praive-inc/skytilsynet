@@ -55,9 +55,9 @@
       "evidence": {
         "mx": [
           "30 se.mx3.mailanyone.net",
-          "20 se.mx2.mx25.net",
           "10 se.mx1.mailanyone.net",
-          "40 se.mx4.mx25.net"
+          "40 se.mx4.mx25.net",
+          "20 se.mx2.mx25.net"
         ],
         "spf": "\"v=spf1 include:8k19avh9pg.powerspf.com ~all\" \"v=spf1 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip\" \"4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:87.253.232.0/21 ip4:208.70.128.0/21 ip4:45.14.148.0/22 ip4:192.162.216.0/22 ip4:185.38.180.0/22 include:_s1.8k19avh9pg.powerspf.com ~all\"",
         "autodiscover": null
@@ -76,10 +76,10 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 se.mx1.mailanyone.net",
           "30 se.mx3.mailanyone.net",
-          "40 se.mx4.mx25.net",
-          "20 se.mx2.mx25.net"
+          "20 se.mx2.mx25.net",
+          "10 se.mx1.mailanyone.net",
+          "40 se.mx4.mx25.net"
         ],
         "spf": "\"v=spf1 include:cwvxbgacjg.powerspf.com ~all\" \"v=spf1 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip\" \"4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:87.253.232.0/21 ip4:208.70.128.0/21 ip4:45.14.148.0/22 ip4:192.162.216.0/22 ip4:185.38.180.0/22 include:_s1.cwvxbgacjg.powerspf.com ~all\"",
         "autodiscover": null
@@ -119,8 +119,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mail3.hedmark-ikt.no",
           "30 mail1.hedmark-ikt.no",
+          "10 mail3.hedmark-ikt.no",
           "10 mail2.hedmark-ikt.no"
         ],
         "spf": "\"v=spf1 include:hedmark-ikt.no include:onevoice.no include:utpost.acos.no -all\"",
@@ -185,8 +185,8 @@
       ],
       "evidence": {
         "mx": [
-          "10 mx1.hc1299-98.c3s2.iphmx.com",
-          "10 mx2.hc1299-98.c3s2.iphmx.com"
+          "10 mx2.hc1299-98.c3s2.iphmx.com",
+          "10 mx1.hc1299-98.c3s2.iphmx.com"
         ],
         "spf": "\"v=spf1 ip4:139.138.61.101 ip4:139.138.61.102 ip4:139.138.36.184 ip4:139.138.36.199 -all\"",
         "autodiscover": "post.ssikt.no"
@@ -248,8 +248,8 @@
       "evidence": {
         "mx": [
           "10 mail3.hedmark-ikt.no",
-          "10 mail2.hedmark-ikt.no",
-          "30 mail1.hedmark-ikt.no"
+          "30 mail1.hedmark-ikt.no",
+          "10 mail2.hedmark-ikt.no"
         ],
         "spf": "\"v=spf1 include:hedmark-ikt.no include:onevoice.no a:scan.evry.com  -all\"",
         "autodiscover": null
@@ -287,9 +287,9 @@
       "flags": [],
       "evidence": {
         "mx": [
+          "10 mail3.hedmark-ikt.no",
           "30 mail1.hedmark-ikt.no",
-          "10 mail2.hedmark-ikt.no",
-          "10 mail3.hedmark-ikt.no"
+          "10 mail2.hedmark-ikt.no"
         ],
         "spf": "\"v=spf1 include:hedmark-ikt.no include:onevoice.no include:utpost.acos.no include:spf.mailjet.com -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": null
@@ -310,8 +310,8 @@
         "mx": [
           "30 se.mx3.mailanyone.net",
           "10 se.mx1.mailanyone.net",
-          "40 se.mx4.mx25.net",
-          "20 se.mx2.mx25.net"
+          "20 se.mx2.mx25.net",
+          "40 se.mx4.mx25.net"
         ],
         "spf": "\"v=spf1 include:qhmhinj14p.powerspf.com ~all\" \"v=spf1 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip\" \"4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:87.253.232.0/21 ip4:208.70.128.0/21 ip4:45.14.148.0/22 ip4:192.162.216.0/22 ip4:185.38.180.0/22 include:_s1.qhmhinj14p.powerspf.com ~all\"",
         "autodiscover": null
@@ -330,8 +330,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mx11.electric.net",
-          "20 mx10.electric.net"
+          "20 mx10.electric.net",
+          "10 mx11.electric.net"
         ],
         "spf": "\"v=spf1 include:gvotd50dyr.powerspf.com ~all\" \"v=spf1 exists:%{i}.gvotd50dyr.macrospf.powerspf.com ~all\"",
         "autodiscover": "web.ringsaker.kommune.no"
@@ -372,8 +372,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mail3.hedmark-ikt.no",
           "30 mail1.hedmark-ikt.no",
+          "10 mail3.hedmark-ikt.no",
           "10 mail2.hedmark-ikt.no"
         ],
         "spf": "\"v=spf1 include:hedmark-ikt.no include:onevoice.no a:scan.evry.com include:utpost.acos.no ip4:103.2.141.16 -all\"",
@@ -455,9 +455,9 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "40 se.mx4.mx25.net",
-          "20 se.mx2.mx25.net",
           "30 se.mx3.mailanyone.net",
+          "20 se.mx2.mx25.net",
+          "40 se.mx4.mx25.net",
           "10 se.mx1.mailanyone.net"
         ],
         "spf": "\"v=spf1 include:e85rhaq1iz.powerspf.com ~all\" \"v=spf1 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip\" \"4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:87.253.232.0/21 ip4:208.70.128.0/21 ip4:45.14.148.0/22 ip4:192.162.216.0/22 ip4:185.38.180.0/22 include:_s1.e85rhaq1iz.powerspf.com ~all\"",
@@ -477,10 +477,10 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "40 se.mx4.mx25.net",
-          "10 se.mx1.mailanyone.net",
+          "20 se.mx2.mx25.net",
           "30 se.mx3.mailanyone.net",
-          "20 se.mx2.mx25.net"
+          "40 se.mx4.mx25.net",
+          "10 se.mx1.mailanyone.net"
         ],
         "spf": "\"v=spf1 include:kqd1ftrrn6.powerspf.com -all\" \"v=spf1 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip\" \"4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:87.253.232.0/21 ip4:208.70.128.0/21 ip4:45.14.148.0/22 ip4:192.162.216.0/22 ip4:185.38.180.0/22 include:_s1.kqd1ftrrn6.powerspf.com -all\"",
         "autodiscover": null
@@ -501,8 +501,8 @@
       ],
       "evidence": {
         "mx": [
-          "10 mx1.hc1299-98.c3s2.iphmx.com",
-          "10 mx2.hc1299-98.c3s2.iphmx.com"
+          "10 mx2.hc1299-98.c3s2.iphmx.com",
+          "10 mx1.hc1299-98.c3s2.iphmx.com"
         ],
         "spf": "\"v=spf1 ip4:139.138.61.101 ip4:139.138.61.102 ip4:139.138.36.184 ip4:139.138.36.199 -all\"",
         "autodiscover": "post.ssikt.no"
@@ -544,8 +544,8 @@
       ],
       "evidence": {
         "mx": [
-          "10 mx1.hc1299-98.c3s2.iphmx.com",
-          "10 mx2.hc1299-98.c3s2.iphmx.com"
+          "10 mx2.hc1299-98.c3s2.iphmx.com",
+          "10 mx1.hc1299-98.c3s2.iphmx.com"
         ],
         "spf": "\"v=spf1 ip4:139.138.61.101 ip4:139.138.61.102 ip4:139.138.36.184 ip4:139.138.36.199 -all\"",
         "autodiscover": "post.ssikt.no"
@@ -586,10 +586,10 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "1 aspmx.l.google.com",
-          "10 alt4.aspmx.l.google.com",
-          "10 alt3.aspmx.l.google.com",
           "5 alt1.aspmx.l.google.com",
+          "10 alt3.aspmx.l.google.com",
+          "10 alt4.aspmx.l.google.com",
+          "1 aspmx.l.google.com",
           "5 alt2.aspmx.l.google.com"
         ],
         "spf": "\"v=spf1 include:_spf.google.com ~all\" \"v=spf1 ip4:74.125.0.0/16 ip4:209.85.128.0/17 ip6:2001:4860:4864::/56 ip6:2404:6800:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2800:3f0:4864::/56 ip6:2a00:1450:4864::/56 ip6:2c0f:fb50:4864::/56 ~all\"",
@@ -609,11 +609,11 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 aspmx3.googlemail.com",
           "1 aspmx.l.google.com",
           "5 alt1.aspmx.l.google.com",
+          "5 alt2.aspmx.l.google.com",
           "10 aspmx2.googlemail.com",
-          "5 alt2.aspmx.l.google.com"
+          "10 aspmx3.googlemail.com"
         ],
         "spf": "\"v=spf1 mx a ip4:84.53.58.11/32 include:_spf.google.com include:sendgrid.net include:spf.mailjet.com ~all\" \"v=spf1 ip4:74.125.0.0/16 ip4:209.85.128.0/17 ip6:2001:4860:4864::/56 ip6:2404:6800:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2800:3f0:4864::/56 ip6:2a00:1450:4864::/56 ip6:2c0f:fb50:4864::/56 ~all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": null
@@ -632,11 +632,11 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 alt4.aspmx.l.google.com",
-          "10 alt3.aspmx.l.google.com",
+          "1 aspmx.l.google.com",
           "5 alt1.aspmx.l.google.com",
           "5 alt2.aspmx.l.google.com",
-          "1 aspmx.l.google.com"
+          "10 alt3.aspmx.l.google.com",
+          "10 alt4.aspmx.l.google.com"
         ],
         "spf": "\"v=spf1 ip4:46.250.221.7 +include:_spf1.trondheim.kommune.no  ~all\" \"v=spf1 ip4:131.207.55.52/31 ip4:194.19.74.242/32 ip4:139.116.71.0/25 ip4:195.88.107.0/27 ip4:77.74.160.108 ip4:185.163.189.56 ip4:149.72.200.207 a:msg-out.onevoice.no include:_spf.google.com include:spf-mr.infostorm.no include:amazonses.com a:c.spf.servic\" \"e-now.com ip4:137.221.30.0/28 ip4:137.221.26.0/28 a:smtp.cowisys.no a:spf.ilnet.se ~all\"",
         "autodiscover": "episervercmsprod.azurewebsites.net"
@@ -655,11 +655,11 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 alt3.aspmx.l.google.com",
-          "10 alt4.aspmx.l.google.com",
-          "5 alt2.aspmx.l.google.com",
           "5 alt1.aspmx.l.google.com",
-          "1 aspmx.l.google.com"
+          "10 alt4.aspmx.l.google.com",
+          "1 aspmx.l.google.com",
+          "5 alt2.aspmx.l.google.com",
+          "10 alt3.aspmx.l.google.com"
         ],
         "spf": "\"v=spf1 ip4:82.134.18.219/32 ip4:81.166.97.195/32 ip4:185.78.209.66/32 ip4:213.239.112.86/32 include:_spf.google.com include:spf.mailjet.com ~all\" \"v=spf1 ip4:74.125.0.0/16 ip4:209.85.128.0/17 ip6:2001:4860:4864::/56 ip6:2404:6800:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2800:3f0:4864::/56 ip6:2a00:1450:4864::/56 ip6:2c0f:fb50:4864::/56 ~all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": null
@@ -678,8 +678,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 alstahaug-kommune-no.mx1.comendosystems.com",
-          "20 alstahaug-kommune-no.mx2.comendosystems.net"
+          "20 alstahaug-kommune-no.mx2.comendosystems.net",
+          "10 alstahaug-kommune-no.mx1.comendosystems.com"
         ],
         "spf": "\"v=spf1 include:eb80yo8klc.powerspf.com -all\" \"v=spf1 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:5b40:0:2000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:\" \"2a01:5b40:0:6000::/52 ip6:2a01:5b40:0:5000::/52 ip6:2a01:111:f403:f000::/52 ip6:2a01:5b40:0:bf00::/58 ip6:2a01:5b40:0:252::/64 ip6:2a01:5b40:0:248::/64 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 include:_s1.eb80yo8klc.powerspf.com -all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -985,6 +985,7 @@
       "flags": [],
       "evidence": {
         "mx": [
+          ";; communications error to 127.0.0.53#53: timed out",
           "0 balsfjord-kommune-no.mail.protection.outlook.com"
         ],
         "spf": "\"v=spf1 a:smtp.balsfjord.kommune.no a:dispatch-eu.ppe-hosted.com a:msg-out.onevoice.no include:spf.bedsys.net include:spf.protection.outlook.com include:mail.sitevision-cloud.net include:spf.ilnet.se  ip4:139.116.71.0/25 -all\" \"v=spf1 ip4:185.41.17.220 ip4:193.69.167.36 ip4:193.69.167.44 ip4:193.69.167.170 ip4:80.65.51.35 ip4:193.69.167.12 ip4:91.207.226.6  ip4:91.207.226.87 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:93.190.199.140 ip4:93.190.199.141 ip4:192.71.135.177 ip4:192.71.135.178 ip4:192.71.135.179 ip4:192.71.135.180 ip4:192.71.135.181 ip4:192.71.135.182 ip4:93.190.199.157 ip4:93.190.199.177 ip4:93.190.199.178 ip4:139.116.71.0/25 ~all\"",
@@ -1346,8 +1347,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "20 mx2.bomlo.kommune.no",
-          "10 mx.bomlo.kommune.no"
+          "10 mx.bomlo.kommune.no",
+          "20 mx2.bomlo.kommune.no"
         ],
         "spf": "\"v=spf1 mx ip4:149.72.200.207 include:spf.protection.outlook.com include:spf-westeu.emailsignatures365.com include:sendgrid.net include:mailgun.org ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:20.93.157.195 ip4:13.93.42.39 ip4:20.86.165.118 ip4:40.69.19.60 ip4:137.116.240.241 -all\"",
         "autodiscover": null
@@ -1502,9 +1503,9 @@
       "evidence": {
         "mx": [
           "20 se.mx2.mx25.net",
+          "40 se.mx4.mx25.net",
           "30 se.mx3.mailanyone.net",
-          "10 se.mx1.mailanyone.net",
-          "40 se.mx4.mx25.net"
+          "10 se.mx1.mailanyone.net"
         ],
         "spf": "\"v=spf1 a mx ip4:194.60.75.46 ip4:139.116.71.0/25 ip4:131.207.55.52/31 include:_spf.staysecuregroup.com include:spf.protection.outlook.com include:utpost.acos.no include:spf.mailjet.com -all\" \"v=spf1 include:spf.mailanyone.net include:_spf_v4.staysecuregroup.com include:_spf_v6.staysecuregroup.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -1695,8 +1696,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "20 fauske-kommune-no.mx2.staysecuregroup.net",
-          "10 fauske-kommune-no.mx1.staysecuregroup.com"
+          "10 fauske-kommune-no.mx1.staysecuregroup.com",
+          "20 fauske-kommune-no.mx2.staysecuregroup.net"
         ],
         "spf": "\"v=spf1 include:ah9yphe65p.powerspf.com ~all\" \"v=spf1 ip6:2a04:6fb0::/31 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:11\" \"1:f403:f000::/52 ip6:2a09:1840:25::/64 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:13.111.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:87.253.232.0/21 ip4:66.235.120.0/21 include:_s1.ah9yphe65p.powerspf.com ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2021,8 +2022,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mxb-009d3c02.gslb.pphosted.com",
-          "10 mxa-009d3c02.gslb.pphosted.com"
+          "10 mxa-009d3c02.gslb.pphosted.com",
+          "10 mxb-009d3c02.gslb.pphosted.com"
         ],
         "spf": "\"v=spf1 a:mta1.ikommservices.no a:mta2.ikommservices.no ip4:82.147.40.128/27 ip4:82.147.39.177 ip4:195.159.124.51 ip4:82.147.39.218 ip4:82.147.39.219 ip4:217.18.206.44 ip4:185.175.96.15 ip4:149.72.200.207 ip6:2a02:a18:10:1::2 ip6:2a02:a18:10:1::10 includ\" \"e:spf.protection.outlook.com include:spf.edbc.no include:spf-mr.infostorm.no include:_spf.netigate.se include:sendgrid.net include:spf-009d3c02.pphosted.com -all\" \"v=spf1 ip4:195.159.239.226 ip4:195.159.124.51 ip4:195.159.124.52 ip4:195.159.124.53 ip4:195.159.124.56 ip4:195.159.124.59 ip4:195.159.239.224/27 ip4:195.159.124.0/26 ip4:195.159.128.128/27 ip4:77.40.182.128/29 ip4:195.159.217.32/28 ?all\" \"v=spf1 ip4:195.254.214.112/24 ip4:146.192.250.128/28 ip4:62.148.40.240/28 ip4:217.18.206.64/28 ip4:217.18.206.0/24 ~all\" \"v=spf1 ip4:89.45.227.221 ip4:89.45.227.195 ip4:86.107.243.139 ip4:143.55.236.39 ip4:141.193.32.19 -all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2041,9 +2042,9 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "0 beiarnkommune.in.tmes.trendmicro.eu",
           "10 beiarnkommune.in.tmes.trendmicro.eu",
-          "20 gildeskal-kommune-no.mx2-dk.mailanyone.net"
+          "20 gildeskal-kommune-no.mx2-dk.mailanyone.net",
+          "0 beiarnkommune.in.tmes.trendmicro.eu"
         ],
         "spf": "\"v=spf1 include:spf.mailjet.com ip4:185.67.42.138 include:spf.protection.outlook.com include:spf.tmes.trendmicro.com include:spf.edbc.no include:spf.mailanyone.net include:mail.sitevision-cloud.net include:signal.no -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:18.208.22.64/26 ip4:18.208.22.128/25 ip4:18.185.115.128/26 ip4:18.185.115.0/25 ip4:13.238.202.0/25 ip4:13.238.202.128/26 ip4:18.176.203.128/25 ip4:13.213.174.128/25 ip4:18.177.156.0/25 ip4:13.213.220.0/25 include:spfb.tmes.trendmicro.com ~all\" \"v=spf1 ip4:195.159.239.226 ip4:195.159.124.51 ip4:195.159.124.52 ip4:195.159.124.53 ip4:195.159.124.56 ip4:195.159.124.59 ip4:195.159.239.224/27 ip4:195.159.124.0/26 ip4:195.159.128.128/27 ip4:77.40.182.128/29 ip4:195.159.217.32/28 ?all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2101,9 +2102,9 @@
       "evidence": {
         "mx": [
           "30 se.mx3.mailanyone.net",
-          "40 se.mx4.mx25.net",
           "10 se.mx1.mailanyone.net",
-          "20 se.mx2.mx25.net"
+          "20 se.mx2.mx25.net",
+          "40 se.mx4.mx25.net"
         ],
         "spf": "\"v=spf1 mx ip4:194.60.75.83 ip4:185.38.121.21 ip4:185.38.121.23 ip4:194.60.75.46 ip4:131.207.55.52/31 include:_spf.staysecuregroup.com include:spf.protection.outlook.com include:msg-out.onevoice.no include:utpost.acos.no include:spf.mailjet.com -all\" \"v=spf1 include:spf.mailanyone.net include:_spf_v4.staysecuregroup.com include:_spf_v6.staysecuregroup.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2141,8 +2142,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 gjesdal-kommune-no.mx1.staysecuregroup.com",
-          "20 gjesdal-kommune-no.mx2.staysecuregroup.net"
+          "20 gjesdal-kommune-no.mx2.staysecuregroup.net",
+          "10 gjesdal-kommune-no.mx1.staysecuregroup.com"
         ],
         "spf": "\"v=spf1 ip4:79.161.98.16 ip4:79.161.98.24 ip4:82.134.18.219 include:spf.mailanyone.net include:spf.flowmailer.net include:sendgrid.net include:spf.mailjet.com include:spf.protection.outlook.com a:acos-no.mail.protection.outlook.com ~all\" \"v=spf1 ip4:72.35.23.0/24 ip4:72.35.12.0/24 ip4:192.162.216.0/22 ip4:208.70.128.0/21 ip4:185.38.180.0/22 ip4:89.104.206.0/23 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:1619::/48 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:6::/47 ip6:2001:978:2a01:0:6:0:1089:1091/128 \" \"ip6:2001:978:2a01:0:6:0:1089:1092/128 ip6:2001:978:2a01::/48 ~all\" \"v=spf1 ip4:185.136.64.128/27 ip4:185.136.65.128/27 ~all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2237,10 +2238,10 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "30 se.mx3.mailanyone.net",
-          "10 se.mx1.mailanyone.net",
+          "20 se.mx2.mx25.net",
           "40 se.mx4.mx25.net",
-          "20 se.mx2.mx25.net"
+          "30 se.mx3.mailanyone.net",
+          "10 se.mx1.mailanyone.net"
         ],
         "spf": "\"v=spf1 a +ip4:185.170.250.50 +ip4:185.170.250.51 +ip4:84.234.162.242 +ip4:84.234.162.243 include:sendgrid.net include:spf.mailanyone.net include:spf.protection.outlook.com include:spf.mailjet.com -all\" \"v=spf1 ip4:72.35.23.0/24 ip4:72.35.12.0/24 ip4:192.162.216.0/22 ip4:208.70.128.0/21 ip4:185.38.180.0/22 ip4:89.104.206.0/23 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:1619::/48 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:6::/47 ip6:2001:978:2a01:0:6:0:1089:1091/128 \" \"ip6:2001:978:2a01:0:6:0:1089:1092/128 ip6:2001:978:2a01::/48 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2468,10 +2469,10 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "30 se.mx3.mailanyone.net",
-          "40 se.mx4.mx25.net",
           "20 se.mx2.mx25.net",
-          "10 se.mx1.mailanyone.net"
+          "10 se.mx1.mailanyone.net",
+          "40 se.mx4.mx25.net",
+          "30 se.mx3.mailanyone.net"
         ],
         "spf": "\"v=spf1 +a +mx +ip4:185.170.250.50 +ip4:185.170.250.51 +ip4:84.234.162.242 +ip4:84.234.162.243 include:sendgrid.net include:spf.mailanyone.net include:spf.protection.outlook.com include:spf.mailjet.com  -all\" \"v=spf1 ip4:72.35.23.0/24 ip4:72.35.12.0/24 ip4:192.162.216.0/22 ip4:208.70.128.0/21 ip4:185.38.180.0/22 ip4:89.104.206.0/23 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:1619::/48 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:6::/47 ip6:2001:978:2a01:0:6:0:1089:1091/128 \" \"ip6:2001:978:2a01:0:6:0:1089:1092/128 ip6:2001:978:2a01::/48 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2739,10 +2740,10 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "40 se.mx4.mx25.net",
-          "20 se.mx2.mx25.net",
+          "10 se.mx1.mailanyone.net",
           "30 se.mx3.mailanyone.net",
-          "10 se.mx1.mailanyone.net"
+          "20 se.mx2.mx25.net",
+          "40 se.mx4.mx25.net"
         ],
         "spf": "\"v=spf1 a mx ip4:194.60.75.46 ip4:131.207.55.52/31 include:_spf.staysecuregroup.com include:spf.protection.outlook.com include:utpost.acos.no include:spf.mailjet.com -all\" \"v=spf1 include:spf.mailanyone.net include:_spf_v4.staysecuregroup.com include:_spf_v6.staysecuregroup.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2820,8 +2821,8 @@
       ],
       "evidence": {
         "mx": [
-          "10 mail.ha.kommune.no",
-          "20 mail.ha.kommune.no"
+          "20 mail.ha.kommune.no",
+          "10 mail.ha.kommune.no"
         ],
         "spf": "\"v=spf1 mx a +ip4:79.160.140.226 include:spf.mandrillapp.com include:spf.mailjet.com include:spf.protection.outlook.com include:utpost.acos.no -all\" \"v=spf1 ip4:198.2.128.0/24 ip4:198.2.132.0/22 ip4:198.2.136.0/23 ip4:198.2.145.0/24 ip4:198.2.186.0/23 ip4:205.201.131.0/24 ip4:205.201.134.128/25 ip4:205.201.136.0/23 ip4:205.201.139.0/24 ip4:198.2.177.0/24 ip4:198.2.178.0/23 ip4:198.2.180.0/24 ~all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "autodiscover": null
@@ -2954,8 +2955,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mxb-009d3c02.gslb.pphosted.com",
-          "10 mxa-009d3c02.gslb.pphosted.com"
+          "10 mxa-009d3c02.gslb.pphosted.com",
+          "10 mxb-009d3c02.gslb.pphosted.com"
         ],
         "spf": "\"v=spf1 include:spf1.io.kommune.no include:spf2.io.kommune.no include:spf3.io.kommune.no include:spf4.io.kommune.no include:spf.mailjet.com include:spf-009d3c02.pphosted.com -all\" \"v=spf1 ip4:82.134.18.219 ip4:82.147.37.157 ip4:82.147.39.218 ip4:82.147.39.219 ip4:82.147.39.131 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:23.97.160.56 ip4:87.54.30.55 ip4:87.54.30.56 ip4:46.32.44.201 ip4:40.107.0.0/16 -all\" \"v=spf1 include:spf.protection.outlook.com -all\" \"v=spf1 include:utpost.acos.no -all\" \"v=spf1 include:speedadmin.dk -all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -2993,8 +2994,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mxa-009d3c02.gslb.pphosted.com",
-          "10 mxb-009d3c02.gslb.pphosted.com"
+          "10 mxb-009d3c02.gslb.pphosted.com",
+          "10 mxa-009d3c02.gslb.pphosted.com"
         ],
         "spf": "\"v=spf1 include:_spf.cpanel.guru include:spf.mailanyone.net include:spf.protection.outlook.com include:mail.sitevision-cloud.net include:utpost.acos.no include:amazonses.com include:spf-009d3c02.pphosted.com a:smtp.altibox.no a:smtp.lyse.net ip4:159.183.\" \"217.205 -all\" \"v=spf1 ip4:185.117.97.224/27 ip4:135.181.136.1/24 ip4:167.235.84.96/27 ip4:46.255.21.128/25 ip4:49.13.104.96/27 ~all\" \"v=spf1 ip4:72.35.23.0/24 ip4:72.35.12.0/24 ip4:192.162.216.0/22 ip4:208.70.128.0/21 ip4:185.38.180.0/22 ip4:89.104.206.0/23 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:1619::/48 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:6::/47 ip6:2001:978:2a01:0:6:0:1089:1091/128 \" \"ip6:2001:978:2a01:0:6:0:1089:1092/128 ip6:2001:978:2a01::/48 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -3014,8 +3015,8 @@
       "evidence": {
         "mx": [
           "5 eu-esec-01.heimdalsecurity.com",
-          "10 mail.karasjok.kommune.no",
-          "5 eu-esec-02.heimdalsecurity.com"
+          "5 eu-esec-02.heimdalsecurity.com",
+          "10 mail.karasjok.kommune.no"
         ],
         "spf": "\"v=spf1 include:spf.protection.outlook.com include:spf-esec.heimdalsecurity.com include:smtp.powertech.no include:sendgrid.net include:spf.ilnet.se ip4:149.72.200.207 ip4:139.116.71.0/25 ip6:2a02:9c8:0:1001::/64 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:20.50.183.144/29 ip4:20.88.177.208/29 ip4:20.50.183.155 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -3399,8 +3400,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "20 leirfjord-kommune-no.mx2.comendosystems.net",
-          "10 leirfjord-kommune-no.mx1.comendosystems.com"
+          "10 leirfjord-kommune-no.mx1.comendosystems.com",
+          "20 leirfjord-kommune-no.mx2.comendosystems.net"
         ],
         "spf": "\"v=spf1 include:8cllbcf0o3.powerspf.com -all\" \"v=spf1 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:6::/47 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:1619::/48 ip6:2a01:111:f400::/48 ip6:2001:978:2a01::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip\" \"4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:159.183.0.0/16 ip4:149.72.0.0/16 ip4:54.240.0.0/17 ip4:52.103.0.0/17 ip4:168.245.0.0/17 ip4:167.89.0.0/17 ip4:104.47.0.0/17 include:_s1.8cllbcf0o3.powerspf.com -all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -3766,7 +3767,7 @@
         "mx": [
           "0 lodingen-kommune-no.mail.protection.outlook.com"
         ],
-        "spf": "\"v=spf1 ip4:85.252.197.178 ip4:85.252.197.181 include:spf.protection.outlook.com include:utpost.acos.no  -all\" \"txt v=spf1 include:spf.mailjet.com ?all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
+        "spf": "\"txt v=spf1 include:spf.mailjet.com ?all\" \"v=spf1 ip4:85.252.197.178 ip4:85.252.197.181 include:spf.protection.outlook.com include:utpost.acos.no  -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "autodiscover": "autodiscover.outlook.com"
       },
       "sourceDate": "2026-06-28"
@@ -4031,8 +4032,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mx1-eu1.ppe-hosted.com",
-          "20 mx2-eu1.ppe-hosted.com"
+          "20 mx2-eu1.ppe-hosted.com",
+          "10 mx1-eu1.ppe-hosted.com"
         ],
         "spf": "\"v=spf1 include:spf.protection.outlook.com a:mail.malselv.kommune.no include:spf.edbc.no include:_spf.easycruit.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:195.159.239.226 ip4:195.159.124.51 ip4:195.159.124.52 ip4:195.159.124.53 ip4:195.159.124.56 ip4:195.159.124.59 ip4:195.159.239.224/27 ip4:195.159.124.0/26 ip4:195.159.128.128/27 ip4:77.40.182.128/29 ip4:195.159.217.32/28 ?all\" \"v=spf1 ip4:34.252.27.239/32 ip4:34.249.196.78/32 ip4:34.251.157.56/32 ip4:35.157.154.159/32 ip4:35.157.187.101/32 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -4108,10 +4109,10 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "20 se.mx2.mx25.net",
           "10 se.mx1.mailanyone.net",
-          "30 se.mx3.mailanyone.net",
-          "40 se.mx4.mx25.net"
+          "40 se.mx4.mx25.net",
+          "20 se.mx2.mx25.net",
+          "30 se.mx3.mailanyone.net"
         ],
         "spf": "\"v=spf1 a mx ip4:194.60.75.46 ip4:131.207.55.52/31 include:_spf.staysecuregroup.com include:spf.protection.outlook.com include:utpost.acos.no include:spf.mailjet.com -all\" \"v=spf1 include:spf.mailanyone.net include:_spf_v4.staysecuregroup.com include:_spf_v6.staysecuregroup.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -4132,8 +4133,8 @@
         "mx": [
           "40 se.mx4.mx25.net",
           "20 se.mx2.mx25.net",
-          "30 se.mx3.mailanyone.net",
-          "10 se.mx1.mailanyone.net"
+          "10 se.mx1.mailanyone.net",
+          "30 se.mx3.mailanyone.net"
         ],
         "spf": "\"v=spf1 a mx ip4:194.60.75.46 ip4:131.207.55.52/31 include:_spf.staysecuregroup.com include:spf.protection.outlook.com include:utpost.acos.no include:spf.mailjet.com -all\" \"v=spf1 include:spf.mailanyone.net include:_spf_v4.staysecuregroup.com include:_spf_v6.staysecuregroup.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -4191,8 +4192,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mxb-009d3c02.gslb.pphosted.com",
-          "0 mxa-009d3c02.gslb.pphosted.com"
+          "0 mxa-009d3c02.gslb.pphosted.com",
+          "10 mxb-009d3c02.gslb.pphosted.com"
         ],
         "spf": "\"v=spf1 ip4:217.144.235.230 ip4:82.147.39.218 ip4:82.147.39.219 ip4:139.116.71.0/25 ip4:131.207.55.52/31 ip4:82.134.18.219 a:mta1.ikommservices.no a:mta2.ikommservices.no include:spf.protection.outlook.com include:_se_net.axiell.com include:spf.mandrilla\" \"pp.com include:_spf.nanolearning.com include:sendgrid.net ip4:149.72.200.207 include:spf-009d3c02.pphosted.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"  \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -4629,8 +4630,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "30 rakkestad-kommune-no.mail.protection.outlook.com",
           "10 rakkestad-kommune-no-1.fortimailcloud.com",
+          "30 rakkestad-kommune-no.mail.protection.outlook.com",
           "20 rakkestad-kommune-no-2.fortimailcloud.com"
         ],
         "spf": "\"v=spf1 include:_spf.fortimailcloud.com include:_spf.proisp.no include:mail.sitevision-cloud.net ip4:195.159.124.59 ip4:64.28.25.128/26 ip4:195.159.124.56 ip4:194.19.109.18 ip4:194.19.109.19 ip4:194.19.109.30 ip4:194.19.109.28 ip4:149.72.200.207 include:sp\" \"f.protection.outlook.com include:sendgrid.net include:spf.mailjet.com -all\" \"v=spf1 ip4:154.52.2.128/27 ip4:154.52.2.224/27 ip4:154.52.3.128/27 \" \"ip4:154.52.14.128/27 ip4:154.52.16.128/27 ip4:154.52.13.0/25  ip4:209.52.38.228 ip4:154.52.20.191 ip4:154.52.20.193 ip4:154.52.22.128/27 ip4:154.52.23.160/27 ip4:23.249.57.128/27 \" \"ip4:38.21.198.128/27 ip4:38.21.201.128/27 ip4:212.119.11.128/27 ip4:209.40.107.0/24 ip4:154.52.23.224/27 ip4:154.52.3.192/27 \" \"ip4:69.167.119.141 ip4:69.167.119.142 ip4:148.230.56.0/24 ip4:148.230.57.0/24 ip4:38.21.198.192/27 ip4:159.48.178.0/24 ip4:159.48.185.0/24 ip4:159.48.188.0/24 ip4:176.23.144.0/24 ip4:176.23.159.0/24 -all\" \"v=spf1 include:_custspf.one.com ?all\"",
@@ -4650,8 +4651,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 rana-kommune-no.mx1.comendosystems.com",
-          "20 rana-kommune-no.mx2.comendosystems.net"
+          "20 rana-kommune-no.mx2.comendosystems.net",
+          "10 rana-kommune-no.mx1.comendosystems.com"
         ],
         "spf": "\"v=spf1 ip4:62.128.238.137 include:spf.protection.outlook.com include:spf.mailanyone.net include:utpost.acos.no include:spf.mailjet.com include:_spf.plugg.no ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:72.35.23.0/24 ip4:72.35.12.0/24 ip4:192.162.216.0/22 ip4:208.70.128.0/21 ip4:185.38.180.0/22 ip4:89.104.206.0/23 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:1619::/48 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:6::/47 ip6:2001:978:2a01:0:6:0:1089:1091/128 \" \"ip6:2001:978:2a01:0:6:0:1089:1092/128 ip6:2001:978:2a01::/48 ~all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": null
@@ -4746,8 +4747,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 se.mx1.mailanyone.net",
           "30 se.mx3.mailanyone.net",
+          "10 se.mx1.mailanyone.net",
           "20 se.mx2.mx25.net",
           "40 se.mx4.mx25.net"
         ],
@@ -5985,6 +5986,7 @@
       "flags": [],
       "evidence": {
         "mx": [
+          ";; communications error to 127.0.0.53#53: timed out",
           "0 tromso-kommune-no.mail.protection.outlook.com"
         ],
         "spf": "\"v=spf1 include:p24u9b3746.powerspf.com -all\" \"v=spf1 exists:%{i}.p24u9b3746.macrospf.powerspf.com ~all\"",
@@ -6023,9 +6025,9 @@
       "flags": [],
       "evidence": {
         "mx": [
+          "30 trana-kommune-no.mail.protection.outlook.com",
           "10 mx1-eu1.ppe-hosted.com",
-          "20 mx2-eu1.ppe-hosted.com",
-          "30 trana-kommune-no.mail.protection.outlook.com"
+          "20 mx2-eu1.ppe-hosted.com"
         ],
         "spf": "\"v=spf1 include:sendgrid.net ip4:149.72.200.207 include:spf.protection.outlook.com a:smtp.ent.altibox.no a:dispatch-eu.ppe-hosted.com include:mail.sitevision-cloud.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -6405,8 +6407,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mxb-009d3c02.gslb.pphosted.com",
-          "10 mxa-009d3c02.gslb.pphosted.com"
+          "10 mxa-009d3c02.gslb.pphosted.com",
+          "10 mxb-009d3c02.gslb.pphosted.com"
         ],
         "spf": "\"v=spf1 ip4:185.84.52.162 ip4:212.85.68.72 ip4:20.100.26.41 ip4:195.159.124.51 ip4:195.159.239.231 ip4:131.207.55.52/31 ip4:213.52.49.35 ip4:82.147.39.218 ip4:82.147.39.219 ip4:81.166.38.99 ip4:188.95.241.67 ip6:2a02:9c8:0:1001::/64 include:spf.protectio\" \"n.outlook.com include:spf.edbc.no include:spf.zisson.no include:spf.ilnet.se include:spf-009d3c02.pphosted.com -all\"  \"v=spf1 ip4:195.159.239.226 ip4:195.159.124.51 ip4:195.159.124.52 ip4:195.159.124.53 ip4:195.159.124.56 ip4:195.159.124.59 ip4:195.159.239.224/27 ip4:195.159.124.0/26 ip4:195.159.128.128/27 ip4:77.40.182.128/29 ip4:195.159.217.32/28 ?all\" \"v=spf1 include:mailgun.org ip4:188.95.241.67 ~all\" \"v=spf1 ip4:93.190.199.140 ip4:93.190.199.141 ip4:192.71.135.177 ip4:192.71.135.178 ip4:192.71.135.179 ip4:192.71.135.180 ip4:192.71.135.181 ip4:192.71.135.182 ip4:93.190.199.157 ip4:93.190.199.177 ip4:93.190.199.178 ip4:139.116.71.0/25 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
@@ -6636,9 +6638,9 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mail3.hedmark-ikt.no",
+          "10 mail2.hedmark-ikt.no",
           "30 mail1.hedmark-ikt.no",
-          "10 mail2.hedmark-ikt.no"
+          "10 mail3.hedmark-ikt.no"
         ],
         "spf": "\"v=spf1 ip4:82.147.38.11 ip4:77.106.165.215 ip4:82.147.38.2 ip4:185.38.121.22 a:mail.vaaler-he.kommune.no include:spf.infostorm.no include:spf.protect\" \"ion.outlook.com include:spf.mailjet.com include:utpost.acos.no include:hedmark-ikt.no include:onevoice.no -all\" \"v=spf1 ip4:195.254.214.0/28 ip4:146.192.177.0/27 include:spf-mr.infostorm.no include:spf.mailanyone.net ~all\"  \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
         "autodiscover": null
@@ -6813,7 +6815,7 @@
         "mx": [
           "0 aseral-kommune-no.mail.protection.outlook.com"
         ],
-        "spf": "\"v=spf1 ip4:87.49.230.130\\195\\131\\194\\162\\195\\130\\226\\130\\172\\195\\130\\197\\189 ip4:139.116.71.0/25 ip4:159.171.79.11 ip4:159.171.119.24 ip6:2a02:9c8:0:1001::/64 include:spf.mailjet.com include:msg-out._spf.onevoice.no include:spf.protection.outlook.com include:_spf.nanolearning.com -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\"",
+        "spf": "\"v=spf1 ip4:87.49.230.130\\195\\162\\194\\128\\194\\142 ip4:139.116.71.0/25 ip4:159.171.79.11 ip4:159.171.119.24 ip6:2a02:9c8:0:1001::/64 include:spf.mailjet.com include:msg-out._spf.onevoice.no include:spf.protection.outlook.com include:_spf.nanolearning.com -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\"",
         "autodiscover": "autodiscover.outlook.com"
       },
       "sourceDate": "2026-06-28"
@@ -6830,9 +6832,9 @@
       "flags": [],
       "evidence": {
         "mx": [
+          "10 mail2.hedmark-ikt.no",
           "30 mail1.hedmark-ikt.no",
-          "10 mail3.hedmark-ikt.no",
-          "10 mail2.hedmark-ikt.no"
+          "10 mail3.hedmark-ikt.no"
         ],
         "spf": "\"v=spf1 include:spf.infostorm.no include:spf.protection.outlook.com include:speedadmin.dk include:hedmark-ikt.no include:onevoice.no include:utpost.ac\" \"os.no -all\" \"v=spf1 ip4:195.254.214.0/28 ip4:146.192.177.0/27 include:spf-mr.infostorm.no include:spf.mailanyone.net ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "autodiscover": null
@@ -6927,8 +6929,8 @@
       "flags": [],
       "evidence": {
         "mx": [
-          "10 mxa-009d3c02.gslb.pphosted.com",
-          "10 mxb-009d3c02.gslb.pphosted.com"
+          "10 mxb-009d3c02.gslb.pphosted.com",
+          "10 mxa-009d3c02.gslb.pphosted.com"
         ],
         "spf": "\"v=spf1 mx ip4:141.193.32.4 ip4:82.147.40.128/27 ip4:82.147.39.177 ip4:195.159.124.51 ip4:195.159.124.59 ip4:185.163.189.56 ip4:82.147.39.218 ip4:82.147.39.219 ip4:217.18.206.44 ip4:149.72.200.207 ip6:2a02:a18:10:1::2 ip6:2a02:a18:10:1::10 include:spf.pr\" \"otection.outlook.com include:_spf.netigate.se include:spf-mr.infostorm.no include:_spf.mailgun.org include:sendgrid.net include:spf-009d3c02.pphosted.com -all\"  \"v=spf1 ip4:89.45.227.221 ip4:89.45.227.195 ip4:86.107.243.139 ip4:143.55.236.39 ip4:141.193.32.19 -all\" \"v=spf1 ip4:195.254.214.112/24 ip4:146.192.250.128/28 ip4:62.148.40.240/28 ip4:217.18.206.64/28 ip4:217.18.206.0/24 ~all\" \"v=spf1 include:_spf1.mailgun.org include:_spf2.mailgun.org ~all\"",
         "autodiscover": "autodiscover.outlook.com"
