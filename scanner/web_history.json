@@ -7,8 +7,8 @@
     "analytics": 63,
     "analytics_pct": 17.6,
     "us_cdn": 48,
-    "third_party_trackers": 272,
-    "unreachable": 2,
-    "avg_us_resource_fraction": 0.203
+    "third_party_trackers": 266,
+    "unreachable": 8,
+    "avg_us_resource_fraction": 0.199
   }
 ]

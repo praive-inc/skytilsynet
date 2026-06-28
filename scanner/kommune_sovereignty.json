@@ -51,6 +51,83 @@
   },
   {
     "category": "kommune",
+    "name": "Herøy",
+    "domain": "heroy.kommune.no",
+    "website_domain": "heroy.kommune.no",
+    "platform": "US_GOOGLE",
+    "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
+    "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+    "behind_gateway": true,
+    "fingerprint": "dkim-google",
+    "flags": [],
+    "verdict": {
+      "platform": "US_GOOGLE",
+      "label": "Google Workspace",
+      "confidence": 1.0,
+      "uavklart": false,
+      "note": "Leietaker bevist via føderering; e-post antatt høy-sannsynlig"
+    },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mx2.hc1299-98.c3s2.iphmx.com; 10 mx1.hc1299-98.c3s2.iphmx.com",
+        "source": "dig MX heroy.kommune.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.2,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 ip4:139.138.61.101 ip4:139.138.61.102 ip4:139.138.36.184 ip4:139.138.36.199 -all\"",
+        "source": "dig TXT heroy.kommune.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "post.ssikt.no",
+        "source": "dig CNAME autodiscover.heroy.kommune.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover-CNAME uten Microsoft-mål",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "dkim",
+        "observation": "google._domainkey (TXT finnes)",
+        "source": "dig TXT google._domainkey.heroy.kommune.no",
+        "observed_at": "2026-06-28",
+        "inference": "Google DKIM-selektor publisert: Google Workspace",
+        "confidence": 1.0,
+        "platform": "US_GOOGLE"
+      },
+      {
+        "signal_type": "getuserrealm",
+        "observation": "Federated",
+        "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@heroy.kommune.no",
+        "observed_at": "2026-06-28",
+        "inference": "getuserrealm=Federated: Azure AD-leietaker finnes (e-post antatt, ikke ren sky-leietaker)",
+        "confidence": 0.6,
+        "platform": "US_MICROSOFT"
+      }
+    ],
+    "sourceDate": "2026-06-28",
+    "kommune": "Herøy"
+  },
+  {
+    "category": "kommune",
     "name": "Larvik",
     "domain": "larvik.kommune.no",
     "website_domain": "larvik.kommune.no",
@@ -79,7 +156,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "5 alt1.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 alt3.aspmx.l.google.com; 1 aspmx.l.google.com",
+        "observation": "5 alt2.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 1 aspmx.l.google.com; 10 alt3.aspmx.l.google.com",
         "source": "dig MX larvik.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "MX leverer e-post til Google Workspace",
@@ -129,7 +206,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 aspmx3.googlemail.com; 10 aspmx2.googlemail.com",
+        "observation": "10 aspmx3.googlemail.com; 1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 aspmx2.googlemail.com",
         "source": "dig MX narvik.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "MX leverer e-post til Google Workspace",
@@ -179,7 +256,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "5 alt1.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 1 aspmx.l.google.com; 10 alt3.aspmx.l.google.com",
+        "observation": "1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 alt3.aspmx.l.google.com; 10 alt4.aspmx.l.google.com",
         "source": "dig MX trondheim.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "MX leverer e-post til Google Workspace",
@@ -238,7 +315,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 10 alt3.aspmx.l.google.com",
+        "observation": "10 alt3.aspmx.l.google.com; 1 aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt1.aspmx.l.google.com",
         "source": "dig MX ullensvang.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "MX leverer e-post til Google Workspace",
@@ -288,7 +365,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 alstahaug-kommune-no.mx1.comendosystems.com; 20 alstahaug-kommune-no.mx2.comendosystems.net",
+        "observation": "20 alstahaug-kommune-no.mx2.comendosystems.net; 10 alstahaug-kommune-no.mx1.comendosystems.com",
         "source": "dig MX alstahaug.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -415,7 +492,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net",
+        "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net",
         "source": "dig MX alvdal.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -1419,7 +1496,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "0 balsfjord-kommune-no.mail.protection.outlook.com",
+        "observation": ";; communications error to 127.0.0.53#53: timed out; 0 balsfjord-kommune-no.mail.protection.outlook.com",
         "source": "dig MX balsfjord.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "MX leverer e-post til Microsoft 365",
@@ -1446,7 +1523,7 @@
       },
       {
         "signal_type": "autodiscover",
-        "observation": "autodiscover.outlook.com",
+        "observation": ";; communications error to 127.0.0.53#53: timed out autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.balsfjord.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
@@ -2702,7 +2779,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mx.bomlo.kommune.no; 20 mx2.bomlo.kommune.no",
+        "observation": "20 mx2.bomlo.kommune.no; 10 mx.bomlo.kommune.no",
         "source": "dig MX bomlo.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2965,7 +3042,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mx.osl.bedsys.net; 5 mx2.osl.bedsys.net",
+        "observation": "5 mx2.osl.bedsys.net; 10 mx.osl.bedsys.net",
         "source": "dig MX dyroy.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -3033,7 +3110,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 donna-kommune-no.mx1.comendosystems.com; 20 donna-kommune-no.mx2.comendosystems.net",
+        "observation": "20 donna-kommune-no.mx2.comendosystems.net; 10 donna-kommune-no.mx1.comendosystems.com",
         "source": "dig MX donna.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -3228,7 +3305,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net",
+        "observation": "20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net",
         "source": "dig MX eidsvoll.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -3414,7 +3491,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
+        "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
         "source": "dig MX enebakk.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -3890,7 +3967,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 fauske-kommune-no.mx2.staysecuregroup.net; 10 fauske-kommune-no.mx1.staysecuregroup.com",
+        "observation": "10 fauske-kommune-no.mx1.staysecuregroup.com; 20 fauske-kommune-no.mx2.staysecuregroup.net",
         "source": "dig MX fauske.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -4221,7 +4298,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 d212610.b.ess.uk.barracudanetworks.com; 10 d212610.a.ess.uk.barracudanetworks.com",
+        "observation": "10 d212610.a.ess.uk.barracudanetworks.com; 20 d212610.b.ess.uk.barracudanetworks.com",
         "source": "dig MX flakstad.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -4561,7 +4638,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net",
+        "observation": "10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net",
         "source": "dig MX folldal.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -4688,7 +4765,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
+        "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
         "source": "dig MX frogn.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5198,7 +5275,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "0 beiarnkommune.in.tmes.trendmicro.eu; 20 gildeskal-kommune-no.mx2-dk.mailanyone.net; 10 beiarnkommune.in.tmes.trendmicro.eu",
+        "observation": "20 gildeskal-kommune-no.mx2-dk.mailanyone.net; 0 beiarnkommune.in.tmes.trendmicro.eu; 10 beiarnkommune.in.tmes.trendmicro.eu",
         "source": "dig MX gildeskal.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5393,7 +5470,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "40 se.mx4.mx25.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net",
+        "observation": "10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net",
         "source": "dig MX gjerdrum.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5851,7 +5928,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net",
+        "observation": "30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net",
         "source": "dig MX grane.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -6372,7 +6449,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
+        "observation": "10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
         "source": "dig MX hamar.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -6628,7 +6705,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mx2.hc1299-98.c3s2.iphmx.com; 10 mx1.hc1299-98.c3s2.iphmx.com",
+        "observation": "10 mx1.hc1299-98.c3s2.iphmx.com; 10 mx2.hc1299-98.c3s2.iphmx.com",
         "source": "dig MX hareid.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -6832,7 +6909,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net",
+        "observation": "30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net",
         "source": "dig MX hattfjelldal.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -7036,7 +7113,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 hemnes-kommune-no.mx1.comendosystems.com; 20 hemnes-kommune-no.mx2.comendosystems.net",
+        "observation": "20 hemnes-kommune-no.mx2.comendosystems.net; 10 hemnes-kommune-no.mx1.comendosystems.com",
         "source": "dig MX hemnes.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -7132,76 +7209,6 @@
     ],
     "sourceDate": "2026-06-28",
     "kommune": "Hemsedal"
-  },
-  {
-    "category": "kommune",
-    "name": "Herøy",
-    "domain": "heroy.kommune.no",
-    "website_domain": "heroy.kommune.no",
-    "platform": "US_MICROSOFT",
-    "jurisdiction": "United States (CLOUD Act)",
-    "governance": {
-      "country": "United States",
-      "index": "Freedom House (Freedom in the World)",
-      "score": 81,
-      "status": "Free",
-      "tier": "democracy",
-      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
-      "year": 2026
-    },
-    "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
-    "behind_gateway": true,
-    "fingerprint": "realm-federated",
-    "flags": [
-      "federated"
-    ],
-    "verdict": {
-      "platform": "US_MICROSOFT",
-      "label": "Microsoft 365",
-      "confidence": 0.6,
-      "uavklart": false,
-      "note": "Leietaker bevist via føderering; e-post antatt høy-sannsynlig"
-    },
-    "evidence": [
-      {
-        "signal_type": "mx",
-        "observation": "10 mx1.hc1299-98.c3s2.iphmx.com; 10 mx2.hc1299-98.c3s2.iphmx.com",
-        "source": "dig MX heroy.kommune.no",
-        "observed_at": "2026-06-28",
-        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
-        "confidence": 0.2,
-        "platform": null
-      },
-      {
-        "signal_type": "spf",
-        "observation": "\"v=spf1 ip4:139.138.61.101 ip4:139.138.61.102 ip4:139.138.36.184 ip4:139.138.36.199 -all\"",
-        "source": "dig TXT heroy.kommune.no (v=spf1)",
-        "observed_at": "2026-06-28",
-        "inference": "SPF uten gjenkjent plattform",
-        "confidence": 0.3,
-        "platform": null
-      },
-      {
-        "signal_type": "autodiscover",
-        "observation": "post.ssikt.no",
-        "source": "dig CNAME autodiscover.heroy.kommune.no",
-        "observed_at": "2026-06-28",
-        "inference": "autodiscover-CNAME uten Microsoft-mål",
-        "confidence": 0.3,
-        "platform": null
-      },
-      {
-        "signal_type": "getuserrealm",
-        "observation": "Federated",
-        "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@heroy.kommune.no",
-        "observed_at": "2026-06-28",
-        "inference": "getuserrealm=Federated: Azure AD-leietaker finnes (e-post antatt, ikke ren sky-leietaker)",
-        "confidence": 0.6,
-        "platform": "US_MICROSOFT"
-      }
-    ],
-    "sourceDate": "2026-06-28",
-    "kommune": "Herøy"
   },
   {
     "category": "kommune",
@@ -7836,7 +7843,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net",
+        "observation": "10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net",
         "source": "dig MX hurdal.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -8110,7 +8117,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 mail.ha.kommune.no; 10 mail.ha.kommune.no",
+        "observation": "10 mail.ha.kommune.no; 20 mail.ha.kommune.no",
         "source": "dig MX ha.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -10317,7 +10324,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "5 naroysund.in.tmes.trendmicro.eu; 1 leka-kommune-no.mail.protection.outlook.com",
+        "observation": "1 leka-kommune-no.mail.protection.outlook.com; 5 naroysund.in.tmes.trendmicro.eu",
         "source": "dig MX leka.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "MX leverer e-post til Microsoft 365",
@@ -11165,7 +11172,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 luroy-kommune-no.mx1.comendosystems.com; 20 luroy-kommune-no.mx2.comendosystems.net",
+        "observation": "20 luroy-kommune-no.mx2.comendosystems.net; 10 luroy-kommune-no.mx1.comendosystems.com",
         "source": "dig MX luroy.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -12568,7 +12575,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mx1-eu1.ppe-hosted.com; 20 mx2-eu1.ppe-hosted.com",
+        "observation": "20 mx2-eu1.ppe-hosted.com; 10 mx1-eu1.ppe-hosted.com",
         "source": "dig MX malselv.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -12822,7 +12829,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net",
+        "observation": "20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net",
         "source": "dig MX nannestad.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -12890,7 +12897,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net",
+        "observation": "40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net",
         "source": "dig MX nes.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -13026,7 +13033,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mx12.comendosystems.com; 20 mx6.comendosystems.net",
+        "observation": "20 mx6.comendosystems.net; 10 mx12.comendosystems.com",
         "source": "dig MX nesna.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -13094,7 +13101,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "0 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
+        "observation": "10 mxb-009d3c02.gslb.pphosted.com; 0 mxa-009d3c02.gslb.pphosted.com",
         "source": "dig MX nesodden.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -13563,7 +13570,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
+        "observation": "10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no",
         "source": "dig MX nord-odal.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -14683,7 +14690,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 rakkestad-kommune-no.mail.protection.outlook.com; 10 rakkestad-kommune-no-1.fortimailcloud.com; 20 rakkestad-kommune-no-2.fortimailcloud.com",
+        "observation": "30 rakkestad-kommune-no.mail.protection.outlook.com; 20 rakkestad-kommune-no-2.fortimailcloud.com; 10 rakkestad-kommune-no-1.fortimailcloud.com",
         "source": "dig MX rakkestad.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "MX leverer e-post til Microsoft 365",
@@ -14937,7 +14944,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net",
+        "observation": "10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net",
         "source": "dig MX rendalen.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -15123,7 +15130,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net",
+        "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net",
         "source": "dig MX ringebu.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -15259,7 +15266,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mx11.electric.net; 20 mx10.electric.net",
+        "observation": "20 mx10.electric.net; 10 mx11.electric.net",
         "source": "dig MX ringsaker.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -19178,7 +19185,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mail2.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
+        "observation": "10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
         "source": "dig MX sor-odal.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -19237,7 +19244,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 mx.osl.bedsys.net; 10 mx2.osl.bedsys.net",
+        "observation": "10 mx2.osl.bedsys.net; 20 mx.osl.bedsys.net",
         "source": "dig MX sor-varanger.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -19851,7 +19858,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "40 se.mx4.mx25.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net",
+        "observation": "10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net",
         "source": "dig MX tolga.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -20232,7 +20239,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "40 se.mx4.mx25.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net",
+        "observation": "30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net",
         "source": "dig MX tynset.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -21499,7 +21506,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
+        "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
         "source": "dig MX vestby.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -22419,7 +22426,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no",
+        "observation": "30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
         "source": "dig MX vaaler-he.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -22469,7 +22476,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 d212608.a.ess.uk.barracudanetworks.com; 20 d212608.b.ess.uk.barracudanetworks.com",
+        "observation": "20 d212608.b.ess.uk.barracudanetworks.com; 10 d212608.a.ess.uk.barracudanetworks.com",
         "source": "dig MX varoy.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -22936,7 +22943,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
+        "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
         "source": "dig MX as.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -23013,7 +23020,7 @@
       },
       {
         "signal_type": "spf",
-        "observation": "\"v=spf1 ip4:87.49.230.130\\195\\131\\194\\162\\195\\130\\226\\130\\172\\195\\130\\197\\189 ip4:139.116.71.0/25 ip4:159.171.79.11 ip4:159.171.119.24 ip6:2a02:9c8:0:1001::/64 include:spf.mailjet.com include:msg-out._spf.onevoice.no include:spf.protection.outlook.com include:_spf.nanolearning.com -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\"",
+        "observation": "\"v=spf1 ip4:87.49.230.130\\195\\162\\194\\128\\194\\142 ip4:139.116.71.0/25 ip4:159.171.79.11 ip4:159.171.119.24 ip6:2a02:9c8:0:1001::/64 include:spf.mailjet.com include:msg-out._spf.onevoice.no include:spf.protection.outlook.com include:_spf.nanolearning.com -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\"",
         "source": "dig TXT aseral.kommune.no (v=spf1)",
         "observed_at": "2026-06-28",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
@@ -23072,7 +23079,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mail2.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
+        "observation": "10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
         "source": "dig MX asnes.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -23269,7 +23276,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mx1.hc1299-98.c3s2.iphmx.com; 10 mx2.hc1299-98.c3s2.iphmx.com",
+        "observation": "10 mx2.hc1299-98.c3s2.iphmx.com; 10 mx1.hc1299-98.c3s2.iphmx.com",
         "source": "dig MX orsta.kommune.no",
         "observed_at": "2026-06-28",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",

@@ -1130,7 +1130,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mxa-008b4101.gslb.pphosted.com; 10 mxb-008b4101.gslb.pphosted.com",
+          "observation": "10 mxb-008b4101.gslb.pphosted.com; 10 mxa-008b4101.gslb.pphosted.com",
           "source": "dig MX jd.dep.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
