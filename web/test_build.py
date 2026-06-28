@@ -239,7 +239,8 @@ class BuildHtml(unittest.TestCase):
         open_tag = self.html.index(">", start) + 1
         close = self.html.index("</script>", open_tag)
         payload = json.loads(self.html[open_tag:close].replace("<\\/", "</"))
-        by_name = {k["kommune"]: k for k in payload["kommuner"]}
+        kommune_cat = next(c for c in payload["categories"] if c["key"] == "kommune")
+        by_name = {k["kommune"]: k for k in kommune_cat["entities"]}
         self.assertEqual(by_name["Oslo"]["governance"]["tier"], "democracy")
         self.assertEqual(by_name["Oslo"]["governance"]["score"], 81)
         self.assertIsNone(by_name["Alvdal"]["governance"])  # Undetermined -> none
