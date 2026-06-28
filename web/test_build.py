@@ -65,6 +65,11 @@ DATA = {
     "kommuner": [
         {"kommune": "Oslo", "domain": "oslo.kommune.no", "platform": "US_MICROSOFT",
          "jurisdiction": "United States (CLOUD Act)",
+         "governance": {"country": "United States",
+                        "index": "Freedom House (Freedom in the World)", "score": 81,
+                        "status": "Free", "tier": "democracy",
+                        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+                        "year": 2026},
          "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
          "behind_gateway": False, "flags": [], "fingerprint": "autodiscover",
          "verdict": {"platform": "US_MICROSOFT", "label": "Microsoft 365",
@@ -102,7 +107,7 @@ DATA = {
                  "MX peker på europeisk/norsk e-postdrift", 0.9, "EU_SOVEREIGN")],
          "sourceDate": "2026-06-28"},
         {"kommune": "Alvdal", "domain": "alvdal.kommune.no", "platform": "OTHER",
-         "jurisdiction": "Undetermined", "alternative": None,
+         "jurisdiction": "Undetermined", "governance": None, "alternative": None,
          "behind_gateway": False, "flags": [], "fingerprint": None,
          "verdict": {"platform": "UAVKLART", "label": "Uavklart", "confidence": 0.3,
                      "uavklart": True,
@@ -152,6 +157,22 @@ class BuildHtml(unittest.TestCase):
         self.assertIn("CLOUD Act", self.html)
         # Never moralizes.
         self.assertNotIn("dårlig", self.html.lower())
+
+    def test_governance_frame_is_rendered_and_cited(self):
+        # issue #9: the per-kommune verdict gains a governance frame, factual.
+        self.assertIn("Styresett", self.html)          # the governance fact label
+        self.assertIn("Freedom House", self.html)       # the cited index
+        self.assertIn("freedomhouse.org", self.html)    # the source link
+
+    def test_governance_is_baked_per_kommune(self):
+        start = self.html.index('id="data"')
+        open_tag = self.html.index(">", start) + 1
+        close = self.html.index("</script>", open_tag)
+        payload = json.loads(self.html[open_tag:close].replace("<\\/", "</"))
+        by_name = {k["kommune"]: k for k in payload["kommuner"]}
+        self.assertEqual(by_name["Oslo"]["governance"]["tier"], "democracy")
+        self.assertEqual(by_name["Oslo"]["governance"]["score"], 81)
+        self.assertIsNone(by_name["Alvdal"]["governance"])  # Undetermined -> none
 
     def test_switch_map_with_washing_flags(self):
         self.assertIn("openDesk", self.html)

@@ -109,6 +109,38 @@ per-record `flags`:
 - `mail_domain_differs_from_website` — the resolved mail domain is not the website
   domain (audit trail for the fallback above).
 
+## Governance rating per jurisdiction (`governance.py`)
+
+Skytilsynet tracks not just *foreign* dependence but **how the governing country
+is run** — who governs the provider's operating jurisdiction (US, China, Russia,
+Gulf states, …), not merely "non-EU". Each record's `jurisdiction` resolves to a
+**governance rating** drawn from an established, citable democracy index —
+**Freedom House** *Freedom in the World* (2026 edition):
+
+```json
+"governance": {
+  "country": "United States", "index": "Freedom House (Freedom in the World)",
+  "score": 81, "status": "Free", "tier": "democracy",
+  "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+  "year": 2026
+}
+```
+
+`tier` is derived **only** from the cited `status` (Free → `democracy`, Partly
+Free → `partly free`, Not Free → `authoritarian`) — the factual frame, never a
+separate editorial judgement. The site shows it as a per-kommune verdict line:
+*"USA · demokrati (Freedom House: Free 81/100, 2026)"*. An `Undetermined`
+jurisdiction has `governance: null` — no label without its source (rule 1).
+
+**Seam to BetterWorld (rule 3).** The democracy/governance axis is BetterWorld's
+engine territory — the V-Dem-led DemocracyScore (BetterWorld RFC-002). This repo
+does **not** fork that logic; `governance.py` is a lightweight static
+`country → rating` table and the **first concrete consumer of that seam**.
+`governance.governance_for(jurisdiction)` is the seam: when the axis grows past a
+flat lookup, swap its body for a call into BetterWorld's DemocracyScore (API /
+shared package) — the returned shape is the contract, callers stay unchanged.
+Refresh the table annually from <https://freedomhouse.org/country/scores>.
+
 ## Findings (358 municipalities, scan run 2026-06-28)
 
 | Platform | Count | Share |
