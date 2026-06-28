@@ -211,6 +211,37 @@ class ScanOne(unittest.TestCase):
         self.assertIn("unreachable", rec["flags"])
 
 
+class JoinDomain(unittest.TestCase):
+    def test_record_carries_apex_join_domain(self):
+        # Each record carries a www-stripped apex `domain` so build.py can join the
+        # web axis onto an entity by its website domain (== email's website_domain).
+        rec = ws.build_record("Demo", "https://www.demo.kommune.no/", {},
+                              '<a href="/x">x</a>', {"jurisdiction": "NO (EEA)"},
+                              None, False, "2026-06-28")
+        self.assertEqual(rec["domain"], "demo.kommune.no")
+
+
+class ScanEntitySafe(unittest.TestCase):
+    """main() runs 358 homepages concurrently; one entity blowing up must not abort
+    the whole run. _scan_entity turns an unexpected error into a flagged record."""
+
+    def test_normal_scan_passes_through(self):
+        rec = ws._scan_entity("Ok", "https://ok.no/", "2026-06-28",
+                              scan=lambda n, u, d: {"kommune": n, "flags": []})
+        self.assertEqual(rec["kommune"], "Ok")
+        self.assertNotIn("scan_error", rec["flags"])
+
+    def test_exception_becomes_flagged_record_not_a_crash(self):
+        def boom(name, url, date):
+            raise RuntimeError("dns blew up")
+        rec = ws._scan_entity("Demo", "https://www.demo.no/", "2026-06-28", scan=boom)
+        self.assertEqual(rec["kommune"], "Demo")
+        self.assertIn("scan_error", rec["flags"])
+        self.assertEqual(rec["domain"], "demo.no")
+        self.assertEqual(rec["us_resource_fraction"], 0.0)
+        self.assertEqual(rec["third_parties"], [])
+
+
 class Aggregate(unittest.TestCase):
     def test_counts_and_average_fraction(self):
         recs = [

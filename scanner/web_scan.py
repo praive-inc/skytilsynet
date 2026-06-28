@@ -264,6 +264,9 @@ def build_record(name, url, headers, html, hosting, issuer, security_txt, date):
         "kommune": name,
         "axis": "web",
         "url": url,
+        # www-stripped apex of the website — the key build.py joins this axis onto
+        # an entity by (== the email record's website_domain, same domain_of()).
+        "domain": domain_of(url),
         "host": site_host or None,
         "hosting": hosting,
         "third_parties": third,
@@ -294,6 +297,21 @@ def scan_one(name, url, date, http_get=http_get, dig=dig, tls=tls_issuer):
     if status is None:
         rec["flags"].append("unreachable")
     return rec
+
+
+def _scan_entity(name, url, date, scan=scan_one):
+    """main()'s per-entity worker. Scanning 358 homepages concurrently, a single
+    entity that raises an unexpected error must NOT abort the whole run — it
+    becomes a no-signal record flagged 'scan_error' (factual: we say the scan
+    failed for this one, we don't silently drop it). Network errors are already
+    handled inside scan_one; this guards against the unexpected."""
+    try:
+        return scan(name, url, date)
+    except Exception:
+        rec = build_record(name, url, {}, "", {"jurisdiction": "Undetermined"},
+                           None, False, date)
+        rec["flags"].append("scan_error")
+        return rec
 
 
 def aggregate(results):
@@ -366,7 +384,7 @@ def main():
 
     results = []
     with ThreadPoolExecutor(max_workers=8) as ex:  # low: polite rate, public only
-        futs = [ex.submit(scan_one, n, u, date) for n, u in by_item.values()]
+        futs = [ex.submit(_scan_entity, n, u, date) for n, u in by_item.values()]
         for f in futs:
             results.append(f.result())
     results.sort(key=lambda r: (-r["us_resource_fraction"], r["kommune"]))

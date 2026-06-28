@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DATA = os.path.join(ROOT, "data", "kommune-email-sovereignty.latest.json")
 STAT_DATA = os.path.join(ROOT, "data", "statlige-organ-email-sovereignty.latest.json")
+WEB_DATA = os.path.join(ROOT, "data", "kommune-web-sovereignty.latest.json")
 HISTORY = os.path.join(ROOT, "scanner", "history.json")
 SNAP_DIR = os.path.join(ROOT, "scanner", "snapshots")
 OUT = os.path.join(HERE, "index.html")
@@ -154,20 +155,39 @@ def build_goal(combined):
     }
 
 
-def build_html(data, history, trend, stat=None):
+def index_web(web):
+    """Index the web-axis dataset by website domain, so each entity can be joined
+    to its web record. Empty when no web scan has been published yet."""
+    if not web:
+        return {}
+    return {r["domain"]: r for r in web.get("kommuner", []) if r.get("domain")}
+
+
+def attach_web(entities, web_index):
+    """Join each entity's web-axis record onto it as `web`, keyed by website domain
+    (the email record's `website_domain`, or its email `domain` for older data).
+    Entities with no web scan carry web=None — the axis stays distinct, never
+    conflated with the email verdict."""
+    return [{**e, "web": web_index.get(e.get("website_domain") or e.get("domain"))}
+            for e in entities]
+
+
+def build_html(data, history, trend, stat=None, web=None):
     """Render the full single-file site. Pure: same inputs -> same output.
 
-    `data` is the kommune dataset; `stat` (optional) the statlige-organ dataset.
-    The two are baked as categories with their own summaries; the headline is the
-    COMBINED scanned public sector."""
+    `data` is the kommune dataset; `stat` (optional) the statlige-organ dataset;
+    `web` (optional) the website-infrastructure dataset, joined per entity by
+    website domain as a SECOND axis. The categories are baked with their own
+    summaries; the headline is the COMBINED scanned public sector."""
+    web_index = index_web(web)
     categories = [{
-        "key": "kommune", "label": "Kommuner",
-        "summary": data["summary"], "entities": normalize(data["kommuner"]),
+        "key": "kommune", "label": "Kommuner", "summary": data["summary"],
+        "entities": attach_web(normalize(data["kommuner"]), web_index),
     }]
     if stat:
         categories.append({
-            "key": "stat", "label": "Statlige organ",
-            "summary": stat["summary"], "entities": normalize(stat["organ"]),
+            "key": "stat", "label": "Statlige organ", "summary": stat["summary"],
+            "entities": attach_web(normalize(stat["organ"]), web_index),
         })
     combined = combine_summaries([c["summary"] for c in categories])
     payload = {
@@ -187,15 +207,17 @@ def build_html(data, history, trend, stat=None):
 def main():
     data = json.load(open(DATA))
     stat = json.load(open(STAT_DATA)) if os.path.exists(STAT_DATA) else None
+    web = json.load(open(WEB_DATA)) if os.path.exists(WEB_DATA) else None
     history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
     old, new = load_snapshots()
     trend = compute_trend(old, new)
-    html = build_html(data, history, trend, stat)
+    html = build_html(data, history, trend, stat, web)
     with open(OUT, "w") as f:
         f.write(html)
     n_stat = len(stat["organ"]) if stat else 0
+    n_web = len(web["kommuner"]) if web else 0
     print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner "
-          f"+ {n_stat} statlige organ)")
+          f"+ {n_stat} statlige organ, web axis on {n_web} entities)")
 
 
 # --------------------------------------------------------------------------
@@ -700,6 +722,51 @@ _TEMPLATE = r"""<!doctype html>
         'rel="noopener">'+src+'</a></div>';
     return fact("Styresett i jurisdiksjonen", v);
   }
+  // Jurisdiction string -> the same red/green coding the email axis uses.
+  function jurCls(j){
+    j = j || "";
+    return /CLOUD Act/.test(j) ? "red" : /\(EEA\)|\(EU\)/.test(j) ? "green" : "";
+  }
+  // ---- Web axis (issue #13): the SECOND, distinct axis. Where does the website
+  // infrastructure answer to? Joined per entity by website domain, never merged
+  // into the email verdict. Rendered as its own cited section; absent when no scan.
+  function renderWebAxis(k){
+    var w = k.web;
+    if(!w) return "";
+    var host = w.hosting || {};
+    var usPct = Math.round((w.us_resource_fraction || 0) * 100);
+    var e = w.evidence || {};
+    var tp = (w.third_parties || []).map(function(t){
+      return '<div class="ev">'+
+        '<span class="sig">'+esc(t.category)+'</span>'+
+        '<span class="obs">'+esc(t.domain)+'</span>'+
+        '<span class="inf">→ jurisdiksjon: '+esc(t.jurisdiction)+
+          (t.flags && t.flags.length ? ' · '+esc(t.flags.join(", ")) : "")+'</span>'+
+        '</div>';
+    }).join("");
+    if(!tp) tp = '<div class="ev"><span class="obs">Ingen eksterne tredjeparts-'+
+      'ressurser lastet fra forsiden.</span></div>';
+    return '<h2>Web-akse — nettstedets infrastruktur</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">En '+
+        '<b>egen akse, skilt fra e-post</b>: hvor svarer selve nettstedet til? '+
+        'Utledet av det en nettleser uansett henter — HTTP-headere, innebygde '+
+        'tredjeparts-ressurser og verts-IP-ens opphavs-ASN. Påvirker ikke '+
+        'e-postverdiktet over.</p>'+
+      '<div class="facts">'+
+        fact("Vert (hosting) jurisdiksjon", esc(host.jurisdiction || "Uavklart"),
+             jurCls(host.jurisdiction))+
+        fact("Tredjeparts-ressurser fra USA", usPct+' %', usPct>0?"red":"green")+
+        fact("Analyse / sporing", w.analytics ? "Påvist" : "Ikke påvist",
+             w.analytics ? "red" : "green")+
+        fact("TLS-utsteder", esc(e.tls_issuer || "—"))+
+      '</div>'+
+      '<div class="evidence">'+tp+'</div>'+
+      '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: '+
+        esc(w.url || ("https://"+(w.host||"")))+' (HTTP-headere + innebygde '+
+        'ressurser + TLS-utsteder) og offentlig DNS (A → Team Cymru origin-ASN'+
+        (host.asn? ": AS"+esc(host.asn)+(host.name?" "+esc(host.name):""):"")+
+        '), målt '+esc(noDate(w.sourceDate || DB.meta.sourceDate))+'.</p>';
+  }
   function renderDetail(k, catKey){
     var m = platMeta(k);
     var resid = (k.platform==="EU_SOVEREIGN")
@@ -713,13 +780,6 @@ _TEMPLATE = r"""<!doctype html>
       : (k.platform==="EU_SOVEREIGN" ? "Allerede på europeisk/norsk drift" : "—");
     var flagsHtml = (k.flags||[]).map(function(f){
       return '<div class="flag">'+esc(FLAG_NO[f]||f)+'</div>'; }).join("");
-    var evLines = [];
-    (ev.mx||[]).forEach(function(x){ evLines.push('<span class="lbl">MX  </span>'+esc(x)); });
-    if(ev.spf) evLines.push('<span class="lbl">SPF </span>'+esc(ev.spf));
-    if(ev.autodiscover) evLines.push('<span class="lbl">AUTO</span>'+esc(ev.autodiscover));
-    if(ev.dkim) evLines.push('<span class="lbl">DKIM</span>'+esc(ev.dkim));
-    if(ev.realm) evLines.push('<span class="lbl">REALM</span>'+esc(ev.realm));
-    if(!evLines.length) evLines.push("(ingen MX/SPF/autodiscover-poster funnet)");
     var kind = catKey==="stat" ? "Statlig organ" : "Kommune";
     var backLabel = catKey==="stat" ? "← Alle statlige organ" : "← Alle kommuner";
 
@@ -746,7 +806,8 @@ _TEMPLATE = r"""<!doctype html>
         'troverdighetsgrunnlaget: ingen påstand uten kilde.</p>'+
       renderTrail(k.evidence)+
       '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
-        'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>';
+        'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>'+
+      renderWebAxis(k);
   }
 
   // ---- Routing ------------------------------------------------------------
