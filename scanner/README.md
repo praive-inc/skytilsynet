@@ -1,22 +1,29 @@
-# Norway kommune email-sovereignty scan
+# Norway public-sector email-sovereignty scan
 
-A zero-cost, no-auth pipeline that scores every Norwegian municipality on email
+A zero-cost, no-auth pipeline that scores Norwegian **public bodies** on email
 **platform sovereignty** from public DNS alone — which jurisdiction its mail
-answers to. It is the scanner half of the **Public-Sector Sovereignty Scorecard**
-([scorecard-spec](../docs/scorecard-spec.md) §2/§5); the scoring engine stays in
-BetterWorld (CLAUDE.md rule 3).
+answers to. It covers two categories with one pipeline: every **kommune**
+(municipality) and a curated set of major **statlige organ** (state bodies —
+departementer, direktorater, etater, helseforetak). It is the scanner half of the
+**Public-Sector Sovereignty Scorecard** ([scorecard-spec](../docs/scorecard-spec.md)
+§2/§5); the scoring engine stays in BetterWorld (CLAUDE.md rule 3).
 
 **Run:**
 
 ```bash
-python3 scan.py                       # snapshot dated today (UTC)
+python3 scan.py                       # scan BOTH categories, dated today (UTC)
+SCAN_ONLY=stat python3 scan.py        # only statlige organ (SCAN_ONLY=kommune for kommuner)
 SCAN_DATE=2026-06-27 python3 scan.py  # pin the snapshot date
+python3 gen_statlige_organ.py         # refresh the state-body seed from Enhetsregisteret
 python3 transition.py                 # which kommuner moved between the last two runs
 python3 -m unittest                   # offline test suite (no network)
 ```
 
 Needs `dig`. Reads `kommuner_wikidata.json` (Wikidata SPARQL dump of
-`wdt:P31 wd:Q755707` municipalities + their `P856` website).
+`wdt:P31 wd:Q755707` municipalities + their `P856` website) and
+`statlige_organ.json` (see the state-body section below). Each record carries a
+`category` (`kommune` | `stat`) and a `name`; kommuner keep the legacy `kommune`
+key for the published-dataset/trend contract.
 
 ## Method
 
@@ -162,14 +169,41 @@ Refresh the table annually from <https://freedomhouse.org/country/scores>.
   four on Google Workspace. The regional co-ops that *looked* sovereign were
   Microsoft tenants behind a co-op gateway all along.
 
+**Statlige organ (39 bodies, same run):** **97.4% on Microsoft 365; 100% on a US
+hyperscaler** (the one non-Microsoft is a Microsoft+Google mix). Central-state IT
+is even more consolidated than the kommuner — `0` Uavklart, every body resolved.
+Combined scanned public sector (397 bodies): **98.5% Microsoft, 99.7% US.**
+
 ## Output
 
 | File | Contents |
 |---|---|
 | `snapshots/<date>.json` | versioned point-in-time snapshot (`date`, `summary`, `kommuner`) |
 | `history.json` | one aggregate row per run — the trend `transition.py` reads |
-| `kommune_sovereignty.json` | latest records (scanner-local convenience copy) |
+| `kommune_sovereignty.json` | latest kommune records (scanner-local convenience copy) |
 | `../data/kommune-email-sovereignty.latest.json` | the **published CC-BY dataset** (meta + summary + kommuner) |
+| `snapshots/statlige-<date>.json` | statlige-organ snapshot (`date`, `summary`, `organ`) |
+| `statlige_history.json` · `statlige_sovereignty.json` | state-body trend rows + latest records |
+| `../data/statlige-organ-email-sovereignty.latest.json` | the **published CC-BY** state-body dataset (meta + summary + organ) |
+
+## Second category: statlige organ (state bodies)
+
+The public sector is bigger than the kommuner. `statlige_organ.json` seeds a
+curated set of the big, recognisable central-state bodies — NAV, Skatteetaten,
+politiet, departementer, helseforetak, universiteter — the way
+`kommuner_wikidata.json` seeds the kommuner. They run through the **exact same**
+email pipeline (MX + SPF + autodiscover + the DKIM/SPF-IP/getuserrealm deep
+unmask), tagged `category: "stat"`, and get their own published dataset + summary;
+`web/build.py` shows them as a second category beside the kommuner with the
+combined public-sector headline.
+
+`gen_statlige_organ.py` builds the seed: the body selection is curated (editorial),
+but each body's **legal identity** (official name + website) is resolved live from
+the public **Brønnøysund Enhetsregisteret** by `organisasjonsnummer` — the citable
+source (CLAUDE.md rule 1/4). Mail domains are curated and DNS-confirmed (the
+register lists the website, which for ministries is `regjeringen.no` while mail
+runs on the shared `<code>.dep.no` infrastructure). Re-run it only to refresh
+names/websites; the produced JSON is committed so the scan stays offline.
 
 ## Second axis: website-infrastructure sovereignty (`web_scan.py`)
 

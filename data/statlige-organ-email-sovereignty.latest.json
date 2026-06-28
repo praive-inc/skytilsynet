@@ -1,0 +1,930 @@
+{
+  "meta": {
+    "title": "Norwegian state-body (statlige organ) email-platform sovereignty",
+    "source": "public DNS (MX + SPF + autodiscover CNAME); entities from Brønnøysund Enhetsregisteret",
+    "sourceDate": "2026-06-28",
+    "license": "CC BY 4.0",
+    "attribution": "Skytilsynet / BetterWorld, skytilsynet.no",
+    "method": "See ../docs/scorecard-spec.md §2 and scanner/README.md.",
+    "floor_note": "microsoft_pct and us_pct are a FLOOR, not a ceiling: 0 domain(s) sit behind a mail-security gateway whose backend SPF did not unmask — some are likely Microsoft too. The true US share is >= the figure shown."
+  },
+  "summary": {
+    "total": 39,
+    "us_microsoft": 38,
+    "us_google": 0,
+    "us_mixed": 1,
+    "eu_sovereign": 0,
+    "other": 0,
+    "none": 0,
+    "us_total": 39,
+    "us_pct": 100.0,
+    "microsoft_pct": 97.4,
+    "federated": 0,
+    "backend_unmasked": 0,
+    "floor_note": "microsoft_pct and us_pct are a FLOOR, not a ceiling: 0 domain(s) sit behind a mail-security gateway whose backend SPF did not unmask — some are likely Microsoft too. The true US share is >= the figure shown."
+  },
+  "organ": [
+    {
+      "category": "stat",
+      "name": "Arbeidstilsynet",
+      "domain": "arbeidstilsynet.no",
+      "website_domain": "arbeidstilsynet.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 arbeidstilsynet-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 ip4:77.88.94.134 include:spf.protection.outlook.com include:amazonses.com include:_spf.sndr.no include:msg-out._spf.f24cim.com a:epost.arbeidstilsynet.no a:ai-p-s1-ext.ai.basefarm.net include:_spf_outbound.itxnorge.no include:spf.cm.puzzel.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Brønnøysundregistrene",
+      "domain": "brreg.no",
+      "website_domain": "brreg.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "5 brreg-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx include:spf.protection.outlook.com a:smtprelay.brreg.no include:_spf.sndr.no a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Digitaliseringsdirektoratet",
+      "domain": "digdir.no",
+      "website_domain": "digdir.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "1 digdir-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 a:smtp.difi.eon.no include:servers.mcsv.net include:_spf.anpdm.com include:spf.protection.outlook.com ip4:217.18.206.42 ip4:213.180.74.180 ip4:78.41.46.23 ip4:51.13.78.112 ip4:51.13.102.144 ip4:83.149.98.65 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Direktoratet for samfunnssikkerhet og beredskap (DSB)",
+      "domain": "dsb.no",
+      "website_domain": "dsb.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 dsb-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 ip4:91.229.21.100 ip4:193.160.9.37 ip4:141.193.33.98 a:msg-out.onevoice.no a:smtp.no.ist.com include:spf.protection.outlook.com include:sendgrid.net include:_spf-dc12.successfactors.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Domstoladministrasjonen",
+      "domain": "domstol.no",
+      "website_domain": "domstol.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 domstol-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx ip4:176.221.89.68 ip4:62.148.34.227 ip4:62.148.34.238 ip4:146.192.143.44 ip4:77.88.78.8 ip4:139.116.71.0/25 ip6:2a02:9c8:0:1001::/64 include:spf.protection.outlook.com include:amazonses.com include:_spf.proweb.no include:domstoleneinorge.s08.eu\" \"r1.teams-events.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:77.74.160.108/32 ip4:77.74.160.106/32 ip4:192.241.181.127/32 ip4:178.62.38.244/32 ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Finansdepartementet",
+      "domain": "fin.dep.no",
+      "website_domain": "fin.dep.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 fin-dep-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 include:spf.protection.outlook.com include:msg-out.onevoice.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Fiskeridirektoratet",
+      "domain": "fiskeridir.no",
+      "website_domain": "fiskeridir.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 fiskeridir-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 ip4:85.221.0.6 a:gw.fiskeridir.no include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Forsvaret",
+      "domain": "mil.no",
+      "website_domain": "mil.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 mil-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx a:smtp.extend.no ip4:158.112.20.19 ip4:158.112.20.35 ip4:158.112.20.36 include:fd.dep.no include:spf.protection.outlook.com include:spf-mr.infostorm.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:195.254.214.112/24 ip4:146.192.250.128/28 ip4:62.148.40.240/28 ip4:217.18.206.64/28 ip4:217.18.206.0/24 ~all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Forsvarsdepartementet",
+      "domain": "fd.dep.no",
+      "website_domain": "fd.dep.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "realm-managed",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "20 mx1.fd.dep.no",
+          "20 mx2.fd.dep.no"
+        ],
+        "spf": "\"v=spf1 mx -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": "Managed"
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Helse Midt-Norge RHF",
+      "domain": "helse-midt.no",
+      "website_domain": "helse-midt.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "5 helsemidt-no01c.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:_spf.helsemn.no include:_spf2.helsemn.no include:spf.protection.outlook.com ~all\" \"v=spf1 ip4:91.186.72.51 ip4:91.186.72.34 ip4:91.186.72.35 ip4:91.186.65.63 ip4:91.186.65.64 ip4:31.25.221.112 ip4:83.118.184.66 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 ip4:91.186.72.55 ~all\" \"v=spf1 include:_spf.questback.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Helse Nord RHF",
+      "domain": "helse-nord.no",
+      "website_domain": "helse-nord.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 helsenord-no01c.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:_spf.hnikt.no include:sendgrid.net -all\" \"v=spf1 include:spf.protection.outlook.com include:_spf.vendors.hnikt.no ip4:91.186.76.20 ip4:91.186.76.148 ip4:91.186.77.211 ip4:91.186.77.150 ip4:91.186.77.151 ip4:91.186.77.152/29 -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Helse Sør-Øst RHF",
+      "domain": "helse-sorost.no",
+      "website_domain": "helse-sorost.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 mx.sykehuspartner.no"
+        ],
+        "spf": "\"v=spf1 include:_spf.sykehuspartner.no include:_spf.anpdm.com include:spf.protection.outlook.com include:_spf.enternett.no -all\" \"v=spf1 ip4:83.118.180.10 ip4:83.118.180.114 ip4:83.118.180.115 ip4:153.110.241.86 ip4:153.110.241.87 include:_netblockssikt.sykehuspartner.no include:spf.qb-feedback.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.93.252.70 ip4:193.93.253.37 ip4:193.93.253.38 ip4:193.93.253.36 ip4:193.93.253.35 ip4:193.93.253.34 ip4:185.145.190.37 ip4:185.145.190.38 ip4:193.93.253.33 ip4:193.93.253.32 ip4:193.93.253.48 ip4:193.93.253.49 ip4:49.13.104.96/27\"",
+        "autodiscover": "autodiscover.sykehuspartner.no",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Helse Vest RHF",
+      "domain": "helse-vest.no",
+      "website_domain": "helse-vest.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 helsevest-no01c.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 ip4:185.201.93.122 ip4:161.4.88.20/30 include:_spf.nhn.no include:msg-out._spf.onevoice.no include:_spf.sndr.no include:_spf.anpdm.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Helse- og omsorgsdepartementet",
+      "domain": "hod.dep.no",
+      "website_domain": "hod.dep.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 dss-dep-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Helsedirektoratet",
+      "domain": "helsedirektoratet.no",
+      "website_domain": "helsedirektoratet.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 helsedirektoratet-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:spf1.helsedirektoratet.no include:spf2.helsedirektoratet.no ~all\" \"v=spf1 ip4:178.21.131.158 ip4:188.94.219.41 ip4:91.186.79.137 ip4:62.92.2.88 ip4:81.93.160.118 ip4:89.250.123.21 include:msg-out._spf.onevoice.no include:_spf.questback.net include:spf.protection.outlook.com include:_spf.nhn.no ~all\" \"v=spf1 ip4:185.56.184.0/22 ip4:89.250.113.144 include:spf.sndr.no ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Husbanken",
+      "domain": "husbanken.no",
+      "website_domain": "husbanken.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "5 husbanken-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx include:spf.protection.outlook.com include:stspg-customer.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Jernbanedirektoratet",
+      "domain": "jernbanedirektoratet.no",
+      "website_domain": "jernbanedirektoratet.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 jernbanedirektoratet-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:2xucq4j312.powerspf.com ~all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:159.183.0.0/16 ip4:149.72.0.0/16 ip4:54.240\" \".0.0/17 ip4:52.103.0.0/17 ip4:168.245.0.0/17 ip4:167.89.0.0/17 ip4:104.47.0.0/17 ip4:24.110.64.0/18 ip4:134.128.64.0/18 ip4:76.223.128.0/19 ip4:50.31.32.0/19 ip4:23.251.224.0/19 ip4:216.221.160.0/19 include:_s1.2xucq4j312.powerspf.com ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "52.100.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Justis- og beredskapsdepartementet",
+      "domain": "jd.dep.no",
+      "website_domain": "jd.dep.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": true,
+      "fingerprint": "realm-managed",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 mxa-008b4101.gslb.pphosted.com",
+          "10 mxb-008b4101.gslb.pphosted.com"
+        ],
+        "spf": "\"v=spf1 include:spf-008b4101.pphosted.com include:msg-out._spf.f24cim.com a:msg-out.onevoice.no include:mailgun.org -all\" \"v=spf1 ip4:66.159.232.175 ip4:143.55.150.66\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": "Managed"
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Kommunal- og distriktsdepartementet",
+      "domain": "kdd.dep.no",
+      "website_domain": "kdd.dep.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 kdd-dep-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:servers.mcsv.net include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Kriminalomsorgsdirektoratet",
+      "domain": "kriminalomsorgen.no",
+      "website_domain": "kriminalomsorgen.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": true,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "99 kriminalomsorg.in.tmes.trendmicro.com",
+          "10 kriminalomsorg.in.tmes.trendmicro.eu"
+        ],
+        "spf": "\"v=spf1 include:spf.tmes.trendmicro.com include:spf.protection.outlook.com ip4:139.117.13.196 -all\" \"v=spf1 ip4:18.208.22.64/26 ip4:18.208.22.128/25 ip4:18.185.115.128/26 ip4:18.185.115.0/25 ip4:13.238.202.0/25 ip4:13.238.202.128/26 ip4:18.176.203.128/25 ip4:13.213.174.128/25 ip4:18.177.156.0/25 ip4:13.213.220.0/25 include:spfb.tmes.trendmicro.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Landbruksdirektoratet",
+      "domain": "landbruksdirektoratet.no",
+      "website_domain": "landbruksdirektoratet.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 landbruksdirektoratet-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:_spf.vendo.no include:_spf.nanolearning.com include:spf.protection.outlook.com ip4:185.120.100.67 ip4:185.120.100.68 include:spf-tc.telecomputing.no ip4:89.250.123.21 ~all\" \"v=spf1 ip4:109.239.230.208/29 ?all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:84.17.192.128/26 ip4:84.17.205.0/27 ip4:217.173.240.0/20 ip4:95.128.104.0/20 ip4:176.221.93.128/26\" \" ip4:217.173.251.230 ip4:217.173.254.69 ip4:185.7.137.132 ip4:185.7.137.133 ip4:185.7.137.134 ip4:185.7.137.135 ip4:185.7.137.136 ip4:185.7.137.137 ip4:185.7.137.138 ip4:185.7.137.139 ip4:185.7.137.14\" \" ip4:195.18.168.128/25 ip4:212.20.223.0/24 ip4:212.125.205.0/24 ip4:212.4.42.0/24 ip4:212.4.49.0/24 ip4:195.245.210.31 ip4:193.75.104.0/24 ip4:176.221.94.64/27 ip4:77.88.97.128/29 ip4:77.88.64.0/24 ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Mattilsynet",
+      "domain": "mattilsynet.no",
+      "website_domain": "mattilsynet.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 mattilsynet-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:53z54mvgra.powerspf.com -all\" \"v=spf1 exists:%{i}.53z54mvgra.macrospf.powerspf.com -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Miljødirektoratet",
+      "domain": "miljodir.no",
+      "website_domain": "miljodir.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 miljodir-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:i0ir46nyzr.powerspf.com -all\" \"v=spf1 exists:%{i}.i0ir46nyzr.macrospf.powerspf.com -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "NAV (Arbeids- og velferdsetaten)",
+      "domain": "nav.no",
+      "website_domain": "nav.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": true,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "5 mxb-003ba702.gslb.pphosted.com",
+          "5 mxa-003ba702.gslb.pphosted.com"
+        ],
+        "spf": "\"v=spf1 ip4:155.55.50.204 ip4:155.55.50.205 ip4:155.55.50.24 include:spf.protection.outlook.com include:_spf.salesforce.com include:spf-003ba702.pphosted.com a:ai-p-s1-ext.ai.basefarm.net ip4:195.43.63.191/32 ip4:195.43.63.192/32 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 exists:%{i}._spf.mta.salesforce.com -all\" \"v=spf1 ip4:185.132.183.132 ip4:185.183.30.137\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "NTNU",
+      "domain": "ntnu.no",
+      "website_domain": "ntnu.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "autodiscover",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 mx.ntnu.no"
+        ],
+        "spf": "\"v=spf1 redirect=_spf.ntnu.no\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Norad",
+      "domain": "norad.no",
+      "website_domain": "norad.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 norad-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:spf.protection.outlook.com include:_spf.anpdm.com include:spf.eu.exclaimer.net include:spf.flowmailer.net include:_spf.machina.no include:sendgrid.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:104.40.229.156 ip4:52.169.0.179 ip4:20.50.220.144/28 ip4:40.127.253.48/28 ~all\" \"v=spf1 ip4:185.136.64.128/27 ip4:185.136.65.128/27 ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Oslo universitetssykehus HF",
+      "domain": "oslo-universitetssykehus.no",
+      "website_domain": "oslo-universitetssykehus.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "dkim",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 mx.sykehuspartner.no"
+        ],
+        "spf": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
+        "autodiscover": null,
+        "dkim": "selector1-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com selector2-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com",
+        "spf_ms_ip": null,
+        "realm": "Managed"
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Politidirektoratet",
+      "domain": "politiet.no",
+      "website_domain": "politiet.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "spf-ms-ip",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "5 mailgw3.politiet.no",
+          "5 mailgw4.politiet.no"
+        ],
+        "spf": "\"v=spf1 include:_u.politiet.no._spf.smart.ondmarc.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:52.100.0.0/15 ip4:40.107.0.0/16 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 ip4:163.1\" \"74.97.45 ip4:163.174.97.46 ip4:163.174.97.55 ip4:163.174.97.56 ip4:163.174.121.35 ip4:163.174.121.36 include:_p.1.38zydk._u.politiet.no._spf.smart.ondmarc.com ~all\"",
+        "autodiscover": "mail.politiet.no",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Riksrevisjonen",
+      "domain": "riksrevisjonen.no",
+      "website_domain": "riksrevisjonen.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 riksrevisjonen-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx ip4:178.21.131.158 include:spf.protection.outlook.com include:_spf.questback.net include:_spf.grade.se -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:141.147.10.7 ip4:132.226.204.117 ip4:129.159.250.38 ip4:193.122.53.174 ip4:129.159.252.119 ip4:130.61.132.10 ip4:193.122.14.67 ip4:91.217.141.0/24 ip4:87.79.30.0/25 ip4:51.120.120.172 -all\" \"v=spf1\" \" ip4:192.121.252.80\" \" ip4:81.91.10.248\" \" ip4:37.221.227.204\" \" ip4:37.221.227.203\" \" ip4:37.221.229.129\" \" ip4:37.221.229.132\" \" ip4:37.221.229.133\" \" ip4:37.221.229.135\" \" ip4:37.221.229.136\" \" ip4:37.221.229.139\" \" ip4:37.221.229.140\" \" ip4:37.221.229.142\" \" ip4:37.221.231.248\" \" -all\"",
+        "autodiscover": "owa.riksrevisjonen.no",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Sjøfartsdirektoratet",
+      "domain": "sdir.no",
+      "website_domain": "sdir.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 sdir-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:_spf.sdir.no -all\" \"v=spf1 include:msg-out._spf.onevoice.no include:spf.infostorm.no include:servers.mcsv.net include:spf.messagelabs.com include:spf.protection.outlook.com ip4:89.250.123.21 ip4:146.192.200.192 ip4:146.192.200.193 ip4:167.89.0.0/17 ip4:208.117.48.0/20 ip4:50\" \".31.32.0/19 ip4:198.37.144.0/20 ip4:198.21.0.0/21 ip4:192.254.112.0/20 ip4:168.245.0.0/17 ip4:149.72.0.0/16 ip4:176.221.93.128/26 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Skatteetaten",
+      "domain": "skatteetaten.no",
+      "website_domain": "skatteetaten.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 skatteetaten-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 a:smtp.skatteetaten.no a:smtp2.skatteetaten.no a:mail.sismo.no a:smtp01.emea.sabacloud.com a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net  a:cre-p2-ext.p2.osl.basefarm.net ip4:151.187.161.76 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Statens kartverk",
+      "domain": "kartverket.no",
+      "website_domain": "kartverket.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 kartverket-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 mx  ip4:159.162.28.87 include:_spf.sndr.no include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:_spf-dc33.sapsf.eu -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.193.85/32 ip4:130.214.156.205/32 ip4:130.214.156.249/32 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Statens lånekasse for utdanning",
+      "domain": "lanekassen.no",
+      "website_domain": "lanekassen.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 lanekassen-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:ceuiwyr7ky.powerspf.com -all\" \"v=spf1 exists:%{i}.ceuiwyr7ky.macrospf.powerspf.com ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Statens vegvesen",
+      "domain": "vegvesen.no",
+      "website_domain": "vegvesen.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "0 vegvesen-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:espf01.vegvesen.no include:espf02.vegvesen.no ip4:146.2.0.0/16 include:spf.protection.outlook.com -all\" \"v=spf1 a:ai-p-s1-ext.ai.basefarm.net ip4:195.244.102.234 ip4:193.71.49.0/24 ip4:193.75.93.34 ip4:52.143.59.192 ip4:91.217.141.0/24 ip4:185.38.121.0/24 ip4:81.93.163.120 -all\" \"v=spf1 a:c.spf.service-now.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Statistisk sentralbyrå",
+      "domain": "ssb.no",
+      "website_domain": "ssb.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 ssbno.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:542fqsidvj.powerspf.com -all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:185.56.\" \"184.0/24 ip4:185.249.220.0/24 ip4:185.225.161.0/24 ip4:193.71.134.192/28 ip4:193.69.50.16/28 ip6:2a00:1b60:0:4::26 ip4:89.250.123.21 ip4:52.232.27.151 ip4:52.143.59.192 ip4:34.120.101.109 include:_s1.542fqsidvj.powerspf.com ~all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "52.100.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Tolletaten",
+      "domain": "toll.no",
+      "website_domain": "toll.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "20 toll-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:spf-a.telia.com include:spf-b.telia.com a:mailout.osl.basefarm.net a:is-co-smtp02.isky.no a:ta-smtp-mailout1.p2.osl.basefarm.net ip4:193.71.134.205 ip4:161.38.206.55 i\" \"p4:188.240.90.1 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:81.236.60.128/26 ip4:81.236.60.192/28 ip4:81.227.116.74 ip4:81.227.116.81 ip4:81.236.55.0/24 ~all\" \"v=spf1 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Utenriksdepartementet",
+      "domain": "ud.dep.no",
+      "website_domain": "ud.dep.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "realm-managed",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "10 mail.mfa.no"
+        ],
+        "spf": "\"v=spf1 mx -all\"",
+        "autodiscover": null,
+        "dkim": null,
+        "spf_ms_ip": null,
+        "realm": "Managed"
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Utlendingsdirektoratet (UDI)",
+      "domain": "udi.no",
+      "website_domain": "udi.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "1 udi-no.mail.protection.outlook.com"
+        ],
+        "spf": "\"v=spf1 ip4:195.88.106.0/27 ip4:85.31.192.42 ip4:85.31.193.42 ip4:168.245.3.4 ip4:195.88.107.133 ip4:195.88.107.134 ip4:52.232.27.151 include:spf.messagelabs.com include:sendgrid.net include:spf.protection.outlook.com -all\" \"v=spf1 include:nets1.spf.messagelabs.com include:nets2.spf.messagelabs.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "autodiscover.outlook.com",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    },
+    {
+      "category": "stat",
+      "name": "Universitetet i Oslo",
+      "domain": "uio.no",
+      "website_domain": "uio.no",
+      "platform": "US_MIXED",
+      "jurisdiction": "United States (CLOUD Act)",
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "evidence": {
+        "mx": [
+          "50 smtp.uio.no"
+        ],
+        "spf": "\"v=spf1 mx include:spf.uio.no include:_spf.google.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:129.240.10.0/25 ip6:2001:700:100:10::/64 ip6:2001:700:100:8210::/64 ip4:129.240.1.0/26 ip6:2001:700:100:8211::/64 include:spf.protection.outlook.com ?all\" \"v=spf1 ip4:74.125.0.0/16 ip4:209.85.128.0/17 ip6:2001:4860:4864::/56 ip6:2404:6800:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2800:3f0:4864::/56 ip6:2a00:1450:4864::/56 ip6:2c0f:fb50:4864::/56 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "autodiscover": "mail.uio.no",
+        "dkim": null,
+        "spf_ms_ip": "40.92.0.0/15",
+        "realm": null
+      },
+      "sourceDate": "2026-06-28"
+    }
+  ]
+}

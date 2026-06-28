@@ -35,11 +35,15 @@ import governance
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC  = os.path.join(HERE, "kommuner_wikidata.json")
+STATLIGE = os.path.join(HERE, "statlige_organ.json")
 OVERRIDES_FILE = os.path.join(HERE, "mail_domain_overrides.json")
 SNAP_DIR = os.path.join(HERE, "snapshots")
 HISTORY  = os.path.join(HERE, "history.json")
 LATEST   = os.path.join(HERE, "kommune_sovereignty.json")
 DATASET  = os.path.join(HERE, os.pardir, "data", "kommune-email-sovereignty.latest.json")
+STAT_HISTORY = os.path.join(HERE, "statlige_history.json")
+STAT_LATEST  = os.path.join(HERE, "statlige_sovereignty.json")
+STAT_DATASET = os.path.join(HERE, os.pardir, "data", "statlige-organ-email-sovereignty.latest.json")
 
 MICROSOFT = ("mail.protection.outlook.com", "spf.protection.outlook.com",
              "outlook.com", "microsoft.com", "office365.us", "mx.microsoft")
@@ -362,11 +366,17 @@ def slugify(name):
     return s.replace("æ", "ae").replace("ø", "o").replace("å", "a")
 
 
-def candidates(name, website_domain, overrides):
+def candidates(name, website_domain, overrides, category="kommune"):
     """Ordered mail-domain candidates. A curated override is authoritative and
-    used alone; otherwise probe the website, then its parents, then slug.kommune.no."""
+    used alone; otherwise probe the website, then its parents, then slug.kommune.no.
+
+    Statlige organ are seeded with their actual mail domain (gen_statlige_organ.py),
+    so for them the seed domain is used verbatim — no parent walk (it would hit the
+    shared dep.no apex) and no <slug>.kommune.no fallback (meaningless for a state body)."""
     if name in overrides:
         return [overrides[name]]
+    if category != "kommune":
+        return [website_domain] if website_domain else []
     out = []
     if website_domain:
         out.append(website_domain)
@@ -382,9 +392,13 @@ def candidates(name, website_domain, overrides):
     return out
 
 
-def make_record(name, website_domain, domain, ev, date):
-    """Assemble the published per-kommune record: platform + jurisdiction +
-    evidence + recommended alternative + sovereignty-washing flags + sourceDate."""
+def make_record(name, website_domain, domain, ev, date, category="kommune"):
+    """Assemble the published per-entity record: platform + jurisdiction +
+    evidence + recommended alternative + sovereignty-washing flags + sourceDate.
+
+    Records carry a `category` ("kommune" | "stat") and a generic `name`. Kommuner
+    additionally keep the legacy `kommune` key (the published dataset + trend
+    contract); statlige organ use `name` only."""
     platform, fp = classify_evidence(ev)
     behind_gateway = any(g in ev["mx_hosts"] for g in GATEWAYS)
     jurisdiction, alternative = PLATFORM_META[platform]
@@ -403,8 +417,9 @@ def make_record(name, website_domain, domain, ev, date):
     if website_domain and domain != website_domain:
         flags.append("mail_domain_differs_from_website")
     trail = evidence_trail(ev, domain, date)
-    return {
-        "kommune": name,
+    rec = {
+        "category": category,
+        "name": name,
         "domain": domain,
         "website_domain": website_domain,
         "platform": platform,
@@ -418,9 +433,13 @@ def make_record(name, website_domain, domain, ev, date):
         "evidence": trail,
         "sourceDate": date,
     }
+    if category == "kommune":
+        rec["kommune"] = name           # legacy key: dataset + trend contract
+    return rec
 
 
-def resolve(name, website_domain, overrides, date, fetch=fetch, deep=deep_probe):
+def resolve(name, website_domain, overrides, date, category="kommune",
+            fetch=fetch, deep=deep_probe):
     """Walk candidate domains; keep the first that yields a real mail signal.
     Falls back to the website domain's (NONE) evidence if nothing resolves.
 
@@ -429,7 +448,7 @@ def resolve(name, website_domain, overrides, date, fetch=fetch, deep=deep_probe)
     probe (DKIM + getuserrealm) on the chosen domain and reclassify. The HTTPS
     realm GET therefore fires only for the handful of masked domains, not all 358."""
     chosen = None
-    for d in candidates(name, website_domain, overrides):
+    for d in candidates(name, website_domain, overrides, category):
         ev = fetch(d)
         platform, _ = classify_evidence(ev)
         if platform != "NONE":
@@ -439,7 +458,7 @@ def resolve(name, website_domain, overrides, date, fetch=fetch, deep=deep_probe)
     d, ev = chosen
     if classify_evidence(ev)[0] in ("OTHER", "NONE"):
         ev = {**ev, **deep(d)}               # unmask gateway/co-op/None backend
-    return make_record(name, website_domain, d, ev, date)
+    return make_record(name, website_domain, d, ev, date, category)
 
 
 def domain_of(url):
@@ -472,12 +491,12 @@ def aggregate(results):
     }
 
 
-def write_dataset(date, agg, results):
-    """Refresh the published CC-BY dataset consumed by the public site."""
+def write_dataset(path, title, source, date, agg, results, record_key):
+    """Refresh a published CC-BY dataset (one per category) consumed by the site."""
     dataset = {
         "meta": {
-            "title": "Norwegian municipality email-platform sovereignty",
-            "source": "public DNS (MX + SPF + autodiscover CNAME)",
+            "title": title,
+            "source": source,
             "sourceDate": date,
             "license": "CC BY 4.0",
             "attribution": "Skytilsynet / BetterWorld, skytilsynet.no",
@@ -485,50 +504,58 @@ def write_dataset(date, agg, results):
             "floor_note": agg["floor_note"],
         },
         "summary": agg,
-        "kommuner": results,
+        record_key: results,
     }
-    json.dump(dataset, open(DATASET, "w"), ensure_ascii=False, indent=2)
+    json.dump(dataset, open(path, "w"), ensure_ascii=False, indent=2)
 
 
-def main():
-    date = os.environ.get("SCAN_DATE") or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+def load_kommuner():
+    """(name, website_domain) per kommune from the Wikidata dump.
+
+    Key by the Wikidata item URI: it is the stable, unique municipality identity.
+    Keying by name would wrongly collapse the two distinct Vålers and two Herøys
+    (same name, different kommuner); keying by domain would merge any that share
+    one. Bergen appears twice in the dump — first binding wins."""
     data = json.load(open(SRC))
-    overrides = json.load(open(OVERRIDES_FILE)) if os.path.exists(OVERRIDES_FILE) else {}
-    # Key by the Wikidata item URI: it is the stable, unique municipality identity.
-    # Keying by name would wrongly collapse the two distinct Vålers and two Herøys
-    # (same name, different kommuner); keying by domain would merge any that share
-    # one. Bergen appears twice in the dump — first binding wins.
     by_item = {}
     for b in data["results"]["bindings"]:
         item = b["item"]["value"]
         if item not in by_item:
             by_item[item] = (b.get("itemLabel", {}).get("value", "?"),
                              domain_of(b.get("website", {}).get("value")))
-    print(f"[{date}] resolving {len(by_item)} kommune mail domains "
-          "(MX+SPF+autodiscover, with mail-domain fallback)…", file=sys.stderr)
+    return list(by_item.values())
 
+
+def load_statlige():
+    """(name, mail_domain) per state body from the curated, Enhetsregisteret-sourced
+    seed (gen_statlige_organ.py)."""
+    data = json.load(open(STATLIGE))
+    return [(o["name"], o["domain"]) for o in data["organ"]]
+
+
+def resolve_all(entities, category, date, overrides, workers):
+    """Resolve every (name, domain) entity in a category, sorted for a stable diff."""
     results = []
-    with ThreadPoolExecutor(max_workers=24) as ex:
-        futs = [ex.submit(resolve, n, d, overrides, date)
-                for n, d in by_item.values()]
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = [ex.submit(resolve, n, d, overrides, date, category)
+                for n, d in entities]
         for f in futs:
             results.append(f.result())
-    results.sort(key=lambda r: (r["platform"], r["kommune"]))
+    results.sort(key=lambda r: (r["platform"], r["name"]))
+    return results
 
-    agg = aggregate(results)
-    os.makedirs(SNAP_DIR, exist_ok=True)
-    json.dump({"date": date, "summary": agg, "kommuner": results},
-              open(os.path.join(SNAP_DIR, f"{date}.json"), "w"), ensure_ascii=False, indent=2)
-    json.dump(results, open(LATEST, "w"), ensure_ascii=False, indent=2)
-    write_dataset(date, agg, results)
 
-    history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
+def update_history(path, date, agg):
+    history = json.load(open(path)) if os.path.exists(path) else []
     history = [h for h in history if h["date"] != date]      # idempotent re-run
     history.append({"date": date, **{k: v for k, v in agg.items() if k != "floor_note"}})
     history.sort(key=lambda h: h["date"])
-    json.dump(history, open(HISTORY, "w"), ensure_ascii=False, indent=2)
+    json.dump(history, open(path, "w"), ensure_ascii=False, indent=2)
+    return history
 
-    print(f"\n=== Skytilsynet — {agg['total']} kommuner — {date} ===")
+
+def print_summary(label, agg, date, snap_name, history):
+    print(f"\n=== Skytilsynet — {agg['total']} {label} — {date} ===")
     for k, lab in [("us_microsoft","Microsoft 365"),("us_google","Google Workspace"),
                    ("us_mixed","US mixed"),("eu_sovereign","EU-sovereign"),
                    ("other","Other / regional"),("none","Unresolved")]:
@@ -536,7 +563,51 @@ def main():
     print(f"\n  Microsoft 365: {agg['microsoft_pct']}% (floor)  ·  US hyperscaler: {agg['us_pct']}% (floor)")
     print(f"  {agg['federated']} of the Microsoft rows are federated (tenant proven, email inferred).")
     print(f"  {agg['backend_unmasked']} gateway-fronted backend(s) still unmasked → MS share is a floor.")
-    print(f"  snapshot → snapshots/{date}.json  ·  dataset → data/  ·  history ({len(history)} run(s))")
+    print(f"  snapshot → snapshots/{snap_name}  ·  dataset → data/  ·  history ({len(history)} run(s))")
+
+
+def scan_kommuner(date):
+    overrides = json.load(open(OVERRIDES_FILE)) if os.path.exists(OVERRIDES_FILE) else {}
+    entities = load_kommuner()
+    print(f"[{date}] resolving {len(entities)} kommune mail domains "
+          "(MX+SPF+autodiscover, with mail-domain fallback)…", file=sys.stderr)
+    results = resolve_all(entities, "kommune", date, overrides, workers=24)
+    agg = aggregate(results)
+    os.makedirs(SNAP_DIR, exist_ok=True)
+    json.dump({"date": date, "summary": agg, "kommuner": results},
+              open(os.path.join(SNAP_DIR, f"{date}.json"), "w"), ensure_ascii=False, indent=2)
+    json.dump(results, open(LATEST, "w"), ensure_ascii=False, indent=2)
+    write_dataset(DATASET, "Norwegian municipality email-platform sovereignty",
+                  "public DNS (MX + SPF + autodiscover CNAME)", date, agg, results, "kommuner")
+    history = update_history(HISTORY, date, agg)
+    print_summary("kommuner", agg, date, f"{date}.json", history)
+
+
+def scan_statlige(date):
+    entities = load_statlige()
+    print(f"[{date}] resolving {len(entities)} statlige organ mail domains "
+          "(same MX+SPF+autodiscover+deep pipeline)…", file=sys.stderr)
+    results = resolve_all(entities, "stat", date, {}, workers=16)
+    agg = aggregate(results)
+    os.makedirs(SNAP_DIR, exist_ok=True)
+    json.dump({"date": date, "summary": agg, "organ": results},
+              open(os.path.join(SNAP_DIR, f"statlige-{date}.json"), "w"),
+              ensure_ascii=False, indent=2)
+    json.dump(results, open(STAT_LATEST, "w"), ensure_ascii=False, indent=2)
+    write_dataset(STAT_DATASET, "Norwegian state-body (statlige organ) email-platform sovereignty",
+                  "public DNS (MX + SPF + autodiscover CNAME); entities from Brønnøysund Enhetsregisteret",
+                  date, agg, results, "organ")
+    history = update_history(STAT_HISTORY, date, agg)
+    print_summary("statlige organ", agg, date, f"statlige-{date}.json", history)
+
+
+def main():
+    date = os.environ.get("SCAN_DATE") or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    only = os.environ.get("SCAN_ONLY")       # "kommune" | "stat" to scan one category
+    if only != "stat":
+        scan_kommuner(date)
+    if only != "kommune":
+        scan_statlige(date)
 
 
 if __name__ == "__main__":

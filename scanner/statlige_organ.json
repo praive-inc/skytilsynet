@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "title": "Norwegian state bodies (statlige organ) — email-scan seed",
+    "source": "Brønnøysund Enhetsregisteret (legal name + website per orgnr)",
+    "sourceUrl": "https://data.brreg.no/enhetsregisteret/api/enheter/",
+    "sourceDate": "2026-06-28",
+    "license": "CC BY 4.0",
+    "selection": "Curated selection of major central-state bodies (departementer, direktorater, etater, helseforetak, universiteter). Identities resolved from Enhetsregisteret; mail domains curated (the register lists the website, not the mail domain) and confirmed against public DNS.",
+    "count": 39
+  },
+  "organ": [
+    {
+      "name": "Arbeidstilsynet",
+      "legal_name": "ARBEIDSTILSYNET",
+      "orgnr": "974761211",
+      "domain": "arbeidstilsynet.no",
+      "website": "www.arbeidstilsynet.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+    },
+    {
+      "name": "Brønnøysundregistrene",
+      "legal_name": "REGISTERENHETEN I BRØNNØYSUND",
+      "orgnr": "974760673",
+      "domain": "brreg.no",
+      "website": "www.brreg.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+    },
+    {
+      "name": "Digitaliseringsdirektoratet",
+      "legal_name": "DIGITALISERINGSDIREKTORATET",
+      "orgnr": "991825827",
+      "domain": "digdir.no",
+      "website": "www.digdir.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/991825827"
+    },
+    {
+      "name": "Direktoratet for samfunnssikkerhet og beredskap (DSB)",
+      "legal_name": "DIREKTORATET FOR SAMFUNNSSIKKERHET OG BEREDSKAP (DSB)",
+      "orgnr": "974760983",
+      "domain": "dsb.no",
+      "website": "www.dsb.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974760983"
+    },
+    {
+      "name": "Domstoladministrasjonen",
+      "legal_name": "DOMSTOLADMINISTRASJONEN",
+      "orgnr": "926721720",
+      "domain": "domstol.no",
+      "website": null,
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/926721720"
+    },
+    {
+      "name": "Finansdepartementet",
+      "legal_name": "FINANSDEPARTEMENTET",
+      "orgnr": "972417807",
+      "domain": "fin.dep.no",
+      "website": "www.regjeringen.no/fin",
+      "orgform": "STAT",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/972417807"
+    },
+    {
+      "name": "Fiskeridirektoratet",
+      "legal_name": "FISKERIDIREKTORATET",
+      "orgnr": "971203420",
+      "domain": "fiskeridir.no",
+      "website": "www.fiskeridir.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420"
+    },
+    {
+      "name": "Forsvaret",
+      "legal_name": "FORSVARET",
+      "orgnr": "986105174",
+      "domain": "mil.no",
+      "website": "www.mil.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/986105174"
+    },
+    {
+      "name": "Forsvarsdepartementet",
+      "legal_name": "FORSVARSDEPARTEMENTET",
+      "orgnr": "972417823",
+      "domain": "fd.dep.no",
+      "website": "www.odin.dep.no/",
+      "orgform": "STAT",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/972417823"
+    },
+    {
+      "name": "Helse Midt-Norge RHF",
+      "legal_name": "HELSE MIDT-NORGE RHF",
+      "orgnr": "983658776",
+      "domain": "helse-midt.no",
+      "website": "www.helse-midt.no/",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983658776"
+    },
+    {
+      "name": "Helse Nord RHF",
+      "legal_name": "HELSE NORD RHF",
+      "orgnr": "883658752",
+      "domain": "helse-nord.no",
+      "website": "www.helse-nord.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/883658752"
+    },
+    {
+      "name": "Helse Sør-Øst RHF",
+      "legal_name": "HELSE SØR-ØST RHF",
+      "orgnr": "991324968",
+      "domain": "helse-sorost.no",
+      "website": "www.helse-sorost.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/991324968"
+    },
+    {
+      "name": "Helse Vest RHF",
+      "legal_name": "HELSE VEST RHF",
+      "orgnr": "983658725",
+      "domain": "helse-vest.no",
+      "website": "www.helse-vest.no/",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983658725"
+    },
+    {
+      "name": "Helse- og omsorgsdepartementet",
+      "legal_name": "HELSE- OG OMSORGSDEPARTEMENTET",
+      "orgnr": "983887406",
+      "domain": "hod.dep.no",
+      "website": "www.odin.dep.no/",
+      "orgform": "STAT",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983887406"
+    },
+    {
+      "name": "Helsedirektoratet",
+      "legal_name": "HELSEDIREKTORATET",
+      "orgnr": "983544622",
+      "domain": "helsedirektoratet.no",
+      "website": "www.helsedirektoratet.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+    },
+    {
+      "name": "Husbanken",
+      "legal_name": "HUSBANKEN",
+      "orgnr": "942114184",
+      "domain": "husbanken.no",
+      "website": "www.husbanken.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/942114184"
+    },
+    {
+      "name": "Jernbanedirektoratet",
+      "legal_name": "JERNBANEDIREKTORATET",
+      "orgnr": "916810962",
+      "domain": "jernbanedirektoratet.no",
+      "website": null,
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/916810962"
+    },
+    {
+      "name": "Justis- og beredskapsdepartementet",
+      "legal_name": "JUSTIS- OG BEREDSKAPSDEPARTEMENTET",
+      "orgnr": "972417831",
+      "domain": "jd.dep.no",
+      "website": "www.regjeringen.no/jd",
+      "orgform": "STAT",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/972417831"
+    },
+    {
+      "name": "Kommunal- og distriktsdepartementet",
+      "legal_name": "KOMMUNAL- OG DISTRIKTSDEPARTEMENTET",
+      "orgnr": "972417858",
+      "domain": "kdd.dep.no",
+      "website": "www.regjeringen.no/kmd",
+      "orgform": "STAT",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/972417858"
+    },
+    {
+      "name": "Kriminalomsorgsdirektoratet",
+      "legal_name": "KRIMINALOMSORGSDIREKTORATET",
+      "orgnr": "911830868",
+      "domain": "kriminalomsorgen.no",
+      "website": null,
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/911830868"
+    },
+    {
+      "name": "Landbruksdirektoratet",
+      "legal_name": "LANDBRUKSDIREKTORATET",
+      "orgnr": "981544315",
+      "domain": "landbruksdirektoratet.no",
+      "website": "www.landbruksdirektoratet.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/981544315"
+    },
+    {
+      "name": "Mattilsynet",
+      "legal_name": "MATTILSYNET",
+      "orgnr": "985399077",
+      "domain": "mattilsynet.no",
+      "website": "www.mattilsynet.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/985399077"
+    },
+    {
+      "name": "Miljødirektoratet",
+      "legal_name": "MILJØDIREKTORATET",
+      "orgnr": "999601391",
+      "domain": "miljodir.no",
+      "website": "www.miljodirektoratet.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/999601391"
+    },
+    {
+      "name": "NAV (Arbeids- og velferdsetaten)",
+      "legal_name": "ARBEIDS- OG VELFERDSETATEN",
+      "orgnr": "889640782",
+      "domain": "nav.no",
+      "website": "www.nav.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+    },
+    {
+      "name": "NTNU",
+      "legal_name": "NORGES TEKNISK-NATURVITENSKAPELIGE UNIVERSITET NTNU",
+      "orgnr": "974767880",
+      "domain": "ntnu.no",
+      "website": "www.ntnu.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974767880"
+    },
+    {
+      "name": "Norad",
+      "legal_name": "DIREKTORATET FOR UTVIKLINGSSAMARBEID (NORAD)",
+      "orgnr": "971277882",
+      "domain": "norad.no",
+      "website": "www.norad.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971277882"
+    },
+    {
+      "name": "Oslo universitetssykehus HF",
+      "legal_name": "OSLO UNIVERSITETSSYKEHUS HF",
+      "orgnr": "993467049",
+      "domain": "oslo-universitetssykehus.no",
+      "website": "www.oslo-universitetssykehus.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/993467049"
+    },
+    {
+      "name": "Politidirektoratet",
+      "legal_name": "POLITIDIREKTORATET",
+      "orgnr": "982531950",
+      "domain": "politiet.no",
+      "website": "www.politi.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/982531950"
+    },
+    {
+      "name": "Riksrevisjonen",
+      "legal_name": "RIKSREVISJONEN",
+      "orgnr": "974760843",
+      "domain": "riksrevisjonen.no",
+      "website": "www.riksrevisjonen.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974760843"
+    },
+    {
+      "name": "Sjøfartsdirektoratet",
+      "legal_name": "SJØFARTSDIREKTORATET",
+      "orgnr": "974761262",
+      "domain": "sdir.no",
+      "website": "www.sdir.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+    },
+    {
+      "name": "Skatteetaten",
+      "legal_name": "SKATTEETATEN",
+      "orgnr": "974761076",
+      "domain": "skatteetaten.no",
+      "website": "www.skatteetaten.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+    },
+    {
+      "name": "Statens kartverk",
+      "legal_name": "STATENS KARTVERK",
+      "orgnr": "971040238",
+      "domain": "kartverket.no",
+      "website": null,
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971040238"
+    },
+    {
+      "name": "Statens lånekasse for utdanning",
+      "legal_name": "STATENS LÅNEKASSE FOR UTDANNING",
+      "orgnr": "960885406",
+      "domain": "lanekassen.no",
+      "website": "lanekassen.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/960885406"
+    },
+    {
+      "name": "Statens vegvesen",
+      "legal_name": "STATENS VEGVESEN",
+      "orgnr": "971032081",
+      "domain": "vegvesen.no",
+      "website": "www.vegvesen.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+    },
+    {
+      "name": "Statistisk sentralbyrå",
+      "legal_name": "STATISTISK SENTRALBYRÅ",
+      "orgnr": "971526920",
+      "domain": "ssb.no",
+      "website": "www.ssb.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+    },
+    {
+      "name": "Tolletaten",
+      "legal_name": "TOLLETATEN",
+      "orgnr": "974761343",
+      "domain": "toll.no",
+      "website": "www.toll.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974761343"
+    },
+    {
+      "name": "Universitetet i Oslo",
+      "legal_name": "UNIVERSITETET I OSLO",
+      "orgnr": "971035854",
+      "domain": "uio.no",
+      "website": "www.uio.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971035854"
+    },
+    {
+      "name": "Utenriksdepartementet",
+      "legal_name": "UTENRIKSDEPARTEMENTET",
+      "orgnr": "972417920",
+      "domain": "ud.dep.no",
+      "website": "www.regjeringen.no/ud/",
+      "orgform": "STAT",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/972417920"
+    },
+    {
+      "name": "Utlendingsdirektoratet (UDI)",
+      "legal_name": "UTLENDINGSDIREKTORATET",
+      "orgnr": "974760746",
+      "domain": "udi.no",
+      "website": "www.udi.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974760746"
+    }
+  ]
+}

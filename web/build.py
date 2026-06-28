@@ -16,10 +16,12 @@ runtime fetch (works on file://) and has zero US-managed serving dependency
 """
 import json
 import os
+import re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DATA = os.path.join(ROOT, "data", "kommune-email-sovereignty.latest.json")
+STAT_DATA = os.path.join(ROOT, "data", "statlige-organ-email-sovereignty.latest.json")
 HISTORY = os.path.join(ROOT, "scanner", "history.json")
 SNAP_DIR = os.path.join(ROOT, "scanner", "snapshots")
 OUT = os.path.join(HERE, "index.html")
@@ -38,11 +40,16 @@ def no_date(iso):
     return f"{int(d)}. {_MONTHS[int(m)]} {y}"
 
 
+_DATE_SNAP = re.compile(r"^\d{4}-\d{2}-\d{2}\.json$")  # the kommune email series only
+
+
 def load_snapshots(snap_dir=SNAP_DIR):
-    """Return the two most recent snapshot dicts (old, new), or (None, None)."""
+    """Return the two most recent kommune email snapshot dicts (old, new), or
+    (None, None). Only plain date-named files count — the web (web-*) and statlige
+    (statlige-*) series live in the same dir but are a different shape."""
     if not os.path.isdir(snap_dir):
         return None, None
-    dates = sorted(f[:-5] for f in os.listdir(snap_dir) if f.endswith(".json"))
+    dates = sorted(f[:-5] for f in os.listdir(snap_dir) if _DATE_SNAP.match(f))
     if len(dates) < 2:
         return None, None
     load = lambda dt: json.load(open(os.path.join(snap_dir, f"{dt}.json")))
@@ -84,12 +91,60 @@ def _snap_date(snap):
     return snap.get("date") or snap.get("meta", {}).get("sourceDate")
 
 
-def build_html(data, history, trend):
-    """Render the full single-file site. Pure: same inputs -> same output."""
+# Count keys summed when combining per-category summaries into the public-sector
+# headline; the percentages are recomputed from the summed counts, never averaged.
+_COMBINE_COUNTS = ["total", "us_total", "us_microsoft", "us_google", "us_mixed",
+                   "eu_sovereign", "other", "none", "federated", "backend_unmasked"]
+
+
+def _entity_name(rec):
+    """Records carry `name`; kommune records (older datasets) only `kommune`."""
+    return rec.get("name") or rec.get("kommune")
+
+
+def normalize(records):
+    """Ensure every record has a `name` (kommune datasets predate the field) so the
+    page renders both categories uniformly."""
+    out = []
+    for r in records:
+        if "name" in r:
+            out.append(r)
+        else:
+            out.append({**r, "name": _entity_name(r)})
+    return out
+
+
+def combine_summaries(summaries):
+    """Sum the per-category counts and recompute the public-sector headline %.
+    A floor stays a floor: backend_unmasked carries over, so the combined
+    microsoft_pct/us_pct remain a floor exactly as each category's is."""
+    c = {k: sum(s.get(k, 0) for s in summaries) for k in _COMBINE_COUNTS}
+    total = c["total"]
+    pct = lambda n: round(100 * n / total, 1) if total else 0.0
+    c["us_pct"] = pct(c["us_total"])
+    c["microsoft_pct"] = pct(c["us_microsoft"])
+    return c
+
+
+def build_html(data, history, trend, stat=None):
+    """Render the full single-file site. Pure: same inputs -> same output.
+
+    `data` is the kommune dataset; `stat` (optional) the statlige-organ dataset.
+    The two are baked as categories with their own summaries; the headline is the
+    COMBINED scanned public sector."""
+    categories = [{
+        "key": "kommune", "label": "Kommuner",
+        "summary": data["summary"], "entities": normalize(data["kommuner"]),
+    }]
+    if stat:
+        categories.append({
+            "key": "stat", "label": "Statlige organ",
+            "summary": stat["summary"], "entities": normalize(stat["organ"]),
+        })
     payload = {
-        "summary": data["summary"],
         "meta": data["meta"],
-        "kommuner": data["kommuner"],
+        "combined": combine_summaries([c["summary"] for c in categories]),
+        "categories": categories,
         "history": history,
         "trend": trend,
     }
@@ -101,13 +156,16 @@ def build_html(data, history, trend):
 
 def main():
     data = json.load(open(DATA))
+    stat = json.load(open(STAT_DATA)) if os.path.exists(STAT_DATA) else None
     history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
     old, new = load_snapshots()
     trend = compute_trend(old, new)
-    html = build_html(data, history, trend)
+    html = build_html(data, history, trend, stat)
     with open(OUT, "w") as f:
         f.write(html)
-    print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner)")
+    n_stat = len(stat["organ"]) if stat else 0
+    print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner "
+          f"+ {n_stat} statlige organ)")
 
 
 # --------------------------------------------------------------------------
@@ -160,6 +218,12 @@ _TEMPLATE = r"""<!doctype html>
   .spark{display:flex;gap:3px;align-items:flex-end;height:42px;margin-top:14px}
   .spark .bar{flex:1;background:var(--red);border-radius:2px 2px 0 0;min-height:3px}
   .spark .lab{font-size:11px;color:var(--muted)}
+  /* Category toggle (Kommuner | Statlige organ) */
+  .catbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+  .cattab{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    color:var(--muted);padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+  .cattab.on{color:var(--fg);border-color:var(--accent);background:#10202e}
+  .cattab .pct{color:var(--red);font-weight:700}
   /* Controls */
   .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0 14px}
   input[type=search]{background:var(--surface);border:1px solid var(--line);border-radius:10px;
@@ -240,16 +304,18 @@ _TEMPLATE = r"""<!doctype html>
   <section id="view-home">
     <span class="badge">Skybarometeret</span>
     <h1>Hvor avhengig er Norge av utenlandsk teknologi?</h1>
-    <p class="tagline">Hvilken jurisdiksjon norske kommuners e-post svarer til — kommune for kommune.</p>
+    <p class="tagline">Hvilken jurisdiksjon norsk offentlig sektors e-post svarer til —
+      kommune for kommune og statlig organ for statlig organ.</p>
 
     <div class="hero">
       <div class="stat" id="stat-hero"></div>
       <div class="stat trend" id="stat-trend"></div>
     </div>
 
-    <h2>Alle kommuner</h2>
+    <h2 id="grid-title">Hele offentlig sektor</h2>
+    <div class="catbar" id="catbar"></div>
     <p class="tagline" style="font-size:15px;margin-bottom:14px">
-      Hver rute er én kommune, fargelagt etter hvilken jurisdiksjon e-posten svarer
+      Hver rute er ett organ, fargelagt etter hvilken jurisdiksjon e-posten svarer
       til. Klikk for plattform, jurisdiksjon, evidens og anbefalt europeisk alternativ.</p>
 
     <div class="legend">
@@ -259,7 +325,7 @@ _TEMPLATE = r"""<!doctype html>
       <span><span class="sw" style="background:var(--grey)"></span>Uavklart</span>
     </div>
     <div class="controls">
-      <input type="search" id="q" placeholder="Søk etter kommune …" autocomplete="off" />
+      <input type="search" id="q" placeholder="Søk …" autocomplete="off" />
       <div class="filters" id="filters"></div>
     </div>
     <p class="count" id="count"></p>
@@ -342,7 +408,9 @@ _TEMPLATE = r"""<!doctype html>
 (function(){
   "use strict";
   var DB = JSON.parse(document.getElementById("data").textContent);
-  var K = DB.kommuner;
+  var CATS = DB.categories;                 // [{key,label,summary,entities}]
+  var COMBINED = DB.combined;               // headline over the whole public sector
+  function nameOf(k){ return k.name || k.kommune; }
 
   // platform -> {label, juris, css color class}
   function platMeta(k){
@@ -350,6 +418,7 @@ _TEMPLATE = r"""<!doctype html>
       case "US_MICROSOFT": return {label:"Microsoft 365", juris:"USA (CLOUD Act)",
         css: k.behind_gateway ? "c-amber" : "c-red", vcls:"red"};
       case "US_GOOGLE": return {label:"Google Workspace", juris:"USA (CLOUD Act)", css:"c-red", vcls:"red"};
+      case "US_MIXED": return {label:"Microsoft + Google", juris:"USA (CLOUD Act)", css:"c-red", vcls:"red"};
       case "EU_SOVEREIGN": return {label:"Europeisk / norsk drift", juris:"Norge (EØS)", css:"c-green", vcls:"green"};
       default: return {label:"Uavklart", juris:"Uavklart", css:"c-grey", vcls:""};
     }
@@ -363,7 +432,8 @@ _TEMPLATE = r"""<!doctype html>
   ];
   var FLAG_NO = {
     backend_unmasked: "Bak e-postgateway — bakomliggende plattform ikke avdekket (tallet er et gulv)",
-    mail_domain_differs_from_website: "E-postdomenet er et annet enn nettstedet"
+    mail_domain_differs_from_website: "E-postdomenet er et annet enn nettstedet",
+    federated: "Azure AD-føderert tenant påvist — e-post utledet med høy sikkerhet"
   };
   // Governance frame (issue #9): the regime tier of the jurisdiction's country,
   // derived from the cited Freedom House status. Factual label, not editorial.
@@ -372,17 +442,26 @@ _TEMPLATE = r"""<!doctype html>
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
   function slug(name){return name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
+  function pct(n){return Number(n).toFixed(1).replace(".",",");}
+  function catBy(key){ for(var i=0;i<CATS.length;i++){ if(CATS[i].key===key) return CATS[i]; } return CATS[0]; }
 
-  // ---- Hero + trend -------------------------------------------------------
+  var state = {q:"", filter:"ALL", cat: CATS[0].key};
+  function curCat(){ return catBy(state.cat); }
+
+  // ---- Hero (combined) + trend -------------------------------------------
   function renderHero(){
-    var s = DB.summary;
+    var s = COMBINED;
+    var breakdown = CATS.map(function(c){
+      return esc(c.label)+' '+pct(c.summary.microsoft_pct)+' %'; }).join(' · ');
+    var sectorLabel = CATS.length>1 ? "norsk offentlig sektor (kommuner + statlige organ)"
+                                    : "norske kommuner";
     document.getElementById("stat-hero").innerHTML =
-      '<div class="big">'+s.microsoft_pct.toFixed(1).replace(".",",")+' %</div>'+
-      '<div class="cap">av norske kommuner kjører e-posten sin på Microsoft 365 '+
-      '(USA; CLOUD Act-jurisdiksjon). '+s.us_pct.toFixed(1).replace(".",",")+
+      '<div class="big">'+pct(s.microsoft_pct)+' %</div>'+
+      '<div class="cap">av '+sectorLabel+' kjører e-posten på Microsoft 365 '+
+      '(USA; CLOUD Act-jurisdiksjon). '+pct(s.us_pct)+
       ' % på en amerikansk skyleverandør.</div>'+
-      '<div class="src">'+s.us_total+' av '+s.total+' kommuner på USA · '+
-      s.eu_sovereign+' på norsk/europeisk drift · målt '+esc(noDate(DB.meta.sourceDate))+
+      '<div class="src">'+s.us_total+' av '+s.total+' organ på USA · '+breakdown+
+      ' · målt '+esc(noDate(DB.meta.sourceDate))+
       ' fra åpne DNS-data (MX, SPF, autodiscover).</div>';
 
     var t = DB.trend, el = document.getElementById("stat-trend");
@@ -391,7 +470,7 @@ _TEMPLATE = r"""<!doctype html>
       '<div class="cap">For få målinger til å vise bevegelse ennå.</div>'+spark; return; }
     var left = t.left_microsoft.length, joined = t.joined_microsoft.length;
     el.innerHTML =
-      '<div class="big">Bevegelse</div>'+
+      '<div class="big">Bevegelse (kommuner)</div>'+
       '<div class="cap">Siden forrige måling ('+esc(noDate(t.from_date))+' → '+
         esc(noDate(t.to_date))+'):</div>'+
       '<div class="row '+(left?"green":"")+'">'+
@@ -407,16 +486,23 @@ _TEMPLATE = r"""<!doctype html>
     var h = DB.history || [];
     if(h.length < 2) return "";
     var max = 100, bars = h.map(function(p){
-      var pct = p.microsoft_pct;
-      return '<div class="bar" style="height:'+(pct/max*100)+'%" title="'+
-        esc(p.date)+': '+pct+' %"></div>';
+      var v = p.microsoft_pct;
+      return '<div class="bar" style="height:'+(v/max*100)+'%" title="'+
+        esc(p.date)+': '+v+' %"></div>';
     }).join("");
     return '<div class="spark">'+bars+'</div>'+
-      '<div class="lab">Microsoft-andel, '+esc(h[0].date)+' → '+esc(h[h.length-1].date)+'</div>';
+      '<div class="lab">Microsoft-andel (kommuner), '+esc(h[0].date)+' → '+esc(h[h.length-1].date)+'</div>';
   }
 
-  // ---- Grid ---------------------------------------------------------------
-  var state = {q:"", filter:"ALL"};
+  // ---- Category toggle + grid --------------------------------------------
+  function renderCatbar(){
+    var bar = document.getElementById("catbar");
+    if(CATS.length < 2){ bar.style.display = "none"; return; }
+    bar.innerHTML = CATS.map(function(c){
+      return '<span class="cattab'+(state.cat===c.key?" on":"")+'" data-c="'+esc(c.key)+'">'+
+        esc(c.label)+' <span class="pct">'+pct(c.summary.microsoft_pct)+' %</span></span>';
+    }).join("");
+  }
   function renderFilters(){
     document.getElementById("filters").innerHTML = FILTERS.map(function(f){
       return '<span class="chip'+(state.filter===f.key?" on":"")+'" data-f="'+f.key+'">'+
@@ -424,27 +510,35 @@ _TEMPLATE = r"""<!doctype html>
     }).join("");
   }
   function matches(k){
-    if(state.filter!=="ALL" && k.platform!==state.filter) return false;
-    if(state.q && k.kommune.toLowerCase().indexOf(state.q)<0 &&
+    if(state.filter==="OTHER"){ if(k.platform!=="OTHER" && k.platform!=="NONE") return false; }
+    else if(state.filter!=="ALL" && k.platform!==state.filter) return false;
+    if(state.q && nameOf(k).toLowerCase().indexOf(state.q)<0 &&
        (k.domain||"").toLowerCase().indexOf(state.q)<0) return false;
     return true;
   }
   function renderGrid(){
-    var rows = K.filter(matches).sort(function(a,b){
-      return a.kommune.localeCompare(b.kommune,"nb"); });
-    document.getElementById("count").textContent = rows.length+" av "+K.length+" kommuner";
+    var cat = curCat(), all = cat.entities;
+    document.getElementById("grid-title").textContent = cat.label;
+    var rows = all.filter(matches).sort(function(a,b){
+      return nameOf(a).localeCompare(nameOf(b),"nb"); });
+    document.getElementById("count").textContent =
+      rows.length+" av "+all.length+" "+cat.label.toLowerCase();
     document.getElementById("grid").innerHTML = rows.map(function(k){
       var m = platMeta(k);
       var fl = (k.flags||[]).indexOf("backend_unmasked")>=0
         ? '<div class="fl">⚑ bak gateway — gulv</div>' : "";
-      return '<button class="cell '+m.css+'" data-k="'+esc(slug(k.kommune))+'">'+
-        '<div class="nm">'+esc(k.kommune)+'</div>'+
+      return '<button class="cell '+m.css+'" data-c="'+esc(cat.key)+'" data-k="'+esc(slug(nameOf(k)))+'">'+
+        '<div class="nm">'+esc(nameOf(k))+'</div>'+
         '<div class="pl">'+esc(m.label)+'</div>'+fl+'</button>';
     }).join("");
   }
 
   // ---- Detail -------------------------------------------------------------
-  function bySlug(s){ for(var i=0;i<K.length;i++){ if(slug(K[i].kommune)===s) return K[i]; } return null; }
+  function bySlug(catKey, s){
+    var arr = catBy(catKey).entities;
+    for(var i=0;i<arr.length;i++){ if(slug(nameOf(arr[i]))===s) return arr[i]; }
+    return null;
+  }
   function fact(k,v,cls){ return '<div class="fact"><div class="k">'+esc(k)+
     '</div><div class="v '+(cls||"")+'">'+v+'</div></div>'; }
   // platform key (incl. UAVKLART verdict) -> {label, value-color class}
@@ -489,11 +583,11 @@ _TEMPLATE = r"""<!doctype html>
         'rel="noopener">'+src+'</a></div>';
     return fact("Styresett i jurisdiksjonen", v);
   }
-  function renderDetail(k){
+  function renderDetail(k, catKey){
     var m = platMeta(k);
     var resid = (k.platform==="EU_SOVEREIGN")
       ? "Norge / EØS — under europeisk rettsvern"
-      : (k.platform==="OTHER")
+      : (k.platform==="OTHER" || k.platform==="NONE")
         ? "Ikke avgjort fra DNS alene"
         : "Avhenger av oppsett, men operatøren er underlagt CLOUD Act uansett lagringssted "+
           "(EU-region opphever ikke jurisdiksjonen)";
@@ -502,11 +596,21 @@ _TEMPLATE = r"""<!doctype html>
       : (k.platform==="EU_SOVEREIGN" ? "Allerede på europeisk/norsk drift" : "—");
     var flagsHtml = (k.flags||[]).map(function(f){
       return '<div class="flag">'+esc(FLAG_NO[f]||f)+'</div>'; }).join("");
+    var evLines = [];
+    (ev.mx||[]).forEach(function(x){ evLines.push('<span class="lbl">MX  </span>'+esc(x)); });
+    if(ev.spf) evLines.push('<span class="lbl">SPF </span>'+esc(ev.spf));
+    if(ev.autodiscover) evLines.push('<span class="lbl">AUTO</span>'+esc(ev.autodiscover));
+    if(ev.dkim) evLines.push('<span class="lbl">DKIM</span>'+esc(ev.dkim));
+    if(ev.realm) evLines.push('<span class="lbl">REALM</span>'+esc(ev.realm));
+    if(!evLines.length) evLines.push("(ingen MX/SPF/autodiscover-poster funnet)");
+    var kind = catKey==="stat" ? "Statlig organ" : "Kommune";
+    var backLabel = catKey==="stat" ? "← Alle statlige organ" : "← Alle kommuner";
 
     var v = document.getElementById("view-detail");
     v.innerHTML =
-      '<span class="back" id="back">← Alle kommuner</span>'+
-      '<h1>'+esc(k.kommune)+'</h1>'+
+      '<span class="back" id="back">'+esc(backLabel)+'</span>'+
+      '<span class="badge">'+esc(kind)+'</span>'+
+      '<h1>'+esc(nameOf(k))+'</h1>'+
       '<p class="tagline" style="font-size:16px">E-postdomene: <code>'+esc(k.domain||"—")+'</code></p>'+
       '<div class="facts">'+
         renderVerdict(k)+
@@ -531,13 +635,13 @@ _TEMPLATE = r"""<!doctype html>
   // ---- Routing ------------------------------------------------------------
   function route(){
     var hash = location.hash.replace(/^#/,"");
-    var m = hash.match(/^kommune\/(.+)$/);
+    var m = hash.match(/^org\/([^/]+)\/(.+)$/);
     var home = document.getElementById("view-home");
     var detail = document.getElementById("view-detail");
     var rest = document.getElementById("static-rest");
     if(m){
-      var k = bySlug(m[1]);
-      if(k){ renderDetail(k); home.classList.add("hidden"); rest.classList.add("hidden");
+      var k = bySlug(m[1], m[2]);
+      if(k){ renderDetail(k, m[1]); home.classList.add("hidden"); rest.classList.add("hidden");
         detail.classList.remove("hidden"); window.scrollTo(0,0); return; }
     }
     detail.classList.add("hidden"); home.classList.remove("hidden"); rest.classList.remove("hidden");
@@ -550,23 +654,30 @@ _TEMPLATE = r"""<!doctype html>
       "september","oktober","november","desember"];
     var p=iso.split("-"); return parseInt(p[2],10)+". "+mo[parseInt(p[1],10)]+" "+p[0];
   }
+  var totalAll = CATS.reduce(function(n,c){ return n + c.summary.total; }, 0);
   document.getElementById("method-note").innerHTML =
-    "Hver kommune er klassifisert ut fra offentlig DNS (MX + SPF + autodiscover-fingeravtrykk), "+
-    "målt "+esc(noDate(DB.meta.sourceDate))+". "+esc(DB.summary.total)+" kommuner totalt.";
+    "Hvert organ er klassifisert ut fra offentlig DNS (MX + SPF + autodiscover-fingeravtrykk, "+
+    "med DKIM/SPF-IP/getuserrealm-avdekking for maskerte bakender), målt "+
+    esc(noDate(DB.meta.sourceDate))+". "+esc(totalAll)+" organ totalt — "+
+    CATS.map(function(c){ return esc(c.summary.total)+" "+esc(c.label.toLowerCase()); }).join(" + ")+
+    ". Statlige organ kommer fra Brønnøysund Enhetsregisteret.";
 
   document.getElementById("q").addEventListener("input", function(e){
     state.q = e.target.value.trim().toLowerCase(); renderGrid(); });
   document.getElementById("filters").addEventListener("click", function(e){
     var f = e.target.getAttribute("data-f"); if(!f) return;
     state.filter = f; renderFilters(); renderGrid(); });
+  document.getElementById("catbar").addEventListener("click", function(e){
+    var t = e.target.closest(".cattab"); if(!t) return;
+    state.cat = t.getAttribute("data-c"); renderCatbar(); renderGrid(); });
   document.getElementById("grid").addEventListener("click", function(e){
     var btn = e.target.closest(".cell"); if(!btn) return;
-    location.hash = "kommune/"+btn.getAttribute("data-k"); });
+    location.hash = "org/"+btn.getAttribute("data-c")+"/"+btn.getAttribute("data-k"); });
   document.addEventListener("click", function(e){
     if(e.target && e.target.id==="back") history.length>1 ? history.back() : (location.hash=""); });
   window.addEventListener("hashchange", route);
 
-  renderHero(); renderFilters(); renderGrid(); route();
+  renderHero(); renderCatbar(); renderFilters(); renderGrid(); route();
 })();
 </script>
 </body>
