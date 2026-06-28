@@ -6,20 +6,64 @@
     "website_domain": "arbeidstilsynet.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 arbeidstilsynet-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 ip4:77.88.94.134 include:spf.protection.outlook.com include:amazonses.com include:_spf.sndr.no include:msg-out._spf.f24cim.com a:epost.arbeidstilsynet.no a:ai-p-s1-ext.ai.basefarm.net include:_spf_outbound.itxnorge.no include:spf.cm.puzzel.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 arbeidstilsynet-no.mail.protection.outlook.com",
+        "source": "dig MX arbeidstilsynet.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 ip4:77.88.94.134 include:spf.protection.outlook.com include:amazonses.com include:_spf.sndr.no include:msg-out._spf.f24cim.com a:epost.arbeidstilsynet.no a:ai-p-s1-ext.ai.basefarm.net include:_spf_outbound.itxnorge.no include:spf.cm.puzzel.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
+        "source": "dig TXT arbeidstilsynet.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for arbeidstilsynet.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.arbeidstilsynet.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -29,20 +73,64 @@
     "website_domain": "brreg.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "5 brreg-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx include:spf.protection.outlook.com a:smtprelay.brreg.no include:_spf.sndr.no a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "5 brreg-no.mail.protection.outlook.com",
+        "source": "dig MX brreg.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx include:spf.protection.outlook.com a:smtprelay.brreg.no include:_spf.sndr.no a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
+        "source": "dig TXT brreg.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for brreg.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.brreg.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -52,20 +140,64 @@
     "website_domain": "digdir.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "1 digdir-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 a:smtp.difi.eon.no include:servers.mcsv.net include:_spf.anpdm.com include:spf.protection.outlook.com ip4:217.18.206.42 ip4:213.180.74.180 ip4:78.41.46.23 ip4:51.13.78.112 ip4:51.13.102.144 ip4:83.149.98.65 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "1 digdir-no.mail.protection.outlook.com",
+        "source": "dig MX digdir.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 a:smtp.difi.eon.no include:servers.mcsv.net include:_spf.anpdm.com include:spf.protection.outlook.com ip4:217.18.206.42 ip4:213.180.74.180 ip4:78.41.46.23 ip4:51.13.78.112 ip4:51.13.102.144 ip4:83.149.98.65 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT digdir.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for digdir.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.digdir.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -75,20 +207,64 @@
     "website_domain": "dsb.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 dsb-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 ip4:91.229.21.100 ip4:193.160.9.37 ip4:141.193.33.98 a:msg-out.onevoice.no a:smtp.no.ist.com include:spf.protection.outlook.com include:sendgrid.net include:_spf-dc12.successfactors.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 dsb-no.mail.protection.outlook.com",
+        "source": "dig MX dsb.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 ip4:91.229.21.100 ip4:193.160.9.37 ip4:141.193.33.98 a:msg-out.onevoice.no a:smtp.no.ist.com include:spf.protection.outlook.com include:sendgrid.net include:_spf-dc12.successfactors.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\"",
+        "source": "dig TXT dsb.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for dsb.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.dsb.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -98,20 +274,64 @@
     "website_domain": "domstol.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 domstol-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx ip4:176.221.89.68 ip4:62.148.34.227 ip4:62.148.34.238 ip4:146.192.143.44 ip4:77.88.78.8 ip4:139.116.71.0/25 ip6:2a02:9c8:0:1001::/64 include:spf.protection.outlook.com include:amazonses.com include:_spf.proweb.no include:domstoleneinorge.s08.eu\" \"r1.teams-events.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:77.74.160.108/32 ip4:77.74.160.106/32 ip4:192.241.181.127/32 ip4:178.62.38.244/32 ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 domstol-no.mail.protection.outlook.com",
+        "source": "dig MX domstol.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx ip4:176.221.89.68 ip4:62.148.34.227 ip4:62.148.34.238 ip4:146.192.143.44 ip4:77.88.78.8 ip4:139.116.71.0/25 ip6:2a02:9c8:0:1001::/64 include:spf.protection.outlook.com include:amazonses.com include:_spf.proweb.no include:domstoleneinorge.s08.eu\" \"r1.teams-events.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:77.74.160.108/32 ip4:77.74.160.106/32 ip4:192.241.181.127/32 ip4:178.62.38.244/32 ~all\"",
+        "source": "dig TXT domstol.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for domstol.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.domstol.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -121,20 +341,64 @@
     "website_domain": "fin.dep.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 fin-dep-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 include:spf.protection.outlook.com include:msg-out.onevoice.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 fin-dep-no.mail.protection.outlook.com",
+        "source": "dig MX fin.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 include:spf.protection.outlook.com include:msg-out.onevoice.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT fin.dep.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for fin.dep.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.fin.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -144,20 +408,64 @@
     "website_domain": "fiskeridir.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 fiskeridir-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 ip4:85.221.0.6 a:gw.fiskeridir.no include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 fiskeridir-no.mail.protection.outlook.com",
+        "source": "dig MX fiskeridir.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 ip4:85.221.0.6 a:gw.fiskeridir.no include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT fiskeridir.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for fiskeridir.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.fiskeridir.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -167,20 +475,55 @@
     "website_domain": "mil.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 mil-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx a:smtp.extend.no ip4:158.112.20.19 ip4:158.112.20.35 ip4:158.112.20.36 include:fd.dep.no include:spf.protection.outlook.com include:spf-mr.infostorm.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:195.254.214.112/24 ip4:146.192.250.128/28 ip4:62.148.40.240/28 ip4:217.18.206.64/28 ip4:217.18.206.0/24 ~all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mil-no.mail.protection.outlook.com",
+        "source": "dig MX mil.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx a:smtp.extend.no ip4:158.112.20.19 ip4:158.112.20.35 ip4:158.112.20.36 include:fd.dep.no include:spf.protection.outlook.com include:spf-mr.infostorm.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:195.254.214.112/24 ip4:146.192.250.128/28 ip4:62.148.40.240/28 ip4:217.18.206.64/28 ip4:217.18.206.0/24 ~all\"",
+        "source": "dig TXT mil.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for mil.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -190,21 +533,55 @@
     "website_domain": "fd.dep.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "realm-managed",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "20 mx1.fd.dep.no",
-        "20 mx2.fd.dep.no"
-      ],
-      "spf": "\"v=spf1 mx -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": "Managed"
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 1.0,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "20 mx1.fd.dep.no; 20 mx2.fd.dep.no",
+        "source": "dig MX fd.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx -all\"",
+        "source": "dig TXT fd.dep.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "getuserrealm",
+        "observation": "Managed",
+        "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@fd.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
+        "confidence": 1.0,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -214,20 +591,55 @@
     "website_domain": "helse-midt.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "5 helsemidt-no01c.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:_spf.helsemn.no include:_spf2.helsemn.no include:spf.protection.outlook.com ~all\" \"v=spf1 ip4:91.186.72.51 ip4:91.186.72.34 ip4:91.186.72.35 ip4:91.186.65.63 ip4:91.186.65.64 ip4:31.25.221.112 ip4:83.118.184.66 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 ip4:91.186.72.55 ~all\" \"v=spf1 include:_spf.questback.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "5 helsemidt-no01c.mail.protection.outlook.com",
+        "source": "dig MX helse-midt.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:_spf.helsemn.no include:_spf2.helsemn.no include:spf.protection.outlook.com ~all\" \"v=spf1 ip4:91.186.72.51 ip4:91.186.72.34 ip4:91.186.72.35 ip4:91.186.65.63 ip4:91.186.65.64 ip4:31.25.221.112 ip4:83.118.184.66 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 ip4:91.186.72.55 ~all\" \"v=spf1 include:_spf.questback.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT helse-midt.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for helse-midt.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -237,20 +649,46 @@
     "website_domain": "helse-nord.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 helsenord-no01c.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:_spf.hnikt.no include:sendgrid.net -all\" \"v=spf1 include:spf.protection.outlook.com include:_spf.vendors.hnikt.no ip4:91.186.76.20 ip4:91.186.76.148 ip4:91.186.77.211 ip4:91.186.77.150 ip4:91.186.77.151 ip4:91.186.77.152/29 -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 helsenord-no01c.mail.protection.outlook.com",
+        "source": "dig MX helse-nord.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:_spf.hnikt.no include:sendgrid.net -all\" \"v=spf1 include:spf.protection.outlook.com include:_spf.vendors.hnikt.no ip4:91.186.76.20 ip4:91.186.76.148 ip4:91.186.77.211 ip4:91.186.77.150 ip4:91.186.77.151 ip4:91.186.77.152/29 -all\"",
+        "source": "dig TXT helse-nord.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -260,20 +698,64 @@
     "website_domain": "helse-sorost.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 mx.sykehuspartner.no"
-      ],
-      "spf": "\"v=spf1 include:_spf.sykehuspartner.no include:_spf.anpdm.com include:spf.protection.outlook.com include:_spf.enternett.no -all\" \"v=spf1 ip4:83.118.180.10 ip4:83.118.180.114 ip4:83.118.180.115 ip4:153.110.241.86 ip4:153.110.241.87 include:_netblockssikt.sykehuspartner.no include:spf.qb-feedback.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.93.252.70 ip4:193.93.253.37 ip4:193.93.253.38 ip4:193.93.253.36 ip4:193.93.253.35 ip4:193.93.253.34 ip4:185.145.190.37 ip4:185.145.190.38 ip4:193.93.253.33 ip4:193.93.253.32 ip4:193.93.253.48 ip4:193.93.253.49 ip4:49.13.104.96/27\"",
-      "autodiscover": "autodiscover.sykehuspartner.no",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mx.sykehuspartner.no",
+        "source": "dig MX helse-sorost.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:_spf.sykehuspartner.no include:_spf.anpdm.com include:spf.protection.outlook.com include:_spf.enternett.no -all\" \"v=spf1 ip4:83.118.180.10 ip4:83.118.180.114 ip4:83.118.180.115 ip4:153.110.241.86 ip4:153.110.241.87 include:_netblockssikt.sykehuspartner.no include:spf.qb-feedback.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.93.252.70 ip4:193.93.253.37 ip4:193.93.253.38 ip4:193.93.253.36 ip4:193.93.253.35 ip4:193.93.253.34 ip4:185.145.190.37 ip4:185.145.190.38 ip4:193.93.253.33 ip4:193.93.253.32 ip4:193.93.253.48 ip4:193.93.253.49 ip4:49.13.104.96/27\"",
+        "source": "dig TXT helse-sorost.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for helse-sorost.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.sykehuspartner.no",
+        "source": "dig CNAME autodiscover.helse-sorost.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover-CNAME uten Microsoft-mål",
+        "confidence": 0.3,
+        "platform": null
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -283,20 +765,55 @@
     "website_domain": "helse-vest.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 helsevest-no01c.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 ip4:185.201.93.122 ip4:161.4.88.20/30 include:_spf.nhn.no include:msg-out._spf.onevoice.no include:_spf.sndr.no include:_spf.anpdm.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 helsevest-no01c.mail.protection.outlook.com",
+        "source": "dig MX helse-vest.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 ip4:185.201.93.122 ip4:161.4.88.20/30 include:_spf.nhn.no include:msg-out._spf.onevoice.no include:_spf.sndr.no include:_spf.anpdm.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\"",
+        "source": "dig TXT helse-vest.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.helse-vest.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -306,20 +823,64 @@
     "website_domain": "hod.dep.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 dss-dep-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 dss-dep-no.mail.protection.outlook.com",
+        "source": "dig MX hod.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT hod.dep.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for hod.dep.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.hod.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -329,20 +890,55 @@
     "website_domain": "helsedirektoratet.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 helsedirektoratet-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:spf1.helsedirektoratet.no include:spf2.helsedirektoratet.no ~all\" \"v=spf1 ip4:178.21.131.158 ip4:188.94.219.41 ip4:91.186.79.137 ip4:62.92.2.88 ip4:81.93.160.118 ip4:89.250.123.21 include:msg-out._spf.onevoice.no include:_spf.questback.net include:spf.protection.outlook.com include:_spf.nhn.no ~all\" \"v=spf1 ip4:185.56.184.0/22 ip4:89.250.113.144 include:spf.sndr.no ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 helsedirektoratet-no.mail.protection.outlook.com",
+        "source": "dig MX helsedirektoratet.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:spf1.helsedirektoratet.no include:spf2.helsedirektoratet.no ~all\" \"v=spf1 ip4:178.21.131.158 ip4:188.94.219.41 ip4:91.186.79.137 ip4:62.92.2.88 ip4:81.93.160.118 ip4:89.250.123.21 include:msg-out._spf.onevoice.no include:_spf.questback.net include:spf.protection.outlook.com include:_spf.nhn.no ~all\" \"v=spf1 ip4:185.56.184.0/22 ip4:89.250.113.144 include:spf.sndr.no ~all\"",
+        "source": "dig TXT helsedirektoratet.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.helsedirektoratet.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -352,20 +948,64 @@
     "website_domain": "husbanken.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "5 husbanken-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx include:spf.protection.outlook.com include:stspg-customer.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "5 husbanken-no.mail.protection.outlook.com",
+        "source": "dig MX husbanken.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx include:spf.protection.outlook.com include:stspg-customer.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT husbanken.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for husbanken.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.husbanken.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -375,20 +1015,64 @@
     "website_domain": "jernbanedirektoratet.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 jernbanedirektoratet-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:2xucq4j312.powerspf.com ~all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:159.183.0.0/16 ip4:149.72.0.0/16 ip4:54.240\" \".0.0/17 ip4:52.103.0.0/17 ip4:168.245.0.0/17 ip4:167.89.0.0/17 ip4:104.47.0.0/17 ip4:24.110.64.0/18 ip4:134.128.64.0/18 ip4:76.223.128.0/19 ip4:50.31.32.0/19 ip4:23.251.224.0/19 ip4:216.221.160.0/19 include:_s1.2xucq4j312.powerspf.com ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "52.100.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 jernbanedirektoratet-no.mail.protection.outlook.com",
+        "source": "dig MX jernbanedirektoratet.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:2xucq4j312.powerspf.com ~all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:159.183.0.0/16 ip4:149.72.0.0/16 ip4:54.240\" \".0.0/17 ip4:52.103.0.0/17 ip4:168.245.0.0/17 ip4:167.89.0.0/17 ip4:104.47.0.0/17 ip4:24.110.64.0/18 ip4:134.128.64.0/18 ip4:76.223.128.0/19 ip4:50.31.32.0/19 ip4:23.251.224.0/19 ip4:216.221.160.0/19 include:_s1.2xucq4j312.powerspf.com ~all\"",
+        "source": "dig TXT jernbanedirektoratet.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "52.100.0.0/15",
+        "source": "ip4 i SPF for jernbanedirektoratet.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 52.100.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.jernbanedirektoratet.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -398,21 +1082,55 @@
     "website_domain": "jd.dep.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": true,
     "fingerprint": "realm-managed",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 mxa-008b4101.gslb.pphosted.com",
-        "10 mxb-008b4101.gslb.pphosted.com"
-      ],
-      "spf": "\"v=spf1 include:spf-008b4101.pphosted.com include:msg-out._spf.f24cim.com a:msg-out.onevoice.no include:mailgun.org -all\" \"v=spf1 ip4:66.159.232.175 ip4:143.55.150.66\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": "Managed"
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 1.0,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mxb-008b4101.gslb.pphosted.com; 10 mxa-008b4101.gslb.pphosted.com",
+        "source": "dig MX jd.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.2,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:spf-008b4101.pphosted.com include:msg-out._spf.f24cim.com a:msg-out.onevoice.no include:mailgun.org -all\" \"v=spf1 ip4:66.159.232.175 ip4:143.55.150.66\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
+        "source": "dig TXT jd.dep.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.2,
+        "platform": null
+      },
+      {
+        "signal_type": "getuserrealm",
+        "observation": "Managed",
+        "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@jd.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
+        "confidence": 1.0,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -422,20 +1140,55 @@
     "website_domain": "kdd.dep.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 kdd-dep-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:servers.mcsv.net include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 kdd-dep-no.mail.protection.outlook.com",
+        "source": "dig MX kdd.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:servers.mcsv.net include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT kdd.dep.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for kdd.dep.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -445,21 +1198,55 @@
     "website_domain": "kriminalomsorgen.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": true,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "99 kriminalomsorg.in.tmes.trendmicro.com",
-        "10 kriminalomsorg.in.tmes.trendmicro.eu"
-      ],
-      "spf": "\"v=spf1 include:spf.tmes.trendmicro.com include:spf.protection.outlook.com ip4:139.117.13.196 -all\" \"v=spf1 ip4:18.208.22.64/26 ip4:18.208.22.128/25 ip4:18.185.115.128/26 ip4:18.185.115.0/25 ip4:13.238.202.0/25 ip4:13.238.202.128/26 ip4:18.176.203.128/25 ip4:13.213.174.128/25 ip4:18.177.156.0/25 ip4:13.213.220.0/25 include:spfb.tmes.trendmicro.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 kriminalomsorg.in.tmes.trendmicro.eu; 99 kriminalomsorg.in.tmes.trendmicro.com",
+        "source": "dig MX kriminalomsorgen.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.2,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:spf.tmes.trendmicro.com include:spf.protection.outlook.com ip4:139.117.13.196 -all\" \"v=spf1 ip4:18.208.22.64/26 ip4:18.208.22.128/25 ip4:18.185.115.128/26 ip4:18.185.115.0/25 ip4:13.238.202.0/25 ip4:13.238.202.128/26 ip4:18.176.203.128/25 ip4:13.213.174.128/25 ip4:18.177.156.0/25 ip4:13.213.220.0/25 include:spfb.tmes.trendmicro.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT kriminalomsorgen.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for kriminalomsorgen.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -469,20 +1256,64 @@
     "website_domain": "landbruksdirektoratet.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 landbruksdirektoratet-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:_spf.vendo.no include:_spf.nanolearning.com include:spf.protection.outlook.com ip4:185.120.100.67 ip4:185.120.100.68 include:spf-tc.telecomputing.no ip4:89.250.123.21 ~all\" \"v=spf1 ip4:109.239.230.208/29 ?all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:84.17.192.128/26 ip4:84.17.205.0/27 ip4:217.173.240.0/20 ip4:95.128.104.0/20 ip4:176.221.93.128/26\" \" ip4:217.173.251.230 ip4:217.173.254.69 ip4:185.7.137.132 ip4:185.7.137.133 ip4:185.7.137.134 ip4:185.7.137.135 ip4:185.7.137.136 ip4:185.7.137.137 ip4:185.7.137.138 ip4:185.7.137.139 ip4:185.7.137.14\" \" ip4:195.18.168.128/25 ip4:212.20.223.0/24 ip4:212.125.205.0/24 ip4:212.4.42.0/24 ip4:212.4.49.0/24 ip4:195.245.210.31 ip4:193.75.104.0/24 ip4:176.221.94.64/27 ip4:77.88.97.128/29 ip4:77.88.64.0/24 ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 landbruksdirektoratet-no.mail.protection.outlook.com",
+        "source": "dig MX landbruksdirektoratet.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:_spf.vendo.no include:_spf.nanolearning.com include:spf.protection.outlook.com ip4:185.120.100.67 ip4:185.120.100.68 include:spf-tc.telecomputing.no ip4:89.250.123.21 ~all\" \"v=spf1 ip4:109.239.230.208/29 ?all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:84.17.192.128/26 ip4:84.17.205.0/27 ip4:217.173.240.0/20 ip4:95.128.104.0/20 ip4:176.221.93.128/26\" \" ip4:217.173.251.230 ip4:217.173.254.69 ip4:185.7.137.132 ip4:185.7.137.133 ip4:185.7.137.134 ip4:185.7.137.135 ip4:185.7.137.136 ip4:185.7.137.137 ip4:185.7.137.138 ip4:185.7.137.139 ip4:185.7.137.14\" \" ip4:195.18.168.128/25 ip4:212.20.223.0/24 ip4:212.125.205.0/24 ip4:212.4.42.0/24 ip4:212.4.49.0/24 ip4:195.245.210.31 ip4:193.75.104.0/24 ip4:176.221.94.64/27 ip4:77.88.97.128/29 ip4:77.88.64.0/24 ~all\"",
+        "source": "dig TXT landbruksdirektoratet.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for landbruksdirektoratet.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.landbruksdirektoratet.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -492,20 +1323,55 @@
     "website_domain": "mattilsynet.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 mattilsynet-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:53z54mvgra.powerspf.com -all\" \"v=spf1 exists:%{i}.53z54mvgra.macrospf.powerspf.com -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mattilsynet-no.mail.protection.outlook.com",
+        "source": "dig MX mattilsynet.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:53z54mvgra.powerspf.com -all\" \"v=spf1 exists:%{i}.53z54mvgra.macrospf.powerspf.com -all\"",
+        "source": "dig TXT mattilsynet.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.mattilsynet.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -515,20 +1381,55 @@
     "website_domain": "miljodir.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 miljodir-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:i0ir46nyzr.powerspf.com -all\" \"v=spf1 exists:%{i}.i0ir46nyzr.macrospf.powerspf.com -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 miljodir-no.mail.protection.outlook.com",
+        "source": "dig MX miljodir.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:i0ir46nyzr.powerspf.com -all\" \"v=spf1 exists:%{i}.i0ir46nyzr.macrospf.powerspf.com -all\"",
+        "source": "dig TXT miljodir.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.miljodir.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -538,21 +1439,55 @@
     "website_domain": "nav.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": true,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "5 mxb-003ba702.gslb.pphosted.com",
-        "5 mxa-003ba702.gslb.pphosted.com"
-      ],
-      "spf": "\"v=spf1 ip4:155.55.50.204 ip4:155.55.50.205 ip4:155.55.50.24 include:spf.protection.outlook.com include:_spf.salesforce.com include:spf-003ba702.pphosted.com a:ai-p-s1-ext.ai.basefarm.net ip4:195.43.63.191/32 ip4:195.43.63.192/32 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 exists:%{i}._spf.mta.salesforce.com -all\" \"v=spf1 ip4:185.132.183.132 ip4:185.183.30.137\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "5 mxb-003ba702.gslb.pphosted.com; 5 mxa-003ba702.gslb.pphosted.com",
+        "source": "dig MX nav.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.2,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 ip4:155.55.50.204 ip4:155.55.50.205 ip4:155.55.50.24 include:spf.protection.outlook.com include:_spf.salesforce.com include:spf-003ba702.pphosted.com a:ai-p-s1-ext.ai.basefarm.net ip4:195.43.63.191/32 ip4:195.43.63.192/32 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 exists:%{i}._spf.mta.salesforce.com -all\" \"v=spf1 ip4:185.132.183.132 ip4:185.183.30.137\"",
+        "source": "dig TXT nav.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for nav.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -562,20 +1497,55 @@
     "website_domain": "ntnu.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "autodiscover",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 mx.ntnu.no"
-      ],
-      "spf": "\"v=spf1 redirect=_spf.ntnu.no\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.8,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mx.ntnu.no",
+        "source": "dig MX ntnu.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 redirect=_spf.ntnu.no\"",
+        "source": "dig TXT ntnu.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.ntnu.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -585,20 +1555,64 @@
     "website_domain": "norad.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 norad-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:spf.protection.outlook.com include:_spf.anpdm.com include:spf.eu.exclaimer.net include:spf.flowmailer.net include:_spf.machina.no include:sendgrid.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:104.40.229.156 ip4:52.169.0.179 ip4:20.50.220.144/28 ip4:40.127.253.48/28 ~all\" \"v=spf1 ip4:185.136.64.128/27 ip4:185.136.65.128/27 ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 norad-no.mail.protection.outlook.com",
+        "source": "dig MX norad.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:spf.protection.outlook.com include:_spf.anpdm.com include:spf.eu.exclaimer.net include:spf.flowmailer.net include:_spf.machina.no include:sendgrid.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:104.40.229.156 ip4:52.169.0.179 ip4:20.50.220.144/28 ip4:40.127.253.48/28 ~all\" \"v=spf1 ip4:185.136.64.128/27 ip4:185.136.65.128/27 ~all\"",
+        "source": "dig TXT norad.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for norad.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.norad.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -608,20 +1622,64 @@
     "website_domain": "oslo-universitetssykehus.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "dkim",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 mx.sykehuspartner.no"
-      ],
-      "spf": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
-      "autodiscover": null,
-      "dkim": "selector1-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com selector2-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com",
-      "spf_ms_ip": null,
-      "realm": "Managed"
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 1.0,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mx.sykehuspartner.no",
+        "source": "dig MX oslo-universitetssykehus.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
+        "source": "dig TXT oslo-universitetssykehus.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "dkim",
+        "observation": "selector1-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com selector2-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com",
+        "source": "dig CNAME selector1/2._domainkey.oslo-universitetssykehus.no",
+        "observed_at": "2026-06-28",
+        "inference": "DKIM-selektor → *.onmicrosoft.com: airtight Microsoft 365",
+        "confidence": 1.0,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "getuserrealm",
+        "observation": "Managed",
+        "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@oslo-universitetssykehus.no",
+        "observed_at": "2026-06-28",
+        "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
+        "confidence": 1.0,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -631,21 +1689,64 @@
     "website_domain": "politiet.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "spf-ms-ip",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "5 mailgw3.politiet.no",
-        "5 mailgw4.politiet.no"
-      ],
-      "spf": "\"v=spf1 include:_u.politiet.no._spf.smart.ondmarc.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:52.100.0.0/15 ip4:40.107.0.0/16 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 ip4:163.1\" \"74.97.45 ip4:163.174.97.46 ip4:163.174.97.55 ip4:163.174.97.56 ip4:163.174.121.35 ip4:163.174.121.36 include:_p.1.38zydk._u.politiet.no._spf.smart.ondmarc.com ~all\"",
-      "autodiscover": "mail.politiet.no",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "5 mailgw3.politiet.no; 5 mailgw4.politiet.no",
+        "source": "dig MX politiet.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:_u.politiet.no._spf.smart.ondmarc.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:52.100.0.0/15 ip4:40.107.0.0/16 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 ip4:163.1\" \"74.97.45 ip4:163.174.97.46 ip4:163.174.97.55 ip4:163.174.97.56 ip4:163.174.121.35 ip4:163.174.121.36 include:_p.1.38zydk._u.politiet.no._spf.smart.ondmarc.com ~all\"",
+        "source": "dig TXT politiet.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for politiet.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "mail.politiet.no",
+        "source": "dig CNAME autodiscover.politiet.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover-CNAME uten Microsoft-mål",
+        "confidence": 0.3,
+        "platform": null
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -655,20 +1756,64 @@
     "website_domain": "riksrevisjonen.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 riksrevisjonen-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx ip4:178.21.131.158 include:spf.protection.outlook.com include:_spf.questback.net include:_spf.grade.se -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:141.147.10.7 ip4:132.226.204.117 ip4:129.159.250.38 ip4:193.122.53.174 ip4:129.159.252.119 ip4:130.61.132.10 ip4:193.122.14.67 ip4:91.217.141.0/24 ip4:87.79.30.0/25 ip4:51.120.120.172 -all\" \"v=spf1\" \" ip4:192.121.252.80\" \" ip4:81.91.10.248\" \" ip4:37.221.227.204\" \" ip4:37.221.227.203\" \" ip4:37.221.229.129\" \" ip4:37.221.229.132\" \" ip4:37.221.229.133\" \" ip4:37.221.229.135\" \" ip4:37.221.229.136\" \" ip4:37.221.229.139\" \" ip4:37.221.229.140\" \" ip4:37.221.229.142\" \" ip4:37.221.231.248\" \" -all\"",
-      "autodiscover": "owa.riksrevisjonen.no",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 riksrevisjonen-no.mail.protection.outlook.com",
+        "source": "dig MX riksrevisjonen.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx ip4:178.21.131.158 include:spf.protection.outlook.com include:_spf.questback.net include:_spf.grade.se -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:141.147.10.7 ip4:132.226.204.117 ip4:129.159.250.38 ip4:193.122.53.174 ip4:129.159.252.119 ip4:130.61.132.10 ip4:193.122.14.67 ip4:91.217.141.0/24 ip4:87.79.30.0/25 ip4:51.120.120.172 -all\" \"v=spf1\" \" ip4:192.121.252.80\" \" ip4:81.91.10.248\" \" ip4:37.221.227.204\" \" ip4:37.221.227.203\" \" ip4:37.221.229.129\" \" ip4:37.221.229.132\" \" ip4:37.221.229.133\" \" ip4:37.221.229.135\" \" ip4:37.221.229.136\" \" ip4:37.221.229.139\" \" ip4:37.221.229.140\" \" ip4:37.221.229.142\" \" ip4:37.221.231.248\" \" -all\"",
+        "source": "dig TXT riksrevisjonen.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for riksrevisjonen.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "owa.riksrevisjonen.no",
+        "source": "dig CNAME autodiscover.riksrevisjonen.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover-CNAME uten Microsoft-mål",
+        "confidence": 0.3,
+        "platform": null
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -678,20 +1823,55 @@
     "website_domain": "sdir.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 sdir-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:_spf.sdir.no -all\" \"v=spf1 include:msg-out._spf.onevoice.no include:spf.infostorm.no include:servers.mcsv.net include:spf.messagelabs.com include:spf.protection.outlook.com ip4:89.250.123.21 ip4:146.192.200.192 ip4:146.192.200.193 ip4:167.89.0.0/17 ip4:208.117.48.0/20 ip4:50\" \".31.32.0/19 ip4:198.37.144.0/20 ip4:198.21.0.0/21 ip4:192.254.112.0/20 ip4:168.245.0.0/17 ip4:149.72.0.0/16 ip4:176.221.93.128/26 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 sdir-no.mail.protection.outlook.com",
+        "source": "dig MX sdir.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:_spf.sdir.no -all\" \"v=spf1 include:msg-out._spf.onevoice.no include:spf.infostorm.no include:servers.mcsv.net include:spf.messagelabs.com include:spf.protection.outlook.com ip4:89.250.123.21 ip4:146.192.200.192 ip4:146.192.200.193 ip4:167.89.0.0/17 ip4:208.117.48.0/20 ip4:50\" \".31.32.0/19 ip4:198.37.144.0/20 ip4:198.21.0.0/21 ip4:192.254.112.0/20 ip4:168.245.0.0/17 ip4:149.72.0.0/16 ip4:176.221.93.128/26 -all\"",
+        "source": "dig TXT sdir.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.sdir.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -701,20 +1881,64 @@
     "website_domain": "skatteetaten.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 skatteetaten-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 a:smtp.skatteetaten.no a:smtp2.skatteetaten.no a:mail.sismo.no a:smtp01.emea.sabacloud.com a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net  a:cre-p2-ext.p2.osl.basefarm.net ip4:151.187.161.76 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 skatteetaten-no.mail.protection.outlook.com",
+        "source": "dig MX skatteetaten.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 a:smtp.skatteetaten.no a:smtp2.skatteetaten.no a:mail.sismo.no a:smtp01.emea.sabacloud.com a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net  a:cre-p2-ext.p2.osl.basefarm.net ip4:151.187.161.76 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT skatteetaten.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for skatteetaten.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.skatteetaten.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -724,20 +1948,64 @@
     "website_domain": "kartverket.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 kartverket-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 mx  ip4:159.162.28.87 include:_spf.sndr.no include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:_spf-dc33.sapsf.eu -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.193.85/32 ip4:130.214.156.205/32 ip4:130.214.156.249/32 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 kartverket-no.mail.protection.outlook.com",
+        "source": "dig MX kartverket.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx  ip4:159.162.28.87 include:_spf.sndr.no include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:_spf-dc33.sapsf.eu -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.193.85/32 ip4:130.214.156.205/32 ip4:130.214.156.249/32 -all\"",
+        "source": "dig TXT kartverket.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for kartverket.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.kartverket.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -747,20 +2015,55 @@
     "website_domain": "lanekassen.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 lanekassen-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:ceuiwyr7ky.powerspf.com -all\" \"v=spf1 exists:%{i}.ceuiwyr7ky.macrospf.powerspf.com ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 lanekassen-no.mail.protection.outlook.com",
+        "source": "dig MX lanekassen.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:ceuiwyr7ky.powerspf.com -all\" \"v=spf1 exists:%{i}.ceuiwyr7ky.macrospf.powerspf.com ~all\"",
+        "source": "dig TXT lanekassen.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.lanekassen.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -770,20 +2073,55 @@
     "website_domain": "vegvesen.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "0 vegvesen-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:espf01.vegvesen.no include:espf02.vegvesen.no ip4:146.2.0.0/16 include:spf.protection.outlook.com -all\" \"v=spf1 a:ai-p-s1-ext.ai.basefarm.net ip4:195.244.102.234 ip4:193.71.49.0/24 ip4:193.75.93.34 ip4:52.143.59.192 ip4:91.217.141.0/24 ip4:185.38.121.0/24 ip4:81.93.163.120 -all\" \"v=spf1 a:c.spf.service-now.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "0 vegvesen-no.mail.protection.outlook.com",
+        "source": "dig MX vegvesen.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:espf01.vegvesen.no include:espf02.vegvesen.no ip4:146.2.0.0/16 include:spf.protection.outlook.com -all\" \"v=spf1 a:ai-p-s1-ext.ai.basefarm.net ip4:195.244.102.234 ip4:193.71.49.0/24 ip4:193.75.93.34 ip4:52.143.59.192 ip4:91.217.141.0/24 ip4:185.38.121.0/24 ip4:81.93.163.120 -all\" \"v=spf1 a:c.spf.service-now.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT vegvesen.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for vegvesen.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -793,20 +2131,64 @@
     "website_domain": "ssb.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 ssbno.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:542fqsidvj.powerspf.com -all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:185.56.\" \"184.0/24 ip4:185.249.220.0/24 ip4:185.225.161.0/24 ip4:193.71.134.192/28 ip4:193.69.50.16/28 ip6:2a00:1b60:0:4::26 ip4:89.250.123.21 ip4:52.232.27.151 ip4:52.143.59.192 ip4:34.120.101.109 include:_s1.542fqsidvj.powerspf.com ~all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "52.100.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 ssbno.mail.protection.outlook.com",
+        "source": "dig MX ssb.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:542fqsidvj.powerspf.com -all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:185.56.\" \"184.0/24 ip4:185.249.220.0/24 ip4:185.225.161.0/24 ip4:193.71.134.192/28 ip4:193.69.50.16/28 ip6:2a00:1b60:0:4::26 ip4:89.250.123.21 ip4:52.232.27.151 ip4:52.143.59.192 ip4:34.120.101.109 include:_s1.542fqsidvj.powerspf.com ~all\"",
+        "source": "dig TXT ssb.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "52.100.0.0/15",
+        "source": "ip4 i SPF for ssb.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 52.100.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.ssb.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -816,20 +2198,64 @@
     "website_domain": "toll.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "20 toll-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:spf-a.telia.com include:spf-b.telia.com a:mailout.osl.basefarm.net a:is-co-smtp02.isky.no a:ta-smtp-mailout1.p2.osl.basefarm.net ip4:193.71.134.205 ip4:161.38.206.55 i\" \"p4:188.240.90.1 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:81.236.60.128/26 ip4:81.236.60.192/28 ip4:81.227.116.74 ip4:81.227.116.81 ip4:81.236.55.0/24 ~all\" \"v=spf1 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "20 toll-no.mail.protection.outlook.com",
+        "source": "dig MX toll.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:spf-a.telia.com include:spf-b.telia.com a:mailout.osl.basefarm.net a:is-co-smtp02.isky.no a:ta-smtp-mailout1.p2.osl.basefarm.net ip4:193.71.134.205 ip4:161.38.206.55 i\" \"p4:188.240.90.1 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:81.236.60.128/26 ip4:81.236.60.192/28 ip4:81.227.116.74 ip4:81.227.116.81 ip4:81.236.55.0/24 ~all\" \"v=spf1 -all\"",
+        "source": "dig TXT toll.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for toll.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.toll.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -839,20 +2265,55 @@
     "website_domain": "ud.dep.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "realm-managed",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "10 mail.mfa.no"
-      ],
-      "spf": "\"v=spf1 mx -all\"",
-      "autodiscover": null,
-      "dkim": null,
-      "spf_ms_ip": null,
-      "realm": "Managed"
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 1.0,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "10 mail.mfa.no",
+        "source": "dig MX ud.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx -all\"",
+        "source": "dig TXT ud.dep.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF uten gjenkjent plattform",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "getuserrealm",
+        "observation": "Managed",
+        "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@ud.dep.no",
+        "observed_at": "2026-06-28",
+        "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
+        "confidence": 1.0,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -862,20 +2323,64 @@
     "website_domain": "udi.no",
     "platform": "US_MICROSOFT",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "1 udi-no.mail.protection.outlook.com"
-      ],
-      "spf": "\"v=spf1 ip4:195.88.106.0/27 ip4:85.31.192.42 ip4:85.31.193.42 ip4:168.245.3.4 ip4:195.88.107.133 ip4:195.88.107.134 ip4:52.232.27.151 include:spf.messagelabs.com include:sendgrid.net include:spf.protection.outlook.com -all\" \"v=spf1 include:nets1.spf.messagelabs.com include:nets2.spf.messagelabs.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "autodiscover.outlook.com",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MICROSOFT",
+      "label": "Microsoft 365",
+      "confidence": 0.95,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "1 udi-no.mail.protection.outlook.com",
+        "source": "dig MX udi.no",
+        "observed_at": "2026-06-28",
+        "inference": "MX leverer e-post til Microsoft 365",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 ip4:195.88.106.0/27 ip4:85.31.192.42 ip4:85.31.193.42 ip4:168.245.3.4 ip4:195.88.107.133 ip4:195.88.107.134 ip4:52.232.27.151 include:spf.messagelabs.com include:sendgrid.net include:spf.protection.outlook.com -all\" \"v=spf1 include:nets1.spf.messagelabs.com include:nets2.spf.messagelabs.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT udi.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for udi.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "autodiscover.outlook.com",
+        "source": "dig CNAME autodiscover.udi.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+        "confidence": 0.8,
+        "platform": "US_MICROSOFT"
+      }
+    ],
     "sourceDate": "2026-06-28"
   },
   {
@@ -885,20 +2390,64 @@
     "website_domain": "uio.no",
     "platform": "US_MIXED",
     "jurisdiction": "United States (CLOUD Act)",
+    "governance": {
+      "country": "United States",
+      "index": "Freedom House (Freedom in the World)",
+      "score": 81,
+      "status": "Free",
+      "tier": "democracy",
+      "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+      "year": 2026
+    },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": false,
     "fingerprint": "mx/spf",
     "flags": [],
-    "evidence": {
-      "mx": [
-        "50 smtp.uio.no"
-      ],
-      "spf": "\"v=spf1 mx include:spf.uio.no include:_spf.google.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:129.240.10.0/25 ip6:2001:700:100:10::/64 ip6:2001:700:100:8210::/64 ip4:129.240.1.0/26 ip6:2001:700:100:8211::/64 include:spf.protection.outlook.com ?all\" \"v=spf1 ip4:74.125.0.0/16 ip4:209.85.128.0/17 ip6:2001:4860:4864::/56 ip6:2404:6800:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2800:3f0:4864::/56 ip6:2a00:1450:4864::/56 ip6:2c0f:fb50:4864::/56 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
-      "autodiscover": "mail.uio.no",
-      "dkim": null,
-      "spf_ms_ip": "40.92.0.0/15",
-      "realm": null
+    "verdict": {
+      "platform": "US_MIXED",
+      "label": "Microsoft + Google",
+      "confidence": 0.0,
+      "uavklart": false,
+      "note": null
     },
+    "evidence": [
+      {
+        "signal_type": "mx",
+        "observation": "50 smtp.uio.no",
+        "source": "dig MX uio.no",
+        "observed_at": "2026-06-28",
+        "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+        "confidence": 0.3,
+        "platform": null
+      },
+      {
+        "signal_type": "spf",
+        "observation": "\"v=spf1 mx include:spf.uio.no include:_spf.google.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:129.240.10.0/25 ip6:2001:700:100:10::/64 ip6:2001:700:100:8210::/64 ip4:129.240.1.0/26 ip6:2001:700:100:8211::/64 include:spf.protection.outlook.com ?all\" \"v=spf1 ip4:74.125.0.0/16 ip4:209.85.128.0/17 ip6:2001:4860:4864::/56 ip6:2404:6800:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2800:3f0:4864::/56 ip6:2a00:1450:4864::/56 ip6:2c0f:fb50:4864::/56 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+        "source": "dig TXT uio.no (v=spf1)",
+        "observed_at": "2026-06-28",
+        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "spf_ip",
+        "observation": "40.92.0.0/15",
+        "source": "ip4 i SPF for uio.no ∈ Microsoft EOP-områder",
+        "observed_at": "2026-06-28",
+        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+        "confidence": 0.95,
+        "platform": "US_MICROSOFT"
+      },
+      {
+        "signal_type": "autodiscover",
+        "observation": "mail.uio.no",
+        "source": "dig CNAME autodiscover.uio.no",
+        "observed_at": "2026-06-28",
+        "inference": "autodiscover-CNAME uten Microsoft-mål",
+        "confidence": 0.3,
+        "platform": null
+      }
+    ],
     "sourceDate": "2026-06-28"
   }
 ]

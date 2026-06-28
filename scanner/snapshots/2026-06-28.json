@@ -17,7 +17,8 @@
   },
   "kommuner": [
     {
-      "kommune": "Vest-Lofoten kommune",
+      "category": "kommune",
+      "name": "Vest-Lofoten kommune",
       "domain": "nykommuneilofoten.no",
       "website_domain": "nykommuneilofoten.no",
       "platform": "EU_SOVEREIGN",
@@ -62,10 +63,12 @@
           "platform": "EU_SOVEREIGN"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vest-Lofoten kommune"
     },
     {
-      "kommune": "Larvik",
+      "category": "kommune",
+      "name": "Larvik",
       "domain": "larvik.kommune.no",
       "website_domain": "larvik.kommune.no",
       "platform": "US_GOOGLE",
@@ -93,7 +96,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 alt3.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 10 alt4.aspmx.l.google.com",
+          "observation": "5 alt1.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 1 aspmx.l.google.com; 10 alt3.aspmx.l.google.com",
           "source": "dig MX larvik.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "MX leverer e-post til Google Workspace",
@@ -110,10 +113,12 @@
           "platform": "US_GOOGLE"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Larvik"
     },
     {
-      "kommune": "Narvik",
+      "category": "kommune",
+      "name": "Narvik",
       "domain": "narvik.kommune.no",
       "website_domain": "narvik.kommune.no",
       "platform": "US_GOOGLE",
@@ -141,7 +146,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 aspmx2.googlemail.com; 10 aspmx3.googlemail.com; 1 aspmx.l.google.com",
+          "observation": "5 alt2.aspmx.l.google.com; 10 aspmx3.googlemail.com; 5 alt1.aspmx.l.google.com; 10 aspmx2.googlemail.com; 1 aspmx.l.google.com",
           "source": "dig MX narvik.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "MX leverer e-post til Google Workspace",
@@ -158,10 +163,12 @@
           "platform": "US_GOOGLE"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Narvik"
     },
     {
-      "kommune": "Trondheim",
+      "category": "kommune",
+      "name": "Trondheim",
       "domain": "trondheim.kommune.no",
       "website_domain": "trondheim.kommune.no",
       "platform": "US_GOOGLE",
@@ -189,7 +196,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 alt3.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com",
+          "observation": "10 alt4.aspmx.l.google.com; 10 alt3.aspmx.l.google.com; 1 aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 5 alt1.aspmx.l.google.com",
           "source": "dig MX trondheim.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "MX leverer e-post til Google Workspace",
@@ -215,10 +222,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Trondheim"
     },
     {
-      "kommune": "Ullensvang",
+      "category": "kommune",
+      "name": "Ullensvang",
       "domain": "ullensvang.kommune.no",
       "website_domain": "ullensvang.kommune.no",
       "platform": "US_GOOGLE",
@@ -246,7 +255,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "1 aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 10 alt3.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 5 alt1.aspmx.l.google.com",
+          "observation": "1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 alt3.aspmx.l.google.com",
           "source": "dig MX ullensvang.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "MX leverer e-post til Google Workspace",
@@ -263,10 +272,12 @@
           "platform": "US_GOOGLE"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ullensvang"
     },
     {
-      "kommune": "Alstahaug",
+      "category": "kommune",
+      "name": "Alstahaug",
       "domain": "alstahaug.kommune.no",
       "website_domain": "alstahaug.kommune.no",
       "platform": "US_MICROSOFT",
@@ -329,10 +340,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Alstahaug"
     },
     {
-      "kommune": "Alta",
+      "category": "kommune",
+      "name": "Alta",
       "domain": "alta.kommune.no",
       "website_domain": "alta.kommune.no",
       "platform": "US_MICROSOFT",
@@ -386,10 +399,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Alta"
     },
     {
-      "kommune": "Alvdal",
+      "category": "kommune",
+      "name": "Alvdal",
       "domain": "alvdal.kommune.no",
       "website_domain": "alvdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -417,7 +432,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net",
+          "observation": "10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net",
           "source": "dig MX alvdal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -443,10 +458,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Alvdal"
     },
     {
-      "kommune": "Alver",
+      "category": "kommune",
+      "name": "Alver",
       "domain": "alver.kommune.no",
       "website_domain": "alver.kommune.no",
       "platform": "US_MICROSOFT",
@@ -500,10 +517,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Alver"
     },
     {
-      "kommune": "Andøy",
+      "category": "kommune",
+      "name": "Andøy",
       "domain": "andoy.kommune.no",
       "website_domain": "andoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -566,10 +585,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Andøy"
     },
     {
-      "kommune": "Aremark",
+      "category": "kommune",
+      "name": "Aremark",
       "domain": "aremark.kommune.no",
       "website_domain": "aremark.kommune.no",
       "platform": "US_MICROSOFT",
@@ -632,10 +653,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Aremark"
     },
     {
-      "kommune": "Arendal",
+      "category": "kommune",
+      "name": "Arendal",
       "domain": "arendal.kommune.no",
       "website_domain": "arendal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -698,10 +721,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Arendal"
     },
     {
-      "kommune": "Asker",
+      "category": "kommune",
+      "name": "Asker",
       "domain": "asker.kommune.no",
       "website_domain": "asker.kommune.no",
       "platform": "US_MICROSOFT",
@@ -764,10 +789,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Asker"
     },
     {
-      "kommune": "Askvoll",
+      "category": "kommune",
+      "name": "Askvoll",
       "domain": "askvoll.kommune.no",
       "website_domain": "askvoll.kommune.no",
       "platform": "US_MICROSOFT",
@@ -830,10 +857,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Askvoll"
     },
     {
-      "kommune": "Askøy",
+      "category": "kommune",
+      "name": "Askøy",
       "domain": "askoy.kommune.no",
       "website_domain": "askoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -896,10 +925,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Askøy"
     },
     {
-      "kommune": "Aukra",
+      "category": "kommune",
+      "name": "Aukra",
       "domain": "aukra.kommune.no",
       "website_domain": "aukra.kommune.no",
       "platform": "US_MICROSOFT",
@@ -962,10 +993,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Aukra"
     },
     {
-      "kommune": "Aure",
+      "category": "kommune",
+      "name": "Aure",
       "domain": "aure.kommune.no",
       "website_domain": "aure.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1028,10 +1061,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Aure"
     },
     {
-      "kommune": "Aurland",
+      "category": "kommune",
+      "name": "Aurland",
       "domain": "aurland.kommune.no",
       "website_domain": "aurland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1094,10 +1129,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Aurland"
     },
     {
-      "kommune": "Aurskog-Høland",
+      "category": "kommune",
+      "name": "Aurskog-Høland",
       "domain": "ahk.no",
       "website_domain": "aurskog-holand.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1162,10 +1199,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Aurskog-Høland"
     },
     {
-      "kommune": "Austevoll",
+      "category": "kommune",
+      "name": "Austevoll",
       "domain": "austevoll.kommune.no",
       "website_domain": "austevoll.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1228,10 +1267,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Austevoll"
     },
     {
-      "kommune": "Austrheim",
+      "category": "kommune",
+      "name": "Austrheim",
       "domain": "austrheim.kommune.no",
       "website_domain": "austrheim.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1294,10 +1335,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Austrheim"
     },
     {
-      "kommune": "Averøy",
+      "category": "kommune",
+      "name": "Averøy",
       "domain": "averoy.kommune.no",
       "website_domain": "averoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1360,10 +1403,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Averøy"
     },
     {
-      "kommune": "Balsfjord",
+      "category": "kommune",
+      "name": "Balsfjord",
       "domain": "balsfjord.kommune.no",
       "website_domain": "balsfjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1426,10 +1471,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Balsfjord"
     },
     {
-      "kommune": "Bamble",
+      "category": "kommune",
+      "name": "Bamble",
       "domain": "bamble.kommune.no",
       "website_domain": "bamble.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1492,10 +1539,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bamble"
     },
     {
-      "kommune": "Bardu kommune",
+      "category": "kommune",
+      "name": "Bardu kommune",
       "domain": "bardu.kommune.no",
       "website_domain": "bardu.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1558,10 +1607,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bardu kommune"
     },
     {
-      "kommune": "Beiarn",
+      "category": "kommune",
+      "name": "Beiarn",
       "domain": "beiarn.kommune.no",
       "website_domain": "beiarn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1624,10 +1675,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Beiarn"
     },
     {
-      "kommune": "Bergen kommune",
+      "category": "kommune",
+      "name": "Bergen kommune",
       "domain": "bergen.kommune.no",
       "website_domain": "bergen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1690,10 +1743,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bergen kommune"
     },
     {
-      "kommune": "Berlevåg",
+      "category": "kommune",
+      "name": "Berlevåg",
       "domain": "berlevag.kommune.no",
       "website_domain": "berlevag.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1756,10 +1811,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Berlevåg"
     },
     {
-      "kommune": "Bindal",
+      "category": "kommune",
+      "name": "Bindal",
       "domain": "bindal.kommune.no",
       "website_domain": "bindal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1822,10 +1879,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bindal"
     },
     {
-      "kommune": "Birkenes",
+      "category": "kommune",
+      "name": "Birkenes",
       "domain": "birkenes.kommune.no",
       "website_domain": "birkenes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1888,10 +1947,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Birkenes"
     },
     {
-      "kommune": "Bjerkreim",
+      "category": "kommune",
+      "name": "Bjerkreim",
       "domain": "bjerkreim.kommune.no",
       "website_domain": "bjerkreim.kommune.no",
       "platform": "US_MICROSOFT",
@@ -1945,10 +2006,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bjerkreim"
     },
     {
-      "kommune": "Bjørnafjorden",
+      "category": "kommune",
+      "name": "Bjørnafjorden",
       "domain": "bjornafjorden.kommune.no",
       "website_domain": "bjornafjorden.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2011,10 +2074,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bjørnafjorden"
     },
     {
-      "kommune": "Bodø",
+      "category": "kommune",
+      "name": "Bodø",
       "domain": "bodo.kommune.no",
       "website_domain": "bodo.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2077,10 +2142,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bodø"
     },
     {
-      "kommune": "Bokn",
+      "category": "kommune",
+      "name": "Bokn",
       "domain": "bokn.kommune.no",
       "website_domain": "bokn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2143,10 +2210,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bokn"
     },
     {
-      "kommune": "Bremanger",
+      "category": "kommune",
+      "name": "Bremanger",
       "domain": "bremanger.kommune.no",
       "website_domain": "bremanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2209,10 +2278,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bremanger"
     },
     {
-      "kommune": "Brønnøy",
+      "category": "kommune",
+      "name": "Brønnøy",
       "domain": "bronnoy.kommune.no",
       "website_domain": "bronnoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2275,10 +2346,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Brønnøy"
     },
     {
-      "kommune": "Bygland",
+      "category": "kommune",
+      "name": "Bygland",
       "domain": "bygland.kommune.no",
       "website_domain": "bygland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2341,10 +2414,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bygland"
     },
     {
-      "kommune": "Bykle kommune",
+      "category": "kommune",
+      "name": "Bykle kommune",
       "domain": "bykle.kommune.no",
       "website_domain": "bykle.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2407,10 +2482,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bykle kommune"
     },
     {
-      "kommune": "Båtsfjord",
+      "category": "kommune",
+      "name": "Båtsfjord",
       "domain": "batsfjord.kommune.no",
       "website_domain": "batsfjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2473,10 +2550,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Båtsfjord"
     },
     {
-      "kommune": "Bærum",
+      "category": "kommune",
+      "name": "Bærum",
       "domain": "baerum.kommune.no",
       "website_domain": "baerum.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2539,10 +2618,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bærum"
     },
     {
-      "kommune": "Bø",
+      "category": "kommune",
+      "name": "Bø",
       "domain": "boe.kommune.no",
       "website_domain": "boe.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2605,10 +2686,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bø"
     },
     {
-      "kommune": "Bømlo",
+      "category": "kommune",
+      "name": "Bømlo",
       "domain": "bomlo.kommune.no",
       "website_domain": "bomlo.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2662,10 +2745,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Bømlo"
     },
     {
-      "kommune": "Dovre",
+      "category": "kommune",
+      "name": "Dovre",
       "domain": "dovre.kommune.no",
       "website_domain": "dovre.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2728,10 +2813,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Dovre"
     },
     {
-      "kommune": "Drammen",
+      "category": "kommune",
+      "name": "Drammen",
       "domain": "drammen.kommune.no",
       "website_domain": "drammen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2794,10 +2881,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Drammen"
     },
     {
-      "kommune": "Drangedal",
+      "category": "kommune",
+      "name": "Drangedal",
       "domain": "drangedal.kommune.no",
       "website_domain": "drangedal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2860,10 +2949,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Drangedal"
     },
     {
-      "kommune": "Dyrøy",
+      "category": "kommune",
+      "name": "Dyrøy",
       "domain": "dyroy.kommune.no",
       "website_domain": "dyroy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2891,7 +2982,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mx.osl.bedsys.net; 5 mx2.osl.bedsys.net",
+          "observation": "5 mx2.osl.bedsys.net; 10 mx.osl.bedsys.net",
           "source": "dig MX dyroy.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2926,10 +3017,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Dyrøy"
     },
     {
-      "kommune": "Dønna",
+      "category": "kommune",
+      "name": "Dønna",
       "domain": "donna.kommune.no",
       "website_domain": "donna.kommune.no",
       "platform": "US_MICROSOFT",
@@ -2957,7 +3050,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 donna-kommune-no.mx1.comendosystems.com; 20 donna-kommune-no.mx2.comendosystems.net",
+          "observation": "20 donna-kommune-no.mx2.comendosystems.net; 10 donna-kommune-no.mx1.comendosystems.com",
           "source": "dig MX donna.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2992,10 +3085,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Dønna"
     },
     {
-      "kommune": "Eidfjord kommune",
+      "category": "kommune",
+      "name": "Eidfjord kommune",
       "domain": "eidfjord.kommune.no",
       "website_domain": "eidfjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3049,10 +3144,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Eidfjord kommune"
     },
     {
-      "kommune": "Eidskog",
+      "category": "kommune",
+      "name": "Eidskog",
       "domain": "eidskog.kommune.no",
       "website_domain": "eidskog.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3115,10 +3212,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Eidskog"
     },
     {
-      "kommune": "Eidsvoll",
+      "category": "kommune",
+      "name": "Eidsvoll",
       "domain": "eidsvoll.kommune.no",
       "website_domain": "eidsvoll.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3146,7 +3245,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net",
+          "observation": "30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net",
           "source": "dig MX eidsvoll.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -3181,10 +3280,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Eidsvoll"
     },
     {
-      "kommune": "Eigersund",
+      "category": "kommune",
+      "name": "Eigersund",
       "domain": "eigersund.kommune.no",
       "website_domain": "eigersund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3238,10 +3339,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Eigersund"
     },
     {
-      "kommune": "Elverum",
+      "category": "kommune",
+      "name": "Elverum",
       "domain": "elverum.kommune.no",
       "website_domain": "elverum.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3295,10 +3398,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Elverum"
     },
     {
-      "kommune": "Enebakk",
+      "category": "kommune",
+      "name": "Enebakk",
       "domain": "enebakk.kommune.no",
       "website_domain": "enebakk.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3361,10 +3466,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Enebakk"
     },
     {
-      "kommune": "Engerdal kommune",
+      "category": "kommune",
+      "name": "Engerdal kommune",
       "domain": "engerdal.kommune.no",
       "website_domain": "engerdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3427,10 +3534,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Engerdal kommune"
     },
     {
-      "kommune": "Etne",
+      "category": "kommune",
+      "name": "Etne",
       "domain": "etne.kommune.no",
       "website_domain": "etne.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3493,10 +3602,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Etne"
     },
     {
-      "kommune": "Etnedal kommune",
+      "category": "kommune",
+      "name": "Etnedal kommune",
       "domain": "etnedal.kommune.no",
       "website_domain": "etnedal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3559,10 +3670,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Etnedal kommune"
     },
     {
-      "kommune": "Evenes",
+      "category": "kommune",
+      "name": "Evenes",
       "domain": "evenes.kommune.no",
       "website_domain": "evenes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3625,10 +3738,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Evenes"
     },
     {
-      "kommune": "Evje og Hornnes kommune",
+      "category": "kommune",
+      "name": "Evje og Hornnes kommune",
       "domain": "e-h.kommune.no",
       "website_domain": "e-h.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3691,10 +3806,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Evje og Hornnes kommune"
     },
     {
-      "kommune": "Farsund",
+      "category": "kommune",
+      "name": "Farsund",
       "domain": "farsund.kommune.no",
       "website_domain": "farsund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3757,10 +3874,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Farsund"
     },
     {
-      "kommune": "Fauske",
+      "category": "kommune",
+      "name": "Fauske",
       "domain": "fauske.kommune.no",
       "website_domain": "fauske.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3823,10 +3942,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Fauske"
     },
     {
-      "kommune": "Fedje",
+      "category": "kommune",
+      "name": "Fedje",
       "domain": "fedje.kommune.no",
       "website_domain": "fedje.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3889,10 +4010,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Fedje"
     },
     {
-      "kommune": "Fitjar",
+      "category": "kommune",
+      "name": "Fitjar",
       "domain": "fitjar.kommune.no",
       "website_domain": "fitjar.kommune.no",
       "platform": "US_MICROSOFT",
@@ -3955,10 +4078,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Fitjar"
     },
     {
-      "kommune": "Fjaler",
+      "category": "kommune",
+      "name": "Fjaler",
       "domain": "fjaler.kommune.no",
       "website_domain": "fjaler.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4021,10 +4146,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Fjaler"
     },
     {
-      "kommune": "Fjord",
+      "category": "kommune",
+      "name": "Fjord",
       "domain": "fjord.kommune.no",
       "website_domain": "fjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4078,10 +4205,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Fjord"
     },
     {
-      "kommune": "Flakstad",
+      "category": "kommune",
+      "name": "Flakstad",
       "domain": "flakstad.kommune.no",
       "website_domain": "flakstad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4144,10 +4273,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Flakstad"
     },
     {
-      "kommune": "Flatanger",
+      "category": "kommune",
+      "name": "Flatanger",
       "domain": "flatanger.kommune.no",
       "website_domain": "flatanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4210,10 +4341,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Flatanger"
     },
     {
-      "kommune": "Flekkefjord",
+      "category": "kommune",
+      "name": "Flekkefjord",
       "domain": "flekkefjord.kommune.no",
       "website_domain": "flekkefjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4276,10 +4409,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Flekkefjord"
     },
     {
-      "kommune": "Flesberg",
+      "category": "kommune",
+      "name": "Flesberg",
       "domain": "flesberg.kommune.no",
       "website_domain": "flesberg.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4342,10 +4477,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Flesberg"
     },
     {
-      "kommune": "Flå",
+      "category": "kommune",
+      "name": "Flå",
       "domain": "flaa.kommune.no",
       "website_domain": "flaa.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4408,10 +4545,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Flå"
     },
     {
-      "kommune": "Folldal",
+      "category": "kommune",
+      "name": "Folldal",
       "domain": "folldal.kommune.no",
       "website_domain": "folldal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4439,7 +4578,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net",
+          "observation": "30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net",
           "source": "dig MX folldal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -4465,10 +4604,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Folldal"
     },
     {
-      "kommune": "Fredrikstad",
+      "category": "kommune",
+      "name": "Fredrikstad",
       "domain": "fredrikstad.kommune.no",
       "website_domain": "fredrikstad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4531,10 +4672,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Fredrikstad"
     },
     {
-      "kommune": "Frogn",
+      "category": "kommune",
+      "name": "Frogn",
       "domain": "frogn.kommune.no",
       "website_domain": "frogn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4562,7 +4705,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
+          "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
           "source": "dig MX frogn.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -4588,10 +4731,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Frogn"
     },
     {
-      "kommune": "Froland kommune",
+      "category": "kommune",
+      "name": "Froland kommune",
       "domain": "froland.kommune.no",
       "website_domain": "froland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4654,10 +4799,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Froland kommune"
     },
     {
-      "kommune": "Frosta",
+      "category": "kommune",
+      "name": "Frosta",
       "domain": "frosta.kommune.no",
       "website_domain": "frosta.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4711,10 +4858,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Frosta"
     },
     {
-      "kommune": "Frøya",
+      "category": "kommune",
+      "name": "Frøya",
       "domain": "froya.kommune.no",
       "website_domain": "froya.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4777,10 +4926,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Frøya"
     },
     {
-      "kommune": "Fyresdal",
+      "category": "kommune",
+      "name": "Fyresdal",
       "domain": "fyresdal.kommune.no",
       "website_domain": "fyresdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4836,10 +4987,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Fyresdal"
     },
     {
-      "kommune": "Færder",
+      "category": "kommune",
+      "name": "Færder",
       "domain": "faerder.kommune.no",
       "website_domain": "faerder.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4902,10 +5055,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Færder"
     },
     {
-      "kommune": "Gamvik",
+      "category": "kommune",
+      "name": "Gamvik",
       "domain": "gamvik.kommune.no",
       "website_domain": "gamvik.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4968,10 +5123,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gamvik"
     },
     {
-      "kommune": "Gausdal",
+      "category": "kommune",
+      "name": "Gausdal",
       "domain": "gausdal.kommune.no",
       "website_domain": "gausdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -4999,7 +5156,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
+          "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
           "source": "dig MX gausdal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5025,10 +5182,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gausdal"
     },
     {
-      "kommune": "Gildeskål",
+      "category": "kommune",
+      "name": "Gildeskål",
       "domain": "gildeskal.kommune.no",
       "website_domain": "gildeskal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5056,7 +5215,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 gildeskal-kommune-no.mx2-dk.mailanyone.net; 0 beiarnkommune.in.tmes.trendmicro.eu; 10 beiarnkommune.in.tmes.trendmicro.eu",
+          "observation": "10 beiarnkommune.in.tmes.trendmicro.eu; 20 gildeskal-kommune-no.mx2-dk.mailanyone.net; 0 beiarnkommune.in.tmes.trendmicro.eu",
           "source": "dig MX gildeskal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5091,10 +5250,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gildeskål"
     },
     {
-      "kommune": "Giske",
+      "category": "kommune",
+      "name": "Giske",
       "domain": "giske.kommune.no",
       "website_domain": "giske.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5148,10 +5309,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Giske"
     },
     {
-      "kommune": "Gjemnes",
+      "category": "kommune",
+      "name": "Gjemnes",
       "domain": "gjemnes.kommune.no",
       "website_domain": "gjemnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5214,10 +5377,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gjemnes"
     },
     {
-      "kommune": "Gjerdrum kommune",
+      "category": "kommune",
+      "name": "Gjerdrum kommune",
       "domain": "gjerdrum.kommune.no",
       "website_domain": "gjerdrum.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5245,7 +5410,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net",
+          "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net",
           "source": "dig MX gjerdrum.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5280,10 +5445,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gjerdrum kommune"
     },
     {
-      "kommune": "Gjerstad",
+      "category": "kommune",
+      "name": "Gjerstad",
       "domain": "gjerstad.kommune.no",
       "website_domain": "gjerstad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5346,10 +5513,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gjerstad"
     },
     {
-      "kommune": "Gjesdal",
+      "category": "kommune",
+      "name": "Gjesdal",
       "domain": "gjesdal.kommune.no",
       "website_domain": "gjesdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5377,7 +5546,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 gjesdal-kommune-no.mx2.staysecuregroup.net; 10 gjesdal-kommune-no.mx1.staysecuregroup.com",
+          "observation": "10 gjesdal-kommune-no.mx1.staysecuregroup.com; 20 gjesdal-kommune-no.mx2.staysecuregroup.net",
           "source": "dig MX gjesdal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5403,10 +5572,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gjesdal"
     },
     {
-      "kommune": "Gjøvik",
+      "category": "kommune",
+      "name": "Gjøvik",
       "domain": "gjovik.kommune.no",
       "website_domain": "gjovik.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5469,10 +5640,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gjøvik"
     },
     {
-      "kommune": "Gloppen",
+      "category": "kommune",
+      "name": "Gloppen",
       "domain": "gloppen.kommune.no",
       "website_domain": "gloppen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5535,10 +5708,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gloppen"
     },
     {
-      "kommune": "Gol",
+      "category": "kommune",
+      "name": "Gol",
       "domain": "gol.kommune.no",
       "website_domain": "gol.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5601,10 +5776,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gol"
     },
     {
-      "kommune": "Gran",
+      "category": "kommune",
+      "name": "Gran",
       "domain": "gran.kommune.no",
       "website_domain": "gran.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5658,10 +5835,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gran"
     },
     {
-      "kommune": "Grane",
+      "category": "kommune",
+      "name": "Grane",
       "domain": "grane.kommune.no",
       "website_domain": "grane.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5689,7 +5868,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net",
+          "observation": "10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net",
           "source": "dig MX grane.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5724,10 +5903,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Grane"
     },
     {
-      "kommune": "Gratangen",
+      "category": "kommune",
+      "name": "Gratangen",
       "domain": "gratangen.kommune.no",
       "website_domain": "gratangen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5790,10 +5971,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gratangen"
     },
     {
-      "kommune": "Grimstad",
+      "category": "kommune",
+      "name": "Grimstad",
       "domain": "grimstad.kommune.no",
       "website_domain": "grimstad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5856,10 +6039,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Grimstad"
     },
     {
-      "kommune": "Grong",
+      "category": "kommune",
+      "name": "Grong",
       "domain": "grong.kommune.no",
       "website_domain": "grong.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5904,10 +6089,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Grong"
     },
     {
-      "kommune": "Grue",
+      "category": "kommune",
+      "name": "Grue",
       "domain": "grue.kommune.no",
       "website_domain": "grue.kommune.no",
       "platform": "US_MICROSOFT",
@@ -5937,7 +6124,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no",
+          "observation": "10 mail3.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
           "source": "dig MX grue.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -5963,10 +6150,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Grue"
     },
     {
-      "kommune": "Gulen",
+      "category": "kommune",
+      "name": "Gulen",
       "domain": "gulen.kommune.no",
       "website_domain": "gulen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6029,10 +6218,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Gulen"
     },
     {
-      "kommune": "Hadsel",
+      "category": "kommune",
+      "name": "Hadsel",
       "domain": "hadsel.kommune.no",
       "website_domain": "hadsel.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6095,10 +6286,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hadsel"
     },
     {
-      "kommune": "Halden",
+      "category": "kommune",
+      "name": "Halden",
       "domain": "halden.kommune.no",
       "website_domain": "halden.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6161,10 +6354,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Halden"
     },
     {
-      "kommune": "Hamar",
+      "category": "kommune",
+      "name": "Hamar",
       "domain": "hamar.kommune.no",
       "website_domain": "hamar.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6194,7 +6389,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
+          "observation": "10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no",
           "source": "dig MX hamar.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -6220,10 +6415,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hamar"
     },
     {
-      "kommune": "Hamarøy",
+      "category": "kommune",
+      "name": "Hamarøy",
       "domain": "hamaroy.kommune.no",
       "website_domain": "hamaroy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6286,10 +6483,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hamarøy"
     },
     {
-      "kommune": "Hammerfest",
+      "category": "kommune",
+      "name": "Hammerfest",
       "domain": "hammerfest.kommune.no",
       "website_domain": "hammerfest.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6352,10 +6551,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hammerfest"
     },
     {
-      "kommune": "Haram",
+      "category": "kommune",
+      "name": "Haram",
       "domain": "haram.kommune.no",
       "website_domain": "haram.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6409,10 +6610,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Haram"
     },
     {
-      "kommune": "Hareid",
+      "category": "kommune",
+      "name": "Hareid",
       "domain": "hareid.kommune.no",
       "website_domain": "hareid.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6442,7 +6645,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mx2.hc1299-98.c3s2.iphmx.com; 10 mx1.hc1299-98.c3s2.iphmx.com",
+          "observation": "10 mx1.hc1299-98.c3s2.iphmx.com; 10 mx2.hc1299-98.c3s2.iphmx.com",
           "source": "dig MX hareid.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -6477,10 +6680,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hareid"
     },
     {
-      "kommune": "Harstad",
+      "category": "kommune",
+      "name": "Harstad",
       "domain": "harstad.kommune.no",
       "website_domain": "harstad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6543,10 +6748,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Harstad"
     },
     {
-      "kommune": "Hasvik",
+      "category": "kommune",
+      "name": "Hasvik",
       "domain": "hasvik.kommune.no",
       "website_domain": "hasvik.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6609,10 +6816,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hasvik"
     },
     {
-      "kommune": "Hattfjelldal",
+      "category": "kommune",
+      "name": "Hattfjelldal",
       "domain": "hattfjelldal.kommune.no",
       "website_domain": "hattfjelldal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6640,7 +6849,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 20 se.mx2.mx25.net",
+          "observation": "40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net",
           "source": "dig MX hattfjelldal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -6675,10 +6884,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hattfjelldal"
     },
     {
-      "kommune": "Haugesund",
+      "category": "kommune",
+      "name": "Haugesund",
       "domain": "haugesund.kommune.no",
       "website_domain": "haugesund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6741,10 +6952,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Haugesund"
     },
     {
-      "kommune": "Heim",
+      "category": "kommune",
+      "name": "Heim",
       "domain": "heim.kommune.no",
       "website_domain": "heim.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6807,10 +7020,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Heim"
     },
     {
-      "kommune": "Hemnes",
+      "category": "kommune",
+      "name": "Hemnes",
       "domain": "hemnes.kommune.no",
       "website_domain": "hemnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6838,7 +7053,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 hemnes-kommune-no.mx2.comendosystems.net; 10 hemnes-kommune-no.mx1.comendosystems.com",
+          "observation": "10 hemnes-kommune-no.mx1.comendosystems.com; 20 hemnes-kommune-no.mx2.comendosystems.net",
           "source": "dig MX hemnes.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -6864,10 +7079,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hemnes"
     },
     {
-      "kommune": "Hemsedal",
+      "category": "kommune",
+      "name": "Hemsedal",
       "domain": "hemsedal.kommune.no",
       "website_domain": "hemsedal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6930,10 +7147,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hemsedal"
     },
     {
-      "kommune": "Herøy",
+      "category": "kommune",
+      "name": "Herøy",
       "domain": "heroy.kommune.no",
       "website_domain": "heroy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -6998,10 +7217,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Herøy"
     },
     {
-      "kommune": "Herøy",
+      "category": "kommune",
+      "name": "Herøy",
       "domain": "heroy-no.kommune.no",
       "website_domain": "heroy-no.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7029,7 +7250,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 heroy-no-kommune-no.mx1.comendosystems.com; 20 heroy-no-kommune-no.mx2.comendosystems.net",
+          "observation": "20 heroy-no-kommune-no.mx2.comendosystems.net; 10 heroy-no-kommune-no.mx1.comendosystems.com",
           "source": "dig MX heroy-no.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -7064,10 +7285,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Herøy"
     },
     {
-      "kommune": "Hitra",
+      "category": "kommune",
+      "name": "Hitra",
       "domain": "hitra.kommune.no",
       "website_domain": "hitra.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7121,10 +7344,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hitra"
     },
     {
-      "kommune": "Hjartdal",
+      "category": "kommune",
+      "name": "Hjartdal",
       "domain": "hjartdal.kommune.no",
       "website_domain": "hjartdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7187,10 +7412,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hjartdal"
     },
     {
-      "kommune": "Hjelmeland",
+      "category": "kommune",
+      "name": "Hjelmeland",
       "domain": "hjelmeland.kommune.no",
       "website_domain": "hjelmeland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7253,10 +7480,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hjelmeland"
     },
     {
-      "kommune": "Hol",
+      "category": "kommune",
+      "name": "Hol",
       "domain": "hol.kommune.no",
       "website_domain": "hol.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7319,10 +7548,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hol"
     },
     {
-      "kommune": "Hole",
+      "category": "kommune",
+      "name": "Hole",
       "domain": "hole.kommune.no",
       "website_domain": "hole.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7385,10 +7616,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hole"
     },
     {
-      "kommune": "Holmestrand",
+      "category": "kommune",
+      "name": "Holmestrand",
       "domain": "holmestrand.kommune.no",
       "website_domain": "holmestrand.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7451,10 +7684,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Holmestrand"
     },
     {
-      "kommune": "Holtålen",
+      "category": "kommune",
+      "name": "Holtålen",
       "domain": "holtalen.kommune.no",
       "website_domain": "holtalen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7517,10 +7752,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Holtålen"
     },
     {
-      "kommune": "Horten",
+      "category": "kommune",
+      "name": "Horten",
       "domain": "horten.kommune.no",
       "website_domain": "horten.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7583,10 +7820,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Horten"
     },
     {
-      "kommune": "Hurdal",
+      "category": "kommune",
+      "name": "Hurdal",
       "domain": "hurdal.kommune.no",
       "website_domain": "hurdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7614,7 +7853,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net",
+          "observation": "20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net",
           "source": "dig MX hurdal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -7649,10 +7888,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hurdal"
     },
     {
-      "kommune": "Hustadvika",
+      "category": "kommune",
+      "name": "Hustadvika",
       "domain": "hustadvika.kommune.no",
       "website_domain": "hustadvika.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7715,10 +7956,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hustadvika"
     },
     {
-      "kommune": "Hvaler",
+      "category": "kommune",
+      "name": "Hvaler",
       "domain": "hvaler.kommune.no",
       "website_domain": "hvaler.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7781,10 +8024,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hvaler"
     },
     {
-      "kommune": "Hyllestad kommune",
+      "category": "kommune",
+      "name": "Hyllestad kommune",
       "domain": "hyllestad.kommune.no",
       "website_domain": "hyllestad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7847,10 +8092,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hyllestad kommune"
     },
     {
-      "kommune": "Hå kommune",
+      "category": "kommune",
+      "name": "Hå kommune",
       "domain": "ha.kommune.no",
       "website_domain": "ha.no",
       "platform": "US_MICROSOFT",
@@ -7880,7 +8127,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 mail.ha.kommune.no; 10 mail.ha.kommune.no",
+          "observation": "10 mail.ha.kommune.no; 20 mail.ha.kommune.no",
           "source": "dig MX ha.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -7906,10 +8153,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hå kommune"
     },
     {
-      "kommune": "Hægebostad",
+      "category": "kommune",
+      "name": "Hægebostad",
       "domain": "haegebostad.kommune.no",
       "website_domain": "haegebostad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -7972,10 +8221,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Hægebostad"
     },
     {
-      "kommune": "Høyanger",
+      "category": "kommune",
+      "name": "Høyanger",
       "domain": "hoyanger.kommune.no",
       "website_domain": "hoyanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8029,10 +8280,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Høyanger"
     },
     {
-      "kommune": "Høylandet",
+      "category": "kommune",
+      "name": "Høylandet",
       "domain": "hoylandet.kommune.no",
       "website_domain": "hoylandet.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8086,10 +8339,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Høylandet"
     },
     {
-      "kommune": "Ibestad",
+      "category": "kommune",
+      "name": "Ibestad",
       "domain": "ibestad.kommune.no",
       "website_domain": "ibestad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8152,10 +8407,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ibestad"
     },
     {
-      "kommune": "Inderøy",
+      "category": "kommune",
+      "name": "Inderøy",
       "domain": "inderoy.kommune.no",
       "website_domain": "inderoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8218,10 +8475,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Inderøy"
     },
     {
-      "kommune": "Indre Fosen",
+      "category": "kommune",
+      "name": "Indre Fosen",
       "domain": "indrefosen.kommune.no",
       "website_domain": "indrefosen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8284,10 +8543,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Indre Fosen"
     },
     {
-      "kommune": "Indre Østfold",
+      "category": "kommune",
+      "name": "Indre Østfold",
       "domain": "io.kommune.no",
       "website_domain": "io.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8350,10 +8611,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Indre Østfold"
     },
     {
-      "kommune": "Iveland kommune",
+      "category": "kommune",
+      "name": "Iveland kommune",
       "domain": "iveland.kommune.no",
       "website_domain": "iveland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8416,10 +8679,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Iveland kommune"
     },
     {
-      "kommune": "Jevnaker",
+      "category": "kommune",
+      "name": "Jevnaker",
       "domain": "jevnaker.kommune.no",
       "website_domain": "jevnaker.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8482,10 +8747,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Jevnaker"
     },
     {
-      "kommune": "Karasjok",
+      "category": "kommune",
+      "name": "Karasjok",
       "domain": "karasjok.kommune.no",
       "website_domain": "karasjok.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8513,7 +8780,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "5 eu-esec-01.heimdalsecurity.com; 10 mail.karasjok.kommune.no; 5 eu-esec-02.heimdalsecurity.com",
+          "observation": "5 eu-esec-01.heimdalsecurity.com; 5 eu-esec-02.heimdalsecurity.com; 10 mail.karasjok.kommune.no",
           "source": "dig MX karasjok.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -8548,10 +8815,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Karasjok"
     },
     {
-      "kommune": "Karlsøy",
+      "category": "kommune",
+      "name": "Karlsøy",
       "domain": "karlsoy.kommune.no",
       "website_domain": "karlsoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8614,10 +8883,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Karlsøy"
     },
     {
-      "kommune": "Karmøy",
+      "category": "kommune",
+      "name": "Karmøy",
       "domain": "karmoy.kommune.no",
       "website_domain": "karmoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8680,10 +8951,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Karmøy"
     },
     {
-      "kommune": "Kautokeino",
+      "category": "kommune",
+      "name": "Kautokeino",
       "domain": "kautokeino.kommune.no",
       "website_domain": "guovdageainnu.suohkan.no",
       "platform": "US_MICROSOFT",
@@ -8748,10 +9021,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kautokeino"
     },
     {
-      "kommune": "Kinn",
+      "category": "kommune",
+      "name": "Kinn",
       "domain": "kinn.kommune.no",
       "website_domain": "kinn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8814,10 +9089,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kinn"
     },
     {
-      "kommune": "Klepp",
+      "category": "kommune",
+      "name": "Klepp",
       "domain": "klepp.kommune.no",
       "website_domain": "klepp.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8880,10 +9157,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Klepp"
     },
     {
-      "kommune": "Kongsberg",
+      "category": "kommune",
+      "name": "Kongsberg",
       "domain": "kongsberg.kommune.no",
       "website_domain": "kongsberg.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8946,10 +9225,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kongsberg"
     },
     {
-      "kommune": "Kongsvinger",
+      "category": "kommune",
+      "name": "Kongsvinger",
       "domain": "kongsvinger.kommune.no",
       "website_domain": "kongsvinger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -8979,7 +9260,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no",
+          "observation": "30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
           "source": "dig MX kongsvinger.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -9005,10 +9286,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kongsvinger"
     },
     {
-      "kommune": "Kragerø",
+      "category": "kommune",
+      "name": "Kragerø",
       "domain": "kragero.kommune.no",
       "website_domain": "kragero.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9071,10 +9354,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kragerø"
     },
     {
-      "kommune": "Kristiansand",
+      "category": "kommune",
+      "name": "Kristiansand",
       "domain": "kristiansand.kommune.no",
       "website_domain": "kristiansand.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9137,10 +9422,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kristiansand"
     },
     {
-      "kommune": "Kristiansund",
+      "category": "kommune",
+      "name": "Kristiansund",
       "domain": "kristiansund.kommune.no",
       "website_domain": "kristiansund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9203,10 +9490,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kristiansund"
     },
     {
-      "kommune": "Krødsherad kommune",
+      "category": "kommune",
+      "name": "Krødsherad kommune",
       "domain": "krodsherad.kommune.no",
       "website_domain": "krodsherad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9269,10 +9558,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Krødsherad kommune"
     },
     {
-      "kommune": "Kvam",
+      "category": "kommune",
+      "name": "Kvam",
       "domain": "kvam.kommune.no",
       "website_domain": "kvam.no",
       "platform": "US_MICROSOFT",
@@ -9337,10 +9628,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kvam"
     },
     {
-      "kommune": "Kvinesdal",
+      "category": "kommune",
+      "name": "Kvinesdal",
       "domain": "kvinesdal.kommune.no",
       "website_domain": "kvinesdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9403,10 +9696,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kvinesdal"
     },
     {
-      "kommune": "Kvinnherad",
+      "category": "kommune",
+      "name": "Kvinnherad",
       "domain": "kvinnherad.kommune.no",
       "website_domain": "kvinnherad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9469,10 +9764,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kvinnherad"
     },
     {
-      "kommune": "Kviteseid",
+      "category": "kommune",
+      "name": "Kviteseid",
       "domain": "kviteseid.kommune.no",
       "website_domain": "kviteseid.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9528,10 +9825,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kviteseid"
     },
     {
-      "kommune": "Kvitsøy",
+      "category": "kommune",
+      "name": "Kvitsøy",
       "domain": "kvitsoy.kommune.no",
       "website_domain": "kvitsoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9594,10 +9893,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kvitsøy"
     },
     {
-      "kommune": "Kvæfjord",
+      "category": "kommune",
+      "name": "Kvæfjord",
       "domain": "kvafjord.kommune.no",
       "website_domain": "kvafjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9660,10 +9961,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kvæfjord"
     },
     {
-      "kommune": "Kvænangen",
+      "category": "kommune",
+      "name": "Kvænangen",
       "domain": "kvanangen.kommune.no",
       "website_domain": "kvanangen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9726,10 +10029,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kvænangen"
     },
     {
-      "kommune": "Kåfjord",
+      "category": "kommune",
+      "name": "Kåfjord",
       "domain": "kafjord.kommune.no",
       "website_domain": "kafjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9792,10 +10097,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Kåfjord"
     },
     {
-      "kommune": "Lavangen",
+      "category": "kommune",
+      "name": "Lavangen",
       "domain": "lavangen.kommune.no",
       "website_domain": "lavangen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9858,10 +10165,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lavangen"
     },
     {
-      "kommune": "Lebesby",
+      "category": "kommune",
+      "name": "Lebesby",
       "domain": "lebesby.kommune.no",
       "website_domain": "lebesby.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9924,10 +10233,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lebesby"
     },
     {
-      "kommune": "Leirfjord",
+      "category": "kommune",
+      "name": "Leirfjord",
       "domain": "leirfjord.kommune.no",
       "website_domain": "leirfjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -9955,7 +10266,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 leirfjord-kommune-no.mx2.comendosystems.net; 10 leirfjord-kommune-no.mx1.comendosystems.com",
+          "observation": "10 leirfjord-kommune-no.mx1.comendosystems.com; 20 leirfjord-kommune-no.mx2.comendosystems.net",
           "source": "dig MX leirfjord.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -9990,10 +10301,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Leirfjord"
     },
     {
-      "kommune": "Leka",
+      "category": "kommune",
+      "name": "Leka",
       "domain": "leka.kommune.no",
       "website_domain": "leka.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10021,7 +10334,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "5 naroysund.in.tmes.trendmicro.eu; 1 leka-kommune-no.mail.protection.outlook.com",
+          "observation": "1 leka-kommune-no.mail.protection.outlook.com; 5 naroysund.in.tmes.trendmicro.eu",
           "source": "dig MX leka.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "MX leverer e-post til Microsoft 365",
@@ -10056,10 +10369,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Leka"
     },
     {
-      "kommune": "Lesja",
+      "category": "kommune",
+      "name": "Lesja",
       "domain": "lesja.kommune.no",
       "website_domain": "lesja.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10122,10 +10437,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lesja"
     },
     {
-      "kommune": "Levanger",
+      "category": "kommune",
+      "name": "Levanger",
       "domain": "levanger.kommune.no",
       "website_domain": "levanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10188,10 +10505,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Levanger"
     },
     {
-      "kommune": "Lier",
+      "category": "kommune",
+      "name": "Lier",
       "domain": "lier.kommune.no",
       "website_domain": "lier.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10245,10 +10564,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lier"
     },
     {
-      "kommune": "Lierne",
+      "category": "kommune",
+      "name": "Lierne",
       "domain": "lierne.kommune.no",
       "website_domain": "lierne.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10293,10 +10614,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lierne"
     },
     {
-      "kommune": "Lillehammer",
+      "category": "kommune",
+      "name": "Lillehammer",
       "domain": "lillehammer.kommune.no",
       "website_domain": "lillehammer.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10350,10 +10673,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lillehammer"
     },
     {
-      "kommune": "Lillesand",
+      "category": "kommune",
+      "name": "Lillesand",
       "domain": "lillesand.kommune.no",
       "website_domain": "lillesand.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10416,10 +10741,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lillesand"
     },
     {
-      "kommune": "Lillestrøm",
+      "category": "kommune",
+      "name": "Lillestrøm",
       "domain": "lillestrom.kommune.no",
       "website_domain": "lillestrom.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10482,10 +10809,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lillestrøm"
     },
     {
-      "kommune": "Lindesnes",
+      "category": "kommune",
+      "name": "Lindesnes",
       "domain": "lindesnes.kommune.no",
       "website_domain": "lindesnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10548,10 +10877,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lindesnes"
     },
     {
-      "kommune": "Lom",
+      "category": "kommune",
+      "name": "Lom",
       "domain": "lom.kommune.no",
       "website_domain": "lom.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10614,10 +10945,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lom"
     },
     {
-      "kommune": "Loppa",
+      "category": "kommune",
+      "name": "Loppa",
       "domain": "loppa.kommune.no",
       "website_domain": "loppa.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10680,10 +11013,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Loppa"
     },
     {
-      "kommune": "Lund",
+      "category": "kommune",
+      "name": "Lund",
       "domain": "lund.kommune.no",
       "website_domain": "lund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10746,10 +11081,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lund"
     },
     {
-      "kommune": "Lunner",
+      "category": "kommune",
+      "name": "Lunner",
       "domain": "lunner.kommune.no",
       "website_domain": "lunner.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10812,10 +11149,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lunner"
     },
     {
-      "kommune": "Lurøy",
+      "category": "kommune",
+      "name": "Lurøy",
       "domain": "luroy.kommune.no",
       "website_domain": "luroy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10843,7 +11182,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 luroy-kommune-no.mx2.comendosystems.net; 10 luroy-kommune-no.mx1.comendosystems.com",
+          "observation": "10 luroy-kommune-no.mx1.comendosystems.com; 20 luroy-kommune-no.mx2.comendosystems.net",
           "source": "dig MX luroy.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -10878,10 +11217,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lurøy"
     },
     {
-      "kommune": "Luster",
+      "category": "kommune",
+      "name": "Luster",
       "domain": "luster.kommune.no",
       "website_domain": "luster.kommune.no",
       "platform": "US_MICROSOFT",
@@ -10944,10 +11285,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Luster"
     },
     {
-      "kommune": "Lyngdal",
+      "category": "kommune",
+      "name": "Lyngdal",
       "domain": "lyngdal.kommune.no",
       "website_domain": "lyngdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11010,10 +11353,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lyngdal"
     },
     {
-      "kommune": "Lyngen",
+      "category": "kommune",
+      "name": "Lyngen",
       "domain": "lyngen.kommune.no",
       "website_domain": "lyngen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11076,10 +11421,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lyngen"
     },
     {
-      "kommune": "Lærdal",
+      "category": "kommune",
+      "name": "Lærdal",
       "domain": "laerdal.kommune.no",
       "website_domain": "laerdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11142,10 +11489,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lærdal"
     },
     {
-      "kommune": "Lødingen",
+      "category": "kommune",
+      "name": "Lødingen",
       "domain": "lodingen.kommune.no",
       "website_domain": "lodingen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11208,10 +11557,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lødingen"
     },
     {
-      "kommune": "Lørenskog",
+      "category": "kommune",
+      "name": "Lørenskog",
       "domain": "lorenskog.kommune.no",
       "website_domain": "lorenskog.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11274,10 +11625,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Lørenskog"
     },
     {
-      "kommune": "Løten",
+      "category": "kommune",
+      "name": "Løten",
       "domain": "loten.kommune.no",
       "website_domain": "loten.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11333,10 +11686,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Løten"
     },
     {
-      "kommune": "Malvik",
+      "category": "kommune",
+      "name": "Malvik",
       "domain": "malvik.kommune.no",
       "website_domain": "malvik.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11399,10 +11754,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Malvik"
     },
     {
-      "kommune": "Marker",
+      "category": "kommune",
+      "name": "Marker",
       "domain": "marker.kommune.no",
       "website_domain": "marker.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11465,10 +11822,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Marker"
     },
     {
-      "kommune": "Masfjorden kommune",
+      "category": "kommune",
+      "name": "Masfjorden kommune",
       "domain": "masfjorden.kommune.no",
       "website_domain": "masfjorden.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11531,10 +11890,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Masfjorden kommune"
     },
     {
-      "kommune": "Melhus",
+      "category": "kommune",
+      "name": "Melhus",
       "domain": "melhus.kommune.no",
       "website_domain": "melhus.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11597,10 +11958,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Melhus"
     },
     {
-      "kommune": "Meløy",
+      "category": "kommune",
+      "name": "Meløy",
       "domain": "meloy.kommune.no",
       "website_domain": "meloy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11663,10 +12026,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Meløy"
     },
     {
-      "kommune": "Meråker",
+      "category": "kommune",
+      "name": "Meråker",
       "domain": "meraker.kommune.no",
       "website_domain": "meraker.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11720,10 +12085,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Meråker"
     },
     {
-      "kommune": "Midt-Telemark",
+      "category": "kommune",
+      "name": "Midt-Telemark",
       "domain": "midt-telemark.kommune.no",
       "website_domain": "midt-telemark.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11786,10 +12153,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Midt-Telemark"
     },
     {
-      "kommune": "Midtre Gauldal",
+      "category": "kommune",
+      "name": "Midtre Gauldal",
       "domain": "mgk.no",
       "website_domain": "mgk.no",
       "platform": "US_MICROSOFT",
@@ -11843,10 +12212,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Midtre Gauldal"
     },
     {
-      "kommune": "Modalen",
+      "category": "kommune",
+      "name": "Modalen",
       "domain": "modalen.kommune.no",
       "website_domain": "modalen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11909,10 +12280,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Modalen"
     },
     {
-      "kommune": "Modum",
+      "category": "kommune",
+      "name": "Modum",
       "domain": "modum.kommune.no",
       "website_domain": "modum.kommune.no",
       "platform": "US_MICROSOFT",
@@ -11975,10 +12348,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Modum"
     },
     {
-      "kommune": "Molde",
+      "category": "kommune",
+      "name": "Molde",
       "domain": "molde.kommune.no",
       "website_domain": "molde.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12041,10 +12416,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Molde"
     },
     {
-      "kommune": "Moskenes",
+      "category": "kommune",
+      "name": "Moskenes",
       "domain": "moskenes.kommune.no",
       "website_domain": "moskenes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12072,7 +12449,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 d212609.b.ess.uk.barracudanetworks.com; 10 d212609.a.ess.uk.barracudanetworks.com",
+          "observation": "10 d212609.a.ess.uk.barracudanetworks.com; 20 d212609.b.ess.uk.barracudanetworks.com",
           "source": "dig MX moskenes.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -12107,10 +12484,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Moskenes"
     },
     {
-      "kommune": "Moss",
+      "category": "kommune",
+      "name": "Moss",
       "domain": "moss.kommune.no",
       "website_domain": "moss.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12173,10 +12552,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Moss"
     },
     {
-      "kommune": "Målselv",
+      "category": "kommune",
+      "name": "Målselv",
       "domain": "malselv.kommune.no",
       "website_domain": "malselv.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12204,7 +12585,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 mx2-eu1.ppe-hosted.com; 10 mx1-eu1.ppe-hosted.com",
+          "observation": "10 mx1-eu1.ppe-hosted.com; 20 mx2-eu1.ppe-hosted.com",
           "source": "dig MX malselv.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -12239,10 +12620,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Målselv"
     },
     {
-      "kommune": "Måsøy",
+      "category": "kommune",
+      "name": "Måsøy",
       "domain": "masoy.kommune.no",
       "website_domain": "masoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12305,10 +12688,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Måsøy"
     },
     {
-      "kommune": "Namsos",
+      "category": "kommune",
+      "name": "Namsos",
       "domain": "namsos.kommune.no",
       "website_domain": "namsos.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12371,10 +12756,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Namsos"
     },
     {
-      "kommune": "Namsskogan kommune",
+      "category": "kommune",
+      "name": "Namsskogan kommune",
       "domain": "namsskogan.kommune.no",
       "website_domain": "namsskogan.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12419,10 +12806,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Namsskogan kommune"
     },
     {
-      "kommune": "Nannestad",
+      "category": "kommune",
+      "name": "Nannestad",
       "domain": "nannestad.kommune.no",
       "website_domain": "nannestad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12450,7 +12839,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net",
+          "observation": "40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net",
           "source": "dig MX nannestad.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -12485,10 +12874,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nannestad"
     },
     {
-      "kommune": "Nes",
+      "category": "kommune",
+      "name": "Nes",
       "domain": "nes.kommune.no",
       "website_domain": "nes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12516,7 +12907,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 10 se.mx1.mailanyone.net",
+          "observation": "20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net",
           "source": "dig MX nes.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -12551,10 +12942,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nes"
     },
     {
-      "kommune": "Nesbyen",
+      "category": "kommune",
+      "name": "Nesbyen",
       "domain": "nes-bu.kommune.no",
       "website_domain": "nes-bu.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12617,10 +13010,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nesbyen"
     },
     {
-      "kommune": "Nesna",
+      "category": "kommune",
+      "name": "Nesna",
       "domain": "nesna.kommune.no",
       "website_domain": "nesna.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12683,10 +13078,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nesna"
     },
     {
-      "kommune": "Nesodden",
+      "category": "kommune",
+      "name": "Nesodden",
       "domain": "nesodden.kommune.no",
       "website_domain": "nesodden.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12749,10 +13146,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nesodden"
     },
     {
-      "kommune": "Nesseby",
+      "category": "kommune",
+      "name": "Nesseby",
       "domain": "nesseby.kommune.no",
       "website_domain": "nesseby.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12815,10 +13214,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nesseby"
     },
     {
-      "kommune": "Nissedal",
+      "category": "kommune",
+      "name": "Nissedal",
       "domain": "nissedal.kommune.no",
       "website_domain": "nissedal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12872,10 +13273,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nissedal"
     },
     {
-      "kommune": "Nittedal",
+      "category": "kommune",
+      "name": "Nittedal",
       "domain": "nittedal.kommune.no",
       "website_domain": "nittedal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -12938,10 +13341,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nittedal"
     },
     {
-      "kommune": "Nome",
+      "category": "kommune",
+      "name": "Nome",
       "domain": "nome.kommune.no",
       "website_domain": "nome.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13004,10 +13409,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nome"
     },
     {
-      "kommune": "Nord-Aurdal kommune",
+      "category": "kommune",
+      "name": "Nord-Aurdal kommune",
       "domain": "nord-aurdal.kommune.no",
       "website_domain": "nord-aurdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13070,10 +13477,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nord-Aurdal kommune"
     },
     {
-      "kommune": "Nord-Fron",
+      "category": "kommune",
+      "name": "Nord-Fron",
       "domain": "nord-fron.kommune.no",
       "website_domain": "nord-fron.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13136,10 +13545,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nord-Fron"
     },
     {
-      "kommune": "Nord-Odal",
+      "category": "kommune",
+      "name": "Nord-Odal",
       "domain": "nord-odal.kommune.no",
       "website_domain": "nord-odal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13169,7 +13580,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
+          "observation": "10 mail3.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
           "source": "dig MX nord-odal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -13195,10 +13606,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nord-Odal"
     },
     {
-      "kommune": "Nordkapp",
+      "category": "kommune",
+      "name": "Nordkapp",
       "domain": "nordkapp.kommune.no",
       "website_domain": "nordkapp.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13252,10 +13665,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nordkapp"
     },
     {
-      "kommune": "Nordre Follo",
+      "category": "kommune",
+      "name": "Nordre Follo",
       "domain": "nordrefollo.kommune.no",
       "website_domain": "nordrefollo.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13318,10 +13733,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nordre Follo"
     },
     {
-      "kommune": "Nordre Land",
+      "category": "kommune",
+      "name": "Nordre Land",
       "domain": "nordre-land.kommune.no",
       "website_domain": "nordre-land.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13375,10 +13792,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nordre Land"
     },
     {
-      "kommune": "Nordreisa",
+      "category": "kommune",
+      "name": "Nordreisa",
       "domain": "nordreisa.kommune.no",
       "website_domain": "nordreisa.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13441,10 +13860,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nordreisa"
     },
     {
-      "kommune": "Nore og Uvdal",
+      "category": "kommune",
+      "name": "Nore og Uvdal",
       "domain": "nore-og-uvdal.kommune.no",
       "website_domain": "nore-og-uvdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13507,10 +13928,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nore og Uvdal"
     },
     {
-      "kommune": "Notodden",
+      "category": "kommune",
+      "name": "Notodden",
       "domain": "notodden.kommune.no",
       "website_domain": "notodden.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13573,10 +13996,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Notodden"
     },
     {
-      "kommune": "Nærøysund",
+      "category": "kommune",
+      "name": "Nærøysund",
       "domain": "naroysund.kommune.no",
       "website_domain": "naroysund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13639,10 +14064,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Nærøysund"
     },
     {
-      "kommune": "Oppdal",
+      "category": "kommune",
+      "name": "Oppdal",
       "domain": "oppdal.kommune.no",
       "website_domain": "oppdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13705,10 +14132,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Oppdal"
     },
     {
-      "kommune": "Orkland",
+      "category": "kommune",
+      "name": "Orkland",
       "domain": "orkland.kommune.no",
       "website_domain": "orkland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13762,10 +14191,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Orkland"
     },
     {
-      "kommune": "Os",
+      "category": "kommune",
+      "name": "Os",
       "domain": "os.kommune.no",
       "website_domain": "os.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13828,10 +14259,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Os"
     },
     {
-      "kommune": "Osen",
+      "category": "kommune",
+      "name": "Osen",
       "domain": "osen.kommune.no",
       "website_domain": "osen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13894,10 +14327,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Osen"
     },
     {
-      "kommune": "Oslo kommune",
+      "category": "kommune",
+      "name": "Oslo kommune",
       "domain": "oslo.kommune.no",
       "website_domain": "oslo.kommune.no",
       "platform": "US_MICROSOFT",
@@ -13960,10 +14395,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Oslo kommune"
     },
     {
-      "kommune": "Osterøy",
+      "category": "kommune",
+      "name": "Osterøy",
       "domain": "osteroy.kommune.no",
       "website_domain": "osteroy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14026,10 +14463,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Osterøy"
     },
     {
-      "kommune": "Overhalla",
+      "category": "kommune",
+      "name": "Overhalla",
       "domain": "overhalla.kommune.no",
       "website_domain": "overhalla.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14092,10 +14531,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Overhalla"
     },
     {
-      "kommune": "Porsanger",
+      "category": "kommune",
+      "name": "Porsanger",
       "domain": "porsanger.kommune.no",
       "website_domain": "porsanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14158,10 +14599,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Porsanger"
     },
     {
-      "kommune": "Porsgrunn",
+      "category": "kommune",
+      "name": "Porsgrunn",
       "domain": "porsgrunn.kommune.no",
       "website_domain": "porsgrunn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14224,10 +14667,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Porsgrunn"
     },
     {
-      "kommune": "Rakkestad",
+      "category": "kommune",
+      "name": "Rakkestad",
       "domain": "rakkestad.kommune.no",
       "website_domain": "rakkestad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14255,7 +14700,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 rakkestad-kommune-no-1.fortimailcloud.com; 30 rakkestad-kommune-no.mail.protection.outlook.com; 20 rakkestad-kommune-no-2.fortimailcloud.com",
+          "observation": "10 rakkestad-kommune-no-1.fortimailcloud.com; 20 rakkestad-kommune-no-2.fortimailcloud.com; 30 rakkestad-kommune-no.mail.protection.outlook.com",
           "source": "dig MX rakkestad.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "MX leverer e-post til Microsoft 365",
@@ -14281,10 +14726,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rakkestad"
     },
     {
-      "kommune": "Rana",
+      "category": "kommune",
+      "name": "Rana",
       "domain": "rana.kommune.no",
       "website_domain": "rana.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14312,7 +14759,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 rana-kommune-no.mx2.comendosystems.net; 10 rana-kommune-no.mx1.comendosystems.com",
+          "observation": "10 rana-kommune-no.mx1.comendosystems.com; 20 rana-kommune-no.mx2.comendosystems.net",
           "source": "dig MX rana.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -14338,10 +14785,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rana"
     },
     {
-      "kommune": "Randaberg",
+      "category": "kommune",
+      "name": "Randaberg",
       "domain": "randaberg.kommune.no",
       "website_domain": "randaberg.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14404,10 +14853,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Randaberg"
     },
     {
-      "kommune": "Rauma",
+      "category": "kommune",
+      "name": "Rauma",
       "domain": "rauma.kommune.no",
       "website_domain": "rauma.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14470,10 +14921,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rauma"
     },
     {
-      "kommune": "Rendalen",
+      "category": "kommune",
+      "name": "Rendalen",
       "domain": "rendalen.kommune.no",
       "website_domain": "rendalen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14501,7 +14954,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net",
+          "observation": "20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net",
           "source": "dig MX rendalen.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -14527,10 +14980,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rendalen"
     },
     {
-      "kommune": "Rennebu",
+      "category": "kommune",
+      "name": "Rennebu",
       "domain": "rennebu.kommune.no",
       "website_domain": "rennebu.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14584,10 +15039,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rennebu"
     },
     {
-      "kommune": "Rindal",
+      "category": "kommune",
+      "name": "Rindal",
       "domain": "rindal.kommune.no",
       "website_domain": "rindal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14650,10 +15107,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rindal"
     },
     {
-      "kommune": "Ringebu",
+      "category": "kommune",
+      "name": "Ringebu",
       "domain": "ringebu.kommune.no",
       "website_domain": "ringebu.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14681,7 +15140,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net",
+          "observation": "10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 40 se.mx4.mx25.net",
           "source": "dig MX ringebu.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -14716,10 +15175,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ringebu"
     },
     {
-      "kommune": "Ringerike",
+      "category": "kommune",
+      "name": "Ringerike",
       "domain": "ringerike.kommune.no",
       "website_domain": "ringerike.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14782,10 +15243,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ringerike"
     },
     {
-      "kommune": "Ringsaker",
+      "category": "kommune",
+      "name": "Ringsaker",
       "domain": "ringsaker.kommune.no",
       "website_domain": "ringsaker.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14813,7 +15276,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 mx10.electric.net; 10 mx11.electric.net",
+          "observation": "10 mx11.electric.net; 20 mx10.electric.net",
           "source": "dig MX ringsaker.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -14857,10 +15320,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ringsaker"
     },
     {
-      "kommune": "Risør",
+      "category": "kommune",
+      "name": "Risør",
       "domain": "risor.kommune.no",
       "website_domain": "risor.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14923,10 +15388,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Risør"
     },
     {
-      "kommune": "Rollag",
+      "category": "kommune",
+      "name": "Rollag",
       "domain": "rollag.kommune.no",
       "website_domain": "rollag.kommune.no",
       "platform": "US_MICROSOFT",
@@ -14989,10 +15456,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rollag"
     },
     {
-      "kommune": "Råde",
+      "category": "kommune",
+      "name": "Råde",
       "domain": "rade.kommune.no",
       "website_domain": "rade.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15055,10 +15524,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Råde"
     },
     {
-      "kommune": "Rælingen",
+      "category": "kommune",
+      "name": "Rælingen",
       "domain": "ralingen.kommune.no",
       "website_domain": "ralingen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15086,7 +15557,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
+          "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
           "source": "dig MX ralingen.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -15121,10 +15592,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rælingen"
     },
     {
-      "kommune": "Rødøy",
+      "category": "kommune",
+      "name": "Rødøy",
       "domain": "rodoy.kommune.no",
       "website_domain": "rodoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15187,10 +15660,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Rødøy"
     },
     {
-      "kommune": "Røros",
+      "category": "kommune",
+      "name": "Røros",
       "domain": "roros.kommune.no",
       "website_domain": "roros.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15244,10 +15719,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Røros"
     },
     {
-      "kommune": "Røst",
+      "category": "kommune",
+      "name": "Røst",
       "domain": "rost.kommune.no",
       "website_domain": "rost.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15310,10 +15787,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Røst"
     },
     {
-      "kommune": "Røyrvik kommune",
+      "category": "kommune",
+      "name": "Røyrvik kommune",
       "domain": "royrvik.kommune.no",
       "website_domain": "royrvik.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15358,10 +15837,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Røyrvik kommune"
     },
     {
-      "kommune": "Salangen",
+      "category": "kommune",
+      "name": "Salangen",
       "domain": "salangen.kommune.no",
       "website_domain": "salangen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15424,10 +15905,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Salangen"
     },
     {
-      "kommune": "Saltdal",
+      "category": "kommune",
+      "name": "Saltdal",
       "domain": "saltdal.kommune.no",
       "website_domain": "saltdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15490,10 +15973,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Saltdal"
     },
     {
-      "kommune": "Samnanger",
+      "category": "kommune",
+      "name": "Samnanger",
       "domain": "samnanger.kommune.no",
       "website_domain": "samnanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15556,10 +16041,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Samnanger"
     },
     {
-      "kommune": "Sande",
+      "category": "kommune",
+      "name": "Sande",
       "domain": "sande-mr.kommune.no",
       "website_domain": "sande-mr.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15624,10 +16111,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sande"
     },
     {
-      "kommune": "Sandefjord",
+      "category": "kommune",
+      "name": "Sandefjord",
       "domain": "sandefjord.kommune.no",
       "website_domain": "sandefjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15681,10 +16170,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sandefjord"
     },
     {
-      "kommune": "Sandnes",
+      "category": "kommune",
+      "name": "Sandnes",
       "domain": "sandnes.kommune.no",
       "website_domain": "sandnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15747,10 +16238,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sandnes"
     },
     {
-      "kommune": "Sarpsborg",
+      "category": "kommune",
+      "name": "Sarpsborg",
       "domain": "sarpsborg.com",
       "website_domain": "sarpsborg.com",
       "platform": "US_MICROSOFT",
@@ -15813,10 +16306,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sarpsborg"
     },
     {
-      "kommune": "Sauda",
+      "category": "kommune",
+      "name": "Sauda",
       "domain": "sauda.kommune.no",
       "website_domain": "sauda.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15879,10 +16374,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sauda"
     },
     {
-      "kommune": "Sel",
+      "category": "kommune",
+      "name": "Sel",
       "domain": "sel.kommune.no",
       "website_domain": "sel.kommune.no",
       "platform": "US_MICROSOFT",
@@ -15945,10 +16442,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sel"
     },
     {
-      "kommune": "Selbu",
+      "category": "kommune",
+      "name": "Selbu",
       "domain": "selbu.kommune.no",
       "website_domain": "selbu.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16002,10 +16501,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Selbu"
     },
     {
-      "kommune": "Seljord",
+      "category": "kommune",
+      "name": "Seljord",
       "domain": "seljord.kommune.no",
       "website_domain": "seljord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16059,10 +16560,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Seljord"
     },
     {
-      "kommune": "Senja",
+      "category": "kommune",
+      "name": "Senja",
       "domain": "senja.kommune.no",
       "website_domain": "senja.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16125,10 +16628,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Senja"
     },
     {
-      "kommune": "Sigdal",
+      "category": "kommune",
+      "name": "Sigdal",
       "domain": "sigdal.kommune.no",
       "website_domain": "sigdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16191,10 +16696,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sigdal"
     },
     {
-      "kommune": "Siljan",
+      "category": "kommune",
+      "name": "Siljan",
       "domain": "siljan.kommune.no",
       "website_domain": "siljan.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16257,10 +16764,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Siljan"
     },
     {
-      "kommune": "Sirdal",
+      "category": "kommune",
+      "name": "Sirdal",
       "domain": "sirdal.kommune.no",
       "website_domain": "sirdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16323,10 +16832,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sirdal"
     },
     {
-      "kommune": "Skaun",
+      "category": "kommune",
+      "name": "Skaun",
       "domain": "skaun.kommune.no",
       "website_domain": "skaun.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16389,10 +16900,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Skaun"
     },
     {
-      "kommune": "Skien",
+      "category": "kommune",
+      "name": "Skien",
       "domain": "skien.kommune.no",
       "website_domain": "skien.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16455,10 +16968,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Skien"
     },
     {
-      "kommune": "Skiptvet kommune",
+      "category": "kommune",
+      "name": "Skiptvet kommune",
       "domain": "skiptvet.kommune.no",
       "website_domain": "skiptvet.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16521,10 +17036,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Skiptvet kommune"
     },
     {
-      "kommune": "Skjervøy",
+      "category": "kommune",
+      "name": "Skjervøy",
       "domain": "skjervoy.kommune.no",
       "website_domain": "skjervoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16587,10 +17104,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Skjervøy"
     },
     {
-      "kommune": "Skjåk",
+      "category": "kommune",
+      "name": "Skjåk",
       "domain": "skjaak.kommune.no",
       "website_domain": "skjaak.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16653,10 +17172,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Skjåk"
     },
     {
-      "kommune": "Smøla",
+      "category": "kommune",
+      "name": "Smøla",
       "domain": "smola.kommune.no",
       "website_domain": "smola.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16719,10 +17240,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Smøla"
     },
     {
-      "kommune": "Snåsa",
+      "category": "kommune",
+      "name": "Snåsa",
       "domain": "snasa.kommune.no",
       "website_domain": "snasa.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16785,10 +17308,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Snåsa"
     },
     {
-      "kommune": "Sogndal",
+      "category": "kommune",
+      "name": "Sogndal",
       "domain": "sogndal.kommune.no",
       "website_domain": "sogndal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16851,10 +17376,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sogndal"
     },
     {
-      "kommune": "Sokndal",
+      "category": "kommune",
+      "name": "Sokndal",
       "domain": "sokndal.kommune.no",
       "website_domain": "sokndal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16908,10 +17435,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sokndal"
     },
     {
-      "kommune": "Sola",
+      "category": "kommune",
+      "name": "Sola",
       "domain": "sola.kommune.no",
       "website_domain": "sola.kommune.no",
       "platform": "US_MICROSOFT",
@@ -16974,10 +17503,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sola"
     },
     {
-      "kommune": "Solund",
+      "category": "kommune",
+      "name": "Solund",
       "domain": "solund.kommune.no",
       "website_domain": "solund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17040,10 +17571,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Solund"
     },
     {
-      "kommune": "Sortland",
+      "category": "kommune",
+      "name": "Sortland",
       "domain": "sortland.kommune.no",
       "website_domain": "sortland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17106,10 +17639,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sortland"
     },
     {
-      "kommune": "Stad",
+      "category": "kommune",
+      "name": "Stad",
       "domain": "stad.kommune.no",
       "website_domain": "stad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17172,10 +17707,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stad"
     },
     {
-      "kommune": "Stange",
+      "category": "kommune",
+      "name": "Stange",
       "domain": "stange.kommune.no",
       "website_domain": "stange.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17205,7 +17742,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mail3.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
+          "observation": "10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
           "source": "dig MX stange.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -17231,10 +17768,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stange"
     },
     {
-      "kommune": "Stavanger",
+      "category": "kommune",
+      "name": "Stavanger",
       "domain": "stavanger.kommune.no",
       "website_domain": "stavanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17297,10 +17836,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stavanger"
     },
     {
-      "kommune": "Steigen",
+      "category": "kommune",
+      "name": "Steigen",
       "domain": "steigen.kommune.no",
       "website_domain": "steigen.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17363,10 +17904,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Steigen"
     },
     {
-      "kommune": "Steinkjer",
+      "category": "kommune",
+      "name": "Steinkjer",
       "domain": "steinkjer.kommune.no",
       "website_domain": "steinkjer.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17429,10 +17972,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Steinkjer"
     },
     {
-      "kommune": "Stjørdal",
+      "category": "kommune",
+      "name": "Stjørdal",
       "domain": "stjordal.kommune.no",
       "website_domain": "stjordal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17486,10 +18031,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stjørdal"
     },
     {
-      "kommune": "Stor-Elvdal",
+      "category": "kommune",
+      "name": "Stor-Elvdal",
       "domain": "stor-elvdal.kommune.no",
       "website_domain": "stor-elvdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17552,10 +18099,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stor-Elvdal"
     },
     {
-      "kommune": "Stord",
+      "category": "kommune",
+      "name": "Stord",
       "domain": "stord.kommune.no",
       "website_domain": "stord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17618,10 +18167,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stord"
     },
     {
-      "kommune": "Storfjord",
+      "category": "kommune",
+      "name": "Storfjord",
       "domain": "storfjord.kommune.no",
       "website_domain": "storfjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17684,10 +18235,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Storfjord"
     },
     {
-      "kommune": "Strand",
+      "category": "kommune",
+      "name": "Strand",
       "domain": "strand.kommune.no",
       "website_domain": "strand.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17750,10 +18303,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Strand"
     },
     {
-      "kommune": "Stranda",
+      "category": "kommune",
+      "name": "Stranda",
       "domain": "stranda.kommune.no",
       "website_domain": "stranda.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17816,10 +18371,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stranda"
     },
     {
-      "kommune": "Stryn",
+      "category": "kommune",
+      "name": "Stryn",
       "domain": "stryn.kommune.no",
       "website_domain": "stryn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17882,10 +18439,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Stryn"
     },
     {
-      "kommune": "Sula",
+      "category": "kommune",
+      "name": "Sula",
       "domain": "sula.kommune.no",
       "website_domain": "sula.kommune.no",
       "platform": "US_MICROSOFT",
@@ -17939,10 +18498,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sula"
     },
     {
-      "kommune": "Suldal",
+      "category": "kommune",
+      "name": "Suldal",
       "domain": "suldal.kommune.no",
       "website_domain": "suldal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18005,10 +18566,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Suldal"
     },
     {
-      "kommune": "Sunndal",
+      "category": "kommune",
+      "name": "Sunndal",
       "domain": "sunndal.kommune.no",
       "website_domain": "sunndal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18071,10 +18634,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sunndal"
     },
     {
-      "kommune": "Sunnfjord",
+      "category": "kommune",
+      "name": "Sunnfjord",
       "domain": "sunnfjord.kommune.no",
       "website_domain": "sunnfjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18137,10 +18702,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sunnfjord"
     },
     {
-      "kommune": "Surnadal",
+      "category": "kommune",
+      "name": "Surnadal",
       "domain": "surnadal.kommune.no",
       "website_domain": "surnadal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18203,10 +18770,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Surnadal"
     },
     {
-      "kommune": "Sveio",
+      "category": "kommune",
+      "name": "Sveio",
       "domain": "sveio.kommune.no",
       "website_domain": "sveio.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18269,10 +18838,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sveio"
     },
     {
-      "kommune": "Sykkylven",
+      "category": "kommune",
+      "name": "Sykkylven",
       "domain": "sykkylven.kommune.no",
       "website_domain": "sykkylven.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18335,10 +18906,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sykkylven"
     },
     {
-      "kommune": "Sømna",
+      "category": "kommune",
+      "name": "Sømna",
       "domain": "somna.kommune.no",
       "website_domain": "somna.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18401,10 +18974,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sømna"
     },
     {
-      "kommune": "Søndre Land",
+      "category": "kommune",
+      "name": "Søndre Land",
       "domain": "sondre-land.kommune.no",
       "website_domain": "sondre-land.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18467,10 +19042,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Søndre Land"
     },
     {
-      "kommune": "Sør-Aurdal",
+      "category": "kommune",
+      "name": "Sør-Aurdal",
       "domain": "sor-aurdal.kommune.no",
       "website_domain": "sor-aurdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18533,10 +19110,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sør-Aurdal"
     },
     {
-      "kommune": "Sør-Fron",
+      "category": "kommune",
+      "name": "Sør-Fron",
       "domain": "sor-fron.kommune.no",
       "website_domain": "sor-fron.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18581,10 +19160,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sør-Fron"
     },
     {
-      "kommune": "Sør-Odal",
+      "category": "kommune",
+      "name": "Sør-Odal",
       "domain": "sor-odal.kommune.no",
       "website_domain": "sor-odal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18614,7 +19195,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mail2.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
+          "observation": "10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no",
           "source": "dig MX sor-odal.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -18640,10 +19221,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sør-Odal"
     },
     {
-      "kommune": "Sør-Varanger",
+      "category": "kommune",
+      "name": "Sør-Varanger",
       "domain": "sor-varanger.kommune.no",
       "website_domain": "sor-varanger.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18671,7 +19254,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 mx.osl.bedsys.net; 10 mx2.osl.bedsys.net",
+          "observation": "10 mx2.osl.bedsys.net; 20 mx.osl.bedsys.net",
           "source": "dig MX sor-varanger.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -18715,10 +19298,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sør-Varanger"
     },
     {
-      "kommune": "Sørfold",
+      "category": "kommune",
+      "name": "Sørfold",
       "domain": "sorfold.kommune.no",
       "website_domain": "sorfold.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18781,10 +19366,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sørfold"
     },
     {
-      "kommune": "Sørreisa",
+      "category": "kommune",
+      "name": "Sørreisa",
       "domain": "sorreisa.kommune.no",
       "website_domain": "sorreisa.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18847,10 +19434,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Sørreisa"
     },
     {
-      "kommune": "Tana",
+      "category": "kommune",
+      "name": "Tana",
       "domain": "tana.kommune.no",
       "website_domain": "tana.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18913,10 +19502,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tana"
     },
     {
-      "kommune": "Time",
+      "category": "kommune",
+      "name": "Time",
       "domain": "time.kommune.no",
       "website_domain": "time.kommune.no",
       "platform": "US_MICROSOFT",
@@ -18979,10 +19570,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Time"
     },
     {
-      "kommune": "Tingvoll",
+      "category": "kommune",
+      "name": "Tingvoll",
       "domain": "tingvoll.kommune.no",
       "website_domain": "tingvoll.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19045,10 +19638,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tingvoll"
     },
     {
-      "kommune": "Tinn",
+      "category": "kommune",
+      "name": "Tinn",
       "domain": "tinn.kommune.no",
       "website_domain": "tinn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19111,10 +19706,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tinn"
     },
     {
-      "kommune": "Tjeldsund",
+      "category": "kommune",
+      "name": "Tjeldsund",
       "domain": "tjeldsund.kommune.no",
       "website_domain": "tjeldsund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19177,10 +19774,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tjeldsund"
     },
     {
-      "kommune": "Tokke",
+      "category": "kommune",
+      "name": "Tokke",
       "domain": "tokke.kommune.no",
       "website_domain": "tokke.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19236,10 +19835,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tokke"
     },
     {
-      "kommune": "Tolga",
+      "category": "kommune",
+      "name": "Tolga",
       "domain": "tolga.kommune.no",
       "website_domain": "tolga.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19267,7 +19868,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net",
+          "observation": "40 se.mx4.mx25.net; 20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net",
           "source": "dig MX tolga.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -19293,10 +19894,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tolga"
     },
     {
-      "kommune": "Tromsø",
+      "category": "kommune",
+      "name": "Tromsø",
       "domain": "tromso.kommune.no",
       "website_domain": "tromso.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19350,10 +19953,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tromsø"
     },
     {
-      "kommune": "Trysil",
+      "category": "kommune",
+      "name": "Trysil",
       "domain": "trysil.kommune.no",
       "website_domain": "trysil.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19416,10 +20021,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Trysil"
     },
     {
-      "kommune": "Træna",
+      "category": "kommune",
+      "name": "Træna",
       "domain": "trana.kommune.no",
       "website_domain": "trana.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19447,7 +20054,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "30 trana-kommune-no.mail.protection.outlook.com; 10 mx1-eu1.ppe-hosted.com; 20 mx2-eu1.ppe-hosted.com",
+          "observation": "10 mx1-eu1.ppe-hosted.com; 30 trana-kommune-no.mail.protection.outlook.com; 20 mx2-eu1.ppe-hosted.com",
           "source": "dig MX trana.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "MX leverer e-post til Microsoft 365",
@@ -19482,10 +20089,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Træna"
     },
     {
-      "kommune": "Tvedestrand",
+      "category": "kommune",
+      "name": "Tvedestrand",
       "domain": "tvedestrand.kommune.no",
       "website_domain": "tvedestrand.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19548,10 +20157,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tvedestrand"
     },
     {
-      "kommune": "Tydal",
+      "category": "kommune",
+      "name": "Tydal",
       "domain": "tydal.kommune.no",
       "website_domain": "tydal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19605,10 +20216,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tydal"
     },
     {
-      "kommune": "Tynset",
+      "category": "kommune",
+      "name": "Tynset",
       "domain": "tynset.kommune.no",
       "website_domain": "tynset.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19636,7 +20249,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 se.mx2.mx25.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net; 30 se.mx3.mailanyone.net",
+          "observation": "10 se.mx1.mailanyone.net; 20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net",
           "source": "dig MX tynset.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -19662,10 +20275,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tynset"
     },
     {
-      "kommune": "Tysnes",
+      "category": "kommune",
+      "name": "Tysnes",
       "domain": "tysnes.kommune.no",
       "website_domain": "tysnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19728,10 +20343,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tysnes"
     },
     {
-      "kommune": "Tysvær",
+      "category": "kommune",
+      "name": "Tysvær",
       "domain": "tysver.kommune.no",
       "website_domain": "tysver.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19794,10 +20411,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tysvær"
     },
     {
-      "kommune": "Tønsberg",
+      "category": "kommune",
+      "name": "Tønsberg",
       "domain": "tonsberg.kommune.no",
       "website_domain": "tonsberg.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19860,10 +20479,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Tønsberg"
     },
     {
-      "kommune": "Ullensaker",
+      "category": "kommune",
+      "name": "Ullensaker",
       "domain": "ullensaker.kommune.no",
       "website_domain": "ullensaker.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19926,10 +20547,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ullensaker"
     },
     {
-      "kommune": "Ulstein",
+      "category": "kommune",
+      "name": "Ulstein",
       "domain": "ulstein.kommune.no",
       "website_domain": "ulstein.kommune.no",
       "platform": "US_MICROSOFT",
@@ -19994,10 +20617,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ulstein"
     },
     {
-      "kommune": "Ulvik kommune",
+      "category": "kommune",
+      "name": "Ulvik kommune",
       "domain": "ulvik.kommune.no",
       "website_domain": "ulvik.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20060,10 +20685,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ulvik kommune"
     },
     {
-      "kommune": "Utsira",
+      "category": "kommune",
+      "name": "Utsira",
       "domain": "utsira.kommune.no",
       "website_domain": "utsira.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20117,10 +20744,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Utsira"
     },
     {
-      "kommune": "Vadsø",
+      "category": "kommune",
+      "name": "Vadsø",
       "domain": "vadso.kommune.no",
       "website_domain": "vadso.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20174,10 +20803,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vadsø"
     },
     {
-      "kommune": "Vaksdal",
+      "category": "kommune",
+      "name": "Vaksdal",
       "domain": "vaksdal.kommune.no",
       "website_domain": "vaksdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20240,10 +20871,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vaksdal"
     },
     {
-      "kommune": "Valle",
+      "category": "kommune",
+      "name": "Valle",
       "domain": "valle.kommune.no",
       "website_domain": "valle.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20306,10 +20939,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Valle"
     },
     {
-      "kommune": "Vang",
+      "category": "kommune",
+      "name": "Vang",
       "domain": "vang.kommune.no",
       "website_domain": "vang.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20372,10 +21007,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vang"
     },
     {
-      "kommune": "Vanylven",
+      "category": "kommune",
+      "name": "Vanylven",
       "domain": "vanylven.kommune.no",
       "website_domain": "vanylven.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20438,10 +21075,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vanylven"
     },
     {
-      "kommune": "Vardø",
+      "category": "kommune",
+      "name": "Vardø",
       "domain": "vardo.kommune.no",
       "website_domain": "vardo.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20504,10 +21143,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vardø"
     },
     {
-      "kommune": "Vefsn",
+      "category": "kommune",
+      "name": "Vefsn",
       "domain": "vefsn.kommune.no",
       "website_domain": "vefsn.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20570,10 +21211,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vefsn"
     },
     {
-      "kommune": "Vega",
+      "category": "kommune",
+      "name": "Vega",
       "domain": "vega.kommune.no",
       "website_domain": "vega.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20636,10 +21279,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vega"
     },
     {
-      "kommune": "Vegårshei",
+      "category": "kommune",
+      "name": "Vegårshei",
       "domain": "vegarshei.kommune.no",
       "website_domain": "vegarshei.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20702,10 +21347,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vegårshei"
     },
     {
-      "kommune": "Vennesla",
+      "category": "kommune",
+      "name": "Vennesla",
       "domain": "vennesla.kommune.no",
       "website_domain": "vennesla.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20768,10 +21415,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vennesla"
     },
     {
-      "kommune": "Verdal",
+      "category": "kommune",
+      "name": "Verdal",
       "domain": "verdal.kommune.no",
       "website_domain": "verdal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20834,10 +21483,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Verdal"
     },
     {
-      "kommune": "Vestby",
+      "category": "kommune",
+      "name": "Vestby",
       "domain": "vestby.kommune.no",
       "website_domain": "vestby.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20865,7 +21516,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mxa-009d3c02.gslb.pphosted.com; 10 mxb-009d3c02.gslb.pphosted.com",
+          "observation": "10 mxb-009d3c02.gslb.pphosted.com; 10 mxa-009d3c02.gslb.pphosted.com",
           "source": "dig MX vestby.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -20891,10 +21542,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vestby"
     },
     {
-      "kommune": "Vestnes",
+      "category": "kommune",
+      "name": "Vestnes",
       "domain": "vestnes.kommune.no",
       "website_domain": "vestnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -20957,10 +21610,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vestnes"
     },
     {
-      "kommune": "Vestre Slidre",
+      "category": "kommune",
+      "name": "Vestre Slidre",
       "domain": "vestre-slidre.kommune.no",
       "website_domain": "vestre-slidre.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21023,10 +21678,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vestre Slidre"
     },
     {
-      "kommune": "Vestre Toten",
+      "category": "kommune",
+      "name": "Vestre Toten",
       "domain": "vestre-toten.kommune.no",
       "website_domain": "vestre-toten.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21089,10 +21746,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vestre Toten"
     },
     {
-      "kommune": "Vestvågøy",
+      "category": "kommune",
+      "name": "Vestvågøy",
       "domain": "vestvagoy.kommune.no",
       "website_domain": "vestvagoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21155,10 +21814,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vestvågøy"
     },
     {
-      "kommune": "Vevelstad",
+      "category": "kommune",
+      "name": "Vevelstad",
       "domain": "vevelstad.kommune.no",
       "website_domain": "vevelstad.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21221,10 +21882,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vevelstad"
     },
     {
-      "kommune": "Vik kommune",
+      "category": "kommune",
+      "name": "Vik kommune",
       "domain": "vik.kommune.no",
       "website_domain": "vik.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21287,10 +21950,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vik kommune"
     },
     {
-      "kommune": "Vindafjord",
+      "category": "kommune",
+      "name": "Vindafjord",
       "domain": "vindafjord.kommune.no",
       "website_domain": "vindafjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21353,10 +22018,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vindafjord"
     },
     {
-      "kommune": "Vinje",
+      "category": "kommune",
+      "name": "Vinje",
       "domain": "vinje.kommune.no",
       "website_domain": "vinje.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21412,10 +22079,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vinje"
     },
     {
-      "kommune": "Volda",
+      "category": "kommune",
+      "name": "Volda",
       "domain": "volda.kommune.no",
       "website_domain": "volda.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21445,7 +22114,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mx2.hc1299-98.c3s2.iphmx.com; 10 mx1.hc1299-98.c3s2.iphmx.com",
+          "observation": "10 mx1.hc1299-98.c3s2.iphmx.com; 10 mx2.hc1299-98.c3s2.iphmx.com",
           "source": "dig MX volda.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -21480,10 +22149,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Volda"
     },
     {
-      "kommune": "Voss",
+      "category": "kommune",
+      "name": "Voss",
       "domain": "voss.herad.no",
       "website_domain": "voss.herad.no",
       "platform": "US_MICROSOFT",
@@ -21546,10 +22217,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Voss"
     },
     {
-      "kommune": "Vågan",
+      "category": "kommune",
+      "name": "Vågan",
       "domain": "vagan.kommune.no",
       "website_domain": "vagan.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21612,10 +22285,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vågan"
     },
     {
-      "kommune": "Vågå",
+      "category": "kommune",
+      "name": "Vågå",
       "domain": "vaga.kommune.no",
       "website_domain": "vaga.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21678,10 +22353,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Vågå"
     },
     {
-      "kommune": "Våler",
+      "category": "kommune",
+      "name": "Våler",
       "domain": "valer-of.kommune.no",
       "website_domain": "valer-of.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21726,10 +22403,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Våler"
     },
     {
-      "kommune": "Våler",
+      "category": "kommune",
+      "name": "Våler",
       "domain": "vaaler-he.kommune.no",
       "website_domain": "vaaler-he.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21757,7 +22436,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no",
+          "observation": "30 mail1.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no",
           "source": "dig MX vaaler-he.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -21774,10 +22453,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Våler"
     },
     {
-      "kommune": "Værøy",
+      "category": "kommune",
+      "name": "Værøy",
       "domain": "varoy.kommune.no",
       "website_domain": "varoy.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21805,7 +22486,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 d212608.a.ess.uk.barracudanetworks.com; 20 d212608.b.ess.uk.barracudanetworks.com",
+          "observation": "20 d212608.b.ess.uk.barracudanetworks.com; 10 d212608.a.ess.uk.barracudanetworks.com",
           "source": "dig MX varoy.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -21840,10 +22521,12 @@
           "platform": null
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Værøy"
     },
     {
-      "kommune": "Åfjord",
+      "category": "kommune",
+      "name": "Åfjord",
       "domain": "afjord.kommune.no",
       "website_domain": "afjord.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21906,10 +22589,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Åfjord"
     },
     {
-      "kommune": "Ål",
+      "category": "kommune",
+      "name": "Ål",
       "domain": "aal.kommune.no",
       "website_domain": "aal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -21972,10 +22657,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ål"
     },
     {
-      "kommune": "Ålesund",
+      "category": "kommune",
+      "name": "Ålesund",
       "domain": "alesund.kommune.no",
       "website_domain": "alesund.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22029,10 +22716,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ålesund"
     },
     {
-      "kommune": "Åmli",
+      "category": "kommune",
+      "name": "Åmli",
       "domain": "amli.kommune.no",
       "website_domain": "amli.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22095,10 +22784,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Åmli"
     },
     {
-      "kommune": "Åmot",
+      "category": "kommune",
+      "name": "Åmot",
       "domain": "amot.kommune.no",
       "website_domain": "amot.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22161,10 +22852,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Åmot"
     },
     {
-      "kommune": "Årdal",
+      "category": "kommune",
+      "name": "Årdal",
       "domain": "ardal.kommune.no",
       "website_domain": "ardal.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22227,10 +22920,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Årdal"
     },
     {
-      "kommune": "Ås",
+      "category": "kommune",
+      "name": "Ås",
       "domain": "as.kommune.no",
       "website_domain": "as.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22293,10 +22988,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ås"
     },
     {
-      "kommune": "Åseral",
+      "category": "kommune",
+      "name": "Åseral",
       "domain": "aseral.kommune.no",
       "website_domain": "aseral.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22359,10 +23056,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Åseral"
     },
     {
-      "kommune": "Åsnes",
+      "category": "kommune",
+      "name": "Åsnes",
       "domain": "asnes.kommune.no",
       "website_domain": "asnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22390,7 +23089,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mail3.hedmark-ikt.no; 10 mail2.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
+          "observation": "10 mail2.hedmark-ikt.no; 10 mail3.hedmark-ikt.no; 30 mail1.hedmark-ikt.no",
           "source": "dig MX asnes.kommune.no",
           "observed_at": "2026-06-28",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -22416,10 +23115,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Åsnes"
     },
     {
-      "kommune": "Øksnes",
+      "category": "kommune",
+      "name": "Øksnes",
       "domain": "oksnes.kommune.no",
       "website_domain": "oksnes.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22482,10 +23183,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Øksnes"
     },
     {
-      "kommune": "Ørland",
+      "category": "kommune",
+      "name": "Ørland",
       "domain": "orland.kommune.no",
       "website_domain": "orland.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22548,10 +23251,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ørland"
     },
     {
-      "kommune": "Ørsta",
+      "category": "kommune",
+      "name": "Ørsta",
       "domain": "orsta.kommune.no",
       "website_domain": "orsta.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22616,10 +23321,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Ørsta"
     },
     {
-      "kommune": "Østre Toten",
+      "category": "kommune",
+      "name": "Østre Toten",
       "domain": "ostre-toten.kommune.no",
       "website_domain": "ostre-toten.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22682,10 +23389,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Østre Toten"
     },
     {
-      "kommune": "Øvre Eiker",
+      "category": "kommune",
+      "name": "Øvre Eiker",
       "domain": "ovre-eiker.kommune.no",
       "website_domain": "ovre-eiker.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22748,10 +23457,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Øvre Eiker"
     },
     {
-      "kommune": "Øyer",
+      "category": "kommune",
+      "name": "Øyer",
       "domain": "oyer.kommune.no",
       "website_domain": "oyer.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22805,10 +23516,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Øyer"
     },
     {
-      "kommune": "Øygarden",
+      "category": "kommune",
+      "name": "Øygarden",
       "domain": "oygarden.kommune.no",
       "website_domain": "nyeoygardenkommune.no",
       "platform": "US_MICROSOFT",
@@ -22873,10 +23586,12 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Øygarden"
     },
     {
-      "kommune": "Øystre Slidre",
+      "category": "kommune",
+      "name": "Øystre Slidre",
       "domain": "oystre-slidre.kommune.no",
       "website_domain": "oystre-slidre.kommune.no",
       "platform": "US_MICROSOFT",
@@ -22939,7 +23654,8 @@
           "platform": "US_MICROSOFT"
         }
       ],
-      "sourceDate": "2026-06-28"
+      "sourceDate": "2026-06-28",
+      "kommune": "Øystre Slidre"
     }
   ]
 }
