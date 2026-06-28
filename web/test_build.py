@@ -50,6 +50,14 @@ class ComputeTrend(unittest.TestCase):
 
 
 # A small but representative dataset covering every platform class + a flag.
+# `evidence` is the issue-#8 audit trail: a list of per-signal records, each
+# with its source + date; `verdict` is the confidence-weighted call.
+def sig(t, obs, src, inf, conf, plat):
+    return {"signal_type": t, "observation": obs, "source": src,
+            "observed_at": "2026-06-28", "inference": inf,
+            "confidence": conf, "platform": plat}
+
+
 DATA = {
     "meta": {"sourceDate": "2026-06-28", "title": "t", "license": "CC BY 4.0"},
     "summary": {"total": 4, "us_total": 2, "us_pct": 50.0, "microsoft_pct": 25.0,
@@ -59,25 +67,49 @@ DATA = {
          "jurisdiction": "United States (CLOUD Act)",
          "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
          "behind_gateway": False, "flags": [], "fingerprint": "autodiscover",
-         "evidence": {"mx": ["0 oslo.mail.protection.outlook.com"],
-                      "spf": "v=spf1 include:spf.protection.outlook.com -all",
-                      "autodiscover": "autodiscover.outlook.com"},
+         "verdict": {"platform": "US_MICROSOFT", "label": "Microsoft 365",
+                     "confidence": 0.95, "uavklart": False, "note": None},
+         "evidence": [
+             sig("mx", "0 oslo.mail.protection.outlook.com", "dig MX oslo.kommune.no",
+                 "MX leverer e-post til Microsoft 365", 0.95, "US_MICROSOFT"),
+             sig("spf", "v=spf1 include:spf.protection.outlook.com -all",
+                 "dig TXT oslo.kommune.no (v=spf1)",
+                 "SPF autoriserer Microsoft", 0.9, "US_MICROSOFT"),
+             sig("autodiscover", "autodiscover.outlook.com",
+                 "dig CNAME autodiscover.oslo.kommune.no",
+                 "autodiscover → outlook.com: Microsoft 365-leietaker", 0.8, "US_MICROSOFT")],
          "sourceDate": "2026-06-28"},
         {"kommune": "Bærum", "domain": "baerum.kommune.no", "platform": "US_MICROSOFT",
          "jurisdiction": "United States (CLOUD Act)",
          "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
-         "behind_gateway": True, "flags": ["backend_unmasked"], "fingerprint": None,
-         "evidence": {"mx": ["10 gw.tmes.trendmicro.eu"], "spf": "", "autodiscover": None},
+         "behind_gateway": False, "flags": [], "fingerprint": "spf-ms-ip",
+         "verdict": {"platform": "US_MICROSOFT", "label": "Microsoft 365",
+                     "confidence": 0.95, "uavklart": False, "note": None},
+         "evidence": [
+             sig("spf", "v=spf1 ip4:40.92.1.5 -all", "dig TXT baerum.kommune.no (v=spf1)",
+                 "SPF uten gjenkjent plattform", 0.3, None),
+             sig("spf_ip", "40.92.1.5", "ip4 i SPF for baerum.kommune.no ∈ Microsoft EOP-områder",
+                 "Microsoft EOP-IP 40.92.1.5 inlinet i flatet SPF — bevis for Microsoft",
+                 0.95, "US_MICROSOFT")],
          "sourceDate": "2026-06-28"},
         {"kommune": "Vest-Lofoten", "domain": "nykommuneilofoten.no", "platform": "EU_SOVEREIGN",
          "jurisdiction": "Norway (EEA)", "alternative": None,
          "behind_gateway": False, "flags": [], "fingerprint": None,
-         "evidence": {"mx": ["10 mx.domeneshop.no"], "spf": "v=spf1 ~all", "autodiscover": None},
+         "verdict": {"platform": "EU_SOVEREIGN", "label": "Europeisk / norsk drift",
+                     "confidence": 0.9, "uavklart": False, "note": None},
+         "evidence": [
+             sig("mx", "10 mx.domeneshop.no", "dig MX nykommuneilofoten.no",
+                 "MX peker på europeisk/norsk e-postdrift", 0.9, "EU_SOVEREIGN")],
          "sourceDate": "2026-06-28"},
         {"kommune": "Alvdal", "domain": "alvdal.kommune.no", "platform": "OTHER",
          "jurisdiction": "Undetermined", "alternative": None,
          "behind_gateway": False, "flags": [], "fingerprint": None,
-         "evidence": {"mx": ["10 se.mx1.mailanyone.net"], "spf": "v=spf1 ~all", "autodiscover": None},
+         "verdict": {"platform": "UAVKLART", "label": "Uavklart", "confidence": 0.3,
+                     "uavklart": True,
+                     "note": "Regional/ukjent plattform — ikke avgjort fra DNS alene"},
+         "evidence": [
+             sig("mx", "10 se.mx1.mailanyone.net", "dig MX alvdal.kommune.no",
+                 "Ukjent eller gateway-maskert MX — plattform ikke avgjort", 0.3, None)],
          "sourceDate": "2026-06-28"},
     ],
 }
@@ -133,6 +165,29 @@ class BuildHtml(unittest.TestCase):
         self.assertIn("15 mill", self.html)            # €15M/yr
         self.assertIn("Larvik", self.html)
         self.assertIn("10 mill", self.html)            # NOK 10M/yr
+
+    def test_evidence_trail_is_baked_per_signal_with_source_and_date(self):
+        # Issue #8: every signal is a citable record (source query + observed_at).
+        self.assertIn('"signal_type"', self.html)
+        self.assertIn('"observed_at"', self.html)
+        self.assertIn("dig MX oslo.kommune.no", self.html)        # exact query cited
+        self.assertIn("dig CNAME autodiscover.oslo.kommune.no", self.html)
+
+    def test_detail_renders_evidence_trail_and_confidence(self):
+        # The detail view must iterate the per-signal trail and show confidence.
+        self.assertIn("k.evidence", self.html)
+        self.assertIn("konfidens", self.html.lower())
+        self.assertIn("Vis hvordan vi vet det", self.html)        # 'show your work' heading
+
+    def test_matched_ms_ip_signal_is_highlighted(self):
+        # The spf_ip signal carries the matched MS IP and the template marks it.
+        self.assertIn("spf_ip", self.html)
+        self.assertIn("40.92.1.5", self.html)
+
+    def test_uavklart_verdict_is_baked_honestly(self):
+        # Alvdal can't be resolved -> honest Uavklart, not a guess.
+        self.assertIn('"uavklart":true', self.html)
+        self.assertIn("ikke avgjort fra DNS", self.html)
 
     def test_trend_is_data_driven_not_hardcoded(self):
         # The honest trend object must be baked in; no fabricated "3 left".

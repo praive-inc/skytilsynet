@@ -53,7 +53,8 @@ Precedence: airtight Microsoft (DKIM→onmicrosoft **or** SPF-MS-IP **or**
 realm=Managed) → `US_MICROSOFT`; realm=Federated only → `US_MICROSOFT` +
 `federated`; `google._domainkey` → `US_GOOGLE`; a domain stays `OTHER` only when
 **no** signal fires. Each resolved record carries the signal that resolved it
-(`fingerprint` + the value under `evidence`: `dkim` / `spf_ms_ip` / `realm`).
+(`fingerprint`) plus the full **`evidence[]`** audit trail and a
+confidence-weighted **`verdict`** (see below).
 
 **Website ≠ mail domain.** A municipality's website domain sometimes carries only
 a null-sending `v=spf1 -all` record (or nothing) because its mail lives elsewhere.
@@ -65,10 +66,31 @@ unguessable vanity domains (e.g. Aurskog-Høland → `ahk.no`) live in the curat
 
 ## Evidence & the washing flags (factual-over-moralizing)
 
-Every record carries its **evidence** — the actual MX / SPF / autodiscover records
-— plus `sourceDate`, the `jurisdiction` the platform answers to, and the
-recommended European `alternative`. Never a classification without its source
-(CLAUDE.md rule 1).
+Every record carries its **`evidence[]`** — the per-kommune "show your work" audit
+trail, one citable record per signal actually observed:
+
+```
+{ signal_type,   # mx | spf | spf_ip | autodiscover | dkim | getuserrealm
+  observation,   # the raw value (e.g. "0 x.mail.protection.outlook.com")
+  source,        # the exact query (e.g. "dig MX x.kommune.no")
+  observed_at,   # ISO date — point-in-time, pairs with the snapshot
+  inference,     # what it implies ("MX leverer e-post til Microsoft 365")
+  confidence,    # weight 0..1 (airtight backend proof = 1.0; autodiscover 0.8;
+                 #   federated realm 0.6; gateway-masked/unknown ≤ 0.3)
+  platform }     # the platform it points to, or null for no platform signal
+```
+
+`evidence_trail()` builds it; `verdict(platform, trail, behind_gateway)` then folds
+the signals into the confidence-weighted **`verdict`** — `{platform, label,
+confidence, uavklart, note}`. The canonical `platform` (from `classify_evidence`)
+stays the source of truth; the verdict attaches the strongest backing signal's
+confidence and reframes the unresolved classes (`OTHER` / `NONE`) as an honest
+**`Uavklart`** (`uavklart: true`) rather than guessing. The matched MS EOP IP from
+a flattened SPF is its own `spf_ip` record, highlighted in the site's detail view.
+
+Each record also carries `sourceDate`, the `jurisdiction` the platform answers to,
+and the recommended European `alternative`. Never a classification without its
+source (CLAUDE.md rule 1).
 
 The data model encodes the **sovereignty-washing traps** (scorecard-spec §3) as
 per-record `flags`:

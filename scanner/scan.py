@@ -227,6 +227,124 @@ def classify_evidence(ev):
     return platform, fp
 
 
+def _blob_platform(blob):
+    """Map an MX or SPF blob to (platform_or_None, base_confidence). The base
+    confidence reflects how strongly that channel alone proves the platform: a
+    named hyperscaler MX/SPF host is strong; a masking gateway or an unknown
+    regional host proves nothing (low)."""
+    s = blob.lower()
+    if any(x in s for x in MICROSOFT):    return "US_MICROSOFT", 0.95
+    if any(x in s for x in GOOGLE):       return "US_GOOGLE", 0.95
+    if any(x in s for x in EU_SOVEREIGN): return "EU_SOVEREIGN", 0.9
+    if any(x in s for x in GATEWAYS):     return None, 0.2
+    return None, 0.3
+
+
+def evidence_trail(ev, domain, date):
+    """The per-kommune 'show your work' audit trail: one citable record per
+    signal actually observed. Each carries the raw observation, the exact query
+    that produced it, the date (point-in-time, pairs with the snapshot), the
+    inference it supports, a 0..1 confidence weight, and the platform it points
+    to (None = no platform signal). Pure: no network. (CLAUDE.md rule 1 — never a
+    claim without its source.)"""
+    trail = []
+
+    def add(signal_type, observation, source, inference, confidence, platform):
+        trail.append({
+            "signal_type": signal_type, "observation": observation,
+            "source": source, "observed_at": date, "inference": inference,
+            "confidence": confidence, "platform": platform,
+        })
+
+    if ev["mx"]:
+        plat, conf = _blob_platform(ev["mx_hosts"])
+        inf = {"US_MICROSOFT": "MX leverer e-post til Microsoft 365",
+               "US_GOOGLE":    "MX leverer e-post til Google Workspace",
+               "EU_SOVEREIGN": "MX peker på europeisk/norsk e-postdrift",
+               }.get(plat, "Ukjent eller gateway-maskert MX — plattform ikke avgjort")
+        add("mx", "; ".join(ev["mx"]), f"dig MX {domain}", inf, conf, plat)
+
+    if ev["spf"]:
+        plat, conf = _blob_platform(ev["spf"])
+        if re.fullmatch(r"v=spf1\s+[-~]all", ev["spf"].strip()):
+            inf, conf, plat = ("Null-sendende SPF — domenet sender ingen e-post", 0.1, None)
+        else:
+            inf = {"US_MICROSOFT": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+                   "US_GOOGLE":    "SPF autoriserer Google",
+                   "EU_SOVEREIGN": "SPF autoriserer europeisk/norsk drift",
+                   }.get(plat, "SPF uten gjenkjent plattform")
+        add("spf", ev["spf"], f"dig TXT {domain} (v=spf1)", inf, conf, plat)
+        ip = spf_ms_ip_match(ev["spf"])
+        if ip:
+            add("spf_ip", ip, f"ip4 i SPF for {domain} ∈ Microsoft EOP-områder",
+                f"Microsoft EOP-IP {ip} inlinet i flatet SPF — bevis for Microsoft",
+                0.95, "US_MICROSOFT")
+
+    if ev["autodiscover"]:
+        ms = "outlook.com" in ev["autodiscover"]
+        add("autodiscover", ev["autodiscover"], f"dig CNAME autodiscover.{domain}",
+            "autodiscover → outlook.com: Microsoft 365-leietaker" if ms
+            else "autodiscover-CNAME uten Microsoft-mål",
+            0.8 if ms else 0.3, "US_MICROSOFT" if ms else None)
+
+    dkim = ev.get("dkim") or ""
+    if dkim:
+        ms = "onmicrosoft.com" in dkim.lower()
+        add("dkim", dkim, f"dig CNAME selector1/2._domainkey.{domain}",
+            "DKIM-selektor → *.onmicrosoft.com: airtight Microsoft 365" if ms
+            else "DKIM-selektor uten Microsoft-mål",
+            1.0 if ms else 0.3, "US_MICROSOFT" if ms else None)
+    if ev.get("dkim_google"):
+        add("dkim", "google._domainkey (TXT finnes)",
+            f"dig TXT google._domainkey.{domain}",
+            "Google DKIM-selektor publisert: Google Workspace", 1.0, "US_GOOGLE")
+
+    realm = ev.get("realm")
+    if realm:
+        plat, inf, conf = {
+            "Managed":   ("US_MICROSOFT",
+                          "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker", 1.0),
+            "Federated": ("US_MICROSOFT",
+                          "getuserrealm=Federated: Azure AD-leietaker finnes "
+                          "(e-post antatt, ikke ren sky-leietaker)", 0.6),
+        }.get(realm, (None, f"getuserrealm={realm}: ingen Microsoft-leietaker", 0.1))
+        add("getuserrealm", realm,
+            f"GET login.microsoftonline.com/getuserrealm.srf?login=test@{domain}",
+            inf, conf, plat)
+
+    return trail
+
+
+_VERDICT_LABEL = {
+    "US_MICROSOFT": "Microsoft 365", "US_GOOGLE": "Google Workspace",
+    "US_MIXED": "Microsoft + Google", "EU_SOVEREIGN": "Europeisk / norsk drift",
+}
+
+
+def verdict(platform, trail, behind_gateway):
+    """Confidence-weighted email-platform verdict over the evidence trail.
+
+    The canonical `platform` (from classify_evidence) stays the source of truth;
+    this attaches the confidence of the strongest signal backing it and reframes
+    the unresolved classes (OTHER/NONE) as the honest 'Uavklart' — we say we
+    don't know rather than guess (issue #8; CLAUDE.md 'honesty about limits')."""
+    conf = round(max((s["confidence"] for s in trail
+                      if s["platform"] == platform), default=0.0), 2)
+    if platform in ("OTHER", "NONE"):
+        note = ("Bak e-postgateway — bakomliggende plattform ikke avdekket"
+                if behind_gateway else
+                "Ingen sendende e-postsignaler funnet" if platform == "NONE"
+                else "Regional/ukjent plattform — ikke avgjort fra DNS alene")
+        return {"platform": "UAVKLART", "label": "Uavklart", "confidence": conf,
+                "uavklart": True, "note": note}
+    note = None
+    if any(s["platform"] == "US_MICROSOFT" and s["observation"] == "Federated"
+           for s in trail):
+        note = "Leietaker bevist via føderering; e-post antatt høy-sannsynlig"
+    return {"platform": platform, "label": _VERDICT_LABEL.get(platform, platform),
+            "confidence": conf, "uavklart": False, "note": note}
+
+
 def provider_jurisdiction(ev):
     """First recognised non-US provider in the evidence -> (jurisdiction, flags)."""
     blob = (ev["mx_hosts"] + " " + ev["spf"] + " " + ev["autodiscover"]).lower()
@@ -282,6 +400,7 @@ def make_record(name, website_domain, domain, ev, date):
         flags.append("backend_unmasked")
     if website_domain and domain != website_domain:
         flags.append("mail_domain_differs_from_website")
+    trail = evidence_trail(ev, domain, date)
     return {
         "kommune": name,
         "domain": domain,
@@ -292,14 +411,8 @@ def make_record(name, website_domain, domain, ev, date):
         "behind_gateway": behind_gateway,
         "fingerprint": fp,
         "flags": flags,
-        "evidence": {
-            "mx": ev["mx"],
-            "spf": ev["spf"] or None,
-            "autodiscover": ev["autodiscover"] or None,
-            "dkim": ev.get("dkim") or None,
-            "spf_ms_ip": spf_ms_ip_match(ev["spf"]),
-            "realm": ev.get("realm"),
-        },
+        "verdict": verdict(platform, trail, behind_gateway),
+        "evidence": trail,
         "sourceDate": date,
     }
 

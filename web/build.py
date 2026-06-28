@@ -189,10 +189,22 @@ _TEMPLATE = r"""<!doctype html>
   .fact .k{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
   .fact .v{font-size:18px;font-weight:600;margin-top:4px}
   .fact .v.red{color:var(--red)} .fact .v.green{color:var(--green)}
-  .evidence{background:#0b0f13;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  .evidence{background:#0b0f13;border:1px solid var(--line);border-radius:12px;padding:6px 16px;
     font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#cdd9e3;
-    white-space:pre-wrap;word-break:break-all;overflow-x:auto}
+    overflow-x:auto}
   .evidence .lbl{color:var(--muted)}
+  /* One evidence row per signal — observation, inference, source + date. */
+  .ev{padding:11px 0;border-bottom:1px solid var(--line);white-space:pre-wrap;word-break:break-word}
+  .ev:last-child{border-bottom:0}
+  .ev.hl{background:#161f17;margin:0 -16px;padding-left:16px;padding-right:16px;border-left:3px solid var(--green)}
+  .ev .sig{display:inline-block;min-width:84px;color:var(--accent);font-weight:600;text-transform:uppercase;font-size:11px}
+  .ev .obs{color:#eef2f6}
+  .ev .inf{display:block;color:var(--muted);margin-top:3px}
+  .ev .conf{color:var(--amber)}
+  .ev .src{display:block;color:#6b7d8f;margin-top:3px;font-size:11px}
+  .ev .note{color:var(--amber);margin-top:3px}
+  .verdict .conf{color:var(--amber);font-size:14px;font-weight:400}
+  .verdict .note{display:block;font-size:13px;color:var(--muted);font-weight:400;margin-top:5px}
   /* Switch map + benchmark */
   .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 14px}
   .panel h3{margin:0 0 8px;font-size:17px}
@@ -431,9 +443,36 @@ _TEMPLATE = r"""<!doctype html>
   function bySlug(s){ for(var i=0;i<K.length;i++){ if(slug(K[i].kommune)===s) return K[i]; } return null; }
   function fact(k,v,cls){ return '<div class="fact"><div class="k">'+esc(k)+
     '</div><div class="v '+(cls||"")+'">'+v+'</div></div>'; }
+  // platform key (incl. UAVKLART verdict) -> {label, value-color class}
+  function verdictCls(p){
+    return p==="EU_SOVEREIGN" ? "green"
+         : (p==="US_MICROSOFT"||p==="US_GOOGLE"||p==="US_MIXED") ? "red" : "";
+  }
+  function renderVerdict(k){
+    var vd = k.verdict || {platform:k.platform, label:platMeta(k).label,
+                           confidence:null, uavklart:false, note:null};
+    var pct = vd.confidence!=null
+      ? '<span class="conf">'+Math.round(vd.confidence*100)+' % konfidens</span>' : "";
+    var note = vd.note ? '<span class="note">'+esc(vd.note)+'</span>' : "";
+    return '<div class="fact verdict"><div class="k">Plattform (e-post) — konfidensvektet verdikt</div>'+
+      '<div class="v '+verdictCls(vd.platform)+'">'+esc(vd.label)+' '+pct+note+'</div></div>';
+  }
+  function renderTrail(trail){
+    if(!trail || !trail.length)
+      return '<div class="evidence">(ingen e-postsignaler funnet i DNS)</div>';
+    return '<div class="evidence">'+trail.map(function(s){
+      var hl = s.signal_type==="spf_ip" ? " hl" : "";
+      var conf = '<span class="conf">'+s.confidence.toFixed(2)+' konfidens</span>';
+      return '<div class="ev'+hl+'">'+
+        '<span class="sig">'+esc(s.signal_type)+'</span>'+
+        '<span class="obs">'+esc(s.observation)+'</span>'+
+        '<span class="inf">→ '+esc(s.inference)+' · '+conf+'</span>'+
+        '<span class="src">kilde: '+esc(s.source)+' · '+esc(noDate(s.observed_at))+'</span>'+
+        '</div>';
+    }).join("")+'</div>';
+  }
   function renderDetail(k){
     var m = platMeta(k);
-    var ev = k.evidence || {};
     var resid = (k.platform==="EU_SOVEREIGN")
       ? "Norge / EØS — under europeisk rettsvern"
       : (k.platform==="OTHER")
@@ -445,11 +484,6 @@ _TEMPLATE = r"""<!doctype html>
       : (k.platform==="EU_SOVEREIGN" ? "Allerede på europeisk/norsk drift" : "—");
     var flagsHtml = (k.flags||[]).map(function(f){
       return '<div class="flag">'+esc(FLAG_NO[f]||f)+'</div>'; }).join("");
-    var evLines = [];
-    (ev.mx||[]).forEach(function(x){ evLines.push('<span class="lbl">MX  </span>'+esc(x)); });
-    if(ev.spf) evLines.push('<span class="lbl">SPF </span>'+esc(ev.spf));
-    if(ev.autodiscover) evLines.push('<span class="lbl">AUTO</span>'+esc(ev.autodiscover));
-    if(!evLines.length) evLines.push("(ingen MX/SPF/autodiscover-poster funnet)");
 
     var v = document.getElementById("view-detail");
     v.innerHTML =
@@ -457,7 +491,7 @@ _TEMPLATE = r"""<!doctype html>
       '<h1>'+esc(k.kommune)+'</h1>'+
       '<p class="tagline" style="font-size:16px">E-postdomene: <code>'+esc(k.domain||"—")+'</code></p>'+
       '<div class="facts">'+
-        fact("Plattform (e-post)", esc(m.label), m.vcls)+
+        renderVerdict(k)+
         fact("Operatørens jurisdiksjon", esc(m.juris), m.vcls)+
         fact("Datas oppholdssted", resid)+
         fact("Kontraktsverdi", "Ikke kartlagt (denne aksen dekker kun e-post via DNS)")+
@@ -466,8 +500,11 @@ _TEMPLATE = r"""<!doctype html>
       '<h2>Anbefalt europeisk alternativ</h2>'+
       '<div class="panel"><p style="margin:0">'+alt+'. Se byttekartet og '+
         'fallgruvene for suverenitetsvasking på forsiden.</p></div>'+
-      '<h2>Evidens — de faktiske DNS-postene</h2>'+
-      '<div class="evidence">'+evLines.join("\n")+'</div>'+
+      '<h2>Evidens — Vis hvordan vi vet det</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">Hvert signal under '+
+        'bærer sin egen kilde (den eksakte spørringen) og dato. Det er hele '+
+        'troverdighetsgrunnlaget: ingen påstand uten kilde.</p>'+
+      renderTrail(k.evidence)+
       '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
         'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>';
   }
