@@ -434,6 +434,58 @@ class GoalSection(unittest.TestCase):
         return build._TEMPLATE
 
 
+class DesignPolish(unittest.TestCase):
+    """Issue #15: a cohesive visual system + an accessibility pass. The page
+    stays a single self-contained file with no external/US-managed serving deps,
+    so every assertion is structural/textual against the generated HTML."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+
+    def test_skip_link_to_main_content(self):
+        # WCAG 2.4.1 bypass blocks: a skip link targeting the main landmark.
+        self.assertIn('class="skip"', self.html)
+        self.assertIn('href="#main"', self.html)
+
+    def test_semantic_landmarks_present(self):
+        # Screen-reader navigation needs real landmarks, not div soup.
+        self.assertIn('<main', self.html)
+        self.assertIn('id="main"', self.html)
+        self.assertIn("<header", self.html)
+        self.assertIn("<nav", self.html)
+        self.assertIn("<footer", self.html)
+
+    def test_focus_is_visible_for_keyboard_users(self):
+        # WCAG 2.4.7 — a visible focus indicator for interactive elements.
+        self.assertIn(":focus-visible", self.html)
+
+    def test_respects_reduced_motion_preference(self):
+        # The progress fill + live countdown must yield to a motion preference.
+        self.assertIn("prefers-reduced-motion", self.html)
+
+    def test_design_tokens_define_a_type_and_space_scale(self):
+        # A coherent system: shared scale tokens, not ad-hoc px sprinkled around.
+        self.assertIn("--space-", self.html)
+        self.assertIn("--text-", self.html)
+
+    def test_dataviz_carries_a_text_alternative(self):
+        # The sparkline + goal progress encode data visually — label them.
+        self.assertIn('role="img"', self.html)
+        self.assertIn("aria-label", self.html)
+
+    def test_english_about_block_is_marked_lang_en(self):
+        # The English summary is in another language than the nb document.
+        self.assertIn('lang="en"', self.html)
+
+    def test_toggle_controls_expose_their_pressed_state(self):
+        # Filter chips + category tabs are toggle buttons (WCAG 4.1.2).
+        self.assertIn("aria-pressed", self.html)
+
+    def test_live_countdown_is_not_announced_every_second(self):
+        # The ticking seconds must not spam assistive tech.
+        self.assertIn('aria-hidden="true"', self.html)
+
+
 class BuildMainOnRealData(unittest.TestCase):
     """Smoke test the real pipeline against the committed datasets."""
     def test_real_data_renders_both_categories(self):
