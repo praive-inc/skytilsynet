@@ -152,6 +152,89 @@ STAT = {
 }
 
 
+# The web axis (issue #13): website-infrastructure sovereignty, a SECOND distinct
+# axis joined onto each entity by website domain. Only some entities are covered.
+WEB = {
+    "meta": {"sourceDate": "2026-06-28", "title": "web", "license": "CC BY 4.0",
+             "axis_note": "Distinct axis from the email scan."},
+    "summary": {"total": 2, "us_hosted": 1, "us_hosted_pct": 50.0, "analytics": 1},
+    "kommuner": [
+        {"kommune": "Oslo", "axis": "web", "domain": "oslo.kommune.no",
+         "url": "https://www.oslo.kommune.no/", "host": "www.oslo.kommune.no",
+         "hosting": {"ip": "13.1.1.1", "asn": "8075", "country": "US",
+                     "name": "microsoft-corp", "jurisdiction": "United States (CLOUD Act)"},
+         "third_parties": [
+             {"domain": "www.google-analytics.com", "category": "analytics",
+              "jurisdiction": "United States (CLOUD Act)", "flags": ["analytics"]}],
+         "us_resource_fraction": 1.0, "analytics": True,
+         "flags": ["us_hosted", "analytics"],
+         "evidence": {"server": "Microsoft-IIS/10.0", "x_powered_by": None,
+                      "csp": None, "tls_issuer": "DigiCert", "security_txt": False},
+         "sourceDate": "2026-06-28"},
+        {"kommune": "Vest-Lofoten", "axis": "web", "domain": "nykommuneilofoten.no",
+         "url": "https://nykommuneilofoten.no/", "host": "nykommuneilofoten.no",
+         "hosting": {"ip": "194.63.1.1", "asn": "2116", "country": "NO",
+                     "name": "domeneshop", "jurisdiction": "NO (EEA)"},
+         "third_parties": [], "us_resource_fraction": 0.0, "analytics": False,
+         "flags": [],
+         "evidence": {"server": "nginx", "x_powered_by": None, "csp": None,
+                      "tls_issuer": "Let's Encrypt", "security_txt": True},
+         "sourceDate": "2026-06-28"},
+    ],
+}
+
+
+class WebAxisJoin(unittest.TestCase):
+    """Issue #13: web-axis records joined onto each entity by website domain and
+    surfaced as their OWN axis (distinct from email), cited."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+
+    def _payload(self):
+        start = self.html.index('id="data"')
+        open_tag = self.html.index(">", start) + 1
+        close = self.html.index("</script>", open_tag)
+        return json.loads(self.html[open_tag:close].replace("<\\/", "</"))
+
+    def _kommune(self, name):
+        cat = next(c for c in self._payload()["categories"] if c["key"] == "kommune")
+        return next(k for k in cat["entities"] if k["kommune"] == name)
+
+    def test_web_record_joined_onto_entity_by_domain(self):
+        oslo = self._kommune("Oslo")
+        self.assertIsNotNone(oslo["web"])
+        self.assertEqual(oslo["web"]["hosting"]["jurisdiction"], "United States (CLOUD Act)")
+        self.assertTrue(oslo["web"]["analytics"])
+
+    def test_entity_without_web_scan_has_none(self):
+        # Bærum is in the email dataset but not in the web dataset.
+        self.assertIsNone(self._kommune("Bærum")["web"])
+
+    def test_web_axis_is_distinct_not_conflated_with_email(self):
+        # The web axis must not alter the email verdict/platform of the entity.
+        oslo = self._kommune("Oslo")
+        self.assertEqual(oslo["platform"], "US_MICROSOFT")
+        self.assertEqual(oslo["verdict"]["platform"], "US_MICROSOFT")
+
+    def test_web_axis_rendered_as_own_cited_section(self):
+        # The detail view renders a dedicated, clearly-separate web-axis section.
+        self.assertIn("k.web", self.html)              # detail iterates the joined record
+        self.assertIn("Web-akse", self.html)           # its own heading
+        self.assertIn("nettstedets infrastruktur", self.html)
+
+    def test_kommune_only_still_builds_without_web(self):
+        # Backward compatible: the web dataset is optional.
+        html = build.build_html(DATA, HISTORY, TREND, STAT)
+        self.assertIn("Oslo", html)
+        payload_start = html.index('id="data"')
+        open_tag = html.index(">", payload_start) + 1
+        close = html.index("</script>", open_tag)
+        payload = json.loads(html[open_tag:close].replace("<\\/", "</"))
+        cat = next(c for c in payload["categories"] if c["key"] == "kommune")
+        self.assertIsNone(next(k for k in cat["entities"] if k["kommune"] == "Oslo")["web"])
+
+
 class BuildHtml(unittest.TestCase):
     def setUp(self):
         self.html = build.build_html(DATA, HISTORY, TREND, STAT)

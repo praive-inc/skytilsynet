@@ -237,17 +237,38 @@ SCAN_DATE=2026-06-27 python3 web_scan.py  # pin the snapshot date
 
 Needs `dig` and `openssl`. Writes `snapshots/web-<date>.json`, `web_history.json`,
 `kommune_web_sovereignty.json`, and the published
-`../data/kommune-web-sovereignty.latest.json`.
+`../data/kommune-web-sovereignty.latest.json`. Each record carries a www-stripped
+apex `domain` — the key `web/build.py` joins this axis onto an entity by (it
+equals the email record's `website_domain`, both via the same `domain_of()`).
+
+`main()` is robust at the full ~358-entity scale: low worker count (8) for a
+polite rate, short per-request timeouts, and a per-entity guard so one homepage
+that errors becomes a `scan_error`-flagged no-signal record instead of aborting
+the run.
+
+### Surfaced per entity (the second axis on the evidence page)
+
+`web/build.py` reads `../data/kommune-web-sovereignty.latest.json` if present and
+joins each web record onto its entity by website domain. The per-entity detail
+page then shows a **Web-akse** section — hosting jurisdiction, US-resource
+fraction, analytics y/n, TLS issuer and the third-party list — as its **own**
+cited axis, explicitly separate from the email verdict (never conflated). The
+dataset is optional: with no web scan published yet, the page builds unchanged
+and every entity simply carries no web axis.
 
 ## Scheduling the re-scan
 
-`scan.py` is cron-friendly: no args, no auth, idempotent (a same-date re-run
-replaces that day's snapshot/history row). Scheduling is **wired by the operator**,
-not via GitHub Actions (CLAUDE.md — the push token has no `workflow` scope). The
-operator runs it off the devbox, e.g. a weekly crontab line:
+`scan.py` and `web_scan.py` are cron-friendly: no args, no auth, idempotent (a
+same-date re-run replaces that day's snapshot/history row). Scheduling is **wired
+by the operator**, not via GitHub Actions (CLAUDE.md — the push token has no
+`workflow` scope). The operator runs them off the devbox, e.g. weekly crontab
+lines — run `web_scan.py` alongside `scan.py`, then rebuild the site so both axes
+land together:
 
 ```cron
 0 6 * * 1  cd /path/to/skytilsynet/scanner && /usr/bin/python3 scan.py >> scan.log 2>&1
+5 6 * * 1  cd /path/to/skytilsynet/scanner && /usr/bin/python3 web_scan.py >> web_scan.log 2>&1
+8 6 * * 1  cd /path/to/skytilsynet/web && /usr/bin/python3 build.py >> build.log 2>&1
 ```
 
 Then `python3 transition.py` surfaces which municipalities moved since the prior run.
