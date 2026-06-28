@@ -123,7 +123,35 @@ def combine_summaries(summaries):
     pct = lambda n: round(100 * n / total, 1) if total else 0.0
     c["us_pct"] = pct(c["us_total"])
     c["microsoft_pct"] = pct(c["us_microsoft"])
+    c["sovereign_pct"] = pct(c["eu_sovereign"])
     return c
+
+
+# Suverenitetsmålet (issue #14): the campaign goal as data. The dates and target
+# percentage are constants (the goal *definition*); the current share is read from
+# the live combined summary, never hardcoded. The countdown to the first milestone
+# is computed client-side from `first_target` so the page stays static.
+def build_goal(combined):
+    return {
+        "sovereign_pct": combined["sovereign_pct"],
+        "sovereign_count": combined["eu_sovereign"],
+        "total": combined["total"],
+        "target_pct": 25,
+        "target_year": 2030,
+        "first_target": "2027-05-17",
+        "ladder": [
+            {"year": 2026, "name": "Erkjennelsen",
+             "desc": "Kartlagt: nesten alt offentlig svarer til amerikansk jurisdiksjon."},
+            {"year": 2027, "name": "Den første", "date": "2027-05-17",
+             "desc": "Mål: det første organet fullt e-postsuverent — 17. mai 2027."},
+            {"year": 2028, "name": "Bevegelsen",
+             "desc": "Mål: målbar bevegelse vekk fra USA, organ for organ."},
+            {"year": 2030, "name": "Vendepunktet",
+             "desc": "Mål: 25 % av skannet offentlig sektor digitalt suveren."},
+            {"year": 2035, "name": "Normalen",
+             "desc": "Mål: suverenitet er standarden, ikke unntaket."},
+        ],
+    }
 
 
 def build_html(data, history, trend, stat=None):
@@ -141,9 +169,11 @@ def build_html(data, history, trend, stat=None):
             "key": "stat", "label": "Statlige organ",
             "summary": stat["summary"], "entities": normalize(stat["organ"]),
         })
+    combined = combine_summaries([c["summary"] for c in categories])
     payload = {
         "meta": data["meta"],
-        "combined": combine_summaries([c["summary"] for c in categories]),
+        "combined": combined,
+        "goal": build_goal(combined),
         "categories": categories,
         "history": history,
         "trend": trend,
@@ -218,6 +248,28 @@ _TEMPLATE = r"""<!doctype html>
   .spark{display:flex;gap:3px;align-items:flex-end;height:42px;margin-top:14px}
   .spark .bar{flex:1;background:var(--red);border-radius:2px 2px 0 0;min-height:3px}
   .spark .lab{font-size:11px;color:var(--muted)}
+  /* Målet — the campaign centerpiece (issue #14) */
+  .goal{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;margin:0 0 14px}
+  .goal .lead{font-size:15px;color:var(--muted);margin:0 0 18px}
+  .goal-head{display:grid;grid-template-columns:1fr;gap:20px;margin:0 0 8px}
+  @media(min-width:720px){.goal-head{grid-template-columns:1fr 1fr}}
+  .goal .now{font-size:clamp(38px,8vw,60px);font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--green)}
+  .goal .now .of{color:var(--muted);font-size:16px;font-weight:400;letter-spacing:0}
+  .goal .sub{color:var(--muted);font-size:14px;margin-top:8px}
+  .goal-track{height:14px;background:#0b0f13;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:14px 0 6px}
+  .goal-bar{height:100%;background:var(--green);border-radius:999px;min-width:2px;transition:width .6s ease}
+  .goal .scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+  .count-num{font-size:clamp(30px,6vw,46px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--fg);font-variant-numeric:tabular-nums}
+  .count-units{font-size:13px;color:var(--muted);margin-top:6px}
+  .count-cap{color:var(--muted);font-size:14px;margin-top:10px}
+  .ladder{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+  .rung{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+    background:#0b0f13;border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:11px 14px}
+  .rung .yr{font-weight:700;font-size:14px;color:var(--muted);min-width:54px}
+  .rung .nm{font-weight:600}
+  .rung .ds{font-size:13px;color:var(--muted);margin-top:2px}
+  .rung.on{border-left-color:var(--green);background:#10201a}
+  .rung.on .yr,.rung.on .nm{color:var(--green)}
   /* Category toggle (Kommuner | Statlige organ) */
   .catbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
   .cattab{background:var(--surface);border:1px solid var(--line);border-radius:10px;
@@ -311,6 +363,9 @@ _TEMPLATE = r"""<!doctype html>
       <div class="stat" id="stat-hero"></div>
       <div class="stat trend" id="stat-trend"></div>
     </div>
+
+    <h2 id="maalet">Målet</h2>
+    <div class="goal" id="goal"></div>
 
     <h2 id="grid-title">Hele offentlig sektor</h2>
     <div class="catbar" id="catbar"></div>
@@ -492,6 +547,68 @@ _TEMPLATE = r"""<!doctype html>
     }).join("");
     return '<div class="spark">'+bars+'</div>'+
       '<div class="lab">Microsoft-andel (kommuner), '+esc(h[0].date)+' → '+esc(h[h.length-1].date)+'</div>';
+  }
+
+  // ---- Målet: progress + live countdown + ladder -------------------------
+  function renderGoal(){
+    var g = DB.goal, el = document.getElementById("goal");
+    if(!g){ el.style.display = "none"; return; }
+    var fill = Math.min(100, g.target_pct ? g.sovereign_pct / g.target_pct * 100 : 0);
+    var moved = DB.trend ? DB.trend.left_microsoft.length : 0;
+    var rungs = g.ladder.map(function(r){
+      return '<li class="rung" data-yr="'+r.year+'">'+
+        '<span class="yr">'+esc(r.year)+'</span>'+
+        '<span><span class="nm">'+esc(r.name)+'</span>'+
+        '<span class="ds">'+esc(r.desc)+'</span></span></li>';
+    }).join("");
+    el.innerHTML =
+      '<p class="lead">Suverenitetsmålet: <b>'+g.target_pct+' %</b> av skannet '+
+        'offentlig sektor digitalt suveren innen <b>'+g.target_year+'</b> — og det '+
+        '<b>første</b> fullt e-postsuverene organet innen <b>17. mai 2027</b>. '+
+        'E-post er én akse; tallet under er e-postsuverenitet, et gulv mot det fulle målet.</p>'+
+      '<div class="goal-head">'+
+        '<div>'+
+          '<div class="now">'+pct(g.sovereign_pct)+' %<span class="of"> / mål '+g.target_pct+' %</span></div>'+
+          '<div class="sub">'+esc(g.sovereign_count)+' av '+esc(g.total)+' skannede organ '+
+            'har e-post under norsk/europeisk jurisdiksjon i dag.</div>'+
+          '<div class="goal-track"><div class="goal-bar" style="width:'+fill.toFixed(1)+'%"></div></div>'+
+          '<div class="scale"><span>0 %</span><span>mål '+g.target_pct+' % ('+g.target_year+')</span></div>'+
+        '</div>'+
+        '<div>'+
+          '<div class="count-num" id="countdown">…</div>'+
+          '<div class="count-units" id="countdown-units"></div>'+
+          '<div class="count-cap">til <b>17. mai 2027</b> — '+
+            'fortsatt '+esc(g.sovereign_count)+' e-postsuverene. '+
+            'Denne uken: '+moved+' flyttet.</div>'+
+        '</div>'+
+      '</div>'+
+      '<ul class="ladder">'+rungs+'</ul>';
+    highlightRung();
+    tickCountdown(g.first_target);
+    if(window.__goalTimer) clearInterval(window.__goalTimer);
+    window.__goalTimer = setInterval(function(){ tickCountdown(g.first_target); }, 1000);
+  }
+  function highlightRung(){
+    // The current rung = the latest one whose year has arrived (client-side, so it
+    // advances on its own as the calendar does — the page itself stays static).
+    var now = new Date(), yr = now.getFullYear(), rungs = document.querySelectorAll(".rung");
+    var on = null;
+    for(var i=0;i<rungs.length;i++){
+      if(parseInt(rungs[i].getAttribute("data-yr"),10) <= yr) on = rungs[i];
+    }
+    if(on) on.classList.add("on");
+  }
+  function tickCountdown(target){
+    var el = document.getElementById("countdown");
+    if(!el) return;
+    var ms = new Date(target+"T00:00:00") - new Date();
+    var units = document.getElementById("countdown-units");
+    if(ms <= 0){ el.textContent = "Nådd"; if(units) units.textContent = ""; return; }
+    var s = Math.floor(ms/1000);
+    var d = Math.floor(s/86400), h = Math.floor(s%86400/3600),
+        m = Math.floor(s%3600/60), sec = s%60;
+    el.textContent = d + " dager";
+    if(units) units.textContent = h+" t "+m+" min "+sec+" s";
   }
 
   // ---- Category toggle + grid --------------------------------------------
@@ -677,7 +794,7 @@ _TEMPLATE = r"""<!doctype html>
     if(e.target && e.target.id==="back") history.length>1 ? history.back() : (location.hash=""); });
   window.addEventListener("hashchange", route);
 
-  renderHero(); renderCatbar(); renderFilters(); renderGrid(); route();
+  renderHero(); renderGoal(); renderCatbar(); renderFilters(); renderGrid(); route();
 })();
 </script>
 </body>

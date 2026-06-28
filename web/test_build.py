@@ -292,6 +292,65 @@ class BuildHtml(unittest.TestCase):
             self.assertNotIn(bad, self.html)
 
 
+class GoalSection(unittest.TestCase):
+    """Issue #14 — the 'Målet' campaign centerpiece: current sovereign share +
+    progress bar toward 25 % (2030), a client-side countdown to 17. mai 2027, and
+    the milestone ladder. Numbers come from the live dataset, not hardcoded."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT)
+
+    def _goal(self):
+        start = self.html.index('id="data"')
+        open_tag = self.html.index(">", start) + 1
+        close = self.html.index("</script>", open_tag)
+        payload = json.loads(self.html[open_tag:close].replace("<\\/", "</"))
+        return payload["goal"]
+
+    def test_sovereign_share_comes_from_the_dataset(self):
+        # Combined: 1 eu_sovereign of 6 scanned (4 kommuner + 2 organ) = 16.7 %.
+        g = self._goal()
+        self.assertEqual(g["sovereign_pct"], round(100 * 1 / 6, 1))
+        self.assertEqual(g["sovereign_count"], 1)
+        self.assertEqual(g["total"], 6)
+
+    def test_targets_are_baked(self):
+        # The goal definition (campaign constants) rides along the data.
+        g = self._goal()
+        self.assertEqual(g["target_pct"], 25)
+        self.assertEqual(g["target_year"], 2030)
+        self.assertEqual(g["first_target"], "2027-05-17")
+
+    def test_ladder_rungs_are_baked(self):
+        years = [r["year"] for r in self._goal()["ladder"]]
+        self.assertEqual(years, [2026, 2027, 2028, 2030, 2035])
+
+    def test_section_heading_and_milestone_names_render(self):
+        self.assertIn("Suverenitetsmålet", self.html)
+        self.assertIn("Erkjennelsen", self.html)
+        self.assertIn("Den første", self.html)
+        self.assertIn("Vendepunktet", self.html)
+
+    def test_progress_bar_is_present(self):
+        self.assertIn("goal-bar", self.html)
+
+    def test_countdown_is_computed_client_side_from_a_baked_date(self):
+        # The page stays static: the target date is baked, the days remaining are
+        # computed in the browser (new Date()), never baked as a stale number.
+        self.assertIn('"first_target":"2027-05-17"', self.html)
+        self.assertIn("new Date", self.html)
+        self.assertIn("dager", self.html)
+
+    def test_target_share_is_not_hardcoded_in_markup(self):
+        # The big current number is rendered from goal.sovereign_pct, so the static
+        # shell must not carry a baked-in share string.
+        self.assertNotIn("0,3 %", self._TEMPLATE_SHELL())
+
+    def _TEMPLATE_SHELL(self):
+        # The static template before the data blob is substituted.
+        return build._TEMPLATE
+
+
 class BuildMainOnRealData(unittest.TestCase):
     """Smoke test the real pipeline against the committed datasets."""
     def test_real_data_renders_both_categories(self):
