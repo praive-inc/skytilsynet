@@ -20,6 +20,7 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DATA = os.path.join(ROOT, "data", "kommune-email-sovereignty.latest.json")
+WEB_DATA = os.path.join(ROOT, "data", "kommune-web-sovereignty.latest.json")
 HISTORY = os.path.join(ROOT, "scanner", "history.json")
 SNAP_DIR = os.path.join(ROOT, "scanner", "snapshots")
 OUT = os.path.join(HERE, "index.html")
@@ -39,10 +40,14 @@ def no_date(iso):
 
 
 def load_snapshots(snap_dir=SNAP_DIR):
-    """Return the two most recent snapshot dicts (old, new), or (None, None)."""
+    """Return the two most recent EMAIL snapshot dicts (old, new), or (None, None).
+
+    The web axis writes its own ``web-<date>.json`` into the same dir; those have a
+    different shape and belong to a different axis, so the email trend skips them."""
     if not os.path.isdir(snap_dir):
         return None, None
-    dates = sorted(f[:-5] for f in os.listdir(snap_dir) if f.endswith(".json"))
+    dates = sorted(f[:-5] for f in os.listdir(snap_dir)
+                   if f.endswith(".json") and not f.startswith("web-"))
     if len(dates) < 2:
         return None, None
     load = lambda dt: json.load(open(os.path.join(snap_dir, f"{dt}.json")))
@@ -84,6 +89,40 @@ def _snap_date(snap):
     return snap.get("date") or snap.get("meta", {}).get("sourceDate")
 
 
+def _apex(url):
+    """Website URL -> bare apex host (drop scheme, port, leading www.)."""
+    if not url:
+        return None
+    host = url.split("//", 1)[-1].split("/", 1)[0].split(":", 1)[0].lower()
+    return (host[4:] if host.startswith("www.") else host) or None
+
+
+def load_web(path=WEB_DATA):
+    """The web-axis dataset's kommune records, or [] if no scan has run yet.
+
+    The web axis (scanner/web_scan.py, issue #13) is optional: until the operator
+    wires web_scan.py into the weekly run the file is absent, and the page renders
+    the email axis alone. No crash, no placeholder."""
+    if not os.path.exists(path):
+        return []
+    return json.load(open(path)).get("kommuner", [])
+
+
+def join_web(kommuner, web_records):
+    """Attach each kommune's web-axis record (by website domain) as `k["web"]`.
+
+    A SECOND, DISTINCT axis (website infrastructure) — joined onto the email
+    record but never merged into the email platform/verdict. Matched on the
+    website domain (web record's URL apex == email record's `website_domain`,
+    falling back to the mail `domain`). Unmatched kommuner keep no `web` key."""
+    by_domain = {_apex(w.get("url")): w for w in web_records if _apex(w.get("url"))}
+    for k in kommuner:
+        web = by_domain.get(k.get("website_domain")) or by_domain.get(k.get("domain"))
+        if web:
+            k["web"] = web
+    return kommuner
+
+
 def build_html(data, history, trend):
     """Render the full single-file site. Pure: same inputs -> same output."""
     payload = {
@@ -101,6 +140,7 @@ def build_html(data, history, trend):
 
 def main():
     data = json.load(open(DATA))
+    join_web(data["kommuner"], load_web())   # attach the web axis where scanned
     history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
     old, new = load_snapshots()
     trend = compute_trend(old, new)
@@ -489,6 +529,61 @@ _TEMPLATE = r"""<!doctype html>
         'rel="noopener">'+src+'</a></div>';
     return fact("Styresett i jurisdiksjonen", v);
   }
+  // ---- Web axis (issue #13) -----------------------------------------------
+  // The SECOND, distinct axis: where the kommune's public WEBSITE infrastructure
+  // answers to (hosting jurisdiction + embedded US resources). Rendered as its
+  // OWN section, never folded into the email platform/verdict. Each line carries
+  // its source (the ASN org, the HTTP header, the TLS issuer) — factual, cited.
+  function isUS(j){ return String(j||"").indexOf("CLOUD Act") >= 0; }
+  function webEv(sig, obs, src){
+    return obs ? '<div class="ev"><span class="sig">'+esc(sig)+'</span>'+
+      '<span class="obs">'+esc(obs)+'</span>'+
+      '<span class="src">kilde: '+esc(src)+'</span></div>' : "";
+  }
+  function renderWebAxis(k){
+    var w = k.web;
+    if(!w) return '<h2>Nettstedets infrastruktur (egen akse)</h2>'+
+      '<div class="panel"><p style="margin:0;color:var(--muted)">Ikke skannet ennå '+
+      '— web-aksen kjøres separat fra e-postaksen.</p></div>';
+    var hj = (w.hosting && w.hosting.jurisdiction) || "Uavklart";
+    var asn = w.hosting && (w.hosting.name || w.hosting.asn);
+    var frac = Math.round((w.us_resource_fraction||0)*100);
+    var ev = w.evidence || {};
+    var tp = w.third_parties || [];
+    var tpRows = tp.length
+      ? tp.map(function(t){
+          return '<div class="ev'+(isUS(t.jurisdiction)?" hl":"")+'">'+
+            '<span class="sig">'+esc(t.category)+'</span>'+
+            '<span class="obs">'+esc(t.domain)+'</span>'+
+            '<span class="inf">→ '+esc(t.jurisdiction)+
+              (t.flags&&t.flags.length? ' · '+esc(t.flags.join(", ")) : "")+'</span>'+
+            '</div>'; }).join("")
+      : '<div class="ev"><span class="obs">Ingen eksterne tredjepartsressurser på forsiden.</span></div>';
+    return '<h2>Nettstedets infrastruktur (egen akse)</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">En egen akse, '+
+        'atskilt fra e-posten over: hvor nettstedets drift svarer til, og hvor mye '+
+        'av forsiden som lastes fra amerikanske tjenester. Avledet kun av det en '+
+        'nettleser allerede henter (offentlige HTTP-svar + DNS).</p>'+
+      '<div class="facts">'+
+        fact("Vertsjurisdiksjon", esc(hj)+(asn? '<div style="font-size:12px;'+
+          'font-weight:400;color:var(--muted);margin-top:4px">opphavs-ASN: '+
+          esc(asn)+'</div>' : ''), isUS(hj)?"red":(hj.indexOf("EEA")>=0||hj.indexOf("EU")>=0?"green":""))+
+        fact("USA-andel av forsidens ressurser", frac+' %', frac>0?"red":"green")+
+        fact("Analyse / sporing", w.analytics? "Til stede" : "Ikke påvist",
+             w.analytics?"red":"green")+
+      '</div>'+
+      '<div class="evidence">'+
+        webEv("server", ev.server, "HTTP Server-header")+
+        webEv("x-powered-by", ev.x_powered_by, "HTTP X-Powered-By-header")+
+        webEv("tls", ev.tls_issuer, "TLS-sertifikatutsteder (openssl s_client)")+
+        webEv("security.txt", ev.security_txt? "finnes" : "mangler",
+              "/.well-known/security.txt")+
+        tpRows+
+      '</div>'+
+      '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig '+
+        'forside + DNS (opphavs-ASN via Team Cymru), målt '+
+        esc(noDate(w.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>';
+  }
   function renderDetail(k){
     var m = platMeta(k);
     var resid = (k.platform==="EU_SOVEREIGN")
@@ -525,7 +620,8 @@ _TEMPLATE = r"""<!doctype html>
         'troverdighetsgrunnlaget: ingen påstand uten kilde.</p>'+
       renderTrail(k.evidence)+
       '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
-        'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>';
+        'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>'+
+      renderWebAxis(k);
   }
 
   // ---- Routing ------------------------------------------------------------

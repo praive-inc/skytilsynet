@@ -7,6 +7,7 @@ file). We exercise the real seams: the honest trend computation against the
 actual snapshot shape, and a full render against the real dataset asserting the
 acceptance criteria are present in the output. Run:  python3 -m unittest -v
 """
+import copy
 import json
 import unittest
 
@@ -19,6 +20,21 @@ def snap(date, platforms):
         "date": date,
         "kommuner": [{"kommune": n, "platform": p} for n, p in platforms.items()],
     }
+
+
+class LoadSnapshots(unittest.TestCase):
+    def test_skips_web_axis_snapshots(self):
+        # The web axis writes web-<date>.json into the same dir; the email trend
+        # must ignore them (different shape, different axis).
+        import os, tempfile
+        with tempfile.TemporaryDirectory() as d:
+            for f in ["2026-06-27.json", "2026-06-28.json",
+                      "web-2026-06-28.json"]:
+                shape = ({"date": f[:-5], "kommuner": []}
+                         if not f.startswith("web-") else {"date": "x", "junk": 1})
+                json.dump(shape, open(os.path.join(d, f), "w"))
+            old, new = build.load_snapshots(d)
+            self.assertEqual((old["date"], new["date"]), ("2026-06-27", "2026-06-28"))
 
 
 class ComputeTrend(unittest.TestCase):
@@ -124,6 +140,87 @@ HISTORY = [
 ]
 TREND = {"from_date": "2026-06-27", "to_date": "2026-06-28",
          "left_microsoft": [], "joined_microsoft": ["Kautokeino"]}
+
+
+# A web-axis record shaped like scanner/web_scan.py build_record output. This is
+# the SECOND axis (issue #13) — website infrastructure, distinct from email.
+WEB = [
+    {"kommune": "Oslo", "axis": "web", "url": "https://www.oslo.kommune.no/",
+     "host": "www.oslo.kommune.no",
+     "hosting": {"ip": "13.107.21.200", "asn": "8075", "country": "US",
+                 "name": "microsoft-corp", "jurisdiction": "United States (CLOUD Act)"},
+     "third_parties": [
+         {"domain": "www.googletagmanager.com", "category": "tag-manager",
+          "jurisdiction": "United States (CLOUD Act)", "flags": ["analytics"]}],
+     "us_resource_fraction": 1.0, "analytics": True,
+     "flags": ["us_hosted", "analytics"],
+     "evidence": {"server": "Microsoft-IIS/10.0", "x_powered_by": "ASP.NET",
+                  "csp": None, "tls_issuer": "DigiCert", "security_txt": False},
+     "sourceDate": "2026-06-28"},
+    {"kommune": "Vest-Lofoten", "axis": "web", "url": "https://nykommuneilofoten.no/",
+     "host": "nykommuneilofoten.no",
+     "hosting": {"ip": "185.1.1.1", "asn": "1", "country": "NO",
+                 "name": "domeneshop", "jurisdiction": "NO (EEA)"},
+     "third_parties": [], "us_resource_fraction": 0.0, "analytics": False,
+     "flags": [], "evidence": {"server": "nginx", "x_powered_by": None,
+                               "csp": None, "tls_issuer": "Let's Encrypt",
+                               "security_txt": True},
+     "sourceDate": "2026-06-28"},
+]
+
+
+class JoinWeb(unittest.TestCase):
+    def test_joins_web_record_to_email_record_by_domain(self):
+        kommuner = copy.deepcopy(DATA["kommuner"])
+        build.join_web(kommuner, WEB)
+        by_name = {k["kommune"]: k for k in kommuner}
+        self.assertEqual(by_name["Oslo"]["web"]["hosting"]["jurisdiction"],
+                         "United States (CLOUD Act)")
+        self.assertEqual(by_name["Vest-Lofoten"]["web"]["hosting"]["jurisdiction"],
+                         "NO (EEA)")
+
+    def test_unmatched_kommune_has_no_web_key(self):
+        # Alvdal has no web record in WEB -> stays web-less, not a crash.
+        kommuner = copy.deepcopy(DATA["kommuner"])
+        build.join_web(kommuner, WEB)
+        by_name = {k["kommune"]: k for k in kommuner}
+        self.assertIsNone(by_name["Alvdal"].get("web"))
+
+    def test_join_tolerates_no_web_dataset(self):
+        kommuner = copy.deepcopy(DATA["kommuner"])
+        build.join_web(kommuner, [])
+        self.assertTrue(all("web" not in k for k in kommuner))
+
+
+class WebAxisRender(unittest.TestCase):
+    def setUp(self):
+        kommuner = copy.deepcopy(DATA["kommuner"])
+        build.join_web(kommuner, WEB)
+        data = dict(DATA, kommuner=kommuner)
+        self.html = build.build_html(data, HISTORY, TREND)
+
+    def test_web_record_is_baked_per_kommune(self):
+        start = self.html.index('id="data"')
+        open_tag = self.html.index(">", start) + 1
+        close = self.html.index("</script>", open_tag)
+        payload = json.loads(self.html[open_tag:close].replace("<\\/", "</"))
+        by_name = {k["kommune"]: k for k in payload["kommuner"]}
+        self.assertEqual(by_name["Oslo"]["web"]["us_resource_fraction"], 1.0)
+        self.assertNotIn("web", by_name["Alvdal"])
+
+    def test_detail_renders_web_axis_distinct_from_email(self):
+        # The detail view must iterate k.web as its OWN axis, not conflate it
+        # with the email evidence/verdict (CLAUDE.md rule 1: distinct, cited).
+        self.assertIn("k.web", self.html)
+        self.assertIn("Nettstedets infrastruktur", self.html)  # own-axis heading
+        self.assertIn("Vertsjurisdiksjon", self.html)          # hosting jurisdiction
+
+    def test_web_axis_is_cited(self):
+        # The hosting evidence (ASN org, server header) is baked + the template
+        # renders it as the citable source for the web verdict.
+        self.assertIn("microsoft-corp", self.html)       # baked ASN org name
+        self.assertIn("Microsoft-IIS/10.0", self.html)   # baked Server header
+        self.assertIn("w.hosting", self.html)            # template reads hosting
 
 
 class BuildHtml(unittest.TestCase):

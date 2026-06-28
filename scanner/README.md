@@ -205,18 +205,34 @@ Needs `dig` and `openssl`. Writes `snapshots/web-<date>.json`, `web_history.json
 `kommune_web_sovereignty.json`, and the published
 `../data/kommune-web-sovereignty.latest.json`.
 
+**Robust at full scale.** `scan_all()` runs the 358 homepages on a small thread
+pool (8 workers — polite rate, public-only) with short per-request timeouts
+(HTTP 10 s, `dig` 12 s, `openssl` 12 s). A homepage that hangs, 5xxs, or returns a
+malformed DNS reply becomes a flagged `scan_error`/`unreachable` record (with the
+error as cited evidence) — it never aborts the other 357. The build then joins
+each web record onto its email record **by website domain** (`web/build.py`
+`join_web`) and surfaces it as a **distinct second axis** in the per-kommune
+detail view — never merged into the email platform/verdict.
+
 ## Scheduling the re-scan
 
-`scan.py` is cron-friendly: no args, no auth, idempotent (a same-date re-run
-replaces that day's snapshot/history row). Scheduling is **wired by the operator**,
-not via GitHub Actions (CLAUDE.md — the push token has no `workflow` scope). The
-operator runs it off the devbox, e.g. a weekly crontab line:
+Both `scan.py` (email axis) and `web_scan.py` (website axis) are cron-friendly: no
+args, no auth, idempotent (a same-date re-run replaces that day's snapshot/history
+row). Scheduling is **wired by the operator**, not via GitHub Actions (CLAUDE.md —
+the push token has no `workflow` scope). The operator runs them off the devbox in
+the weekly job, regenerating the committed site afterwards so the dataset and
+`web/index.html` stay in sync:
 
 ```cron
-0 6 * * 1  cd /path/to/skytilsynet/scanner && /usr/bin/python3 scan.py >> scan.log 2>&1
+0 6 * * 1  cd /path/to/skytilsynet/scanner && /usr/bin/python3 scan.py >> scan.log 2>&1 \
+             && /usr/bin/python3 web_scan.py >> scan.log 2>&1 \
+             && cd ../web && /usr/bin/python3 build.py >> ../scanner/scan.log 2>&1
 ```
 
-Then `python3 transition.py` surfaces which municipalities moved since the prior run.
+`build.py` joins the web axis onto each kommune by domain when
+`../data/kommune-web-sovereignty.latest.json` is present (and renders the email
+axis alone when it is not — the web step is optional). Then `python3 transition.py`
+surfaces which municipalities moved since the prior run.
 
 ## Caveats / roadmap
 

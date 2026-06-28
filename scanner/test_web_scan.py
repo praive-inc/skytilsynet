@@ -211,6 +211,34 @@ class ScanOne(unittest.TestCase):
         self.assertIn("unreachable", rec["flags"])
 
 
+class ScanAll(unittest.TestCase):
+    """Full-scale robustness: one homepage blowing up must not abort the run."""
+    def test_one_failure_does_not_abort_the_batch(self):
+        def scan(name, url, date):
+            if name == "Boom":
+                raise RuntimeError("kaboom")
+            return {"kommune": name, "flags": [], "us_resource_fraction": 0.0,
+                    "analytics": False}
+        entries = [("Ok", "https://ok.no/"), ("Boom", "https://boom.no/"),
+                   ("Ok2", "https://ok2.no/")]
+        results = ws.scan_all(entries, "2026-06-28", scan=scan, max_workers=2)
+        self.assertEqual({r["kommune"] for r in results}, {"Ok", "Boom", "Ok2"})
+
+    def test_failed_entity_becomes_a_flagged_record_not_a_crash(self):
+        def scan(name, url, date):
+            raise RuntimeError("dns exploded")
+        results = ws.scan_all([("Down", "https://down.no/")], "2026-06-28",
+                              scan=scan, max_workers=1)
+        rec = results[0]
+        self.assertEqual(rec["kommune"], "Down")
+        self.assertIn("scan_error", rec["flags"])
+        self.assertIn("unreachable", rec["flags"])
+        # the error is captured as cited evidence, not swallowed
+        self.assertIn("dns exploded", rec.get("error", ""))
+        # an error record is still aggregatable (has the numeric fields)
+        ws.aggregate(results)
+
+
 class Aggregate(unittest.TestCase):
     def test_counts_and_average_fraction(self):
         recs = [

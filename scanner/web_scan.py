@@ -30,7 +30,7 @@ Run:  python3 web_scan.py                       # dated today (UTC)
 Needs: dig, openssl. Reads kommuner_wikidata.json (same Wikidata dump as scan.py).
 """
 import ipaddress, json, os, re, subprocess, sys, urllib.request
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from urllib.parse import urlparse
 
@@ -296,6 +296,34 @@ def scan_one(name, url, date, http_get=http_get, dig=dig, tls=tls_issuer):
     return rec
 
 
+def _error_record(name, url, date, err):
+    """A no-signal record for a kommune whose scan raised unexpectedly. Keeps the
+    batch going at full scale (one bad homepage never aborts the other 357) and
+    records WHY as cited evidence — factual, never a silent drop (CLAUDE.md rule 1)."""
+    rec = build_record(name, url, {}, "", {"jurisdiction": "Undetermined"},
+                       None, False, date)
+    rec["flags"] += ["unreachable", "scan_error"]
+    rec["error"] = str(err)
+    return rec
+
+
+def scan_all(entries, date, scan=scan_one, max_workers=8):
+    """Scan every (name, url) entry concurrently and resiliently. A low worker
+    count keeps the rate polite; per-entity exceptions are turned into flagged
+    error records so the full 358-entity run completes even if some homepages
+    hang, 5xx, or have a malformed DNS reply."""
+    results = []
+    with ThreadPoolExecutor(max_workers=max_workers) as ex:
+        futs = {ex.submit(scan, n, u, date): (n, u) for n, u in entries}
+        for fut in as_completed(futs):
+            n, u = futs[fut]
+            try:
+                results.append(fut.result())
+            except Exception as e:
+                results.append(_error_record(n, u, date, e))
+    return results
+
+
 def aggregate(results):
     total = len(results)
     us_hosted = sum(1 for r in results if "us_hosted" in r["flags"])
@@ -364,11 +392,7 @@ def main():
           "(headers + embedded resources + hosting ASN, public only, polite)…",
           file=sys.stderr)
 
-    results = []
-    with ThreadPoolExecutor(max_workers=8) as ex:  # low: polite rate, public only
-        futs = [ex.submit(scan_one, n, u, date) for n, u in by_item.values()]
-        for f in futs:
-            results.append(f.result())
+    results = scan_all(by_item.values(), date, max_workers=8)  # low: polite rate
     results.sort(key=lambda r: (-r["us_resource_fraction"], r["kommune"]))
 
     agg = aggregate(results)
