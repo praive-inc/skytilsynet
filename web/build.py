@@ -1,0 +1,521 @@
+#!/usr/bin/env python3
+"""
+Build the Skytilsynet public tracker (Skybarometeret) into a single static
+``index.html``.
+
+The deploy is a plain rsync of ``web/`` behind Caddy — no build step in prod
+(see ``deploy/deploy-local.sh``). So this script runs at dev time and the
+generated ``index.html`` is committed. Re-run it after a fresh scan to refresh
+the page; scheduling is wired by the operator alongside ``scanner/scan.py``.
+
+  cd web && python3 build.py        # regenerate index.html from current data
+
+The data is baked inline as JSON in a ``<script>`` tag — the page needs no
+runtime fetch (works on file://) and has zero US-managed serving dependency
+(BetterWorld RFC-001 P5): no CDN, no web fonts, no map tiles.
+"""
+import json
+import os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+DATA = os.path.join(ROOT, "data", "kommune-email-sovereignty.latest.json")
+HISTORY = os.path.join(ROOT, "scanner", "history.json")
+SNAP_DIR = os.path.join(ROOT, "scanner", "snapshots")
+OUT = os.path.join(HERE, "index.html")
+
+MS = "US_MICROSOFT"
+LEFT_MS = {MS}
+
+# Norwegian month names for human-readable dates (no locale dependency).
+_MONTHS = ["", "januar", "februar", "mars", "april", "mai", "juni", "juli",
+           "august", "september", "oktober", "november", "desember"]
+
+
+def no_date(iso):
+    """2026-06-28 -> '28. juni 2026'."""
+    y, m, d = iso.split("-")
+    return f"{int(d)}. {_MONTHS[int(m)]} {y}"
+
+
+def load_snapshots(snap_dir=SNAP_DIR):
+    """Return the two most recent snapshot dicts (old, new), or (None, None)."""
+    if not os.path.isdir(snap_dir):
+        return None, None
+    dates = sorted(f[:-5] for f in os.listdir(snap_dir) if f.endswith(".json"))
+    if len(dates) < 2:
+        return None, None
+    load = lambda dt: json.load(open(os.path.join(snap_dir, f"{dt}.json")))
+    return load(dates[-2]), load(dates[-1])
+
+
+def compute_trend(old, new):
+    """The honest per-kommune movement between two snapshots.
+
+    We count actual platform changes (who left / joined Microsoft), not the
+    aggregate count delta — the latter conflates real migrations with DNS
+    measurement refinement (a kommune moving OTHER -> US_MICROSOFT because its
+    backend got unmasked did not "join" Microsoft, we just saw it clearly).
+    Over a short window most movement is the latter; the copy says so.
+    """
+    if not old or not new:
+        return None
+    o = {k["kommune"]: k["platform"] for k in old["kommuner"]}
+    n = {k["kommune"]: k["platform"] for k in new["kommuner"]}
+    left, joined = [], []
+    for name, np in n.items():
+        op = o.get(name)
+        if op is None or op == np:
+            continue
+        if op in LEFT_MS and np not in LEFT_MS:
+            left.append(name)
+        elif op not in LEFT_MS and np in LEFT_MS:
+            joined.append(name)
+    return {
+        "from_date": _snap_date(old),
+        "to_date": _snap_date(new),
+        "left_microsoft": sorted(left),
+        "joined_microsoft": sorted(joined),
+    }
+
+
+def _snap_date(snap):
+    """A snapshot dates itself at the top level (`date`); tests pass meta."""
+    return snap.get("date") or snap.get("meta", {}).get("sourceDate")
+
+
+def build_html(data, history, trend):
+    """Render the full single-file site. Pure: same inputs -> same output."""
+    payload = {
+        "summary": data["summary"],
+        "meta": data["meta"],
+        "kommuner": data["kommuner"],
+        "history": history,
+        "trend": trend,
+    }
+    blob = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+    # </script> can't appear literally inside an inline script.
+    blob = blob.replace("</", "<\\/")
+    return _TEMPLATE.replace("/*__DATA__*/", blob)
+
+
+def main():
+    data = json.load(open(DATA))
+    history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
+    old, new = load_snapshots()
+    trend = compute_trend(old, new)
+    html = build_html(data, history, trend)
+    with open(OUT, "w") as f:
+        f.write(html)
+    print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner)")
+
+
+# --------------------------------------------------------------------------
+# The page. Static shell (disclaimer always rendered) + JS that renders the
+# kommune grid and the per-kommune detail from the baked data via hash routing.
+# --------------------------------------------------------------------------
+_TEMPLATE = r"""<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skybarometeret — hvor avhengig er Norge av utenlandsk teknologi?</title>
+<meta name="description" content="Skybarometeret: hvilken jurisdiksjon norske kommuners e-post svarer til, kommune for kommune. Faktabasert og kildebelagt. Et uavhengig prosjekt — ikke et offentlig organ." />
+<style>
+  :root{
+    --bg:#0f1419; --surface:#171e26; --line:#26303b;
+    --fg:#eef2f6; --muted:#9bb0c2; --accent:#3ea6ff;
+    --red:#ff5d5d; --green:#46d39a; --amber:#f0b46a; --grey:#6b7d8f;
+    --maxw:1040px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--fg);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:32px 24px 96px}
+  .badge{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:18px}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 6px;letter-spacing:-.02em}
+  .tagline{font-size:clamp(17px,3vw,21px);color:var(--muted);margin:0 0 28px;font-weight:400}
+  h2{font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:52px 0 14px;font-weight:600}
+  p{margin:0 0 14px}
+  /* Disclaimer — load-bearing, always rendered above every view (CLAUDE.md rule 2) */
+  .disclaimer{background:#1c1410;border:1px solid #5c3a26;border-radius:14px;padding:18px 22px;margin:0 0 28px}
+  .disclaimer strong{color:#ffd9a8}
+  .disclaimer p{font-size:14px;color:#f1e3d5;margin:0}
+  .hero{display:grid;grid-template-columns:1fr;gap:18px;margin:0 0 8px}
+  @media(min-width:720px){.hero{grid-template-columns:1.1fr .9fr}}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .stat .big{font-size:clamp(38px,8vw,60px);font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--red)}
+  .stat .cap{color:var(--muted);font-size:15px;margin-top:8px}
+  .stat .src{color:var(--muted);font-size:12px;margin-top:12px;opacity:.85}
+  .trend .big{color:var(--fg);font-size:clamp(22px,4vw,30px)}
+  .trend .row{font-size:14px;margin-top:6px}
+  .trend .green{color:var(--green)} .trend .red{color:var(--red)}
+  .spark{display:flex;gap:3px;align-items:flex-end;height:42px;margin-top:14px}
+  .spark .bar{flex:1;background:var(--red);border-radius:2px 2px 0 0;min-height:3px}
+  .spark .lab{font-size:11px;color:var(--muted)}
+  /* Controls */
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0 14px}
+  input[type=search]{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    color:var(--fg);padding:10px 14px;font-size:15px;min-width:220px;flex:1}
+  .filters{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;color:var(--muted);
+    padding:6px 12px;font-size:13px;cursor:pointer;user-select:none}
+  .chip.on{color:var(--fg);border-color:var(--accent)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:0 0 14px}
+  .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  /* Grid "map": one colored tile per kommune */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+  .cell{background:var(--surface);border:1px solid var(--line);border-left-width:4px;border-radius:10px;
+    padding:10px 12px;cursor:pointer;text-align:left;color:var(--fg);font:inherit;overflow:hidden}
+  .cell:hover{border-color:var(--accent)}
+  .cell .nm{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cell .pl{font-size:12px;color:var(--muted);margin-top:2px}
+  .cell .fl{font-size:11px;color:var(--amber);margin-top:3px}
+  .c-red{border-left-color:var(--red)} .c-green{border-left-color:var(--green)}
+  .c-amber{border-left-color:var(--amber)} .c-grey{border-left-color:var(--grey)}
+  .count{color:var(--muted);font-size:13px;margin:0 0 10px}
+  /* Detail */
+  .back{display:inline-block;margin:0 0 14px;font-size:14px;cursor:pointer;color:var(--accent)}
+  .facts{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 18px}
+  @media(min-width:640px){.facts{grid-template-columns:1fr 1fr}}
+  .fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .fact .k{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .fact .v{font-size:18px;font-weight:600;margin-top:4px}
+  .fact .v.red{color:var(--red)} .fact .v.green{color:var(--green)}
+  .evidence{background:#0b0f13;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+    font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#cdd9e3;
+    white-space:pre-wrap;word-break:break-all;overflow-x:auto}
+  .evidence .lbl{color:var(--muted)}
+  /* Switch map + benchmark */
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 14px}
+  .panel h3{margin:0 0 8px;font-size:17px}
+  .panel .arrow{color:var(--accent)}
+  .flag{border-left:3px solid var(--amber);padding-left:12px;margin:10px 0;font-size:14px;color:#f1e3d5}
+  .flag b{color:var(--amber)}
+  table.switch{width:100%;border-collapse:collapse;font-size:14px}
+  table.switch td,table.switch th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.switch th{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+  .en{border-top:1px solid var(--line);margin-top:56px;padding-top:24px;color:var(--muted);font-size:14px}
+  .en strong{color:var(--fg)}
+  footer{margin-top:40px;color:var(--muted);font-size:14px}
+  .dot{color:var(--green)}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
+       every "page" (landing and per-kommune detail). Never remove. -->
+  <div class="disclaimer">
+    <p><strong>⚠️ Skytilsynet er ikke et offentlig organ.</strong>
+      Vi er ikke tilknyttet, drevet av eller godkjent av norske myndigheter,
+      Datatilsynet, Digitaliseringsdirektoratet eller noen annen statlig eller
+      kommunal etat. Navnet beskriver hva vi gjør i overført betydning — vi følger
+      med på offentlig sektors avhengighet av skytjenester — og er ikke en offisiell
+      rolle. All informasjon er hentet fra åpne kilder og presenteres faktabasert
+      og nøytralt. <a href="#kilde">Metode og kilder ↓</a></p>
+  </div>
+
+  <!-- LANDING VIEW -->
+  <section id="view-home">
+    <span class="badge">Skybarometeret</span>
+    <h1>Hvor avhengig er Norge av utenlandsk teknologi?</h1>
+    <p class="tagline">Hvilken jurisdiksjon norske kommuners e-post svarer til — kommune for kommune.</p>
+
+    <div class="hero">
+      <div class="stat" id="stat-hero"></div>
+      <div class="stat trend" id="stat-trend"></div>
+    </div>
+
+    <h2>Alle kommuner</h2>
+    <p class="tagline" style="font-size:15px;margin-bottom:14px">
+      Hver rute er én kommune, fargelagt etter hvilken jurisdiksjon e-posten svarer
+      til. Klikk for plattform, jurisdiksjon, evidens og anbefalt europeisk alternativ.</p>
+
+    <div class="legend">
+      <span><span class="sw" style="background:var(--red)"></span>USA (CLOUD Act)</span>
+      <span><span class="sw" style="background:var(--green)"></span>Norge / EØS</span>
+      <span><span class="sw" style="background:var(--amber)"></span>USA — bak e-postgateway (gulv, ikke tak)</span>
+      <span><span class="sw" style="background:var(--grey)"></span>Uavklart</span>
+    </div>
+    <div class="controls">
+      <input type="search" id="q" placeholder="Søk etter kommune …" autocomplete="off" />
+      <div class="filters" id="filters"></div>
+    </div>
+    <p class="count" id="count"></p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- DETAIL VIEW -->
+  <section id="view-detail" class="hidden"></section>
+
+  <!-- SWITCH MAP + BENCHMARK + METHOD: always below the fold -->
+  <section id="static-rest">
+    <h2 id="bytte">Fra USA til Europa — byttekartet</h2>
+    <div class="panel">
+      <p>Hvert funn har et konkret, adopterbart europeisk alternativ. Men
+        <b>EU-lokalisert er ikke det samme som EU-eid</b> — det er fallgruven
+        («suverenitetsvasking»). Byttekartet under koder forskjellen.</p>
+      <table class="switch">
+        <thead><tr><th>I dag</th><th>Europeisk alternativ</th></tr></thead>
+        <tbody>
+          <tr><td>Microsoft 365 (e-post + dokumenter)</td>
+              <td><span class="arrow">→</span> openDesk (Open-Xchange + Nextcloud) / LibreOffice</td></tr>
+          <tr><td>Azure / AWS (drift)</td>
+              <td><span class="arrow">→</span> OVHcloud / Hetzner / IONOS / STACKIT</td></tr>
+        </tbody>
+      </table>
+      <div class="flag"><b>Suverenitetsvasking 1 — «EU-region» ≠ EU-jurisdiksjon.</b>
+        AWS og Azures «suverene sky» ligger fysisk i EU, men leverandøren er
+        amerikansk og dermed underlagt CLOUD Act uansett hvor dataene lagres.</div>
+      <div class="flag"><b>Suverenitetsvasking 2 — utenfor EU-retten.</b>
+        Leverandører med jurisdiksjon i Storbritannia eller Sveits er utenfor
+        EUs felles rettsvern, selv om de er «europeiske».</div>
+      <div class="flag"><b>Suverenitetsvasking 3 — opphav.</b>
+        OnlyOffice har russisk opphav — «åpen kildekode» og «europeisk vert»
+        skjuler ikke leverandørkjeden.</div>
+    </div>
+
+    <h2>Hvorfor det går an — to målestokker</h2>
+    <div class="panel">
+      <h3>Schleswig-Holstein</h3>
+      <p>Den tyske delstaten flytter ~30 000 arbeidsstasjoner av Windows og
+        Microsoft 365 over på Linux og åpen kildekode — anslått <b>≈ 15 mill. euro
+        spart per år</b> og full kontroll over egen infrastruktur.</p>
+      <h3 style="margin-top:14px">Larvik kommune</h3>
+      <p>Larvik friga saksbehandlingen sin fra både Microsoft og Google — anslått
+        <b>≈ 10 mill. kroner spart per år</b>. Det er gjort, i Norge, av en kommune.</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:10px">Endring som varer
+        ligger i innkjøpsreglene, ikke i en enkelt IT-beslutning som kan reverseres
+        ved neste kommunestyrevedtak (lærdommen fra Münchens LiMux).</p>
+    </div>
+
+    <h2 id="kilde">Metode og forbehold</h2>
+    <div class="panel">
+      <p id="method-note"></p>
+      <p style="font-size:13px;color:var(--muted)"><b>E-post er én akse.</b> Tallet
+        er et <b>gulv, ikke et tak</b>: noen kommuner ligger bak en e-postgateway
+        der vi ikke har avdekket bakomliggende plattform — den reelle USA-andelen
+        er minst så høy som vist. Datasettet er åpent (CC BY 4.0) og hver rad bærer
+        sin kilde og dato. <a href="https://github.com/praive-inc/skytilsynet">Kode og metode</a>.</p>
+    </div>
+
+    <div class="en">
+      <p><strong>About this site (English).</strong> Skybarometeret tracks which
+      jurisdiction Norwegian municipalities' email answers to, derived from public
+      DNS. <strong>Skytilsynet is an independent project and is
+      not a government body, not affiliated with, operated by, or endorsed by any
+      Norwegian public authority</strong> (including Datatilsynet). All data is drawn from publicly
+      available sources and presented factually. Open data (CC BY 4.0); every row
+      carries its source and date.</p>
+    </div>
+
+    <footer>
+      <span class="dot">●</span> Et prosjekt fra BetterWorld · skytilsynet.no ·
+      <a href="https://github.com/praive-inc/skytilsynet">åpen kildekode</a>
+    </footer>
+  </section>
+</div>
+
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+(function(){
+  "use strict";
+  var DB = JSON.parse(document.getElementById("data").textContent);
+  var K = DB.kommuner;
+
+  // platform -> {label, juris, css color class}
+  function platMeta(k){
+    switch(k.platform){
+      case "US_MICROSOFT": return {label:"Microsoft 365", juris:"USA (CLOUD Act)",
+        css: k.behind_gateway ? "c-amber" : "c-red", vcls:"red"};
+      case "US_GOOGLE": return {label:"Google Workspace", juris:"USA (CLOUD Act)", css:"c-red", vcls:"red"};
+      case "EU_SOVEREIGN": return {label:"Europeisk / norsk drift", juris:"Norge (EØS)", css:"c-green", vcls:"green"};
+      default: return {label:"Uavklart", juris:"Uavklart", css:"c-grey", vcls:""};
+    }
+  }
+  var FILTERS = [
+    {key:"ALL", label:"Alle"},
+    {key:"US_MICROSOFT", label:"Microsoft"},
+    {key:"US_GOOGLE", label:"Google"},
+    {key:"EU_SOVEREIGN", label:"Norge / EØS"},
+    {key:"OTHER", label:"Uavklart"}
+  ];
+  var FLAG_NO = {
+    backend_unmasked: "Bak e-postgateway — bakomliggende plattform ikke avdekket (tallet er et gulv)",
+    mail_domain_differs_from_website: "E-postdomenet er et annet enn nettstedet"
+  };
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  function slug(name){return name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
+
+  // ---- Hero + trend -------------------------------------------------------
+  function renderHero(){
+    var s = DB.summary;
+    document.getElementById("stat-hero").innerHTML =
+      '<div class="big">'+s.microsoft_pct.toFixed(1).replace(".",",")+' %</div>'+
+      '<div class="cap">av norske kommuner kjører e-posten sin på Microsoft 365 '+
+      '(USA; CLOUD Act-jurisdiksjon). '+s.us_pct.toFixed(1).replace(".",",")+
+      ' % på en amerikansk skyleverandør.</div>'+
+      '<div class="src">'+s.us_total+' av '+s.total+' kommuner på USA · '+
+      s.eu_sovereign+' på norsk/europeisk drift · målt '+esc(noDate(DB.meta.sourceDate))+
+      ' fra åpne DNS-data (MX, SPF, autodiscover).</div>';
+
+    var t = DB.trend, el = document.getElementById("stat-trend");
+    var spark = renderSpark();
+    if(!t){ el.innerHTML = '<div class="big">Trend</div>'+
+      '<div class="cap">For få målinger til å vise bevegelse ennå.</div>'+spark; return; }
+    var left = t.left_microsoft.length, joined = t.joined_microsoft.length;
+    el.innerHTML =
+      '<div class="big">Bevegelse</div>'+
+      '<div class="cap">Siden forrige måling ('+esc(noDate(t.from_date))+' → '+
+        esc(noDate(t.to_date))+'):</div>'+
+      '<div class="row '+(left?"green":"")+'">'+
+        (left? '🟢 '+left+' kommune'+(left===1?"":"r")+' forlot Microsoft'
+             : '— ingen kommuner forlot Microsoft')+'</div>'+
+      '<div class="row '+(joined?"red":"")+'">'+
+        (joined? '🔴 '+joined+' kommune'+(joined===1?"":"r")+' ble kartlagt på Microsoft'
+               : '— ingen nye på Microsoft')+'</div>'+
+      '<div class="src">Over så korte vindu gjenspeiler bevegelse mest forbedret '+
+        'kartlegging, ikke faktiske bytter. Vi sier det rett ut.</div>'+spark;
+  }
+  function renderSpark(){
+    var h = DB.history || [];
+    if(h.length < 2) return "";
+    var max = 100, bars = h.map(function(p){
+      var pct = p.microsoft_pct;
+      return '<div class="bar" style="height:'+(pct/max*100)+'%" title="'+
+        esc(p.date)+': '+pct+' %"></div>';
+    }).join("");
+    return '<div class="spark">'+bars+'</div>'+
+      '<div class="lab">Microsoft-andel, '+esc(h[0].date)+' → '+esc(h[h.length-1].date)+'</div>';
+  }
+
+  // ---- Grid ---------------------------------------------------------------
+  var state = {q:"", filter:"ALL"};
+  function renderFilters(){
+    document.getElementById("filters").innerHTML = FILTERS.map(function(f){
+      return '<span class="chip'+(state.filter===f.key?" on":"")+'" data-f="'+f.key+'">'+
+        esc(f.label)+'</span>';
+    }).join("");
+  }
+  function matches(k){
+    if(state.filter!=="ALL" && k.platform!==state.filter) return false;
+    if(state.q && k.kommune.toLowerCase().indexOf(state.q)<0 &&
+       (k.domain||"").toLowerCase().indexOf(state.q)<0) return false;
+    return true;
+  }
+  function renderGrid(){
+    var rows = K.filter(matches).sort(function(a,b){
+      return a.kommune.localeCompare(b.kommune,"nb"); });
+    document.getElementById("count").textContent = rows.length+" av "+K.length+" kommuner";
+    document.getElementById("grid").innerHTML = rows.map(function(k){
+      var m = platMeta(k);
+      var fl = (k.flags||[]).indexOf("backend_unmasked")>=0
+        ? '<div class="fl">⚑ bak gateway — gulv</div>' : "";
+      return '<button class="cell '+m.css+'" data-k="'+esc(slug(k.kommune))+'">'+
+        '<div class="nm">'+esc(k.kommune)+'</div>'+
+        '<div class="pl">'+esc(m.label)+'</div>'+fl+'</button>';
+    }).join("");
+  }
+
+  // ---- Detail -------------------------------------------------------------
+  function bySlug(s){ for(var i=0;i<K.length;i++){ if(slug(K[i].kommune)===s) return K[i]; } return null; }
+  function fact(k,v,cls){ return '<div class="fact"><div class="k">'+esc(k)+
+    '</div><div class="v '+(cls||"")+'">'+v+'</div></div>'; }
+  function renderDetail(k){
+    var m = platMeta(k);
+    var ev = k.evidence || {};
+    var resid = (k.platform==="EU_SOVEREIGN")
+      ? "Norge / EØS — under europeisk rettsvern"
+      : (k.platform==="OTHER")
+        ? "Ikke avgjort fra DNS alene"
+        : "Avhenger av oppsett, men operatøren er underlagt CLOUD Act uansett lagringssted "+
+          "(EU-region opphever ikke jurisdiksjonen)";
+    var alt = k.alternative
+      ? esc(k.alternative)
+      : (k.platform==="EU_SOVEREIGN" ? "Allerede på europeisk/norsk drift" : "—");
+    var flagsHtml = (k.flags||[]).map(function(f){
+      return '<div class="flag">'+esc(FLAG_NO[f]||f)+'</div>'; }).join("");
+    var evLines = [];
+    (ev.mx||[]).forEach(function(x){ evLines.push('<span class="lbl">MX  </span>'+esc(x)); });
+    if(ev.spf) evLines.push('<span class="lbl">SPF </span>'+esc(ev.spf));
+    if(ev.autodiscover) evLines.push('<span class="lbl">AUTO</span>'+esc(ev.autodiscover));
+    if(!evLines.length) evLines.push("(ingen MX/SPF/autodiscover-poster funnet)");
+
+    var v = document.getElementById("view-detail");
+    v.innerHTML =
+      '<span class="back" id="back">← Alle kommuner</span>'+
+      '<h1>'+esc(k.kommune)+'</h1>'+
+      '<p class="tagline" style="font-size:16px">E-postdomene: <code>'+esc(k.domain||"—")+'</code></p>'+
+      '<div class="facts">'+
+        fact("Plattform (e-post)", esc(m.label), m.vcls)+
+        fact("Operatørens jurisdiksjon", esc(m.juris), m.vcls)+
+        fact("Datas oppholdssted", resid)+
+        fact("Kontraktsverdi", "Ikke kartlagt (denne aksen dekker kun e-post via DNS)")+
+      '</div>'+
+      (flagsHtml? '<h2 style="margin-top:0">Forbehold</h2>'+flagsHtml : "")+
+      '<h2>Anbefalt europeisk alternativ</h2>'+
+      '<div class="panel"><p style="margin:0">'+alt+'. Se byttekartet og '+
+        'fallgruvene for suverenitetsvasking på forsiden.</p></div>'+
+      '<h2>Evidens — de faktiske DNS-postene</h2>'+
+      '<div class="evidence">'+evLines.join("\n")+'</div>'+
+      '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
+        'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>';
+  }
+
+  // ---- Routing ------------------------------------------------------------
+  function route(){
+    var hash = location.hash.replace(/^#/,"");
+    var m = hash.match(/^kommune\/(.+)$/);
+    var home = document.getElementById("view-home");
+    var detail = document.getElementById("view-detail");
+    var rest = document.getElementById("static-rest");
+    if(m){
+      var k = bySlug(m[1]);
+      if(k){ renderDetail(k); home.classList.add("hidden"); rest.classList.add("hidden");
+        detail.classList.remove("hidden"); window.scrollTo(0,0); return; }
+    }
+    detail.classList.add("hidden"); home.classList.remove("hidden"); rest.classList.remove("hidden");
+  }
+
+  // ---- Wiring -------------------------------------------------------------
+  function noDate(iso){
+    if(!iso) return "";
+    var mo=["","januar","februar","mars","april","mai","juni","juli","august",
+      "september","oktober","november","desember"];
+    var p=iso.split("-"); return parseInt(p[2],10)+". "+mo[parseInt(p[1],10)]+" "+p[0];
+  }
+  document.getElementById("method-note").innerHTML =
+    "Hver kommune er klassifisert ut fra offentlig DNS (MX + SPF + autodiscover-fingeravtrykk), "+
+    "målt "+esc(noDate(DB.meta.sourceDate))+". "+esc(DB.summary.total)+" kommuner totalt.";
+
+  document.getElementById("q").addEventListener("input", function(e){
+    state.q = e.target.value.trim().toLowerCase(); renderGrid(); });
+  document.getElementById("filters").addEventListener("click", function(e){
+    var f = e.target.getAttribute("data-f"); if(!f) return;
+    state.filter = f; renderFilters(); renderGrid(); });
+  document.getElementById("grid").addEventListener("click", function(e){
+    var btn = e.target.closest(".cell"); if(!btn) return;
+    location.hash = "kommune/"+btn.getAttribute("data-k"); });
+  document.addEventListener("click", function(e){
+    if(e.target && e.target.id==="back") history.length>1 ? history.back() : (location.hash=""); });
+  window.addEventListener("hashchange", route);
+
+  renderHero(); renderFilters(); renderGrid(); route();
+})();
+</script>
+</body>
+</html>
+"""
+
+if __name__ == "__main__":
+    main()
