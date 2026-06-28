@@ -35,7 +35,7 @@ even higher.
 
 ```
 scanner/   the DNS pipeline (MX + SPF + autodiscover) + dated snapshots + history
-web/       the public site (holding page now → live tracker)
+web/       the public site — the live tracker (Skybarometeret), built by build.py
 data/      the published open dataset (CC BY 4.0)
 docs/      methodology / scope spec (originated as BetterWorld RFC-017)
 ```
@@ -49,6 +49,25 @@ python3 transition.py    # shows the trend + which kommuner moved since last run
 ```
 
 Needs `dig`. No auth, no cost — public DNS only.
+
+## Build the public site
+
+```bash
+cd web
+python3 build.py         # regenerates web/index.html from data/ + scanner/
+python3 -m unittest      # tests the build (trend logic + rendered output)
+```
+
+`build.py` bakes the latest dataset, the aggregate history, and the honest
+per-kommune trend into a single self-contained `index.html`. The data is inlined
+as JSON — the page makes **no runtime fetch and has no US-managed serving
+dependency** (no CDN, web fonts, or map tiles), per BetterWorld RFC-001 P5.
+
+Deploy is a plain rsync of `web/` behind Caddy (no build step in prod — see
+[`deploy/deploy-local.sh`](deploy/deploy-local.sh)), so the generated
+`index.html` is committed. Re-run `build.py` after each scan to refresh the page;
+the operator wires that alongside the scheduled `scan.py` (the agent does not add
+GitHub Actions — see [`CLAUDE.md`](CLAUDE.md)).
 
 ## Relationship to BetterWorld
 
