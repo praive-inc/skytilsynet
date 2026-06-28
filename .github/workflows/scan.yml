@@ -1,0 +1,45 @@
+name: Weekly kommune sovereignty scan
+
+# Re-runs the email-sovereignty scan and commits a fresh dated snapshot + history
+# row + published dataset, so the tracker stays live and the transition over time
+# accumulates. Manual run available via the "Run workflow" button.
+on:
+  schedule:
+    - cron: "17 5 * * 1" # Mondays 05:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dig
+        run: sudo apt-get update && sudo apt-get install -y bind9-dnsutils
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run the scan
+        working-directory: scanner
+        run: python3 scan.py
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "skytilsynet-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scanner/snapshots scanner/history.json scanner/kommune_sovereignty.json data/
+          if git diff --cached --quiet; then
+            echo "No changes this run."
+          else
+            git commit -m "data: weekly kommune sovereignty scan ($(date -u +%F))"
+            git push
+          fi
