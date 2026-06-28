@@ -163,6 +163,17 @@ class Candidates(unittest.TestCase):
                             {"Aurskog-Høland": "ahk.no"})
         self.assertEqual(c, ["ahk.no"])
 
+    def test_statlig_uses_seed_domain_only_no_kommune_fallback(self):
+        # A state body is seeded with its real mail domain — never probe a bogus
+        # <slug>.kommune.no for NAV or a ministry.
+        c = scan.candidates("NAV", "nav.no", {}, category="stat")
+        self.assertEqual(c, ["nav.no"])
+
+    def test_statlig_parent_walk_not_used_for_dep_no(self):
+        # fin.dep.no must not silently fall back to the shared dep.no apex.
+        c = scan.candidates("Finansdepartementet", "fin.dep.no", {}, category="stat")
+        self.assertEqual(c, ["fin.dep.no"])
+
 
 class Resolve(unittest.TestCase):
     def test_falls_back_to_mail_domain_when_website_has_no_mail(self):
@@ -384,6 +395,44 @@ class Record(unittest.TestCase):
                                "2026-06-28")
         self.assertEqual(rec["jurisdiction"], "Undetermined")
         self.assertIsNone(rec["governance"])
+
+
+class Category(unittest.TestCase):
+    """A second category (statlige organ) reuses the same classification."""
+
+    def test_kommune_record_keeps_kommune_key_and_category(self):
+        rec = scan.make_record("Oslo", "oslo.kommune.no", "oslo.kommune.no",
+                               ev(mx=["0 oslo.mail.protection.outlook.com"]),
+                               "2026-06-28")
+        self.assertEqual(rec["category"], "kommune")
+        self.assertEqual(rec["kommune"], "Oslo")
+        self.assertEqual(rec["name"], "Oslo")
+
+    def test_statlig_record_uses_name_and_category_not_kommune(self):
+        rec = scan.make_record("NAV", "nav.no", "nav.no",
+                               ev(mx=["0 nav-no.mail.protection.outlook.com"]),
+                               "2026-06-28", category="stat")
+        self.assertEqual(rec["category"], "stat")
+        self.assertEqual(rec["name"], "NAV")
+        self.assertNotIn("kommune", rec)
+        self.assertEqual(rec["platform"], "US_MICROSOFT")
+
+    def test_resolve_statlig_classifies_and_tags_category(self):
+        responses = {"skatteetaten.no":
+                     ev(mx=["10 skatteetaten-no.mail.protection.outlook.com"])}
+        rec = scan.resolve("Skatteetaten", "skatteetaten.no", {}, "2026-06-28",
+                           category="stat", fetch=lambda d: responses.get(d, ev()))
+        self.assertEqual(rec["category"], "stat")
+        self.assertEqual(rec["name"], "Skatteetaten")
+        self.assertEqual(rec["domain"], "skatteetaten.no")
+        self.assertEqual(rec["platform"], "US_MICROSOFT")
+
+    def test_load_statlige_reads_seed(self):
+        organ = scan.load_statlige()
+        self.assertTrue(any(n == "NAV (Arbeids- og velferdsetaten)" and d == "nav.no"
+                            for n, d in organ))
+        # Every seeded entity carries a mail domain to scan.
+        self.assertTrue(all(d for _, d in organ))
 
 
 class Aggregate(unittest.TestCase):

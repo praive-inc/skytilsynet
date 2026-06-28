@@ -8,6 +8,7 @@ actual snapshot shape, and a full render against the real dataset asserting the
 acceptance criteria are present in the output. Run:  python3 -m unittest -v
 """
 import json
+import os
 import unittest
 
 import build
@@ -61,7 +62,7 @@ def sig(t, obs, src, inf, conf, plat):
 DATA = {
     "meta": {"sourceDate": "2026-06-28", "title": "t", "license": "CC BY 4.0"},
     "summary": {"total": 4, "us_total": 2, "us_pct": 50.0, "microsoft_pct": 25.0,
-                "eu_sovereign": 1, "other": 1},
+                "us_microsoft": 1, "eu_sovereign": 1, "other": 1},
     "kommuner": [
         {"kommune": "Oslo", "domain": "oslo.kommune.no", "platform": "US_MICROSOFT",
          "jurisdiction": "United States (CLOUD Act)",
@@ -125,10 +126,41 @@ HISTORY = [
 TREND = {"from_date": "2026-06-27", "to_date": "2026-06-28",
          "left_microsoft": [], "joined_microsoft": ["Kautokeino"]}
 
+# Second category: statlige organ. Records use `name`/`category` (no `kommune` key).
+STAT = {
+    "meta": {"sourceDate": "2026-06-28", "title": "stat", "license": "CC BY 4.0"},
+    "summary": {"total": 2, "us_total": 2, "us_pct": 100.0, "microsoft_pct": 100.0,
+                "us_microsoft": 2, "eu_sovereign": 0, "other": 0},
+    "organ": [
+        {"name": "NAV (Arbeids- og velferdsetaten)", "category": "stat", "domain": "nav.no",
+         "platform": "US_MICROSOFT", "jurisdiction": "United States (CLOUD Act)",
+         "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+         "behind_gateway": True, "flags": [], "fingerprint": "dkim",
+         "evidence": {"mx": ["5 mxa-003ba702.gslb.pphosted.com"],
+                      "spf": "v=spf1 include:spf.protection.outlook.com -all",
+                      "autodiscover": None},
+         "sourceDate": "2026-06-28"},
+        {"name": "Skatteetaten", "category": "stat", "domain": "skatteetaten.no",
+         "platform": "US_MICROSOFT", "jurisdiction": "United States (CLOUD Act)",
+         "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+         "behind_gateway": False, "flags": [], "fingerprint": "mx/spf",
+         "evidence": {"mx": ["10 skatteetaten-no.mail.protection.outlook.com"],
+                      "spf": "v=spf1 include:spf.protection.outlook.com -all",
+                      "autodiscover": None},
+         "sourceDate": "2026-06-28"},
+    ],
+}
+
 
 class BuildHtml(unittest.TestCase):
     def setUp(self):
-        self.html = build.build_html(DATA, HISTORY, TREND)
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT)
+
+    def _payload(self):
+        start = self.html.index('id="data"')
+        open_tag = self.html.index(">", start) + 1
+        close = self.html.index("</script>", open_tag)
+        return json.loads(self.html[open_tag:close].replace("<\\/", "</"))
 
     def test_disclaimer_present(self):
         # CLAUDE.md rule 2 — load-bearing, must be in the document.
@@ -140,13 +172,51 @@ class BuildHtml(unittest.TestCase):
             self.assertIn(k["kommune"], self.html)
 
     def test_baked_data_is_valid_json_and_round_trips(self):
-        start = self.html.index('id="data"')
-        open_tag = self.html.index(">", start) + 1
-        close = self.html.index("</script>", open_tag)
-        blob = self.html[open_tag:close].replace("<\\/", "</")
-        payload = json.loads(blob)
-        self.assertEqual(len(payload["kommuner"]), 4)
+        payload = self._payload()
+        cats = {c["key"]: c for c in payload["categories"]}
+        self.assertEqual(len(cats["kommune"]["entities"]), 4)
+        self.assertEqual(len(cats["stat"]["entities"]), 2)
         self.assertEqual(payload["trend"]["joined_microsoft"], ["Kautokeino"])
+
+    def test_both_categories_with_labels(self):
+        # Acceptance: kommuner + statlige organ shown as categories.
+        payload = self._payload()
+        keys = [c["key"] for c in payload["categories"]]
+        self.assertEqual(keys, ["kommune", "stat"])
+        labels = [c["label"] for c in payload["categories"]]
+        self.assertIn("Kommuner", labels)
+        self.assertIn("Statlige organ", labels)
+        self.assertIn("Statlige organ", self.html)
+
+    def test_statlige_organ_names_in_page(self):
+        for name in ["NAV", "Skatteetaten"]:
+            self.assertIn(name, self.html)
+
+    def test_combined_headline_covers_both_categories(self):
+        # Acceptance: top-line % is the COMBINED scanned public sector.
+        payload = self._payload()
+        c = payload["combined"]
+        self.assertEqual(c["total"], 6)                 # 4 kommuner + 2 organ
+        # microsoft: 1 of 4 kommuner + 2 of 2 organ = 3 / 6 = 50.0 %
+        self.assertEqual(c["microsoft_pct"], 50.0)
+        # Each category keeps its own %.
+        cats = {x["key"]: x for x in payload["categories"]}
+        self.assertEqual(cats["kommune"]["summary"]["microsoft_pct"], 25.0)
+        self.assertEqual(cats["stat"]["summary"]["microsoft_pct"], 100.0)
+
+    def test_every_entity_carries_cited_evidence(self):
+        # Acceptance: every verdict still links to cited evidence.
+        payload = self._payload()
+        for c in payload["categories"]:
+            for e in c["entities"]:
+                self.assertIn("evidence", e)
+                self.assertTrue(e["sourceDate"])
+
+    def test_kommune_only_still_builds_without_stat(self):
+        # Backward compatible: omitting the second category renders kommune-only.
+        html = build.build_html(DATA, HISTORY, TREND)
+        self.assertIn("ikke et offentlig organ", html)
+        self.assertIn("Oslo", html)
 
     def test_four_facts_framing(self):
         # platform / jurisdiction / data residency / contract value
@@ -222,17 +292,22 @@ class BuildHtml(unittest.TestCase):
 
 
 class BuildMainOnRealData(unittest.TestCase):
-    """Smoke test the real pipeline against the committed dataset."""
-    def test_real_data_renders_all_kommuner(self):
+    """Smoke test the real pipeline against the committed datasets."""
+    def test_real_data_renders_both_categories(self):
         data = json.load(open(build.DATA))
+        stat = json.load(open(build.STAT_DATA)) if os.path.exists(build.STAT_DATA) else None
         history = json.load(open(build.HISTORY))
         old, new = build.load_snapshots()
-        html = build.build_html(data, history, build.compute_trend(old, new))
+        html = build.build_html(data, history, build.compute_trend(old, new), stat)
         self.assertIn("ikke et offentlig organ", html)
         self.assertEqual(html.count('class="cell"'), 0)  # cells are rendered client-side
         # Every kommune name survives into the baked JSON.
         for k in data["kommuner"]:
             self.assertIn(k["kommune"], html)
+        # And every state body, if the second category is present.
+        if stat:
+            for o in stat["organ"]:
+                self.assertIn(o["name"], html)
 
 
 if __name__ == "__main__":

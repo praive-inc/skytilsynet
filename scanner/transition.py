@@ -9,11 +9,12 @@ Prints the aggregate trend (from history.json) and the per-kommune platform
 changes between two snapshots — i.e. exactly which municipalities moved (and in
 which direction) since last time.
 """
-import json, os, sys
+import json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SNAP_DIR = os.path.join(HERE, "snapshots")
 HISTORY  = os.path.join(HERE, "history.json")
+DATE_SNAP = re.compile(r"^\d{4}-\d{2}-\d{2}\.json$")  # kommune email series only
 
 def load_snap(date):
     return json.load(open(os.path.join(SNAP_DIR, f"{date}.json")))
@@ -28,7 +29,7 @@ def main():
                   f"{h['eu_sovereign']+h['other']:>9}")
         print()
 
-    snaps = sorted(f[:-5] for f in os.listdir(SNAP_DIR) if f.endswith(".json")) \
+    snaps = sorted(f[:-5] for f in os.listdir(SNAP_DIR) if DATE_SNAP.match(f)) \
             if os.path.isdir(SNAP_DIR) else []
     if len(sys.argv) == 3:
         a, b = sys.argv[1], sys.argv[2]
