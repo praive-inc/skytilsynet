@@ -117,6 +117,40 @@ per-record `flags`:
 | `kommune_sovereignty.json` | latest records (scanner-local convenience copy) |
 | `../data/kommune-email-sovereignty.latest.json` | the **published CC-BY dataset** (meta + summary + kommuner) |
 
+## Second axis: website-infrastructure sovereignty (`web_scan.py`)
+
+Email is one axis. `web_scan.py` adds a **distinct** one — where the kommune's
+public **website** infrastructure answers to — kept separate from the email score,
+never conflated. It derives jurisdiction from public, no-auth signals a browser
+already fetches (no intrusion, no crawl: one homepage GET + one `security.txt` GET
+per kommune, low concurrency, identifying User-Agent):
+
+1. **HTTP headers** — `Server`, `X-Powered-By`, `Content-Security-Policy`.
+2. **Embedded third-party resources** — every external host in the homepage's
+   `<script>/<link>/<img>/<iframe>` (Google Analytics/Tag Manager/Fonts, US CDNs,
+   map tiles, social trackers) classified to the jurisdiction its **owner**
+   answers to. Same-site subdomains are excluded; unknown hosts stay
+   `Undetermined` (we never guess a jurisdiction we can't cite).
+3. **Hosting jurisdiction** — the homepage's first IPv4 → origin ASN + country via
+   **Team Cymru DNS** (`<rev-ip>.origin.asn.cymru.com TXT`, no key).
+4. **TLS certificate issuer** (`openssl s_client`) and `/.well-known/security.txt`.
+
+Per kommune it records the hosting jurisdiction, the per-resource jurisdiction
+list, the **fraction of embedded resources that are US-hosted**, an analytics y/n,
+and washing flags (`us_hosted`, `analytics`, `us_cdn`, `third_party_trackers`,
+`unreachable`) — each with its evidence + `sourceDate`. The **EU-located ≠
+EU-owned** moat applies here too: an asset cached in AWS `eu-central-1` (Frankfurt)
+is still US-jurisdiction because Amazon owns it.
+
+```bash
+python3 web_scan.py                       # snapshot dated today (UTC)
+SCAN_DATE=2026-06-27 python3 web_scan.py  # pin the snapshot date
+```
+
+Needs `dig` and `openssl`. Writes `snapshots/web-<date>.json`, `web_history.json`,
+`kommune_web_sovereignty.json`, and the published
+`../data/kommune-web-sovereignty.latest.json`.
+
 ## Scheduling the re-scan
 
 `scan.py` is cron-friendly: no args, no auth, idempotent (a same-date re-run
@@ -132,8 +166,12 @@ Then `python3 transition.py` surfaces which municipalities moved since the prior
 
 ## Caveats / roadmap
 
-- Email is **one axis**. A full scorecard adds web hosting/CDN signatures,
-  procurement contracts (TED API + Doffin CSV), and org resolution (Brønnøysund).
+- Two axes so far: email (`scan.py`) and website infrastructure (`web_scan.py`,
+  above). A full scorecard still adds procurement contracts (TED API + Doffin CSV)
+  and org resolution (Brønnøysund).
+- The web axis reads only the homepage `<head>`/markup, not JS-injected resources;
+  a tracker added by client-side script after load is not seen. The US-resource
+  fraction is therefore a floor, like the email Microsoft share.
 - The `MS_EOP_RANGES` prefix list in `scan.py` is static; refresh it periodically
   from `https://endpoints.office.com` (service id `Exchange`) so flattened-SPF
   matching keeps up with Microsoft's IP allocations.
