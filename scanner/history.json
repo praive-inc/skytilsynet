@@ -11,5 +11,19 @@
     "us_total": 327,
     "us_pct": 91.3,
     "microsoft_pct": 90.2
+  },
+  {
+    "date": "2026-06-28",
+    "total": 358,
+    "us_microsoft": 328,
+    "us_google": 4,
+    "us_mixed": 0,
+    "eu_sovereign": 1,
+    "other": 25,
+    "none": 0,
+    "us_total": 332,
+    "us_pct": 92.7,
+    "microsoft_pct": 91.6,
+    "backend_unmasked": 10
   }
 ]
