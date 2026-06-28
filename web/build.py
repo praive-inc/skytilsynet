@@ -232,139 +232,213 @@ _TEMPLATE = r"""<!doctype html>
 <title>Skybarometeret — hvor avhengig er Norge av utenlandsk teknologi?</title>
 <meta name="description" content="Skybarometeret: hvilken jurisdiksjon norske kommuners e-post svarer til, kommune for kommune. Faktabasert og kildebelagt. Et uavhengig prosjekt — ikke et offentlig organ." />
 <style>
+  /* ---------------------------------------------------------------------
+     Design tokens. One restrained palette + a modular type and spacing
+     scale, so every surface shares the same rhythm (issue #15). System
+     fonts only — no web fonts, no CDN (RFC-001 P5).
+     --------------------------------------------------------------------- */
   :root{
-    --bg:#0f1419; --surface:#171e26; --line:#26303b;
-    --fg:#eef2f6; --muted:#9bb0c2; --accent:#3ea6ff;
-    --red:#ff5d5d; --green:#46d39a; --amber:#f0b46a; --grey:#6b7d8f;
+    /* palette */
+    --bg:#0e1217; --bg-2:#0a0d11; --surface:#161d25; --surface-2:#1b232c;
+    --line:#2a343f; --line-2:#384654;
+    --fg:#eef2f6; --muted:#a3b6c6; --faint:#7d909f; --accent:#5cb3ff;
+    --red:#ff6b6b; --green:#4dd6a0; --amber:#f2b56b; --grey:#7d909f;
+    --disc-bg:#1c1410; --disc-line:#6a4329; --disc-fg:#f1e3d5; --disc-strong:#ffd9a8;
+    /* type scale (1.20 minor third off 16px) */
+    --text-xs:12px; --text-sm:13px; --text-base:15px; --text-md:16px;
+    --text-lg:18px; --text-xl:21px; --text-2xl:clamp(22px,4vw,30px);
+    --text-display:clamp(30px,5vw,46px); --text-stat:clamp(38px,8vw,60px);
+    /* spacing scale (4px base) */
+    --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+    --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+    --space-12:52px; --space-16:72px;
+    /* form */
+    --radius-sm:10px; --radius:12px; --radius-lg:16px; --radius-pill:999px;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.5);
+    --ring:0 0 0 2px var(--bg),0 0 0 4px var(--accent);
     --maxw:1040px;
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   html,body{margin:0;padding:0}
   body{
-    background:var(--bg); color:var(--fg);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(1200px 600px at 50% -200px,#13202b 0,transparent 70%),
+      var(--bg);
+    color:var(--fg);
+    font:var(--text-md)/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   }
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:32px 24px 96px}
-  .badge{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:18px}
-  h1{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 6px;letter-spacing:-.02em}
-  .tagline{font-size:clamp(17px,3vw,21px);color:var(--muted);margin:0 0 28px;font-weight:400}
-  h2{font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:52px 0 14px;font-weight:600}
-  p{margin:0 0 14px}
+  /* Visible keyboard focus everywhere (WCAG 2.4.7) */
+  a:focus-visible,button:focus-visible,input:focus-visible,
+  .chip:focus-visible,.cattab:focus-visible,.cell:focus-visible,
+  .back:focus-visible{outline:none;box-shadow:var(--ring);border-radius:var(--radius-sm)}
+  /* Skip link (WCAG 2.4.1) — visible only when focused */
+  .skip{position:absolute;left:var(--space-4);top:-48px;z-index:10;
+    background:var(--surface);color:var(--fg);border:1px solid var(--line-2);
+    border-radius:var(--radius-sm);padding:var(--space-2) var(--space-4);
+    transition:top .15s ease}
+  .skip:focus{top:var(--space-4);text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:var(--space-6) var(--space-6) var(--space-16)}
+  /* Masthead wordmark — a quiet newsroom byline above the fold */
+  .masthead{display:flex;align-items:baseline;gap:var(--space-3);
+    padding-bottom:var(--space-5);margin-bottom:var(--space-6);
+    border-bottom:1px solid var(--line)}
+  .masthead .wordmark{font-weight:700;letter-spacing:-.01em;font-size:var(--text-lg)}
+  .masthead .kicker{color:var(--faint);font-size:var(--text-sm);
+    letter-spacing:.12em;text-transform:uppercase}
+  .badge{display:inline-block;font-size:var(--text-sm);letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line);border-radius:var(--radius-pill);
+    padding:var(--space-1) var(--space-3);margin-bottom:var(--space-5)}
+  h1{font-size:var(--text-display);line-height:1.05;margin:0 0 var(--space-2);letter-spacing:-.02em}
+  .tagline{font-size:var(--text-xl);color:var(--muted);margin:0 0 var(--space-8);font-weight:400;max-width:62ch}
+  h2{font-size:var(--text-sm);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+    margin:var(--space-12) 0 var(--space-4);font-weight:700;
+    display:flex;align-items:center;gap:var(--space-3)}
+  h2::after{content:"";flex:1;height:1px;background:var(--line)}
+  p{margin:0 0 var(--space-4)}
   /* Disclaimer — load-bearing, always rendered above every view (CLAUDE.md rule 2) */
-  .disclaimer{background:#1c1410;border:1px solid #5c3a26;border-radius:14px;padding:18px 22px;margin:0 0 28px}
-  .disclaimer strong{color:#ffd9a8}
-  .disclaimer p{font-size:14px;color:#f1e3d5;margin:0}
-  .hero{display:grid;grid-template-columns:1fr;gap:18px;margin:0 0 8px}
+  .disclaimer{background:var(--disc-bg);border:1px solid var(--disc-line);
+    border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);margin:0 0 var(--space-8)}
+  .disclaimer strong{color:var(--disc-strong)}
+  .disclaimer p{font-size:var(--text-sm);color:var(--disc-fg);margin:0;max-width:80ch}
+  /* Shared card surface */
+  .stat,.goal,.fact,.panel{background:linear-gradient(180deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line);box-shadow:var(--shadow)}
+  .hero{display:grid;grid-template-columns:1fr;gap:var(--space-4);margin:0 0 var(--space-2)}
   @media(min-width:720px){.hero{grid-template-columns:1.1fr .9fr}}
-  .stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
-  .stat .big{font-size:clamp(38px,8vw,60px);font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--red)}
-  .stat .cap{color:var(--muted);font-size:15px;margin-top:8px}
-  .stat .src{color:var(--muted);font-size:12px;margin-top:12px;opacity:.85}
-  .trend .big{color:var(--fg);font-size:clamp(22px,4vw,30px)}
-  .trend .row{font-size:14px;margin-top:6px}
+  .stat{border-radius:var(--radius-lg);padding:var(--space-6)}
+  .stat .big{font-size:var(--text-stat);font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--red);
+    font-variant-numeric:tabular-nums}
+  .stat .cap{color:var(--muted);font-size:var(--text-base);margin-top:var(--space-2)}
+  .stat .src{color:var(--faint);font-size:var(--text-xs);margin-top:var(--space-3)}
+  .trend .big{color:var(--fg);font-size:var(--text-2xl)}
+  .trend .row{font-size:var(--text-sm);margin-top:var(--space-1)}
   .trend .green{color:var(--green)} .trend .red{color:var(--red)}
-  .spark{display:flex;gap:3px;align-items:flex-end;height:42px;margin-top:14px}
-  .spark .bar{flex:1;background:var(--red);border-radius:2px 2px 0 0;min-height:3px}
-  .spark .lab{font-size:11px;color:var(--muted)}
+  .spark{display:flex;gap:3px;align-items:flex-end;height:42px;margin-top:var(--space-4)}
+  .spark .bar{flex:1;background:linear-gradient(180deg,var(--red),#b8434a);border-radius:2px 2px 0 0;min-height:3px}
+  .lab{font-size:var(--text-xs);color:var(--faint);margin-top:var(--space-2)}
   /* Målet — the campaign centerpiece (issue #14) */
-  .goal{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;margin:0 0 14px}
-  .goal .lead{font-size:15px;color:var(--muted);margin:0 0 18px}
-  .goal-head{display:grid;grid-template-columns:1fr;gap:20px;margin:0 0 8px}
+  .goal{border-radius:var(--radius-lg);padding:var(--space-6);margin:0 0 var(--space-4)}
+  .goal .lead{font-size:var(--text-base);color:var(--muted);margin:0 0 var(--space-5);max-width:72ch}
+  .goal-head{display:grid;grid-template-columns:1fr;gap:var(--space-5);margin:0 0 var(--space-2)}
   @media(min-width:720px){.goal-head{grid-template-columns:1fr 1fr}}
-  .goal .now{font-size:clamp(38px,8vw,60px);font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--green)}
-  .goal .now .of{color:var(--muted);font-size:16px;font-weight:400;letter-spacing:0}
-  .goal .sub{color:var(--muted);font-size:14px;margin-top:8px}
-  .goal-track{height:14px;background:#0b0f13;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:14px 0 6px}
-  .goal-bar{height:100%;background:var(--green);border-radius:999px;min-width:2px;transition:width .6s ease}
-  .goal .scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+  .goal .now{font-size:var(--text-stat);font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--green);
+    font-variant-numeric:tabular-nums}
+  .goal .now .of{color:var(--muted);font-size:var(--text-md);font-weight:400;letter-spacing:0}
+  .goal .sub{color:var(--muted);font-size:var(--text-sm);margin-top:var(--space-2)}
+  .goal-track{height:14px;background:var(--bg-2);border:1px solid var(--line);
+    border-radius:var(--radius-pill);overflow:hidden;margin:var(--space-4) 0 var(--space-1)}
+  .goal-bar{height:100%;background:linear-gradient(90deg,#2f9e74,var(--green));
+    border-radius:var(--radius-pill);min-width:2px;transition:width .6s ease}
+  .goal .scale{display:flex;justify-content:space-between;font-size:var(--text-xs);color:var(--faint)}
   .count-num{font-size:clamp(30px,6vw,46px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--fg);font-variant-numeric:tabular-nums}
-  .count-units{font-size:13px;color:var(--muted);margin-top:6px}
-  .count-cap{color:var(--muted);font-size:14px;margin-top:10px}
-  .ladder{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
-  .rung{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
-    background:#0b0f13;border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:11px 14px}
-  .rung .yr{font-weight:700;font-size:14px;color:var(--muted);min-width:54px}
+  .count-units{font-size:var(--text-sm);color:var(--muted);margin-top:var(--space-1)}
+  .count-cap{color:var(--muted);font-size:var(--text-sm);margin-top:var(--space-3)}
+  .ladder{list-style:none;margin:var(--space-5) 0 0;padding:0;display:grid;gap:var(--space-2)}
+  .rung{display:grid;grid-template-columns:auto 1fr;gap:var(--space-4);align-items:start;
+    background:var(--bg-2);border:1px solid var(--line);border-left-width:4px;
+    border-radius:var(--radius-sm);padding:var(--space-3) var(--space-4)}
+  .rung .yr{font-weight:700;font-size:var(--text-sm);color:var(--faint);min-width:54px;font-variant-numeric:tabular-nums}
   .rung .nm{font-weight:600}
-  .rung .ds{font-size:13px;color:var(--muted);margin-top:2px}
+  .rung .ds{font-size:var(--text-sm);color:var(--muted);margin-top:2px}
   .rung.on{border-left-color:var(--green);background:#10201a}
   .rung.on .yr,.rung.on .nm{color:var(--green)}
   /* Category toggle (Kommuner | Statlige organ) */
-  .catbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
-  .cattab{background:var(--surface);border:1px solid var(--line);border-radius:10px;
-    color:var(--muted);padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+  .catbar{display:flex;gap:var(--space-2);flex-wrap:wrap;margin:0 0 var(--space-4)}
+  .cattab{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+    color:var(--muted);padding:var(--space-3) var(--space-4);font:inherit;font-size:var(--text-sm);
+    font-weight:600;cursor:pointer;user-select:none;min-height:44px}
+  .cattab:hover{border-color:var(--line-2)}
   .cattab.on{color:var(--fg);border-color:var(--accent);background:#10202e}
   .cattab .pct{color:var(--red);font-weight:700}
   /* Controls */
-  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0 14px}
-  input[type=search]{background:var(--surface);border:1px solid var(--line);border-radius:10px;
-    color:var(--fg);padding:10px 14px;font-size:15px;min-width:220px;flex:1}
-  .filters{display:flex;gap:6px;flex-wrap:wrap}
-  .chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;color:var(--muted);
-    padding:6px 12px;font-size:13px;cursor:pointer;user-select:none}
-  .chip.on{color:var(--fg);border-color:var(--accent)}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:0 0 14px}
-  .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  .controls{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;margin:var(--space-2) 0 var(--space-4)}
+  input[type=search]{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+    color:var(--fg);padding:var(--space-3) var(--space-4);font:inherit;font-size:var(--text-base);
+    min-width:220px;flex:1;min-height:44px}
+  input[type=search]::placeholder{color:var(--faint)}
+  .filters{display:flex;gap:var(--space-2);flex-wrap:wrap}
+  .chip{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);color:var(--muted);
+    padding:var(--space-2) var(--space-3);font:inherit;font-size:var(--text-sm);cursor:pointer;user-select:none}
+  .chip:hover{border-color:var(--line-2)}
+  .chip.on{color:var(--fg);border-color:var(--accent);background:#10202e}
+  .legend{display:flex;gap:var(--space-4);flex-wrap:wrap;font-size:var(--text-sm);color:var(--muted);margin:0 0 var(--space-4)}
+  .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:var(--space-2);vertical-align:middle}
   /* Grid "map": one colored tile per kommune */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
-  .cell{background:var(--surface);border:1px solid var(--line);border-left-width:4px;border-radius:10px;
-    padding:10px 12px;cursor:pointer;text-align:left;color:var(--fg);font:inherit;overflow:hidden}
-  .cell:hover{border-color:var(--accent)}
-  .cell .nm{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .cell .pl{font-size:12px;color:var(--muted);margin-top:2px}
-  .cell .fl{font-size:11px;color:var(--amber);margin-top:3px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--space-2)}
+  .cell{background:var(--surface);border:1px solid var(--line);border-left-width:4px;border-radius:var(--radius-sm);
+    padding:var(--space-3);cursor:pointer;text-align:left;color:var(--fg);font:inherit;overflow:hidden;
+    transition:border-color .12s ease,transform .12s ease,background .12s ease}
+  .cell:hover{border-color:var(--line-2);background:var(--surface-2);transform:translateY(-1px)}
+  .cell .nm{font-size:var(--text-sm);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cell .pl{font-size:var(--text-xs);color:var(--muted);margin-top:2px}
+  .cell .fl{font-size:var(--text-xs);color:var(--amber);margin-top:3px}
   .c-red{border-left-color:var(--red)} .c-green{border-left-color:var(--green)}
   .c-amber{border-left-color:var(--amber)} .c-grey{border-left-color:var(--grey)}
-  .count{color:var(--muted);font-size:13px;margin:0 0 10px}
+  .count{color:var(--muted);font-size:var(--text-sm);margin:0 0 var(--space-3)}
   /* Detail */
-  .back{display:inline-block;margin:0 0 14px;font-size:14px;cursor:pointer;color:var(--accent)}
-  .facts{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 18px}
+  .back{display:inline-block;margin:0 0 var(--space-4);font-size:var(--text-sm);cursor:pointer;color:var(--accent);
+    background:none;border:0;padding:var(--space-1) 0;font:inherit}
+  .back:hover{text-decoration:underline}
+  .facts{display:grid;grid-template-columns:1fr;gap:var(--space-3);margin:0 0 var(--space-5)}
   @media(min-width:640px){.facts{grid-template-columns:1fr 1fr}}
-  .fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
-  .fact .k{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-  .fact .v{font-size:18px;font-weight:600;margin-top:4px}
+  .fact{border-radius:var(--radius);padding:var(--space-4) var(--space-5)}
+  .fact .k{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .fact .v{font-size:var(--text-lg);font-weight:600;margin-top:var(--space-1)}
   .fact .v.red{color:var(--red)} .fact .v.green{color:var(--green)}
-  .evidence{background:#0b0f13;border:1px solid var(--line);border-radius:12px;padding:6px 16px;
-    font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#cdd9e3;
+  .evidence{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:0 var(--space-4);
+    font:var(--text-xs)/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#cdd9e3;
     overflow-x:auto}
   .evidence .lbl{color:var(--muted)}
   /* One evidence row per signal — observation, inference, source + date. */
-  .ev{padding:11px 0;border-bottom:1px solid var(--line);white-space:pre-wrap;word-break:break-word}
+  .ev{padding:var(--space-3) 0;border-bottom:1px solid var(--line);white-space:pre-wrap;word-break:break-word}
   .ev:last-child{border-bottom:0}
-  .ev.hl{background:#161f17;margin:0 -16px;padding-left:16px;padding-right:16px;border-left:3px solid var(--green)}
+  .ev.hl{background:#161f17;margin:0 calc(-1*var(--space-4));padding-left:var(--space-4);padding-right:var(--space-4);border-left:3px solid var(--green)}
   .ev .sig{display:inline-block;min-width:84px;color:var(--accent);font-weight:600;text-transform:uppercase;font-size:11px}
-  .ev .obs{color:#eef2f6}
+  .ev .obs{color:var(--fg)}
   .ev .inf{display:block;color:var(--muted);margin-top:3px}
   .ev .conf{color:var(--amber)}
-  .ev .src{display:block;color:#6b7d8f;margin-top:3px;font-size:11px}
+  .ev .src{display:block;color:var(--faint);margin-top:3px;font-size:11px}
   .ev .note{color:var(--amber);margin-top:3px}
-  .verdict .conf{color:var(--amber);font-size:14px;font-weight:400}
-  .verdict .note{display:block;font-size:13px;color:var(--muted);font-weight:400;margin-top:5px}
+  .verdict .conf{color:var(--amber);font-size:var(--text-sm);font-weight:400}
+  .verdict .note{display:block;font-size:var(--text-sm);color:var(--muted);font-weight:400;margin-top:5px}
   /* Switch map + benchmark */
-  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 14px}
-  .panel h3{margin:0 0 8px;font-size:17px}
+  .panel{border-radius:var(--radius);padding:var(--space-5) var(--space-6);margin:0 0 var(--space-4)}
+  .panel h3{margin:0 0 var(--space-2);font-size:var(--text-lg)}
   .panel .arrow{color:var(--accent)}
-  .flag{border-left:3px solid var(--amber);padding-left:12px;margin:10px 0;font-size:14px;color:#f1e3d5}
+  .flag{border-left:3px solid var(--amber);padding-left:var(--space-3);margin:var(--space-3) 0;font-size:var(--text-sm);color:var(--disc-fg)}
   .flag b{color:var(--amber)}
-  table.switch{width:100%;border-collapse:collapse;font-size:14px}
-  table.switch td,table.switch th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-  table.switch th{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
-  .en{border-top:1px solid var(--line);margin-top:56px;padding-top:24px;color:var(--muted);font-size:14px}
+  table.switch{width:100%;border-collapse:collapse;font-size:var(--text-sm)}
+  table.switch td,table.switch th{text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line);vertical-align:top}
+  table.switch th{color:var(--faint);font-weight:600;font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase}
+  .en{border-top:1px solid var(--line);margin-top:var(--space-16);padding-top:var(--space-6);color:var(--muted);font-size:var(--text-sm)}
   .en strong{color:var(--fg)}
-  footer{margin-top:40px;color:var(--muted);font-size:14px}
+  footer{margin-top:var(--space-10);color:var(--faint);font-size:var(--text-sm)}
   .dot{color:var(--green)}
   .hidden{display:none}
+  /* Honour a reduced-motion preference (WCAG 2.3.3): no fills, no smooth scroll */
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+      transition-duration:.001ms!important}
+  }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Hopp til innholdet</a>
 <div class="wrap">
+
+  <header class="masthead">
+    <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
+    <span class="kicker">Skybarometeret</span>
+  </header>
 
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
        every "page" (landing and per-kommune detail). Never remove. -->
-  <div class="disclaimer">
+  <div class="disclaimer" role="note">
     <p><strong>⚠️ Skytilsynet er ikke et offentlig organ.</strong>
       Vi er ikke tilknyttet, drevet av eller godkjent av norske myndigheter,
       Datatilsynet, Digitaliseringsdirektoratet eller noen annen statlig eller
@@ -373,6 +447,8 @@ _TEMPLATE = r"""<!doctype html>
       rolle. All informasjon er hentet fra åpne kilder og presenteres faktabasert
       og nøytralt. <a href="#kilde">Metode og kilder ↓</a></p>
   </div>
+
+  <main id="main">
 
   <!-- LANDING VIEW -->
   <section id="view-home">
@@ -390,7 +466,7 @@ _TEMPLATE = r"""<!doctype html>
     <div class="goal" id="goal"></div>
 
     <h2 id="grid-title">Hele offentlig sektor</h2>
-    <div class="catbar" id="catbar"></div>
+    <nav class="catbar" id="catbar" aria-label="Velg kategori"></nav>
     <p class="tagline" style="font-size:15px;margin-bottom:14px">
       Hver rute er ett organ, fargelagt etter hvilken jurisdiksjon e-posten svarer
       til. Klikk for plattform, jurisdiksjon, evidens og anbefalt europeisk alternativ.</p>
@@ -463,7 +539,7 @@ _TEMPLATE = r"""<!doctype html>
         sin kilde og dato. <a href="https://github.com/praive-inc/skytilsynet">Kode og metode</a>.</p>
     </div>
 
-    <div class="en">
+    <div class="en" lang="en">
       <p><strong>About this site (English).</strong> Skybarometeret tracks which
       jurisdiction Norwegian municipalities' email answers to, derived from public
       DNS. <strong>Skytilsynet is an independent project and is
@@ -473,11 +549,14 @@ _TEMPLATE = r"""<!doctype html>
       carries its source and date.</p>
     </div>
 
-    <footer>
-      <span class="dot">●</span> Et prosjekt fra BetterWorld · skytilsynet.no ·
-      <a href="https://github.com/praive-inc/skytilsynet">åpen kildekode</a>
-    </footer>
   </section>
+
+  </main>
+
+  <footer>
+    <span class="dot" aria-hidden="true">●</span> Et prosjekt fra BetterWorld · skytilsynet.no ·
+    <a href="https://github.com/praive-inc/skytilsynet">åpen kildekode</a>
+  </footer>
 </div>
 
 <script id="data" type="application/json">/*__DATA__*/</script>
@@ -564,10 +643,12 @@ _TEMPLATE = r"""<!doctype html>
     if(h.length < 2) return "";
     var max = 100, bars = h.map(function(p){
       var v = p.microsoft_pct;
-      return '<div class="bar" style="height:'+(v/max*100)+'%" title="'+
+      return '<div class="bar" aria-hidden="true" style="height:'+(v/max*100)+'%" title="'+
         esc(p.date)+': '+v+' %"></div>';
     }).join("");
-    return '<div class="spark">'+bars+'</div>'+
+    var lab = 'Microsoft-andel blant kommuner, fra '+h[0].date+' ('+h[0].microsoft_pct+
+      ' %) til '+h[h.length-1].date+' ('+h[h.length-1].microsoft_pct+' %)';
+    return '<div class="spark" role="img" aria-label="'+esc(lab)+'">'+bars+'</div>'+
       '<div class="lab">Microsoft-andel (kommuner), '+esc(h[0].date)+' → '+esc(h[h.length-1].date)+'</div>';
   }
 
@@ -593,12 +674,14 @@ _TEMPLATE = r"""<!doctype html>
           '<div class="now">'+pct(g.sovereign_pct)+' %<span class="of"> / mål '+g.target_pct+' %</span></div>'+
           '<div class="sub">'+esc(g.sovereign_count)+' av '+esc(g.total)+' skannede organ '+
             'har e-post under norsk/europeisk jurisdiksjon i dag.</div>'+
-          '<div class="goal-track"><div class="goal-bar" style="width:'+fill.toFixed(1)+'%"></div></div>'+
+          '<div class="goal-track" role="img" aria-label="Fremdrift mot målet: '+
+            pct(g.sovereign_pct)+' % av '+g.target_pct+' %">'+
+            '<div class="goal-bar" style="width:'+fill.toFixed(1)+'%"></div></div>'+
           '<div class="scale"><span>0 %</span><span>mål '+g.target_pct+' % ('+g.target_year+')</span></div>'+
         '</div>'+
         '<div>'+
-          '<div class="count-num" id="countdown">…</div>'+
-          '<div class="count-units" id="countdown-units"></div>'+
+          '<div class="count-num" id="countdown" aria-hidden="true">…</div>'+
+          '<div class="count-units" id="countdown-units" aria-hidden="true"></div>'+
           '<div class="count-cap">til <b>17. mai 2027</b> — '+
             'fortsatt '+esc(g.sovereign_count)+' e-postsuverene. '+
             'Denne uken: '+moved+' flyttet.</div>'+
@@ -638,14 +721,17 @@ _TEMPLATE = r"""<!doctype html>
     var bar = document.getElementById("catbar");
     if(CATS.length < 2){ bar.style.display = "none"; return; }
     bar.innerHTML = CATS.map(function(c){
-      return '<span class="cattab'+(state.cat===c.key?" on":"")+'" data-c="'+esc(c.key)+'">'+
-        esc(c.label)+' <span class="pct">'+pct(c.summary.microsoft_pct)+' %</span></span>';
+      var on = state.cat===c.key;
+      return '<button type="button" class="cattab'+(on?" on":"")+'" data-c="'+esc(c.key)+
+        '" aria-pressed="'+on+'">'+
+        esc(c.label)+' <span class="pct">'+pct(c.summary.microsoft_pct)+' %</span></button>';
     }).join("");
   }
   function renderFilters(){
     document.getElementById("filters").innerHTML = FILTERS.map(function(f){
-      return '<span class="chip'+(state.filter===f.key?" on":"")+'" data-f="'+f.key+'">'+
-        esc(f.label)+'</span>';
+      var on = state.filter===f.key;
+      return '<button type="button" class="chip'+(on?" on":"")+'" data-f="'+f.key+
+        '" aria-pressed="'+on+'">'+esc(f.label)+'</button>';
     }).join("");
   }
   function matches(k){
