@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-06-28",
+    "total": 358,
+    "us_hosted": 56,
+    "us_hosted_pct": 15.6,
+    "analytics": 63,
+    "analytics_pct": 17.6,
+    "us_cdn": 48,
+    "third_party_trackers": 272,
+    "unreachable": 2,
+    "avg_us_resource_fraction": 0.203
+  }
+]
