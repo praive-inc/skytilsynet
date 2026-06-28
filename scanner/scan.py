@@ -26,7 +26,7 @@ Run:  python3 scan.py                       # dated today (UTC)
       SCAN_DATE=2026-06-27 python3 scan.py   # pin the snapshot date
 Needs: dig. Reads kommuner_wikidata.json (Wikidata SPARQL dump). Zero cost, no auth.
 """
-import json, os, re, subprocess, sys
+import ipaddress, json, os, re, subprocess, sys, urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from collections import Counter
@@ -49,6 +49,14 @@ EU_SOVEREIGN = ("proton.me", "protonmail.ch", "pm.me", "mailbox.org",
                 "domeneshop.no")
 GATEWAYS = ("mimecast", "proofpoint", "pphosted", "messagelabs",
             "barracudanetworks", "trendmicro", "fireeyecloud", "cisco", "iphmx")
+
+# Microsoft Exchange Online Protection (EOP) outbound IPv4 ranges. A flattened SPF
+# (e.g. powerspf.com) drops the spf.protection.outlook.com include and inlines
+# these raw IPs — the exact reason Alvdal was missed by the hostname check. Static
+# prefix list; refresh periodically from https://endpoints.office.com (id 'Exchange').
+MS_EOP_RANGES = [ipaddress.ip_network(c) for c in (
+    "40.92.0.0/15", "40.107.0.0/16", "52.100.0.0/15",
+    "52.101.0.0/16", "52.102.0.0/16", "52.103.0.0/16", "104.47.0.0/17")]
 
 # The jurisdiction each US platform answers to, plus the recommended European
 # switch target (scorecard-spec §3). Same engine ownership graph BetterWorld owns;
@@ -124,29 +132,98 @@ def fetch(domain, dig=dig):
     return {"mx": mx, "mx_hosts": mx_hosts.strip(), "spf": spf, "autodiscover": auto}
 
 
+def spf_ms_ip_match(spf):
+    """Return the first ip4: token in the SPF that falls inside an MS EOP range,
+    else None. Catches flattened SPF that inlines MS IPs instead of the include."""
+    for tok in re.findall(r"ip4:([0-9.]+(?:/\d+)?)", spf):
+        try:
+            net = ipaddress.ip_network(tok, strict=False)
+        except ValueError:
+            continue
+        if any(net.overlaps(r) for r in MS_EOP_RANGES):
+            return tok
+    return None
+
+
+def dkim_probe(domain, dig=dig):
+    """DKIM selectors as a backend fingerprint (DNS, no auth). M365 publishes
+    selector1/2._domainkey CNAMEs into *.onmicrosoft.com; Google Workspace
+    publishes a google._domainkey TXT."""
+    cnames = []
+    for sel in ("selector1", "selector2"):
+        cnames += dig(f"{sel}._domainkey.{domain}", "CNAME")
+    google = bool(dig(f"google._domainkey.{domain}", "TXT"))
+    return {"dkim": " ".join(cnames), "dkim_google": google}
+
+
+def getuserrealm(domain, opener=urllib.request.urlopen):
+    """Azure AD realm via one no-auth HTTPS GET. <NameSpaceType> is Managed (cloud
+    M365 tenant), Federated (domain federated into Azure AD — tenant exists), or
+    Unknown (no tenant). Returns the type string, or None on any network error."""
+    url = ("https://login.microsoftonline.com/getuserrealm.srf"
+           f"?login=test@{domain}&xml=1")
+    try:
+        with opener(url, timeout=8) as r:
+            body = r.read().decode("utf-8", "replace")
+    except Exception:
+        return None
+    m = re.search(r"<NameSpaceType>(\w+)</NameSpaceType>", body)
+    return m.group(1) if m else None
+
+
+def deep_probe(domain, dig=dig, opener=urllib.request.urlopen):
+    """The no-auth unmasking signals run ONLY for gateway/co-op/None domains: the
+    DKIM selectors plus the Azure AD realm. One DNS triple + one HTTPS GET."""
+    out = dkim_probe(domain, dig)
+    out["realm"] = getuserrealm(domain, opener)
+    return out
+
+
 def classify_evidence(ev):
     """Pure: evidence dict -> (platform, fingerprint). No network.
 
     A bare "v=spf1 -all" with no MX and no autodiscover is a null-sending record
     (the domain explicitly sends no mail), so it counts as no signal -> NONE.
+
+    Beyond the MX/SPF-hostname/autodiscover signals, three deep signals (present
+    only after deep_probe runs on a masked domain) unmask gateway/co-op backends:
+    a DKIM CNAME into *.onmicrosoft.com, an SPF ip4 inside an MS EOP range, or
+    getuserrealm=Managed are each AIRTIGHT Microsoft; getuserrealm=Federated proves
+    an M365 tenant exists (email inferred high-confidence -> flagged 'federated',
+    not merged into hard M365); a google._domainkey TXT is Google Workspace.
     """
     mx_hosts, spf, auto = ev["mx_hosts"], ev["spf"], ev["autodiscover"]
+    dkim, realm = ev.get("dkim", ""), ev.get("realm")
     blob = (mx_hosts + " " + spf + " " + auto).lower()
     ms  = any(s in blob for s in MICROSOFT)
     goo = any(s in blob for s in GOOGLE)
     eup = any(s in blob for s in EU_SOVEREIGN)
-    has_signal = bool(ev["mx"] or auto or (ms or goo or eup))
-    if not has_signal:                         platform = "NONE"
-    elif ms and not goo:                       platform = "US_MICROSOFT"
-    elif goo and not ms:                       platform = "US_GOOGLE"
-    elif ms and goo:                           platform = "US_MIXED"
-    elif eup:                                  platform = "EU_SOVEREIGN"
-    else:                                      platform = "OTHER"
+    dkim_ms   = "onmicrosoft.com" in dkim.lower()
+    dkim_goo  = bool(ev.get("dkim_google"))
+    spf_ip    = spf_ms_ip_match(spf)
+    ms_hard   = ms or dkim_ms or bool(spf_ip) or realm == "Managed"
+    goo_hard  = goo or dkim_goo
+    federated = realm == "Federated"
+    has_signal = bool(ev["mx"] or auto or ms_hard or goo_hard or eup or federated)
+    if not has_signal:             platform = "NONE"
+    elif ms_hard and goo_hard:     platform = "US_MIXED"
+    elif ms_hard:                  platform = "US_MICROSOFT"
+    elif goo_hard:                 platform = "US_GOOGLE"
+    elif federated:                platform = "US_MICROSOFT"
+    elif eup:                      platform = "EU_SOVEREIGN"
+    else:                          platform = "OTHER"
     fp = None
-    if platform == "US_MICROSOFT":
-        only_auto = ("outlook.com" in auto) and not any(
-            s in (mx_hosts + " " + spf) for s in MICROSOFT)
-        fp = "autodiscover" if only_auto else "mx/spf"
+    if platform in ("US_MICROSOFT", "US_MIXED"):
+        if ms:
+            only_auto = ("outlook.com" in auto) and not any(
+                s in (mx_hosts + " " + spf) for s in MICROSOFT)
+            fp = "autodiscover" if only_auto else "mx/spf"
+        elif dkim_ms:            fp = "dkim"
+        elif spf_ip:             fp = "spf-ms-ip"
+        elif realm == "Managed": fp = "realm-managed"
+        elif federated:          fp = "realm-federated"
+    elif platform == "US_GOOGLE":
+        fp = "mx/spf" if goo else "dkim-google"
     return platform, fp
 
 
@@ -195,9 +272,13 @@ def make_record(name, website_domain, domain, ev, date):
     if jurisdiction is None:                 # EU_SOVEREIGN / not-yet-known
         jurisdiction = prov_jur or "Undetermined"
     # Sovereignty-washing flags (scorecard-spec §3):
+    if fp == "realm-federated":
+        # Tenant proven by federation, not a managed cloud tenant: email is
+        # inferred high-confidence, so qualify it rather than overclaim.
+        flags.append("federated")
     if platform == "OTHER" and behind_gateway:
-        # A mail-security gateway masks the real backend; SPF did not reveal it.
-        # Some of these are likely Microsoft too -> the MS share is a floor.
+        # A mail-security gateway masks the real backend; the deep probe did not
+        # unmask it either -> the MS share is a floor, not a ceiling.
         flags.append("backend_unmasked")
     if website_domain and domain != website_domain:
         flags.append("mail_domain_differs_from_website")
@@ -215,14 +296,22 @@ def make_record(name, website_domain, domain, ev, date):
             "mx": ev["mx"],
             "spf": ev["spf"] or None,
             "autodiscover": ev["autodiscover"] or None,
+            "dkim": ev.get("dkim") or None,
+            "spf_ms_ip": spf_ms_ip_match(ev["spf"]),
+            "realm": ev.get("realm"),
         },
         "sourceDate": date,
     }
 
 
-def resolve(name, website_domain, overrides, date, fetch=fetch):
+def resolve(name, website_domain, overrides, date, fetch=fetch, deep=deep_probe):
     """Walk candidate domains; keep the first that yields a real mail signal.
-    Falls back to the website domain's (NONE) evidence if nothing resolves."""
+    Falls back to the website domain's (NONE) evidence if nothing resolves.
+
+    When the base DNS signals leave a domain masked (OTHER, e.g. a mail-security
+    gateway or a regional IKT co-op) or unresolved (NONE), run the no-auth deep
+    probe (DKIM + getuserrealm) on the chosen domain and reclassify. The HTTPS
+    realm GET therefore fires only for the handful of masked domains, not all 358."""
     chosen = None
     for d in candidates(name, website_domain, overrides):
         ev = fetch(d)
@@ -232,6 +321,8 @@ def resolve(name, website_domain, overrides, date, fetch=fetch):
         if chosen is None:
             chosen = (d, ev)                 # remember the first probe as fallback
     d, ev = chosen
+    if classify_evidence(ev)[0] in ("OTHER", "NONE"):
+        ev = {**ev, **deep(d)}               # unmask gateway/co-op/None backend
     return make_record(name, website_domain, d, ev, date)
 
 
@@ -246,6 +337,7 @@ def aggregate(results):
     c = Counter(r["platform"] for r in results); total = len(results)
     us = c["US_MICROSOFT"] + c["US_GOOGLE"] + c["US_MIXED"]
     unmasked = sum(1 for r in results if "backend_unmasked" in r.get("flags", []))
+    federated = sum(1 for r in results if "federated" in r.get("flags", []))
     return {
         "total": total,
         "us_microsoft": c["US_MICROSOFT"], "us_google": c["US_GOOGLE"],
@@ -253,6 +345,7 @@ def aggregate(results):
         "other": c["OTHER"], "none": c["NONE"],
         "us_total": us, "us_pct": round(100 * us / total, 1) if total else 0.0,
         "microsoft_pct": round(100 * c["US_MICROSOFT"] / total, 1) if total else 0.0,
+        "federated": federated,
         "backend_unmasked": unmasked,
         "floor_note": (
             f"microsoft_pct and us_pct are a FLOOR, not a ceiling: {unmasked} "
@@ -325,7 +418,8 @@ def main():
                    ("other","Other / regional"),("none","Unresolved")]:
         n = agg[k]; print(f"  {lab:18}{n:4}  {100*n/agg['total']:5.1f}%  {'█'*round(40*n/agg['total'])}")
     print(f"\n  Microsoft 365: {agg['microsoft_pct']}% (floor)  ·  US hyperscaler: {agg['us_pct']}% (floor)")
-    print(f"  {agg['backend_unmasked']} gateway-fronted backend(s) unmasked → MS share is a floor.")
+    print(f"  {agg['federated']} of the Microsoft rows are federated (tenant proven, email inferred).")
+    print(f"  {agg['backend_unmasked']} gateway-fronted backend(s) still unmasked → MS share is a floor.")
     print(f"  snapshot → snapshots/{date}.json  ·  dataset → data/  ·  history ({len(history)} run(s))")
 
 
