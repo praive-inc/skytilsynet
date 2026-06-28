@@ -15,15 +15,16 @@
   {
     "date": "2026-06-28",
     "total": 358,
-    "us_microsoft": 328,
+    "us_microsoft": 353,
     "us_google": 4,
     "us_mixed": 0,
     "eu_sovereign": 1,
-    "other": 25,
+    "other": 0,
     "none": 0,
-    "us_total": 332,
-    "us_pct": 92.7,
-    "microsoft_pct": 91.6,
-    "backend_unmasked": 10
+    "us_total": 357,
+    "us_pct": 99.7,
+    "microsoft_pct": 98.6,
+    "federated": 17,
+    "backend_unmasked": 0
   }
 ]
