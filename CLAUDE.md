@@ -47,10 +47,15 @@ These are non-negotiable. A change that breaks one is wrong even if it compiles.
 ```
 scanner/   Python 3 DNS pipeline (stdlib + `dig`). scan.py writes dated snapshots
            under snapshots/ and appends history.json. transition.py diffs runs.
-web/       the public site. Holding page is a single static index.html today;
-           the live tracker is the build target (a static/SSR web app — keep it
-           lightweight, EU-hosted, no US-managed dependencies for anything serving
-           user requests, mirroring BetterWorld RFC-001 P5).
+web/       the public site — PLAIN STATIC, NO BUILD STEP. `deploy/deploy-local.sh`
+           rsyncs web/ verbatim to Caddy (/opt/praive/skytilsynet-dist), so the
+           files in web/ ARE what's served. Do NOT introduce a framework/bundler/
+           build step (no Next/Vite/React) — render the tracker client-side with
+           plain HTML/CSS/JS that fetches the committed JSON (data/kommune-email-
+           sovereignty.latest.json + scanner/history.json) and draws the map/list.
+           If you ever genuinely need a build step, you MUST update deploy-local.sh
+           in the same PR to build then rsync the output. Keep it lightweight,
+           EU-hosted, no US-managed serving deps (BetterWorld RFC-001 P5).
 data/      published open dataset (CC BY 4.0).
 docs/      methodology + scope.
 ```
