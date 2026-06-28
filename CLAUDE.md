@@ -64,6 +64,13 @@ cd scanner && python3 transition.py  # trend + which kommuner moved
 
 ## How to work here
 
+- **No GitHub Actions / workflow files.** Do NOT add or edit `.github/workflows/*`.
+  The Praive agent's push token has no `workflow` OAuth scope, so any commit that
+  creates or updates a workflow file is rejected at push and the whole run fails
+  (this is by design — Praive runs scheduled jobs off the devbox, not Actions).
+  When an issue says "schedule X" (e.g. the periodic re-scan), implement the
+  runnable command/script (`scanner/scan.py` is already cron-friendly) and note in
+  the PR that scheduling is wired separately by the operator — never add a workflow.
 - **Simplest thing that solves it.** This is a small civic tool; don't add an
   engine, a database, or a framework before it's needed.
 - **One concern per commit.** Subject ≤70 chars, imperative; body explains *why*.
