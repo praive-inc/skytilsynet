@@ -143,6 +143,31 @@ posture is therefore part of the spec, not cosmetics:
   one. Norway's faktasjekk culture rewards radical transparency and punishes
   hidden-number advocacy.
 
+### 7. The news-driving layer: Norway cartogram + league table (issue #36)
+
+The grid of 486 isn't the story — the **ranking** is. Two artifacts make the
+finding shareable, baked static into `web/index.html` by `web/build.py`:
+
+- **An equal-area hex cartogram of Norway's 15 fylker.** Identical hexes (a
+  cartogram, not an area choropleth) so sparse-but-huge Finnmark cannot visually
+  erase Oslo. The geometry is committed in `build.py` (`_FYLKE_HEXES`) and
+  rendered to inline SVG — **no external map tiles** (RFC-001 P5). Each hex is
+  coloured by that county government's own email platform and is a hash permalink
+  to its entity card (the fylkeskommune; Oslo → the kommune). It shows the
+  fylkeskommune's *own* email, not an aggregate of the county's kommuner — stated
+  in the caption (honesty about what the axis covers).
+- **A league table** with a pinned **hall of fame** (most sovereign) and the
+  **most dependent**, plus a client-side **sortable** full table over every
+  scanned body. Each row is a permalink to its evidence card and is date-stamped.
+  Two honesty rules bind the ranking: (a) it is **per organ on the same
+  measurement** — never on size, so a 2 000-person kommune is not ranked against
+  Oslo on absolutes; (b) the hall of fame holds **only genuinely non-US bodies**,
+  never padded to ten with US ones — when only a handful qualify, that *is* the
+  finding (the caption states the brutal `Bare X av Y`). The order is a
+  transparent `dep_score` from the cited platform class plus two honest
+  tiebreakers (confirmed Azure federation, an unmasked backend) — **not** a
+  reimplemented SovereigntyScore (rule 3).
+
 ## MVP scope (what ships)
 
 1. DNS email-sovereignty pipeline (productionise the prototype: scheduled,

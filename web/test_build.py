@@ -1050,6 +1050,160 @@ class TrustArmor(unittest.TestCase):
             self.assertNotIn(bad, self.html)
 
 
+# A fylkeskommune category, the unit the Norway cartogram is drawn over (issue
+# #36). One US body, one fully-locked-in (federated) US body, and one OTHER
+# (uavklart) — enough to exercise dependency ordering and the hall of fame.
+FYLKE = {
+    "meta": {"sourceDate": "2026-06-28", "title": "fylke", "license": "CC BY 4.0"},
+    "summary": {"total": 3, "us_total": 2, "us_pct": 66.7, "microsoft_pct": 66.7,
+                "us_microsoft": 2, "eu_sovereign": 0, "other": 1},
+    "organ": [
+        {"name": "Agder fylkeskommune", "category": "fylke", "domain": "agderfk.no",
+         "platform": "US_MICROSOFT", "jurisdiction": "United States (CLOUD Act)",
+         "behind_gateway": False, "flags": ["federated"], "fingerprint": "autodiscover",
+         "sourceDate": "2026-06-28"},
+        {"name": "Vestland fylkeskommune", "category": "fylke", "domain": "vlfk.no",
+         "platform": "US_MICROSOFT", "jurisdiction": "United States (CLOUD Act)",
+         "behind_gateway": True, "flags": [], "fingerprint": "dkim",
+         "sourceDate": "2026-06-28"},
+        {"name": "Akershus fylkeskommune", "category": "fylke", "domain": "afk.no",
+         "platform": "OTHER", "jurisdiction": "Undetermined",
+         "behind_gateway": False, "flags": [], "fingerprint": None,
+         "sourceDate": "2026-06-28"},
+    ],
+}
+SEEDED = [(FYLKE, "fylke", "Fylkeskommuner")]
+
+
+class DependencyOrdering(unittest.TestCase):
+    """Issue #36 — a transparent, deterministic dependency sort key built only from
+    the light signals (platform + federated flag + unmasking), NOT a reimplemented
+    SovereigntyScore (CLAUDE.md rule 3). Higher = more dependent on US jurisdiction."""
+
+    def _e(self, platform, behind_gateway=False, flags=()):
+        return {"platform": platform, "behind_gateway": behind_gateway, "flags": list(flags)}
+
+    def test_us_outranks_uavklart_outranks_sovereign(self):
+        ms = build.dep_score(self._e("US_MICROSOFT"))
+        goog = build.dep_score(self._e("US_GOOGLE"))
+        other = build.dep_score(self._e("OTHER"))
+        eu = build.dep_score(self._e("EU_SOVEREIGN"))
+        self.assertGreater(ms, goog)
+        self.assertGreater(goog, other)
+        self.assertGreater(other, eu)
+
+    def test_federated_is_more_dependent_than_plain_microsoft(self):
+        self.assertGreater(build.dep_score(self._e("US_MICROSOFT", flags=["federated"])),
+                           build.dep_score(self._e("US_MICROSOFT")))
+
+    def test_unmasked_backend_is_more_certain_than_gateway_fronted(self):
+        # A fully-unmasked Microsoft body ranks above one still behind a gateway
+        # (the latter is a floor, less certain) — honesty about limits.
+        self.assertGreater(build.dep_score(self._e("US_MICROSOFT", behind_gateway=False)),
+                           build.dep_score(self._e("US_MICROSOFT", behind_gateway=True)))
+
+
+class LeagueTable(unittest.TestCase):
+    """Issue #36 — pinned worst-10 + best-10. The hall of fame is honest: it holds
+    ONLY genuinely non-US bodies, never padded with US ones pretending to be
+    sovereign (credibility is the product)."""
+
+    def setUp(self):
+        self.cats = build.build_categories(DATA, STAT, None, SEEDED)
+        self.lg = build.league(self.cats)
+
+    def test_worst_are_all_us_and_dependency_ordered(self):
+        worst = self.lg["worst"]
+        self.assertTrue(all(r["platform"] in
+                            ("US_MICROSOFT", "US_GOOGLE", "US_MIXED") for r in worst))
+        deps = [r["dep"] for r in worst]
+        self.assertEqual(deps, sorted(deps, reverse=True))
+
+    def test_hall_of_fame_holds_only_non_us_bodies(self):
+        for r in self.lg["best"]:
+            self.assertNotIn(r["platform"], ("US_MICROSOFT", "US_GOOGLE", "US_MIXED"))
+
+    def test_hall_of_fame_leads_with_the_truly_sovereign(self):
+        # Vest-Lofoten (EU_SOVEREIGN) outranks the merely-undetermined ones.
+        self.assertEqual(self.lg["best"][0]["platform"], "EU_SOVEREIGN")
+
+    def test_honest_counts(self):
+        # 1 EU_SOVEREIGN + 2 OTHER (Alvdal kommune + Akershus fylke) = 3 non-US,
+        # of 4 kommuner + 2 stat + 3 fylke = 9 scanned.
+        self.assertEqual(self.lg["sovereign_count"], 3)
+        self.assertEqual(self.lg["total"], 9)
+
+    def test_every_row_carries_a_permalink_and_a_date(self):
+        for r in self.lg["worst"] + self.lg["best"]:
+            self.assertTrue(r["slug"])
+            self.assertIn(r["cat"], ("kommune", "stat", "fylke"))
+            self.assertEqual(r["date"], "2026-06-28")
+
+
+class NorwayCartogram(unittest.TestCase):
+    """Issue #36 — an equal-area hex cartogram of Norway's fylker, rendered from
+    committed geometry as inline SVG (no external map tiles, RFC-001 P5). Each hex
+    links to that county's own entity card."""
+
+    def setUp(self):
+        self.cats = build.build_categories(DATA, STAT, None, SEEDED)
+        self.svg = build.cartogram_svg(self.cats)
+
+    def test_is_inline_svg_with_no_external_reference(self):
+        self.assertIn("<svg", self.svg)
+        self.assertIn("<polygon", self.svg)
+        self.assertNotIn("http://", self.svg)
+        self.assertNotIn("https://", self.svg)
+        self.assertNotIn("<image", self.svg)  # no raster map tiles
+
+    def test_county_hex_links_to_its_fylkeskommune_card(self):
+        # Agder fylkeskommune is in the seeded data → its hex is a permalink.
+        self.assertIn('href="#org/fylke/agder-fylkeskommune"', self.svg)
+
+    def test_oslo_hex_links_to_oslo_kommune(self):
+        # Oslo has no separate fylkeskommune; its hex points at the kommune card.
+        self.assertIn('href="#org/kommune/oslo-kommune"', self.svg)
+
+    def test_hex_is_coloured_by_platform(self):
+        # US bodies are red, the undetermined one is not — colour carries the verdict.
+        self.assertIn("var(--red)", self.svg)
+        self.assertIn("var(--grey)", self.svg)
+
+
+class NorwayMapAndLeagueInPage(unittest.TestCase):
+    """Issue #36 — the map + league table land in the built page, prominently and
+    self-contained."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, None, SEEDED)
+
+    def test_cartogram_rendered_into_the_home_view(self):
+        self.assertIn("<svg", self.html)
+        self.assertIn('href="#org/fylke/agder-fylkeskommune"', self.html)
+
+    def test_league_panes_and_pinned_rows_present(self):
+        self.assertIn("Ligatabellen", self.html)
+        self.assertIn("Æresgalleriet", self.html)
+        self.assertIn("Mest avhengige", self.html)
+        # Pinned rows are real permalinks to evidence (entity cards).
+        self.assertIn('href="#org/kommune/vest-lofoten"', self.html)
+
+    def test_hall_of_fame_states_the_brutal_count_honestly(self):
+        # "Bare 3 av 9" — the finding, not a padded top-10.
+        self.assertIn("Bare 3 av 9", self.html)
+
+    def test_rows_are_date_stamped(self):
+        self.assertIn("28. juni 2026", self.html)
+
+    def test_full_table_is_sortable(self):
+        # A sortable league table over all entities (client-side, progressive).
+        self.assertIn("data-sort", self.html)
+
+    def test_no_external_map_dependency(self):
+        for bad in ["openstreetmap", "mapbox", "leaflet", "tile.", "googleapis"]:
+            self.assertNotIn(bad, self.html.lower())
+
+
 class BuildMainOnRealData(unittest.TestCase):
     """Smoke test the real pipeline against the committed datasets."""
     def test_real_data_renders_both_categories(self):
