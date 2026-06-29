@@ -1,6 +1,8 @@
 {
   "date": "2026-06-28",
+  "methodology_version": 2,
   "summary": {
+    "methodology_version": 2,
     "total": 39,
     "us_microsoft": 38,
     "us_google": 0,

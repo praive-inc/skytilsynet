@@ -39,8 +39,18 @@ def main():
         print("Only one snapshot so far — re-run scan.py later to see the transition.")
         return
 
-    old = {k["kommune"]: k["platform"] for k in load_snap(a)["kommuner"]}
-    new = {k["kommune"]: k["platform"] for k in load_snap(b)["kommuner"]}
+    snap_a, snap_b = load_snap(a), load_snap(b)
+    va, vb = snap_a.get("methodology_version", 1), snap_b.get("methodology_version", 1)
+    if va != vb:
+        # Cross-methodology diff: classification logic changed between these runs,
+        # so per-kommune "moves" would conflate improved mapping with real switches
+        # (issue #24). The web trend shows "ny baseline" here; we say it plainly.
+        print(f"=== {a} (metodikk v{va}) → {b} (metodikk v{vb}) ===")
+        print("  Metodikk endret mellom målingene — ny baseline, ingen bevegelsestall.")
+        print("  (Forbedret kartlegging, ikke faktiske bytter. Sammenlign kun samme versjon.)")
+        return
+    old = {k["kommune"]: k["platform"] for k in snap_a["kommuner"]}
+    new = {k["kommune"]: k["platform"] for k in snap_b["kommuner"]}
     changes = [(name, old[name], new[name]) for name in new
                if name in old and old[name] != new[name]]
 

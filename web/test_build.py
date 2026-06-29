@@ -14,12 +14,18 @@ import unittest
 import build
 
 
-def snap(date, platforms):
-    """A minimal snapshot dict shaped like scanner/snapshots/*.json."""
-    return {
+def snap(date, platforms, version=None):
+    """A minimal snapshot dict shaped like scanner/snapshots/*.json.
+
+    `version` is the methodology version the snapshot was produced under; omit it
+    to model a pre-versioning snapshot (treated as version 1)."""
+    s = {
         "date": date,
         "kommuner": [{"kommune": n, "platform": p} for n, p in platforms.items()],
     }
+    if version is not None:
+        s["methodology_version"] = version
+    return s
 
 
 class ComputeTrend(unittest.TestCase):
@@ -48,6 +54,33 @@ class ComputeTrend(unittest.TestCase):
         t = build.compute_trend(old, new)
         self.assertEqual(t["left_microsoft"], [])
         self.assertEqual(t["joined_microsoft"], [])
+
+    def test_cross_version_is_new_baseline_not_a_count(self):
+        # Issue #24: a scanner classification change must not be reported as
+        # movement. Across versions we honestly declare a new baseline.
+        old = snap("2026-06-27", {"A": "OTHER", "B": "OTHER"}, version=1)
+        new = snap("2026-06-28", {"A": "US_MICROSOFT", "B": "US_MICROSOFT"}, version=2)
+        t = build.compute_trend(old, new)
+        self.assertTrue(t["new_baseline"])
+        self.assertEqual(t["baseline_date"], "2026-06-28")
+        # No spurious "joined Microsoft" count across the recalibration.
+        self.assertNotIn("joined_microsoft", t)
+        self.assertNotIn("left_microsoft", t)
+
+    def test_same_version_computes_movement(self):
+        old = snap("2026-06-28", {"A": "OTHER"}, version=2)
+        new = snap("2026-06-29", {"A": "US_MICROSOFT"}, version=2)
+        t = build.compute_trend(old, new)
+        self.assertFalse(t["new_baseline"])
+        self.assertEqual(t["joined_microsoft"], ["A"])
+
+    def test_missing_version_defaults_consistently(self):
+        # Two pre-versioning snapshots (no field) compare normally as one version.
+        old = snap("2026-06-27", {"A": "US_MICROSOFT"})
+        new = snap("2026-06-28", {"A": "EU_SOVEREIGN"})
+        t = build.compute_trend(old, new)
+        self.assertFalse(t["new_baseline"])
+        self.assertEqual(t["left_microsoft"], ["A"])
 
 
 # A small but representative dataset covering every platform class + a flag.
@@ -367,6 +400,16 @@ class BuildHtml(unittest.TestCase):
     def test_trend_is_data_driven_not_hardcoded(self):
         # The honest trend object must be baked in; no fabricated "3 left".
         self.assertIn('"joined_microsoft":["Kautokeino"]', self.html)
+
+    def test_new_baseline_trend_renders_honest_copy(self):
+        # Issue #24: at a methodology change the card says "ny baseline", not a
+        # movement count. Bake a cross-version trend and assert the copy is wired.
+        baseline = {"new_baseline": True, "baseline_date": "2026-06-28",
+                    "methodology_version": 2}
+        html = build.build_html(DATA, HISTORY, baseline, STAT)
+        self.assertIn('"new_baseline":true', html)
+        self.assertIn("ny baseline", html)
+        self.assertIn("Metodikk forbedret", html)
 
     def test_no_us_managed_serving_dependency(self):
         # RFC-001 P5: no external fetches — no CDN, fonts, map tiles.
