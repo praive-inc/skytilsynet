@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "title": "Norwegian health trusts (helseforetak: RHF + HF) — email-scan seed",
+    "source": "Brønnøysund Enhetsregisteret (legal name + website per orgnr)",
+    "sourceUrl": "https://data.brreg.no/enhetsregisteret/api/enheter/",
+    "sourceDate": "2026-06-29",
+    "license": "CC BY 4.0",
+    "selection": "Identities resolved from Enhetsregisteret; mail domains curated (the register lists the website, not the mail domain) and confirmed against public DNS.",
+    "count": 25
+  },
+  "organ": [
+    {
+      "name": "Akershus universitetssykehus HF",
+      "legal_name": "AKERSHUS UNIVERSITETSSYKEHUS HF",
+      "orgnr": "983971636",
+      "domain": "ahus.no",
+      "website": "www.ahus.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983971636"
+    },
+    {
+      "name": "Finnmarkssykehuset HF",
+      "legal_name": "FINNMARKSSYKEHUSET HF",
+      "orgnr": "983974880",
+      "domain": "finnmarkssykehuset.no",
+      "website": "www.finnmarkssyskehuset.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974880"
+    },
+    {
+      "name": "Helgelandssykehuset HF",
+      "legal_name": "HELGELANDSSYKEHUSET HF",
+      "orgnr": "983974929",
+      "domain": "helgelandssykehuset.no",
+      "website": "www.helgelandssykehuset.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974929"
+    },
+    {
+      "name": "Helse Bergen HF",
+      "legal_name": "HELSE BERGEN HF",
+      "orgnr": "983974724",
+      "domain": "helse-bergen.no",
+      "website": "www.helse-bergen.no/",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974724"
+    },
+    {
+      "name": "Helse Fonna HF",
+      "legal_name": "HELSE FONNA HF",
+      "orgnr": "983974694",
+      "domain": "helse-fonna.no",
+      "website": "www.helse-fonna.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974694"
+    },
+    {
+      "name": "Helse Førde HF",
+      "legal_name": "HELSE FØRDE HF",
+      "orgnr": "983974732",
+      "domain": "helse-forde.no",
+      "website": "www.helse-forde.no/",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974732"
+    },
+    {
+      "name": "Helse Midt-Norge RHF",
+      "legal_name": "HELSE MIDT-NORGE RHF",
+      "orgnr": "983658776",
+      "domain": "helse-midt.no",
+      "website": "www.helse-midt.no/",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983658776"
+    },
+    {
+      "name": "Helse Møre og Romsdal HF",
+      "legal_name": "HELSE MØRE OG ROMSDAL HF",
+      "orgnr": "997005562",
+      "domain": "helse-mr.no",
+      "website": "www.helse-mr.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/997005562"
+    },
+    {
+      "name": "Helse Nord RHF",
+      "legal_name": "HELSE NORD RHF",
+      "orgnr": "883658752",
+      "domain": "helse-nord.no",
+      "website": "www.helse-nord.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/883658752"
+    },
+    {
+      "name": "Helse Nord-Trøndelag HF",
+      "legal_name": "HELSE NORD-TRØNDELAG HF",
+      "orgnr": "983974791",
+      "domain": "hnt.no",
+      "website": "www.hnt.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974791"
+    },
+    {
+      "name": "Helse Stavanger HF",
+      "legal_name": "HELSE STAVANGER HF",
+      "orgnr": "983974678",
+      "domain": "sus.no",
+      "website": "www.sus.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974678"
+    },
+    {
+      "name": "Helse Sør-Øst RHF",
+      "legal_name": "HELSE SØR-ØST RHF",
+      "orgnr": "991324968",
+      "domain": "helse-sorost.no",
+      "website": "www.helse-sorost.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/991324968"
+    },
+    {
+      "name": "Helse Vest RHF",
+      "legal_name": "HELSE VEST RHF",
+      "orgnr": "983658725",
+      "domain": "helse-vest.no",
+      "website": "www.helse-vest.no/",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983658725"
+    },
+    {
+      "name": "Nordlandssykehuset HF",
+      "legal_name": "NORDLANDSSYKEHUSET HF",
+      "orgnr": "983974910",
+      "domain": "nordlandssykehuset.no",
+      "website": "www.nordlandssykehuset.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974910"
+    },
+    {
+      "name": "Oslo universitetssykehus HF",
+      "legal_name": "OSLO UNIVERSITETSSYKEHUS HF",
+      "orgnr": "993467049",
+      "domain": "oslo-universitetssykehus.no",
+      "website": "www.oslo-universitetssykehus.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/993467049"
+    },
+    {
+      "name": "St. Olavs hospital HF",
+      "legal_name": "ST. OLAVS HOSPITAL HF",
+      "orgnr": "883974832",
+      "domain": "stolav.no",
+      "website": "www.stolav.no/",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/883974832"
+    },
+    {
+      "name": "Sykehusapotekene HF",
+      "legal_name": "SYKEHUSAPOTEKENE HF",
+      "orgnr": "992281618",
+      "domain": "sykehusapotekene.no",
+      "website": "www.sykehusapotekene.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/992281618"
+    },
+    {
+      "name": "Sykehuset Innlandet HF",
+      "legal_name": "SYKEHUSET INNLANDET HF",
+      "orgnr": "983971709",
+      "domain": "sykehuset-innlandet.no",
+      "website": "www.sykehuset-innlandet.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983971709"
+    },
+    {
+      "name": "Sykehuset Telemark HF",
+      "legal_name": "SYKEHUSET TELEMARK HF",
+      "orgnr": "983975267",
+      "domain": "sthf.no",
+      "website": "www.sthf.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983975267"
+    },
+    {
+      "name": "Sykehuset i Vestfold HF",
+      "legal_name": "SYKEHUSET I VESTFOLD HF",
+      "orgnr": "983975259",
+      "domain": "siv.no",
+      "website": "www.siv.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983975259"
+    },
+    {
+      "name": "Sykehuset Østfold HF",
+      "legal_name": "SYKEHUSET ØSTFOLD HF",
+      "orgnr": "983971768",
+      "domain": "sykehuset-ostfold.no",
+      "website": "sykehuset-ostfold.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983971768"
+    },
+    {
+      "name": "Sykehuspartner HF",
+      "legal_name": "SYKEHUSPARTNER HF",
+      "orgnr": "914637651",
+      "domain": "sykehuspartner.no",
+      "website": "www.sykehuspartner.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/914637651"
+    },
+    {
+      "name": "Sørlandet sykehus HF",
+      "legal_name": "SØRLANDET SYKEHUS HF",
+      "orgnr": "983975240",
+      "domain": "sshf.no",
+      "website": "www.sshf.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983975240"
+    },
+    {
+      "name": "Universitetssykehuset Nord-Norge HF",
+      "legal_name": "UNIVERSITETSSYKEHUSET NORD-NORGE HF",
+      "orgnr": "983974899",
+      "domain": "unn.no",
+      "website": "www.unn.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/983974899"
+    },
+    {
+      "name": "Vestre Viken HF",
+      "legal_name": "VESTRE VIKEN HF",
+      "orgnr": "894166762",
+      "domain": "vestreviken.no",
+      "website": "www.vestreviken.no",
+      "orgform": "SÆR",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/894166762"
+    }
+  ]
+}

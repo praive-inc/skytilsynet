@@ -22,6 +22,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DATA = os.path.join(ROOT, "data", "kommune-email-sovereignty.latest.json")
 STAT_DATA = os.path.join(ROOT, "data", "statlige-organ-email-sovereignty.latest.json")
+# Additional seeded public-sector categories (same {summary, organ} shape as stat).
+SEEDED_DATA = [
+    (os.path.join(ROOT, "data", "fylkeskommune-email-sovereignty.latest.json"), "fylke", "Fylkeskommuner"),
+    (os.path.join(ROOT, "data", "helseforetak-email-sovereignty.latest.json"), "helse", "Helseforetak"),
+    (os.path.join(ROOT, "data", "uh-sektor-email-sovereignty.latest.json"), "uni", "Universiteter og høgskoler"),
+]
 WEB_DATA = os.path.join(ROOT, "data", "kommune-web-sovereignty.latest.json")
 HISTORY = os.path.join(ROOT, "scanner", "history.json")
 SNAP_DIR = os.path.join(ROOT, "scanner", "snapshots")
@@ -193,22 +199,28 @@ def attach_web(entities, web_index):
             for e in entities]
 
 
-def build_html(data, history, trend, stat=None, web=None):
+def build_html(data, history, trend, stat=None, web=None, seeded=None):
     """Render the full single-file site. Pure: same inputs -> same output.
 
     `data` is the kommune dataset; `stat` (optional) the statlige-organ dataset;
-    `web` (optional) the website-infrastructure dataset, joined per entity by
-    website domain as a SECOND axis. The categories are baked with their own
-    summaries; the headline is the COMBINED scanned public sector."""
+    `seeded` (optional) a list of (dataset, key, label) for the other seeded
+    sectors (fylkeskommuner, helseforetak, UH-sektor) — same {summary, organ}
+    shape as stat; `web` (optional) the website-infrastructure dataset, joined
+    per entity by website domain as a SECOND axis. The categories are baked with
+    their own summaries; the headline is the COMBINED scanned public sector."""
     web_index = index_web(web)
     categories = [{
         "key": "kommune", "label": "Kommuner", "summary": data["summary"],
         "entities": attach_web(normalize(data["kommuner"]), web_index),
     }]
+    extra = []
     if stat:
+        extra.append((stat, "stat", "Statlige organ"))
+    extra.extend((ds, key, label) for ds, key, label in (seeded or []) if ds)
+    for ds, key, label in extra:
         categories.append({
-            "key": "stat", "label": "Statlige organ", "summary": stat["summary"],
-            "entities": attach_web(normalize(stat["organ"]), web_index),
+            "key": key, "label": label, "summary": ds["summary"],
+            "entities": attach_web(normalize(ds["organ"]), web_index),
         })
     combined = combine_summaries([c["summary"] for c in categories])
     payload = {
@@ -228,11 +240,12 @@ def build_html(data, history, trend, stat=None, web=None):
 def main():
     data = json.load(open(DATA))
     stat = json.load(open(STAT_DATA)) if os.path.exists(STAT_DATA) else None
+    seeded = [(json.load(open(p)), key, label) for p, key, label in SEEDED_DATA if os.path.exists(p)]
     web = json.load(open(WEB_DATA)) if os.path.exists(WEB_DATA) else None
     history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
     old, new = load_snapshots()
     trend = compute_trend(old, new)
-    html = build_html(data, history, trend, stat, web)
+    html = build_html(data, history, trend, stat, web, seeded)
     with open(OUT, "w") as f:
         f.write(html)
     n_stat = len(stat["organ"]) if stat else 0

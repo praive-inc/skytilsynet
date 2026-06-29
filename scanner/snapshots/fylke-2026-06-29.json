@@ -1,0 +1,924 @@
+{
+  "date": "2026-06-29",
+  "summary": {
+    "total": 14,
+    "us_microsoft": 12,
+    "us_google": 0,
+    "us_mixed": 0,
+    "eu_sovereign": 0,
+    "other": 2,
+    "none": 0,
+    "us_total": 12,
+    "us_pct": 85.7,
+    "microsoft_pct": 85.7,
+    "federated": 0,
+    "backend_unmasked": 0,
+    "floor_note": "microsoft_pct and us_pct are a FLOOR, not a ceiling: 0 domain(s) sit behind a mail-security gateway whose backend SPF did not unmask — some are likely Microsoft too. The true US share is >= the figure shown."
+  },
+  "organ": [
+    {
+      "category": "fylke",
+      "name": "Akershus fylkeskommune",
+      "domain": "akershusfylke.no",
+      "website_domain": "akershusfylke.no",
+      "platform": "OTHER",
+      "jurisdiction": "Undetermined",
+      "governance": null,
+      "alternative": null,
+      "behind_gateway": false,
+      "fingerprint": null,
+      "flags": [],
+      "verdict": {
+        "platform": "UAVKLART",
+        "label": "Uavklart",
+        "confidence": 0.0,
+        "uavklart": true,
+        "note": "Regional/ukjent plattform — ikke avgjort fra DNS alene"
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "10 mx.webhuset.no",
+          "source": "dig MX akershusfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:spf.webhuset.no -all\" \"v=spf1 ip4:81.27.32.64/26 ip4:81.27.35.0/24 ip4:62.122.251.0/24 ip4:81.27.44.0/26 ip4:81.27.42.23 ip4:46.226.9.128/26 ip4:31.24.129.160/27 ip4:185.7.60.192/27 -all\"",
+          "source": "dig TXT akershusfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF uten gjenkjent plattform",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "mailconfig.webhuset.no",
+          "source": "dig CNAME autodiscover.akershusfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover-CNAME uten Microsoft-mål",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "getuserrealm",
+          "observation": "Unknown",
+          "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@akershusfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "getuserrealm=Unknown: ingen Microsoft-leietaker",
+          "confidence": 0.1,
+          "platform": null
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Buskerud fylkeskommune",
+      "domain": "buskerudfylke.no",
+      "website_domain": "buskerudfylke.no",
+      "platform": "OTHER",
+      "jurisdiction": "Undetermined",
+      "governance": null,
+      "alternative": null,
+      "behind_gateway": false,
+      "fingerprint": null,
+      "flags": [],
+      "verdict": {
+        "platform": "UAVKLART",
+        "label": "Uavklart",
+        "confidence": 0.0,
+        "uavklart": true,
+        "note": "Regional/ukjent plattform — ikke avgjort fra DNS alene"
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "10 mx.webhuset.no",
+          "source": "dig MX buskerudfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:spf.webhuset.no -all\" \"v=spf1 ip4:81.27.32.64/26 ip4:81.27.35.0/24 ip4:62.122.251.0/24 ip4:81.27.44.0/26 ip4:81.27.42.23 ip4:46.226.9.128/26 ip4:31.24.129.160/27 ip4:185.7.60.192/27 -all\"",
+          "source": "dig TXT buskerudfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF uten gjenkjent plattform",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "mailconfig.webhuset.no",
+          "source": "dig CNAME autodiscover.buskerudfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover-CNAME uten Microsoft-mål",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "getuserrealm",
+          "observation": "Unknown",
+          "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@buskerudfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "getuserrealm=Unknown: ingen Microsoft-leietaker",
+          "confidence": 0.1,
+          "platform": null
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Agder fylkeskommune",
+      "domain": "agderfk.no",
+      "website_domain": "agderfk.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "0 agderfk-no.mail.protection.outlook.com",
+          "source": "dig MX agderfk.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 ip4:159.171.252.22 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+          "source": "dig TXT agderfk.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for agderfk.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.agderfk.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Finnmark fylkeskommune",
+      "domain": "ffk.no",
+      "website_domain": "ffk.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "0 ffk-no.mail.protection.outlook.com",
+          "source": "dig MX ffk.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:spf.protection.outlook.com include:spf.mailjet.com include:utpost.acos.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
+          "source": "dig TXT ffk.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for ffk.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.ffk.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Innlandet fylkeskommune",
+      "domain": "innlandetfylke.no",
+      "website_domain": "innlandetfylke.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "0 innlandetfylke-no.mail.protection.outlook.com",
+          "source": "dig MX innlandetfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:spf.protection.outlook.com include:sendgrid.net ip4:149.72.200.207 include:msg-out._spf.onevoice.no include:utpost.acos.no include:spf.interaxo.com include:_spf.easycruit.com include:spf.mailjet.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
+          "source": "dig TXT innlandetfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for innlandetfylke.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.innlandetfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Møre og Romsdal fylkeskommune",
+      "domain": "mrfylke.no",
+      "website_domain": "mrfylke.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "20 se.mx2.mx25.net; 30 se.mx3.mailanyone.net; 40 se.mx4.mx25.net; 10 se.mx1.mailanyone.net",
+          "source": "dig MX mrfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:_spf.mrfylke.no include:spf.mailanyone.net include:spf.protection.outlook.com include:msg-out._spf.onevoice.no -all\" \"v=spf1 ip4:185.91.152.19 ip4:185.91.155.27 ip6:2a05:eb40:0:10a::10 -all\" \"v=spf1 ip4:72.35.23.0/24 ip4:72.35.12.0/24 ip4:192.162.216.0/22 ip4:208.70.128.0/21 ip4:185.38.180.0/22 ip4:89.104.206.0/23 ip6:2a01:77c0:1180::/46 ip6:2a01:77c0:1619::/48 ip6:2a01:77c0:7135::/48 ip6:2a01:77c0:6::/47 ip6:2001:978:2a01:0:6:0:1089:1091/128 \" \"ip6:2001:978:2a01:0:6:0:1089:1092/128 ip6:2001:978:2a01::/48 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
+          "source": "dig TXT mrfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for mrfylke.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.mrfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Nordland fylkeskommune",
+      "domain": "nfk.no",
+      "website_domain": "nfk.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "10 nfk-no.mail.protection.outlook.com",
+          "source": "dig MX nfk.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:l1ik929woc.powerspf.com ~all\" \"v=spf1 exists:%{i}.l1ik929woc.macrospf.powerspf.com ~all\"",
+          "source": "dig TXT nfk.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF uten gjenkjent plattform",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.nfk.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Rogaland fylkeskommune",
+      "domain": "rogfk.no",
+      "website_domain": "rogfk.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "0 rogfk-no.mail.protection.outlook.com",
+          "source": "dig MX rogfk.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 ip4:152.93.253.216 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+          "source": "dig TXT rogfk.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for rogfk.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.rogfk.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Telemark fylkeskommune",
+      "domain": "telemarkfylke.no",
+      "website_domain": "telemarkfylke.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "1 telemarkfylke-no.mail.protection.outlook.com",
+          "source": "dig MX telemarkfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:dob19q8jsd.powerspf.com -all\" \"v=spf1 exists:%{i}.dob19q8jsd.macrospf.powerspf.com ~all\"",
+          "source": "dig TXT telemarkfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF uten gjenkjent plattform",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.telemarkfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Troms fylkeskommune",
+      "domain": "tromsfylke.no",
+      "website_domain": "tromsfylke.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "0 tromsfylke-no.mail.protection.outlook.com",
+          "source": "dig MX tromsfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:spf.protection.outlook.com a:jojoen.tromsfylke.no include:spf.flowmailer.net include:spf.mailjet.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:185.136.64.128/27 ip4:185.136.65.128/27 ~all\" \"v=spf1 ip4:87.253.232.0/21 ip4:185.189.236.0/22 ip4:185.211.120.0/22 ip4:185.250.236.0/22 ip4:45.14.148.0/22 ~all\"",
+          "source": "dig TXT tromsfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for tromsfylke.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.tromsfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Trøndelag fylkeskommune",
+      "domain": "trondelagfylke.no",
+      "website_domain": "trondelagfylke.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "10 trondelagfylke-no.mail.protection.outlook.com",
+          "source": "dig MX trondelagfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 a:mailrelay.trondelagfylke.no include:spf.protection.outlook.com include:utpost.acos.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+          "source": "dig TXT trondelagfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for trondelagfylke.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.trondelagfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Vestfold fylkeskommune",
+      "domain": "vestfoldfylke.no",
+      "website_domain": "vestfoldfylke.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "1 vestfoldfylke-no.mail.protection.outlook.com",
+          "source": "dig MX vestfoldfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:spf.protection.outlook.com include:utpost.acos.no include:mail.fara.no ip4:151.252.12.192/26 ip4:94.130.72.34 ip4:94.130.97.143 ip4:92.62.33.10/30 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+          "source": "dig TXT vestfoldfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for vestfoldfylke.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.vestfoldfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Vestland fylkeskommune",
+      "domain": "vestlandfylke.no",
+      "website_domain": "vestlandfylke.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "10 vestlandfylke-no.mail.protection.outlook.com",
+          "source": "dig MX vestlandfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
+          "source": "dig TXT vestlandfylke.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "40.92.0.0/15",
+          "source": "ip4 i SPF for vestlandfylke.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.vestlandfylke.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    },
+    {
+      "category": "fylke",
+      "name": "Østfold fylkeskommune",
+      "domain": "ofk.no",
+      "website_domain": "ofk.no",
+      "platform": "US_MICROSOFT",
+      "jurisdiction": "United States (CLOUD Act)",
+      "governance": {
+        "country": "United States",
+        "index": "Freedom House (Freedom in the World)",
+        "score": 81,
+        "status": "Free",
+        "tier": "democracy",
+        "sourceUrl": "https://freedomhouse.org/country/united-states/freedom-world/2026",
+        "year": 2026
+      },
+      "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
+      "behind_gateway": false,
+      "fingerprint": "mx/spf",
+      "flags": [],
+      "verdict": {
+        "platform": "US_MICROSOFT",
+        "label": "Microsoft 365",
+        "confidence": 0.95,
+        "uavklart": false,
+        "note": null
+      },
+      "evidence": [
+        {
+          "signal_type": "mx",
+          "observation": "0 ofk-no.mail.protection.outlook.com",
+          "source": "dig MX ofk.no",
+          "observed_at": "2026-06-29",
+          "inference": "MX leverer e-post til Microsoft 365",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "spf",
+          "observation": "\"v=spf1 include:aadik9nl26.powerspf.com ~all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:159.183.0.0/16 ip4:149.72.0.0/16 ip4:52.103\" \".0.0/17 ip4:168.245.0.0/17 ip4:167.89.0.0/17 ip4:104.47.0.0/17 ip4:134.128.64.0/18 ip4:50.31.32.0/19 ip4:208.117.48.0/20 ip4:198.37.144.0/20 ip4:192.254.112.0/20 ip4:87.253.232.0/21 ip4:198.21.0.0/21 include:_s1.aadik9nl26.powerspf.com ~all\"",
+          "source": "dig TXT ofk.no (v=spf1)",
+          "observed_at": "2026-06-29",
+          "inference": "SPF uten gjenkjent plattform",
+          "confidence": 0.3,
+          "platform": null
+        },
+        {
+          "signal_type": "spf_ip",
+          "observation": "52.100.0.0/15",
+          "source": "ip4 i SPF for ofk.no ∈ Microsoft EOP-områder",
+          "observed_at": "2026-06-29",
+          "inference": "Microsoft EOP-IP 52.100.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
+          "confidence": 0.95,
+          "platform": "US_MICROSOFT"
+        },
+        {
+          "signal_type": "autodiscover",
+          "observation": "autodiscover.outlook.com",
+          "source": "dig CNAME autodiscover.ofk.no",
+          "observed_at": "2026-06-29",
+          "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
+          "confidence": 0.8,
+          "platform": "US_MICROSOFT"
+        }
+      ],
+      "sourceDate": "2026-06-29"
+    }
+  ]
+}

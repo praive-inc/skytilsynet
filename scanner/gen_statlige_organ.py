@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 Generate scanner/statlige_organ.json — the seed list of Norwegian STATE bodies
-(statlige organ: departementer, direktorater, etater, helseforetak) that the
-email scanner classifies, the way kommuner_wikidata.json seeds the kommuner.
+(statlige organ: departementer, direktorater, etater, tilsyn) that the email
+scanner classifies, the way kommuner_wikidata.json seeds the kommuner. Health
+trusts and the UH sector get their own seeds (see gen_sectors.py).
 
 The list of bodies is a CURATED selection of the big, recognisable central-state
 organs (NAV, Skatteetaten, politiet, departementer, helseforetak, …) — central
@@ -35,13 +36,23 @@ BRREG = "https://data.brreg.no/enhetsregisteret/api/enheter/{}"
 # Mail domains are each confirmed to carry real public DNS mail signal. Ministries
 # resolve to <code>.dep.no (the shared departementenes mail infrastructure, DSS).
 CURATED = [
-    # Departementer (ministries) — mail on the shared *.dep.no infrastructure
+    # Departementer (ministries) — mail on the shared *.dep.no infrastructure (DSS)
+    ("Statsministerens kontor",             "972417777", "smk.dep.no"),
     ("Finansdepartementet",                 "972417807", "fin.dep.no"),
     ("Justis- og beredskapsdepartementet",  "972417831", "jd.dep.no"),
     ("Utenriksdepartementet",               "972417920", "ud.dep.no"),
     ("Forsvarsdepartementet",               "972417823", "fd.dep.no"),
     ("Helse- og omsorgsdepartementet",      "983887406", "hod.dep.no"),
     ("Kommunal- og distriktsdepartementet", "972417858", "kdd.dep.no"),
+    ("Kunnskapsdepartementet",              "872417842", "kd.dep.no"),
+    ("Klima- og miljødepartementet",        "972417882", "kld.dep.no"),
+    ("Nærings- og fiskeridepartementet",    "912660680", "nfd.dep.no"),
+    ("Arbeids- og inkluderingsdepartementet", "983887457", "aid.dep.no"),
+    ("Barne- og familiedepartementet",      "972417793", "bfd.dep.no"),
+    ("Kultur- og likestillingsdepartementet", "972417866", "kud.dep.no"),
+    ("Landbruks- og matdepartementet",      "972417874", "lmd.dep.no"),
+    ("Samferdselsdepartementet",            "972417904", "sd.dep.no"),
+    ("Energidepartementet",                 "977161630", "ed.dep.no"),
     # Direktorater og etater
     ("Skatteetaten",                        "974761076", "skatteetaten.no"),
     ("Tolletaten",                          "974761343", "toll.no"),
@@ -49,36 +60,47 @@ CURATED = [
     ("Statens lånekasse for utdanning",     "960885406", "lanekassen.no"),
     ("Husbanken",                           "942114184", "husbanken.no"),
     ("Helsedirektoratet",                   "983544622", "helsedirektoratet.no"),
+    ("Folkehelseinstituttet",               "983744516", "fhi.no"),
+    ("Statens helsetilsyn",                 "974761394", "helsetilsynet.no"),
     ("Utlendingsdirektoratet (UDI)",        "974760746", "udi.no"),
+    ("Integrerings- og mangfoldsdirektoratet (IMDi)", "987879696", "imdi.no"),
+    ("Barne-, ungdoms- og familiedirektoratet (Bufdir)", "986128433", "bufetat.no"),
     ("Digitaliseringsdirektoratet",         "991825827", "digdir.no"),
+    ("Direktoratet for forvaltning og økonomistyring (DFØ)", "986252932", "dfo.no"),
     ("Statistisk sentralbyrå",              "971526920", "ssb.no"),
     ("Mattilsynet",                         "985399077", "mattilsynet.no"),
     ("Statens vegvesen",                    "971032081", "vegvesen.no"),
     ("Statens kartverk",                    "971040238", "kartverket.no"),
+    ("Kystverket",                          "874783242", "kystverket.no"),
     ("Brønnøysundregistrene",               "974760673", "brreg.no"),
+    ("Patentstyret",                        "971526157", "patentstyret.no"),
     ("Miljødirektoratet",                   "999601391", "miljodir.no"),
+    ("Norges vassdrags- og energidirektorat (NVE)", "970205039", "nve.no"),
+    ("Riksantikvaren",                      "974760819", "riksantikvaren.no"),
+    ("Meteorologisk institutt",             "971274042", "met.no"),
     ("Arbeidstilsynet",                     "974761211", "arbeidstilsynet.no"),
     ("Direktoratet for samfunnssikkerhet og beredskap (DSB)", "974760983", "dsb.no"),
     ("Fiskeridirektoratet",                 "971203420", "fiskeridir.no"),
     ("Sjøfartsdirektoratet",                "974761262", "sdir.no"),
     ("Landbruksdirektoratet",               "981544315", "landbruksdirektoratet.no"),
+    ("Utdanningsdirektoratet",              "970018131", "udir.no"),
+    ("Direktoratet for høyere utdanning og kompetanse (HK-dir)", "974788985", "hkdir.no"),
     ("Norad",                               "971277882", "norad.no"),
     ("Jernbanedirektoratet",                "916810962", "jernbanedirektoratet.no"),
+    ("Nasjonal kommunikasjonsmyndighet (Nkom)", "974446871", "nkom.no"),
+    ("Statsbygg",                           "971278374", "statsbygg.no"),
+    ("Statens pensjonskasse",               "982583462", "spk.no"),
+    ("Datatilsynet",                        "974761467", "datatilsynet.no"),
+    ("Konkurransetilsynet",                 "974761246", "konkurransetilsynet.no"),
+    ("Finanstilsynet",                      "840747972", "finanstilsynet.no"),
+    ("Luftfartstilsynet",                   "981105516", "luftfartstilsynet.no"),
+    ("Medietilsynet",                       "974760886", "medietilsynet.no"),
     # Justis, politi og forsvar
     ("Politidirektoratet",                  "982531950", "politiet.no"),
     ("Forsvaret",                           "986105174", "mil.no"),
     ("Domstoladministrasjonen",             "926721720", "domstol.no"),
     ("Kriminalomsorgsdirektoratet",         "911830868", "kriminalomsorgen.no"),
     ("Riksrevisjonen",                      "974760843", "riksrevisjonen.no"),
-    # Helseforetak (regionale helseforetak + et stort HF)
-    ("Helse Sør-Øst RHF",                   "991324968", "helse-sorost.no"),
-    ("Helse Vest RHF",                      "983658725", "helse-vest.no"),
-    ("Helse Midt-Norge RHF",                "983658776", "helse-midt.no"),
-    ("Helse Nord RHF",                      "883658752", "helse-nord.no"),
-    ("Oslo universitetssykehus HF",         "993467049", "oslo-universitetssykehus.no"),
-    # Universiteter (statlige)
-    ("Universitetet i Oslo",                "971035854", "uio.no"),
-    ("NTNU",                                "974767880", "ntnu.no"),
 ]
 
 
@@ -117,10 +139,13 @@ def main():
             "sourceDate": date,
             "license": "CC BY 4.0",
             "selection": ("Curated selection of major central-state bodies "
-                          "(departementer, direktorater, etater, helseforetak, "
-                          "universiteter). Identities resolved from Enhetsregisteret; "
-                          "mail domains curated (the register lists the website, not "
-                          "the mail domain) and confirmed against public DNS."),
+                          "(departementer, direktorater, etater, tilsyn). Helseforetak "
+                          "and universiteter/høgskoler are scanned as their own "
+                          "categories (gen_sectors.py). This is a growing subset of the "
+                          "fuller statlige sector, not the complete ~200. Identities "
+                          "resolved from Enhetsregisteret; mail domains curated (the "
+                          "register lists the website, not the mail domain) and "
+                          "confirmed against public DNS."),
             "count": len(organ),
         },
         "organ": organ,
