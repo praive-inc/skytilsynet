@@ -204,6 +204,26 @@
   .copybtn.ok{border-color:var(--green);color:var(--green)}
   .funnel .ext{font-size:var(--text-sm)}
   .funnel .stat-note{font-size:var(--text-xs);color:var(--faint);margin-top:var(--space-3)}
+  /* Share card (issue #25): a screenshot-friendly per-entity 'del'-card.
+     The fact is the provocation — name + email verdict + jurisdiction +
+     governance + the headline floor + skytilsynet.no. */
+  .sharewrap{margin:0 0 var(--space-4)}
+  .sharecard{background:linear-gradient(160deg,#13202b,#0a0d11);border:1px solid var(--line-2);
+    border-radius:var(--radius-lg);padding:var(--space-8);margin:0 0 var(--space-4);
+    box-shadow:var(--shadow);max-width:560px}
+  .sharecard .sc-brand{color:var(--faint);font-size:var(--text-sm);letter-spacing:.08em}
+  .sharecard .sc-brand .dot{color:var(--green)}
+  .sharecard .sc-name{font-size:var(--text-2xl);font-weight:700;margin-top:var(--space-3);
+    letter-spacing:-.02em;line-height:1.1}
+  .sharecard .sc-label{font-size:var(--text-xs);letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);margin-top:var(--space-5)}
+  .sharecard .sc-verdict{font-size:var(--text-xl);font-weight:700;margin-top:var(--space-1)}
+  .sharecard .sc-verdict.red{color:var(--red)} .sharecard .sc-verdict.green{color:var(--green)}
+  .sharecard .sc-juris{color:var(--muted);font-size:var(--text-base);margin-top:var(--space-1)}
+  .sharecard .sc-gov{color:var(--muted);font-size:var(--text-sm);margin-top:var(--space-2)}
+  .sharecard .sc-stat{color:var(--fg);font-size:var(--text-sm);margin-top:var(--space-5);
+    border-top:1px solid var(--line);padding-top:var(--space-3)}
+  .sharecard .sc-url{color:var(--accent);font-weight:700;margin-top:var(--space-3);font-size:var(--text-md)}
   .en{border-top:1px solid var(--line);margin-top:var(--space-16);padding-top:var(--space-6);color:var(--muted);font-size:var(--text-sm)}
   .en strong{color:var(--fg)}
   footer{margin-top:var(--space-10);color:var(--faint);font-size:var(--text-sm)}
@@ -754,6 +774,102 @@
     return html;
   }
 
+  // ---- Share card (issue #25): turn each visitor into a distributor -------
+  // A screenshot-friendly card (entity name + email verdict + jurisdiction +
+  // governance + the headline floor + skytilsynet.no). One-tap Web Share where
+  // available, else copy the deep link; plus a fully client-side SVG -> canvas
+  // -> PNG download (no external image service). The fact is the provocation —
+  // no editorializing, no per-citizen data (rules 1, 5).
+  var SC_COLOR = {red:"#ff6b6b", green:"#4dd6a0", "":"#eef2f6"};
+  function shareGovLine(k){
+    var g = k.governance; if(!g) return "";
+    return "Styresett: "+(TIER_NO[g.tier]||g.tier)+" ("+g.country+")";
+  }
+  function shareStat(){
+    return pct(COMBINED.us_pct)+" % av skannet offentlig sektor svarer til amerikansk jurisdiksjon";
+  }
+  function shareText(k){
+    var m = platMeta(k);
+    return nameOf(k)+" — e-post: "+m.label+" ("+m.juris+"). "+shareStat()+
+      ". Kilde: Skybarometeret, skytilsynet.no";
+  }
+  function renderShareCard(k){
+    var m = platMeta(k), gov = shareGovLine(k);
+    return '<h2>Del faktumet</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">Faktumet er '+
+        'provokasjonen nok i seg selv. Del kortet — så fôrer det samfunnsdebatten. '+
+        'Ingenting lagres om deg.</p>'+
+      '<div class="sharewrap">'+
+        '<figure class="sharecard" id="sharecard"'+
+          ' data-name="'+esc(nameOf(k))+'" data-verdict="'+esc(m.label)+'"'+
+          ' data-juris="'+esc(m.juris)+'" data-gov="'+esc(gov)+'"'+
+          ' data-stat="'+esc(shareStat())+'" data-color="'+esc(SC_COLOR[m.vcls]||SC_COLOR[""])+'"'+
+          ' data-text="'+esc(shareText(k))+'">'+
+          '<figcaption class="sc-brand"><span class="dot" aria-hidden="true">●</span> '+
+            'Skytilsynet · Skybarometeret</figcaption>'+
+          '<div class="sc-name">'+esc(nameOf(k))+'</div>'+
+          '<div class="sc-label">E-POST SVARER TIL</div>'+
+          '<div class="sc-verdict '+m.vcls+'">'+esc(m.label)+'</div>'+
+          '<div class="sc-juris">'+esc(m.juris)+'</div>'+
+          (gov? '<div class="sc-gov">'+esc(gov)+'</div>' : "")+
+          '<div class="sc-stat">'+esc(shareStat())+'</div>'+
+          '<div class="sc-url">skytilsynet.no</div>'+
+        '</figure>'+
+        '<div class="acts">'+
+          '<button type="button" class="copybtn sharebtn" data-act="share">Del ↗</button>'+
+          '<button type="button" class="copybtn sharebtn" data-act="copy">Kopier lenke</button>'+
+          '<button type="button" class="copybtn sharebtn" data-act="img">Last ned bilde</button>'+
+        '</div>'+
+      '</div>';
+  }
+  // Render the card as a self-contained SVG (system fonts only, no external
+  // load) for the PNG download. Long names step down a size so they fit 1200px.
+  function cardSvg(c){
+    var W = 1200, H = 630, x = 72, nameSize = c.name.length > 24 ? 56 : 84;
+    function txt(y, size, fill, weight, s, extra){
+      return '<text x="'+x+'" y="'+y+'" fill="'+fill+'" font-family="-apple-system,'+
+        'BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="'+size+
+        '" font-weight="'+weight+'"'+(extra||"")+'>'+esc(s)+'</text>';
+    }
+    var y = c.gov ? 470 : 480;
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" '+
+      'viewBox="0 0 '+W+' '+H+'">'+
+      '<rect width="'+W+'" height="'+H+'" fill="#0a0d11"/>'+
+      '<rect x="20" y="20" width="'+(W-40)+'" height="'+(H-40)+'" rx="24" fill="#13202b" '+
+        'stroke="#384654"/>'+
+      txt(110, 28, "#7d909f", 400, "●  Skytilsynet · Skybarometeret")+
+      txt(110+nameSize+24, nameSize, "#eef2f6", 700, c.name)+
+      txt(c.gov?330:340, 26, "#7d909f", 400, "E-POST SVARER TIL", ' letter-spacing="3"')+
+      txt(c.gov?400:415, 60, c.color, 700, c.verdict)+
+      txt(c.gov?445:465, 32, "#a3b6c6", 400, c.juris)+
+      (c.gov? txt(495, 28, "#a3b6c6", 400, c.gov) : "")+
+      '<line x1="'+x+'" y1="'+y+'" x2="'+(W-72)+'" y2="'+y+'" stroke="#2a343f"/>'+
+      txt(y+44, 26, "#eef2f6", 400, c.stat)+
+      txt(H-56, 34, "#5cb3ff", 700, "skytilsynet.no")+
+      '</svg>';
+  }
+  function downloadCard(card){
+    var c = {name:card.getAttribute("data-name"), verdict:card.getAttribute("data-verdict"),
+      juris:card.getAttribute("data-juris"), gov:card.getAttribute("data-gov"),
+      stat:card.getAttribute("data-stat"), color:card.getAttribute("data-color")};
+    var blob = new Blob([cardSvg(c)], {type:"image/svg+xml;charset=utf-8"});
+    var url = URL.createObjectURL(blob), img = new Image();
+    img.onload = function(){
+      var cv = document.createElement("canvas");
+      cv.width = 1200; cv.height = 630;
+      cv.getContext("2d").drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      cv.toBlob(function(b){
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(b);
+        a.download = "skybarometeret-"+slug(c.name)+".png";
+        a.click();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+      });
+    };
+    img.src = url;
+  }
+
   function renderDetail(k, catKey){
     var m = platMeta(k);
     var resid = (k.platform==="EU_SOVEREIGN")
@@ -783,6 +899,7 @@
         fact("Datas oppholdssted", resid)+
         fact("Kontraktsverdi", "Ikke kartlagt (denne aksen dekker kun e-post via DNS)")+
       '</div>'+
+      renderShareCard(k)+
       (flagsHtml? '<h2 style="margin-top:0">Forbehold</h2>'+flagsHtml : "")+
       '<h2>Anbefalt europeisk alternativ</h2>'+
       '<div class="panel"><p style="margin:0">'+alt+'. Se byttekartet og '+
@@ -850,6 +967,31 @@
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(ta.value).then(done, function(){ ta.select(); });
     } else { ta.select(); document.execCommand("copy"); done(); }
+  });
+  // Share card (issue #25): Web Share API where available, else copy the deep
+  // link; "last ned bilde" rasterizes the card client-side. No data leaves the
+  // browser beyond what the user explicitly shares.
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest(".sharebtn"); if(!btn) return;
+    var card = document.getElementById("sharecard"); if(!card) return;
+    var act = btn.getAttribute("data-act");
+    var flash = function(msg){ var o = btn.textContent; btn.classList.add("ok");
+      btn.textContent = msg;
+      setTimeout(function(){ btn.classList.remove("ok"); btn.textContent = o; }, 2000); };
+    var copyLink = function(){
+      var url = location.href;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(function(){ flash("Lenke kopiert ✓"); },
+          function(){ window.prompt("Kopier lenken:", url); });
+      } else { window.prompt("Kopier lenken:", url); }
+    };
+    if(act==="share"){
+      if(navigator.share){
+        navigator.share({title:"Skybarometeret — "+card.getAttribute("data-name"),
+          text:card.getAttribute("data-text"), url:location.href}).catch(function(){});
+      } else { copyLink(); }
+    } else if(act==="copy"){ copyLink(); }
+    else if(act==="img"){ downloadCard(card); }
   });
   window.addEventListener("hashchange", route);
 
