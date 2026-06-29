@@ -1302,8 +1302,10 @@ class ForPresse(unittest.TestCase):
         self.assertIn("CC BY 4.0", self.html)
         self.assertIn("Slik siterer du oss", self.html)
         self.assertIn(build.PRESS_CONTACT_NAME, self.html)
-        self.assertIn(build.PRESS_CONTACT_EMAIL, self.html)
-        self.assertIn("mailto:" + build.PRESS_CONTACT_EMAIL, self.html)
+        # Contact is the open GitHub channel — the domain has no mailbox, so a
+        # mailto:presse@ would bounce. The named person stays; the channel works.
+        self.assertIn("github.com/praive-inc/skytilsynet/issues", self.html)
+        self.assertNotIn("mailto:presse@", self.html)
 
     # ---- graphics: PNG + SVG ------------------------------------------------
     def test_graphics_links_png_and_svg(self):
