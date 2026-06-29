@@ -33,6 +33,17 @@ from collections import Counter
 
 import governance
 
+# Classification-methodology version. BUMP THIS whenever the logic that decides a
+# platform changes (a new signal, a reclassified fingerprint, a threshold tweak) —
+# anything that can move a kommune between platforms without the kommune itself
+# changing. The trend (web/build.py) compares movement ONLY between same-version
+# snapshots; at a version change it shows "ny baseline" instead of a count, so a
+# scanner improvement never masquerades as real migration (issue #24).
+#   v1: MX + SPF-hostname + autodiscover only.
+#   v2: + deep unmask (DKIM selectors, getuserrealm, flattened-SPF MS EOP IPs) —
+#       the 28 Jun 2026 recalibration that reclassified gateway-masked backends.
+METHODOLOGY_VERSION = 2
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC  = os.path.join(HERE, "kommuner_wikidata.json")
 STATLIGE = os.path.join(HERE, "statlige_organ.json")
@@ -474,6 +485,7 @@ def aggregate(results):
     unmasked = sum(1 for r in results if "backend_unmasked" in r.get("flags", []))
     federated = sum(1 for r in results if "federated" in r.get("flags", []))
     return {
+        "methodology_version": METHODOLOGY_VERSION,
         "total": total,
         "us_microsoft": c["US_MICROSOFT"], "us_google": c["US_GOOGLE"],
         "us_mixed": c["US_MIXED"], "eu_sovereign": c["EU_SOVEREIGN"],
@@ -563,6 +575,7 @@ def print_summary(label, agg, date, snap_name, history):
     print(f"\n  Microsoft 365: {agg['microsoft_pct']}% (floor)  ·  US hyperscaler: {agg['us_pct']}% (floor)")
     print(f"  {agg['federated']} of the Microsoft rows are federated (tenant proven, email inferred).")
     print(f"  {agg['backend_unmasked']} gateway-fronted backend(s) still unmasked → MS share is a floor.")
+    print(f"  methodology v{agg['methodology_version']} (trend compares same-version snapshots only)")
     print(f"  snapshot → snapshots/{snap_name}  ·  dataset → data/  ·  history ({len(history)} run(s))")
 
 
@@ -574,7 +587,8 @@ def scan_kommuner(date):
     results = resolve_all(entities, "kommune", date, overrides, workers=24)
     agg = aggregate(results)
     os.makedirs(SNAP_DIR, exist_ok=True)
-    json.dump({"date": date, "summary": agg, "kommuner": results},
+    json.dump({"date": date, "methodology_version": METHODOLOGY_VERSION,
+               "summary": agg, "kommuner": results},
               open(os.path.join(SNAP_DIR, f"{date}.json"), "w"), ensure_ascii=False, indent=2)
     json.dump(results, open(LATEST, "w"), ensure_ascii=False, indent=2)
     write_dataset(DATASET, "Norwegian municipality email-platform sovereignty",
@@ -590,7 +604,8 @@ def scan_statlige(date):
     results = resolve_all(entities, "stat", date, {}, workers=16)
     agg = aggregate(results)
     os.makedirs(SNAP_DIR, exist_ok=True)
-    json.dump({"date": date, "summary": agg, "organ": results},
+    json.dump({"date": date, "methodology_version": METHODOLOGY_VERSION,
+               "summary": agg, "organ": results},
               open(os.path.join(SNAP_DIR, f"statlige-{date}.json"), "w"),
               ensure_ascii=False, indent=2)
     json.dump(results, open(STAT_LATEST, "w"), ensure_ascii=False, indent=2)

@@ -57,6 +57,13 @@ def load_snapshots(snap_dir=SNAP_DIR):
     return load(dates[-2]), load(dates[-1])
 
 
+def _snap_version(snap):
+    """The methodology version a snapshot was produced under. Snapshots predating
+    the field (issue #24) are treated as version 1, the original MX/SPF/autodiscover
+    methodology."""
+    return snap.get("methodology_version", 1)
+
+
 def compute_trend(old, new):
     """The honest per-kommune movement between two snapshots.
 
@@ -65,9 +72,21 @@ def compute_trend(old, new):
     measurement refinement (a kommune moving OTHER -> US_MICROSOFT because its
     backend got unmasked did not "join" Microsoft, we just saw it clearly).
     Over a short window most movement is the latter; the copy says so.
+
+    Movement is only meaningful between snapshots produced by the SAME
+    classification methodology. When the methodology version differs (a scanner
+    improvement reclassified domains), comparing across it would invent spurious
+    "joined Microsoft" jumps (issue #24). In that case we return a `new_baseline`
+    marker instead of a count, and the card says "Metodikk forbedret — ny baseline".
     """
     if not old or not new:
         return None
+    if _snap_version(old) != _snap_version(new):
+        return {
+            "new_baseline": True,
+            "baseline_date": _snap_date(new),
+            "methodology_version": _snap_version(new),
+        }
     o = {k["kommune"]: k["platform"] for k in old["kommuner"]}
     n = {k["kommune"]: k["platform"] for k in new["kommuner"]}
     left, joined = [], []
@@ -80,6 +99,8 @@ def compute_trend(old, new):
         elif op not in LEFT_MS and np in LEFT_MS:
             joined.append(name)
     return {
+        "new_baseline": False,
+        "methodology_version": _snap_version(new),
         "from_date": _snap_date(old),
         "to_date": _snap_date(new),
         "left_microsoft": sorted(left),
@@ -640,6 +661,14 @@ _TEMPLATE = r"""<!doctype html>
     var spark = renderSpark();
     if(!t){ el.innerHTML = '<div class="big">Trend</div>'+
       '<div class="cap">For få målinger til å vise bevegelse ennå.</div>'+spark; return; }
+    if(t.new_baseline){ el.innerHTML =
+      '<div class="big">Bevegelse (kommuner)</div>'+
+      '<div class="cap">Metodikk forbedret — ny baseline fra '+
+        esc(noDate(t.baseline_date))+'.</div>'+
+      '<div class="src">Forbedret kartlegging endret klassifiseringen, så vi '+
+        'sammenligner ikke på tvers av rekalibreringen — det ville vist forbedret '+
+        'kartlegging som faktiske bytter. Bevegelsestall kommer ved neste måling '+
+        'med samme metodikk.</div>'+spark; return; }
     var left = t.left_microsoft.length, joined = t.joined_microsoft.length;
     el.innerHTML =
       '<div class="big">Bevegelse (kommuner)</div>'+
@@ -673,7 +702,7 @@ _TEMPLATE = r"""<!doctype html>
     var g = DB.goal, el = document.getElementById("goal");
     if(!g){ el.style.display = "none"; return; }
     var fill = Math.min(100, g.target_pct ? g.sovereign_pct / g.target_pct * 100 : 0);
-    var moved = DB.trend ? DB.trend.left_microsoft.length : 0;
+    var moved = (DB.trend && DB.trend.left_microsoft) ? DB.trend.left_microsoft.length : 0;
     var rungs = g.ladder.map(function(r){
       return '<li class="rung" data-yr="'+r.year+'">'+
         '<span class="yr">'+esc(r.year)+'</span>'+

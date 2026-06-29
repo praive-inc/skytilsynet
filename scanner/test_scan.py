@@ -449,6 +449,12 @@ class Aggregate(unittest.TestCase):
         self.assertEqual(agg["microsoft_pct"], 50.0)
         self.assertIn("floor", agg["floor_note"].lower())
 
+    def test_aggregate_carries_methodology_version(self):
+        # Issue #24: every scan output is tagged with the methodology version so
+        # the trend only compares same-version snapshots.
+        agg = scan.aggregate([{"platform": "US_MICROSOFT", "flags": []}])
+        self.assertEqual(agg["methodology_version"], scan.METHODOLOGY_VERSION)
+
 
 if __name__ == "__main__":
     unittest.main()

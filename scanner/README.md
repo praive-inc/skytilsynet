@@ -178,13 +178,24 @@ Combined scanned public sector (397 bodies): **98.5% Microsoft, 99.7% US.**
 
 | File | Contents |
 |---|---|
-| `snapshots/<date>.json` | versioned point-in-time snapshot (`date`, `summary`, `kommuner`) |
-| `history.json` | one aggregate row per run — the trend `transition.py` reads |
+| `snapshots/<date>.json` | versioned point-in-time snapshot (`date`, `methodology_version`, `summary`, `kommuner`) |
+| `history.json` | one aggregate row per run (incl. `methodology_version`) — the trend `transition.py` reads |
 | `kommune_sovereignty.json` | latest kommune records (scanner-local convenience copy) |
 | `../data/kommune-email-sovereignty.latest.json` | the **published CC-BY dataset** (meta + summary + kommuner) |
-| `snapshots/statlige-<date>.json` | statlige-organ snapshot (`date`, `summary`, `organ`) |
+| `snapshots/statlige-<date>.json` | statlige-organ snapshot (`date`, `methodology_version`, `summary`, `organ`) |
 | `statlige_history.json` · `statlige_sovereignty.json` | state-body trend rows + latest records |
 | `../data/statlige-organ-email-sovereignty.latest.json` | the **published CC-BY** state-body dataset (meta + summary + organ) |
+
+### Methodology version
+
+Every snapshot and history row carries a `methodology_version` (`METHODOLOGY_VERSION`
+in `scan.py`). **Bump it whenever the classification logic changes** — a new signal,
+a reclassified fingerprint, a threshold tweak: anything that can move an entity
+between platforms without the entity itself changing. The trend card (`web/build.py`)
+compares movement **only between same-version snapshots**; at a version change it
+shows *"Metodikk forbedret — ny baseline"* instead of a count, so a scanner
+improvement never masquerades as real migration. v1 was MX/SPF/autodiscover only;
+v2 added the deep unmask (the 28 Jun 2026 recalibration).
 
 ## Second category: statlige organ (state bodies)
 
