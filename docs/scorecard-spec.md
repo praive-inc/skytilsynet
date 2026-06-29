@@ -108,6 +108,41 @@ reverted LiMux by a council vote. The CTA copy frames the durable ask.
 - No per-citizen records from the activism funnel beyond what the digital
   pillar's aggregate-only architecture (RFC-007) already permits.
 
+### 6. Trust armor: residency ≠ jurisdiction + open method (issue #35)
+
+The finding will face well-funded counter-messaging — Microsoft actively markets
+"Microsoft 365 data residency in Norway" and an "EU sovereign cloud". If the
+method doesn't pre-empt that, the tracker gets waved away. The credibility
+posture is therefore part of the spec, not cosmetics:
+
+- **Datalagring ≠ jurisdiksjon, stated precisely.** EU/Norway-resident data does
+  **not** remove US jurisdiction: the **US CLOUD Act** reaches a US-headquartered
+  provider regardless of where the bytes physically sit. The site states this on
+  both the methodology view and the per-entity view (the latter gated to US
+  verdicts, where the distinction bites). Keep the three signals **distinct, never
+  conflated**: *bruker Microsoft* (runs M365) ≠ *ingen EU-datagrense* (no agreed
+  EU storage boundary) ≠ *US-jurisdiksjon* (provider bound by US law — the
+  heaviest, true even *with* an EU data boundary).
+- **Per-record "Kontrollert den \<dato\>".** Every verdict is one click from its
+  per-signal evidence, and each evidence record surfaces the `observed_at` it was
+  checked on. Trust floor matching OWID / Bellingcat / Faktisk.no: no claim
+  without a dated, citable observation.
+- **"Hva dette IKKE beviser."** A plain-language box bounding the email axis: a
+  mail gateway ≠ all workloads in the US; email is one axis; a DNS verdict proves
+  the platform, not that data was exfiltrated; the US share is a **floor**.
+- **Open classifier, loudly.** The classification rules are one readable file
+  (`scanner/scan.py`), linked prominently — not a black box.
+- **Named methodology author + independence line.** The method is owned by a
+  named person (currently **Jøran Bjerksetmyr**), not an anonymous desk, and the
+  "uavhengig prosjekt fra BetterWorld — ikke et offentlig organ" line sits beside
+  it (reinforcing the load-bearing disclaimer, rule 2).
+- **Public corrections log (endringslogg).** A CC-BY data file
+  (`data/corrections.json`) the build bakes inline; each entry carries a date so
+  the history is open and verifiable. A corrections log is a trust *builder*, not
+  an admission — the honest empty state ("Ingen rettelser ennå") never fabricates
+  one. Norway's faktasjekk culture rewards radical transparency and punishes
+  hidden-number advocacy.
+
 ## MVP scope (what ships)
 
 1. DNS email-sovereignty pipeline (productionise the prototype: scheduled,

@@ -939,6 +939,117 @@ class ReLadder(unittest.TestCase):
             json.loads(open(path).read())           # valid JSON
 
 
+class TrustArmor(unittest.TestCase):
+    """Issue #35: the credibility move that survives well-funded pushback.
+
+    Datalagring ≠ jurisdiksjon stated precisely (EU/Norway-resident data does NOT
+    remove US CLOUD-Act jurisdiction) on BOTH the method view and the per-entity
+    view, with the three severities kept distinct (bruker Microsoft / ingen
+    EU-datagrense / US-jurisdiksjon). Plus the OWID/Faktisk trust floor: every
+    evidence record carries 'Kontrollert den <dato>', a plain-language 'kva dette
+    ikkje beviser' box, a loud link to the open classifier code, a named
+    methodology author + the 'uavhengig prosjekt fra BetterWorld' line, and a
+    public corrections log (endringslogg)."""
+
+    def setUp(self):
+        trend = {**TREND, "new_baseline": False, "methodology_version": 2}
+        self.html = build.build_html(DATA, HISTORY, trend, STAT, WEB)
+
+    def _om_view(self):
+        # The methodology view (#om) region of the page.
+        start = self.html.index('id="view-om"')
+        return self.html[start:]
+
+    # --- residency != jurisdiction (method + entity views) --------------------
+    def test_residency_vs_jurisdiction_explained_on_method_view(self):
+        om = self._om_view()
+        self.assertIn("Datalagring", om)
+        self.assertIn("jurisdiksjon", om.lower())
+        self.assertIn("CLOUD Act", om)
+        # The precise, load-bearing claim: residency does not remove jurisdiction.
+        self.assertIn("opphever ikke", om.lower())
+
+    def test_three_severities_kept_distinct_not_conflated(self):
+        # "bruker Microsoft" ≠ "ingen EU-datagrense" ≠ "US-jurisdiksjon".
+        low = self.html.lower()
+        self.assertIn("bruker microsoft", low)
+        self.assertIn("datagrense", low)
+        self.assertIn("us-jurisdiksjon", low)
+
+    def test_residency_framing_is_rendered_on_the_entity_view(self):
+        # The detail render must carry the residency≠jurisdiction callout, not only
+        # the method page — gated to US verdicts (where the distinction bites).
+        self.assertIn("renderJurisdictionNote", self.html)
+        self.assertIn("renderJurisdictionNote(k", self.html)
+        self.assertIn("Datalagring ≠ jurisdiksjon", self.html)
+
+    # --- per-record "Kontrollert den <dato>" ----------------------------------
+    def test_every_evidence_record_surfaces_kontrollert_den(self):
+        # OWID/Faktisk trust floor: every per-signal record shows its observed_at
+        # as an explicit 'Kontrollert den <dato>' label, computed from the data.
+        self.assertIn("Kontrollert den", self.html)
+        self.assertIn("noDate(s.observed_at)", self.html)
+
+    # --- "kva dette ikkje beviser" box ----------------------------------------
+    def test_not_proven_box_on_entity_view(self):
+        self.assertIn("renderNotProven", self.html)
+        self.assertIn("renderNotProven(k", self.html)
+        # Plain-language: a gateway ≠ all workloads in the US.
+        self.assertIn("ikke beviser", self.html.lower())
+        self.assertIn("gateway", self.html.lower())
+
+    def test_not_proven_box_on_method_view(self):
+        om = self._om_view()
+        self.assertIn("ikke beviser", om.lower())
+
+    # --- loud link to the open classifier code --------------------------------
+    def test_open_classifier_code_linked_loudly(self):
+        om = self._om_view()
+        # Not just the repo root — the actual classifier source the verdicts run on.
+        self.assertIn("scanner/scan.py", om)
+        self.assertIn("github.com/praive-inc/skytilsynet", om)
+
+    # --- named author + independence line -------------------------------------
+    def test_named_methodology_author_and_independence_line(self):
+        om = self._om_view()
+        self.assertIn("Metodikk-ansvarlig", om)
+        self.assertIn("Jøran Bjerksetmyr", om)
+        # The 'uavhengig prosjekt fra BetterWorld' line is stated near the author.
+        self.assertIn("uavhengig prosjekt", om.lower())
+        self.assertIn("BetterWorld", om)
+
+    # --- public corrections log (endringslogg) --------------------------------
+    def test_corrections_log_section_present(self):
+        om = self._om_view()
+        self.assertIn("Endringslogg", om)
+        self.assertIn("renderCorrections", self.html)
+
+    def test_corrections_log_empty_state_is_honest(self):
+        # Seeded empty: the log is public and states it has no entries yet — never
+        # a fabricated correction.
+        self.assertIn('"corrections":[]', self.html)
+        self.assertIn("Ingen rettelser", self.html)
+
+    def test_corrections_log_renders_entries_when_present(self):
+        corr = [{"date": "2026-06-30", "entity": "Oslo",
+                 "summary": "Rettet feilklassifisert MX."}]
+        html = build.build_html(DATA, HISTORY, TREND, STAT, WEB, corrections=corr)
+        self.assertIn('"corrections":[', html)
+        self.assertIn("Rettet feilklassifisert MX.", html)
+        self.assertIn("2026-06-30", html)
+
+    def test_corrections_data_is_loaded_from_an_open_file(self):
+        # Open by default: the log lives in a CC-BY data file the build bakes in.
+        self.assertTrue(os.path.exists(build.CORRECTIONS))
+        self.assertIsInstance(json.load(open(build.CORRECTIONS)), list)
+
+    # --- still self-contained -------------------------------------------------
+    def test_no_external_serving_dependency_added(self):
+        for bad in ["googleapis", "jsdelivr", "unpkg", "cloudflare", "<script src",
+                    "<link rel=\"stylesheet\""]:
+            self.assertNotIn(bad, self.html)
+
+
 class BuildMainOnRealData(unittest.TestCase):
     """Smoke test the real pipeline against the committed datasets."""
     def test_real_data_renders_both_categories(self):
