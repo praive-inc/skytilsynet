@@ -9,6 +9,7 @@ acceptance criteria are present in the output. Run:  python3 -m unittest -v
 """
 import json
 import os
+import re
 import unittest
 
 import build
@@ -648,6 +649,74 @@ class ShareCard(unittest.TestCase):
         for bad in ["facebook", "twitter.com", "x.com/intent", "platform.linkedin",
                     "addthis", "sharethis", "googleapis", "htmlcsstoimage"]:
             self.assertNotIn(bad, self.html.lower())
+
+
+def _png_size(path):
+    """Width, height of a PNG read straight from its IHDR — stdlib only, no PIL,
+    so the dimension assertion does not depend on an image library."""
+    import struct
+    with open(path, "rb") as fh:
+        head = fh.read(24)
+    assert head[:8] == b"\x89PNG\r\n\x1a\n", path + " is not a PNG"
+    return struct.unpack(">II", head[16:24])
+
+
+class SocialPreview(unittest.TestCase):
+    """Issue #32: Open Graph + Twitter card meta in <head> so a shared link
+    renders a compelling, factual preview, plus a self-hosted, on-brand
+    1200x630 og:image served straight from web/ (no external image service, no
+    build step in prod)."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+        # The meta only matters inside <head>.
+        self.head = self.html[:self.html.index("</head>")]
+
+    def test_open_graph_core_tags_present(self):
+        for prop in ["og:title", "og:description", "og:image", "og:url",
+                     "og:type", "og:locale"]:
+            self.assertIn('property="' + prop + '"', self.head, prop + " missing")
+        # Norwegian Bokmål locale, factual title.
+        self.assertIn('content="nb_NO"', self.head)
+        self.assertIn('property="og:type" content="website"', self.head)
+
+    def test_twitter_summary_large_image_card(self):
+        self.assertIn('name="twitter:card" content="summary_large_image"', self.head)
+        for name in ["twitter:title", "twitter:description", "twitter:image"]:
+            self.assertIn('name="' + name + '"', self.head, name + " missing")
+
+    def test_og_image_is_an_absolute_self_hosted_url(self):
+        # Scrapers need an absolute URL; it must point at our own host, not an
+        # external image service (RFC-001 P5).
+        m = re.search(r'property="og:image" content="([^"]+)"', self.head)
+        self.assertIsNotNone(m)
+        url = m.group(1)
+        self.assertTrue(url.startswith("https://skytilsynet.no/"), url)
+        self.assertTrue(url.endswith(build.OG_IMAGE), url)
+        self.assertEqual(url, "https://skytilsynet.no/" + build.OG_IMAGE)
+
+    def test_og_url_is_the_canonical_site(self):
+        self.assertIn('property="og:url" content="https://skytilsynet.no/"', self.head)
+
+    def test_title_and_description_are_factual_and_striking(self):
+        # The hook is the fact (the US floor), never a moral judgement.
+        haystack = self.head.lower()
+        self.assertIn("9 av 10", self.head)
+        self.assertIn("usa", haystack)
+        self.assertIn("cloud act", haystack)
+        for bad in ["dårlig", "skammelig", "forræderi", "skandale"]:
+            self.assertNotIn(bad, haystack)
+
+    def test_og_image_file_is_committed_and_1200x630(self):
+        path = os.path.join(build.HERE, build.OG_IMAGE)
+        self.assertTrue(os.path.exists(path), build.OG_IMAGE + " not committed in web/")
+        self.assertEqual(_png_size(path), (1200, 630))
+
+    def test_no_external_image_host_in_head(self):
+        # The preview image must be served from web/ via Caddy, never a third party.
+        for bad in ["i.imgur", "cloudinary", "imgix", "googleusercontent",
+                    "htmlcsstoimage", "og-image.vercel"]:
+            self.assertNotIn(bad, self.head.lower())
 
 
 class OmOgMetode(unittest.TestCase):
