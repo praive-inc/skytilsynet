@@ -1,18 +1,5 @@
 [
   {
-    "date": "2026-06-27",
-    "total": 358,
-    "us_microsoft": 323,
-    "us_google": 4,
-    "us_mixed": 0,
-    "eu_sovereign": 1,
-    "other": 29,
-    "none": 1,
-    "us_total": 327,
-    "us_pct": 91.3,
-    "microsoft_pct": 90.2
-  },
-  {
     "date": "2026-06-28",
     "total": 358,
     "us_microsoft": 352,
