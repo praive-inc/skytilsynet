@@ -650,6 +650,92 @@ class ShareCard(unittest.TestCase):
             self.assertNotIn(bad, self.html.lower())
 
 
+class OmOgMetode(unittest.TestCase):
+    """Issue #30: a public, readable Om & Metode section — the credibility
+    backbone for launch/press scrutiny. It restates the disclaimer, explains the
+    email signals + the gateway unmasking + the FLOOR caveat + the web second
+    axis, cites the governance source with its year, states the methodology
+    version (trend compares same-version only), links the CC-BY datasets per
+    category, and points to the corrections channel. Plain static, no build
+    step (build_html is a pure transform)."""
+
+    def setUp(self):
+        trend = {**TREND, "new_baseline": False, "methodology_version": 2}
+        self.html = build.build_html(DATA, HISTORY, trend, STAT, WEB)
+
+    def test_section_present_and_linked_from_the_page(self):
+        self.assertIn('id="om"', self.html)
+        self.assertIn("Om &amp; Metode", self.html)
+        self.assertIn('href="#om"', self.html)   # header + footer link target
+
+    def test_disclaimer_restated_in_the_about_block(self):
+        self.assertIn("Hva dette er", self.html)
+        # Load-bearing disclaimer appears here too, not only in the top banner.
+        self.assertGreaterEqual(self.html.count("ikke et offentlig organ"), 2)
+
+    def test_method_explains_every_email_signal(self):
+        for s in ["MX", "SPF", "autodiscover", "getuserrealm", "DKIM", "EOP"]:
+            self.assertIn(s, self.html)
+
+    def test_gateway_unmasking_and_floor_caveat(self):
+        self.assertIn("gateway", self.html.lower())
+        self.assertIn("Gulv, ikke tak", self.html)        # the floor caveat, named
+        self.assertIn("uavdekket", self.html.lower())
+
+    def test_web_axis_described_as_a_distinct_second_axis(self):
+        self.assertIn("Web-akse", self.html)
+        self.assertIn("andre akse", self.html.lower())
+
+    def test_governance_source_cited_with_year_and_tiers(self):
+        self.assertIn("Freedom House", self.html)
+        self.assertIn("freedomhouse.org", self.html)
+        self.assertIn("2026", self.html)
+        for tier in ["Demokrati", "Delvis fritt", "Autoritært"]:
+            self.assertIn(tier, self.html)
+
+    def test_methodology_version_stated_and_baked(self):
+        self.assertIn("Metodikk-versjon", self.html)
+        self.assertIn('"methodology_version":2', self.html)   # baked, not hardcoded
+        self.assertIn('id="methodology-version"', self.html)  # JS fills it
+        self.assertIn("samme", self.html.lower())             # same-version caveat
+
+    def test_ccby_per_category_download_links(self):
+        self.assertIn("CC BY 4.0", self.html)
+        for fn, _ in build.DATA_DOWNLOADS:
+            self.assertIn('href="data/' + fn + '"', self.html)
+        self.assertIn("Attribusjon", self.html)
+
+    def test_corrections_channel_noted(self):
+        self.assertIn("Retting", self.html)
+        self.assertIn("kommer ved lansering", self.html)
+
+    def test_builds_when_trend_carries_no_methodology_version(self):
+        # Too few snapshots -> trend is None; the section must still render.
+        html = build.build_html(DATA, HISTORY, None, STAT, WEB)
+        self.assertIn("Metodikk-versjon", html)
+        self.assertIn('"methodology_version":null', html)
+
+
+class DataDownloads(unittest.TestCase):
+    """The deploy rsyncs only web/ to Caddy, so the per-category open datasets the
+    Om & Metode page links to must be copied into web/data/ by the build — no
+    external host, no prod build step."""
+
+    def test_downloads_list_maps_to_real_source_datasets(self):
+        for fn, label in build.DATA_DOWNLOADS:
+            self.assertTrue(os.path.exists(os.path.join(build.ROOT, "data", fn)),
+                            fn + " is not a real published dataset")
+            self.assertTrue(label)
+
+    def test_copy_downloads_writes_each_dataset_to_target(self):
+        import tempfile
+        dest = tempfile.mkdtemp()
+        build.copy_downloads(dest)
+        for fn, _ in build.DATA_DOWNLOADS:
+            self.assertTrue(os.path.exists(os.path.join(dest, fn)),
+                            fn + " was not copied for serving")
+
+
 class BuildMainOnRealData(unittest.TestCase):
     """Smoke test the real pipeline against the committed datasets."""
     def test_real_data_renders_both_categories(self):

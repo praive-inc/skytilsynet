@@ -17,6 +17,7 @@ runtime fetch (works on file://) and has zero US-managed serving dependency
 import json
 import os
 import re
+import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -32,6 +33,19 @@ WEB_DATA = os.path.join(ROOT, "data", "kommune-web-sovereignty.latest.json")
 HISTORY = os.path.join(ROOT, "scanner", "history.json")
 SNAP_DIR = os.path.join(ROOT, "scanner", "snapshots")
 OUT = os.path.join(HERE, "index.html")
+# The published open datasets (CC BY 4.0) the Om & Metode page links to, per
+# category. The deploy rsyncs only web/ to Caddy, so build.py copies these into
+# web/data/ (copy_downloads) and the page links to them relatively — self-served,
+# no external host, no prod build step.
+WEB_DATA_DIR = os.path.join(HERE, "data")
+DATA_DOWNLOADS = [
+    ("kommune-email-sovereignty.latest.json", "Kommuner — e-post"),
+    ("statlige-organ-email-sovereignty.latest.json", "Statlige organ — e-post"),
+    ("fylkeskommune-email-sovereignty.latest.json", "Fylkeskommuner — e-post"),
+    ("helseforetak-email-sovereignty.latest.json", "Helseforetak — e-post"),
+    ("uh-sektor-email-sovereignty.latest.json", "Universiteter og høgskoler — e-post"),
+    ("kommune-web-sovereignty.latest.json", "Kommuner — web-akse (infrastruktur)"),
+]
 
 MS = "US_MICROSOFT"
 LEFT_MS = {MS}
@@ -230,11 +244,31 @@ def build_html(data, history, trend, stat=None, web=None, seeded=None):
         "categories": categories,
         "history": history,
         "trend": trend,
+        # The methodology version rides along from the latest snapshot (via the
+        # trend) so the Om & Metode section states it without a hardcoded number;
+        # null when there are too few snapshots to compute a trend.
+        "methodology_version": (trend or {}).get("methodology_version"),
     }
     blob = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     # </script> can't appear literally inside an inline script.
     blob = blob.replace("</", "<\\/")
-    return _TEMPLATE.replace("/*__DATA__*/", blob)
+    downloads = "".join(
+        '<li><a href="data/{fn}" download>{label}</a>'
+        '<span class="dl-file">{fn}</span></li>'.format(fn=fn, label=label)
+        for fn, label in DATA_DOWNLOADS)
+    return (_TEMPLATE.replace("/*__DATA__*/", blob)
+            .replace("<!--__DOWNLOADS__-->", downloads))
+
+
+def copy_downloads(dest_dir=WEB_DATA_DIR):
+    """Copy each published per-category dataset into web/data/ so the deployed
+    static site (web/ rsynced verbatim to Caddy) serves the CC-BY files the Om &
+    Metode page links to — no external host, no prod build step."""
+    os.makedirs(dest_dir, exist_ok=True)
+    for fn, _ in DATA_DOWNLOADS:
+        src = os.path.join(ROOT, "data", fn)
+        if os.path.exists(src):
+            shutil.copyfile(src, os.path.join(dest_dir, fn))
 
 
 def main():
@@ -248,6 +282,7 @@ def main():
     html = build_html(data, history, trend, stat, web, seeded)
     with open(OUT, "w") as f:
         f.write(html)
+    copy_downloads()
     n_stat = len(stat["organ"]) if stat else 0
     n_web = len(web["kommuner"]) if web else 0
     print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner "
@@ -484,6 +519,19 @@ _TEMPLATE = r"""<!doctype html>
   .sharecard .sc-stat{color:var(--fg);font-size:var(--text-sm);margin-top:var(--space-5);
     border-top:1px solid var(--line);padding-top:var(--space-3)}
   .sharecard .sc-url{color:var(--accent);font-weight:700;margin-top:var(--space-3);font-size:var(--text-md)}
+  /* Om & Metode (issue #30): the credibility section. Reuses .panel; a few
+     list/link affordances for the method signals + data downloads. */
+  .panel h3{margin-top:0}
+  .method-list{margin:0 0 var(--space-4);padding-left:var(--space-5);color:var(--muted);font-size:var(--text-sm)}
+  .method-list li{margin:0 0 var(--space-2)}
+  .method-list code,.panel p code{background:var(--bg-2);border:1px solid var(--line);
+    border-radius:6px;padding:1px 5px;font:var(--text-xs)/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#cdd9e3}
+  .downloads{list-style:none;margin:0 0 var(--space-4);padding:0;display:grid;gap:var(--space-2)}
+  .downloads li{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2);
+    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3)}
+  .downloads a{font-weight:600}
+  .downloads .dl-file{color:var(--faint);font:var(--text-xs)/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .mast-nav{margin-left:auto;font-size:var(--text-sm)}
   .en{border-top:1px solid var(--line);margin-top:var(--space-16);padding-top:var(--space-6);color:var(--muted);font-size:var(--text-sm)}
   .en strong{color:var(--fg)}
   footer{margin-top:var(--space-10);color:var(--faint);font-size:var(--text-sm)}
@@ -504,6 +552,7 @@ _TEMPLATE = r"""<!doctype html>
   <header class="masthead">
     <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
     <span class="kicker">Skybarometeret</span>
+    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#om">Om &amp; metode</a></nav>
   </header>
 
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
@@ -599,14 +648,98 @@ _TEMPLATE = r"""<!doctype html>
         ved neste kommunestyrevedtak (lærdommen fra Münchens LiMux).</p>
     </div>
 
-    <h2 id="kilde">Metode og forbehold</h2>
+    <h2 id="om">Om &amp; Metode</h2>
+
     <div class="panel">
+      <h3>Hva dette er</h3>
+      <p>Skybarometeret kartlegger hvilken jurisdiksjon norsk offentlig sektors
+        e-post svarer til, utledet av åpne DNS-data, og peker på europeiske
+        alternativer. Hver påstand er kildebelagt og presentert faktabasert —
+        vi oppgir faktumet, aldri en moralsk dom.</p>
+      <p><strong>Skytilsynet er ikke et offentlig organ.</strong> Vi er
+        uavhengige, og ikke tilknyttet, drevet av eller godkjent av Datatilsynet,
+        Digitaliseringsdirektoratet eller noen annen norsk statlig eller kommunal
+        myndighet. Navnet beskriver i overført betydning hva vi gjør — vi følger
+        med på offentlig sektors avhengighet av skytjenester — og er ikke en
+        offisiell rolle.</p>
+    </div>
+
+    <div class="panel">
+      <h3 id="kilde">Slik måler vi (metode)</h3>
       <p id="method-note"></p>
-      <p style="font-size:13px;color:var(--muted)"><b>E-post er én akse.</b> Tallet
-        er et <b>gulv, ikke et tak</b>: noen kommuner ligger bak en e-postgateway
-        der vi ikke har avdekket bakomliggende plattform — den reelle USA-andelen
-        er minst så høy som vist. Datasettet er åpent (CC BY 4.0) og hver rad bærer
-        sin kilde og dato. <a href="https://github.com/praive-inc/skytilsynet">Kode og metode</a>.</p>
+      <p>Hvert organ klassifiseres ut fra det offentlig DNS — og ett uautentisert
+        HTTPS-oppslag — uansett røper. Ingen innlogging, ingen kostnad. Signalene,
+        i økende bevisstyrke:</p>
+      <ul class="method-list">
+        <li><b>MX</b> — hvor e-posten leveres (f.eks.
+          <code>*.mail.protection.outlook.com</code> → Microsoft 365).</li>
+        <li><b>SPF</b> — hvilke servere som får sende for domenet
+          (<code>include:spf.protection.outlook.com</code> → Microsoft).</li>
+        <li><b>Autodiscover</b> — klientoppsettets CNAME
+          (<code>autodiscover.outlook.com</code> → Microsoft 365-leietaker).</li>
+        <li><b>getuserrealm</b> — Microsofts egen
+          <code>login.microsoftonline.com/getuserrealm.srf</code> svarer
+          <code>Managed</code> (aktiv M365-leietaker) eller <code>Federated</code>
+          (Azure AD-føderert).</li>
+        <li><b>DKIM-selektor</b> — <code>selector1/2._domainkey</code> peker inn i
+          <code>*.onmicrosoft.com</code> (Microsoft), eller
+          <code>google._domainkey</code> finnes (Google).</li>
+        <li><b>SPF-IP-avdekking</b> — når SPF bare lister IP-er, slår vi opp om de
+          ligger i Microsofts EOP-områder; flatet SPF røper plattformen likevel.</li>
+      </ul>
+      <p><b>Avdekking av gateway og samdrift.</b> Mange organ ligger bak en
+        e-postsikkerhets-gateway (Proofpoint, Mimecast) eller en interkommunal
+        IKT-samdrift som skjuler bakomliggende plattform i MX-en. Vi forsøker å
+        avdekke den reelle plattformen via SPF, DKIM og getuserrealm — der det
+        ikke lykkes, merkes organet «bak gateway».</p>
+      <div class="flag"><b>Gulv, ikke tak.</b> Microsoft- og USA-andelen er et
+        <b>gulv</b>: noen gateway-bakender forblir uavdekket, og flere av dem er
+        etter alt å dømme også Microsoft. Den reelle USA-andelen er minst så høy
+        som vist — aldri lavere.</div>
+      <p><b>Web-akse (andre akse).</b> E-post er bare én akse. En egen, atskilt
+        akse ser på <b>nettstedets infrastruktur</b>: vert-IP-ens opphavs-ASN,
+        HTTP-headere, innebygde tredjeparts-ressurser og TLS-utsteder — utledet av
+        det en nettleser uansett henter. Den påvirker aldri e-postverdiktet; de to
+        aksene holdes adskilt.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Styresett-vurdering</h3>
+      <p>For hvert funn utleder vi operatørens jurisdiksjon, og for jurisdiksjonens
+        land et faktabasert styresett-nivå — <b>Demokrati</b>, <b>Delvis fritt</b>
+        eller <b>Autoritært styre</b> — fra <b>Freedom House (Freedom in the
+        World)</b>. Vi viser den siterte statusen og poengsummen (0–100) med år og
+        en lenke til kilden, f.eks.
+        <a href="https://freedomhouse.org/country/united-states/freedom-world/2026"
+          target="_blank" rel="noopener">USA: Free 81/100 (2026)</a>. Nivået er en
+        nøytral merkelapp på landet dataene svarer til — ikke en dom over organet.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Metodikk-versjon</h3>
+      <p>Gjeldende metodikk-versjon: <b id="methodology-version">—</b>.
+        Trendtall sammenlignes kun mellom målinger gjort med <b>samme</b>
+        metodikk-versjon. En forbedring i skanneren som omklassifiserer domener gir
+        en ny baseline — ikke et falskt «byttet plattform»-tall (det ville vist
+        forbedret kartlegging som faktiske bytter).</p>
+    </div>
+
+    <div class="panel">
+      <h3 id="apne-data">Åpne data</h3>
+      <p>Datasettene er åpne under <b>CC BY 4.0</b>. Hver rad bærer sin egen kilde
+        og dato. Last ned per kategori — for journalister og forskere:</p>
+      <ul class="downloads"><!--__DOWNLOADS__--></ul>
+      <p style="font-size:13px;color:var(--muted)">Attribusjon ved gjenbruk:
+        «Skytilsynet / BetterWorld, skytilsynet.no (CC BY 4.0)».
+        <a href="https://github.com/praive-inc/skytilsynet">Kode og full metode på GitHub →</a></p>
+    </div>
+
+    <div class="panel">
+      <h3>Retting</h3>
+      <p>Ser du en feil? Vi retter gjerne — og oppgir alltid kilde, så påstandene
+        er etterprøvbare. En egen rettekanal <b>kommer ved lansering</b>. Vi
+        beholder ingenting personlig: aktivisme-verktøyene samler ikke inn noe om
+        deg, kun aggregerte tall.</p>
     </div>
 
     <div class="en" lang="en">
@@ -625,6 +758,7 @@ _TEMPLATE = r"""<!doctype html>
 
   <footer>
     <span class="dot" aria-hidden="true">●</span> Et prosjekt fra BetterWorld · skytilsynet.no ·
+    <a href="#om">Om &amp; metode</a> ·
     <a href="https://github.com/praive-inc/skytilsynet">åpen kildekode</a>
   </footer>
 </div>
@@ -1204,6 +1338,10 @@ _TEMPLATE = r"""<!doctype html>
     esc(noDate(DB.meta.sourceDate))+". "+esc(totalAll)+" organ totalt — "+
     CATS.map(function(c){ return esc(c.summary.total)+" "+esc(c.label.toLowerCase()); }).join(" + ")+
     ". Statlige organ kommer fra Brønnøysund Enhetsregisteret.";
+  // Om & Metode: state the current methodology version (baked from the latest
+  // snapshot, never hardcoded). Em-dash stays if there are too few snapshots.
+  var mvEl = document.getElementById("methodology-version");
+  if(mvEl && DB.methodology_version) mvEl.textContent = "v"+DB.methodology_version;
 
   document.getElementById("q").addEventListener("input", function(e){
     state.q = e.target.value.trim().toLowerCase(); renderGrid(); });
