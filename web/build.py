@@ -1656,11 +1656,11 @@ _TEMPLATE = r"""<!doctype html>
     <h2>Kontakt</h2>
     <div class="panel">
       <p class="press-contact"><b>Pressekontakt: <!--__PRESS_CONTACT_NAME__--></b>
-        (metodikk-ansvarlig). E-post:
-        <a href="mailto:<!--__PRESS_CONTACT_EMAIL__-->"><!--__PRESS_CONTACT_EMAIL__--></a>.</p>
+        (metodikk-ansvarlig).</p>
       <p style="font-size:13px;color:var(--muted)">Spørsmål til metoden, datatilgang,
-        intervju eller en retting går til samme navngitte person — ikke en anonym
-        redaksjon.</p>
+        intervju eller en retting tas via prosjektets åpne
+        <a href="https://github.com/praive-inc/skytilsynet/issues" target="_blank" rel="noopener">GitHub</a>
+        — til en navngitt person, ikke en anonym redaksjon.</p>
     </div>
   </section>
 
