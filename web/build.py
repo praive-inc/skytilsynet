@@ -246,10 +246,11 @@ def build_categories(data, stat=None, web=None, seeded=None):
 
 
 # The only entity fields baked inline (issue #34): enough for the grid tiles, the
-# "Finn din kommune" search and the map colouring. Everything heavier — the
-# per-signal evidence trail, the governance frame, the web axis, the verdict —
-# loads on demand from the per-category detail file when a card is opened.
-LIGHT_FIELDS = ("name", "domain", "platform", "behind_gateway", "flags")
+# "Finn din kommune" search, the map colouring and the league table. Everything
+# heavier — the per-signal evidence trail, the governance frame, the web axis, the
+# verdict — loads on demand from the per-category detail file when a card is opened.
+# `sourceDate` rides along so every league-table row carries its own date (#36).
+LIGHT_FIELDS = ("name", "domain", "platform", "behind_gateway", "flags", "sourceDate")
 
 
 def light_entity(e):
@@ -332,6 +333,205 @@ def gauge_svg(us_pct):
              pct=_no_pct(us_pct))
 
 
+# --------------------------------------------------------------------------
+# The news-driving layer (issue #36): a Norway cartogram + a league table.
+# --------------------------------------------------------------------------
+_US_PLATFORMS = {"US_MICROSOFT", "US_GOOGLE", "US_MIXED"}
+# How dependent a platform is on US jurisdiction. This is a DISPLAY sort key, not
+# the BetterWorld SovereigntyScore (CLAUDE.md rule 3 — we do not reimplement that
+# engine here): a transparent ordering derived only from the cited platform class.
+_DEP_TIER = {"EU_SOVEREIGN": 0, "OTHER": 1, "NONE": 1, "UAVKLART": 1,
+             "US_GOOGLE": 3, "US_MIXED": 4, "US_MICROSOFT": 5}
+
+
+def dep_score(e):
+    """A deterministic dependency sort key from the LIGHT signals only: the cited
+    platform class (the dominant term), plus two honest tiebreakers — a confirmed
+    Azure-federated tenant is deeper lock-in, and a fully-unmasked backend is more
+    certain than one still behind a mail gateway (a floor). Higher = more dependent."""
+    tier = _DEP_TIER.get(e.get("platform"), 1)
+    fed = 0.2 if "federated" in (e.get("flags") or []) else 0.0
+    unmasked = 0.0 if e.get("behind_gateway") else 0.1
+    return tier + fed + unmasked
+
+
+def _juris_label(platform):
+    if platform in _US_PLATFORMS:
+        return "USA (CLOUD Act)"
+    if platform == "EU_SOVEREIGN":
+        return "Norge (EØS)"
+    return "Uavklart"
+
+
+_PLAT_LABEL = {"US_MICROSOFT": "Microsoft 365", "US_GOOGLE": "Google Workspace",
+               "US_MIXED": "Microsoft + Google", "EU_SOVEREIGN": "Europeisk / norsk drift"}
+
+
+def _plat_css(platform, behind_gateway):
+    """Same colour semantics as the grid tiles: red = US, amber = US-but-floor
+    (behind a gateway), green = sovereign, grey = uavklart."""
+    if platform == "EU_SOVEREIGN":
+        return "c-green"
+    if platform in _US_PLATFORMS:
+        return "c-amber" if (platform == "US_MICROSOFT" and behind_gateway) else "c-red"
+    return "c-grey"
+
+
+def league_rows(categories):
+    """Flatten every scanned entity to a league row: name, its category, a permalink
+    slug, the cited platform/jurisdiction, its date and its dependency score."""
+    rows = []
+    for c in categories:
+        for e in c["entities"]:
+            name = _entity_name(e)
+            rows.append({
+                "name": name, "cat": c["key"], "catLabel": c["label"],
+                "slug": slugify(name), "platform": e.get("platform"),
+                "behind_gateway": bool(e.get("behind_gateway")),
+                "date": e.get("sourceDate"), "dep": dep_score(e),
+            })
+    return rows
+
+
+def league(categories, limit=10):
+    """The pinned strips: the worst-N (most dependent) and the hall of fame.
+
+    The hall of fame holds ONLY genuinely non-US bodies — never padded with US
+    ones to reach N (a Google-hosted body is not 'sovereign'). When fewer than N
+    qualify, that IS the finding; `sovereign_count`/`total` carry the honest tally."""
+    rows = league_rows(categories)
+    us = [r for r in rows if r["platform"] in _US_PLATFORMS]
+    worst = sorted(us, key=lambda r: (-r["dep"], r["name"]))[:limit]
+    nonus = [r for r in rows if r["platform"] not in _US_PLATFORMS]
+    best = sorted(nonus, key=lambda r: (r["dep"], r["name"]))[:limit]
+    return {"worst": worst, "best": best,
+            "sovereign_count": len(nonus), "total": len(rows)}
+
+
+# Equal-area hex cartogram of Norway's 15 fylker (counties). The geometry is
+# committed here as (col, row) on an odd-r offset hex grid — rendered to inline
+# SVG, never an external map tile (RFC-001 P5). Identical hexes mean sparse-but-
+# huge Finnmark cannot visually erase Oslo. Each hex links to that county's own
+# entity card: the fylkeskommune for 14, Oslo kommune for Oslo (no separate
+# fylkeskommune). North is up; cols run west→east, loosely geographic.
+_FYLKE_HEXES = [
+    # county,            short, entity name,                     category,  col, row
+    ("Finnmark",         "Fi",  "Finnmark fylkeskommune",        "fylke",   5, 0),
+    ("Troms",            "Tr",  "Troms fylkeskommune",           "fylke",   4, 1),
+    ("Nordland",         "No",  "Nordland fylkeskommune",        "fylke",   4, 2),
+    ("Trøndelag",        "Trø", "Trøndelag fylkeskommune",       "fylke",   3, 3),
+    ("Møre og Romsdal",  "Mø",  "Møre og Romsdal fylkeskommune", "fylke",   1, 4),
+    ("Innlandet",        "In",  "Innlandet fylkeskommune",       "fylke",   3, 4),
+    ("Vestland",         "Ve",  "Vestland fylkeskommune",        "fylke",   1, 5),
+    ("Akershus",         "Ak",  "Akershus fylkeskommune",        "fylke",   3, 5),
+    ("Rogaland",         "Ro",  "Rogaland fylkeskommune",        "fylke",   1, 6),
+    ("Buskerud",         "Bu",  "Buskerud fylkeskommune",        "fylke",   2, 6),
+    ("Oslo",             "Os",  "Oslo kommune",                  "kommune", 3, 6),
+    ("Østfold",          "Øs",  "Østfold fylkeskommune",         "fylke",   4, 6),
+    ("Agder",            "Ag",  "Agder fylkeskommune",           "fylke",   1, 7),
+    ("Telemark",         "Te",  "Telemark fylkeskommune",        "fylke",   2, 7),
+    ("Vestfold",         "Vf",  "Vestfold fylkeskommune",        "fylke",   3, 7),
+]
+_CARTO_COLOR = {"c-red": "var(--red)", "c-amber": "var(--amber)",
+                "c-green": "var(--green)", "c-grey": "var(--grey)"}
+
+
+def cartogram_svg(categories):
+    """A baked, static, equal-area hex cartogram of the 15 fylker, coloured by each
+    county government's own email platform and linking to its entity card. No JS
+    needed for first paint, no external tile — the click→entity is a plain hash link."""
+    import math
+    by_name = {(c["key"], _entity_name(e)): e
+               for c in categories for e in c["entities"]}
+    s = 30.0                       # hex radius
+    hstep = math.sqrt(3) * s       # horizontal centre spacing
+    vstep = 1.5 * s                # vertical centre spacing
+    pad = s + 4
+    hexes, minx, miny, maxx, maxy = [], 1e9, 1e9, -1e9, -1e9
+    for county, short, ename, cat, col, row in _FYLKE_HEXES:
+        cx = pad + (col + (row % 2) * 0.5) * hstep
+        cy = pad + row * vstep
+        pts = []
+        for i in range(6):
+            a = math.radians(60 * i - 90)   # pointy-top hexagon
+            px, py = cx + s * math.cos(a), cy + s * math.sin(a)
+            pts.append((px, py))
+            minx, miny = min(minx, px), min(miny, py)
+            maxx, maxy = max(maxx, px), max(maxy, py)
+        e = by_name.get((cat, ename))
+        css = _plat_css(e.get("platform"), e.get("behind_gateway")) if e else "c-grey"
+        plat = _PLAT_LABEL.get(e.get("platform"), "Uavklart") if e else "Uavklart"
+        title = "{}: {}".format(county, plat)
+        pt_str = " ".join("{:.1f},{:.1f}".format(px, py) for px, py in pts)
+        inner = ('<polygon points="{pts}" fill="{fill}" stroke="var(--bg)" '
+                 'stroke-width="2"/>'
+                 '<text x="{cx:.1f}" y="{ty:.1f}" text-anchor="middle" '
+                 'class="hex-lab">{short}</text>'
+                 '<title>{title}</title>').format(
+                     pts=pt_str, fill=_CARTO_COLOR[css], cx=cx, ty=cy + 4,
+                     short=short, title=title)
+        # The hash permalink is valid on the live site (all 15 units exist); colour
+        # falls back to grey only if this (smaller) dataset lacks the unit.
+        hexes.append('<a href="#org/{cat}/{slug}" class="hex {css}" '
+                     'aria-label="{title}">{inner}</a>'.format(
+                         cat=cat, slug=slugify(ename), css=css,
+                         title=title, inner=inner))
+    vb = "{:.0f} {:.0f} {:.0f} {:.0f}".format(
+        minx - 4, miny - 4, (maxx - minx) + 8, (maxy - miny) + 8)
+    return ('<svg class="cartogram" viewBox="{vb}" role="group" '
+            'aria-label="Hexkartogram over Norges 15 fylker, farget etter '
+            'fylkeskommunens e-postplattform">{body}</svg>').format(
+                vb=vb, body="".join(hexes))
+
+
+def _league_pane(title, cap, rows, rank_from=1):
+    items = []
+    for i, r in enumerate(rows):
+        css = _plat_css(r["platform"], r["behind_gateway"])
+        items.append(
+            '<a class="lg-row {css}" href="#org/{cat}/{slug}">'
+            '<span class="lg-rank">{rank}</span>'
+            '<span class="lg-name">{name}</span>'
+            '<span class="lg-meta"><span class="lg-cat">{cat_label}</span>'
+            '<span class="lg-plat">{plat} · {juris}</span></span>'
+            '<span class="lg-date">{date}</span></a>'.format(
+                css=css, cat=r["cat"], slug=r["slug"], rank=rank_from + i,
+                name=r["name"], cat_label=r["catLabel"],
+                plat=_PLAT_LABEL.get(r["platform"], "Uavklart"),
+                juris=_juris_label(r["platform"]),
+                date=no_date(r["date"]) if r.get("date") else ""))
+    return ('<div class="lg-pane"><h3>{title}</h3><p class="lg-cap">{cap}</p>'
+            '<div class="lg-rows">{rows}</div></div>').format(
+                title=title, cap=cap, rows="".join(items))
+
+
+def league_html(categories):
+    """The static, no-JS pinned strips: the hall of fame (honest, non-US only) and
+    the most-dependent. Each row is a permalink to its evidence card, date-stamped."""
+    lg = league(categories)
+    fame_cap = (
+        "Bare {count} av {total} skannede organ er <b>ikke på amerikansk sky</b>. "
+        "Disse leder an — eksemplene å kopiere.").format(
+            count=lg["sovereign_count"], total=lg["total"])
+    worst_cap = (
+        "Avhengigheten er nær total: {us} av {total} organ svarer e-posten til USA. "
+        "Rangert etter plattform og hvor dyp bindingen er (føderasjon, avdekket "
+        "bakende) — mange er like avhengige.").format(
+            us=lg["total"] - lg["sovereign_count"], total=lg["total"])
+    return (
+        '<div class="league">'
+        + _league_pane("Æresgalleriet — mest suverene", fame_cap, lg["best"])
+        + _league_pane("Mest avhengige", worst_cap, lg["worst"])
+        + '</div>'
+        '<p class="lg-fair">Rangeringen er <b>per organ</b>, på samme måling for '
+        'alle — ikke på størrelse, så en liten kommune stilles ikke mot Oslo på '
+        'absolutte tall. Hver plassering lenker til kilden og er datostemplet. '
+        '<button type="button" class="linklike" id="league-toggle" '
+        'aria-expanded="false" aria-controls="league-full">Se hele ligatabellen '
+        '(sorterbar)</button>.</p>'
+        '<div id="league-full" class="hidden"></div>')
+
+
 def render_html(meta, categories, history, trend, corrections=None):
     """Render the single-file site from the full category model. Pure.
 
@@ -378,6 +578,8 @@ def render_html(meta, categories, history, trend, corrections=None):
             .replace("<!--__VERDICT_H1__-->", h1)
             .replace("<!--__VERDICT_SUB__-->", sub)
             .replace("<!--__GAUGE__-->", gauge_svg(us_pct))
+            .replace("<!--__CARTOGRAM__-->", cartogram_svg(categories))
+            .replace("<!--__LEAGUE__-->", league_html(categories))
             .replace("<!--__PROOF__-->", proof_html))
 
 
@@ -726,6 +928,61 @@ _TEMPLATE = r"""<!doctype html>
   .gauge-num{fill:var(--red);font-weight:700;font-size:64px;
     font-variant-numeric:tabular-nums;letter-spacing:-.02em}
   .gauge-cap{fill:var(--muted);font-size:20px}
+  /* Norway cartogram (issue #36) — equal-area hex map, baked inline SVG. */
+  .cartomap{display:grid;grid-template-columns:1fr;gap:var(--space-6);align-items:center;
+    background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line);
+    border-radius:var(--radius-lg);padding:var(--space-6);box-shadow:var(--shadow)}
+  @media(min-width:720px){.cartomap{grid-template-columns:minmax(0,360px) 1fr}}
+  .cartomap-fig{display:flex;justify-content:center}
+  .cartogram{width:min(360px,80vw);height:auto}
+  .cartogram .hex{cursor:pointer}
+  .cartogram .hex polygon{transition:filter .12s ease}
+  .cartogram .hex:hover polygon,.cartogram .hex:focus-visible polygon{filter:brightness(1.25)}
+  .cartogram .hex:focus-visible{outline:none}
+  .cartogram .hex:focus-visible polygon{stroke:var(--accent);stroke-width:3}
+  .hex-lab{fill:#0b0e12;font-size:15px;font-weight:700;pointer-events:none}
+  .cartomap-side p{color:var(--muted);font-size:var(--text-base)}
+  .cartomap-side b{color:var(--fg)}
+  .carto-note{font-size:var(--text-sm);color:var(--faint)}
+  .carto-legend{list-style:none;margin:var(--space-3) 0;padding:0;display:grid;gap:var(--space-2);
+    font-size:var(--text-sm);color:var(--muted)}
+  .carto-legend li{display:flex;align-items:center;gap:var(--space-2)}
+  .sw{width:14px;height:14px;border-radius:3px;display:inline-block;flex:0 0 auto}
+  .sw.c-red{background:var(--red)} .sw.c-amber{background:var(--amber)}
+  .sw.c-green{background:var(--green)} .sw.c-grey{background:var(--grey)}
+  /* League table (issue #36): pinned hall of fame + most-dependent, then sortable. */
+  .league{display:grid;grid-template-columns:1fr;gap:var(--space-4);margin:0 0 var(--space-4)}
+  @media(min-width:760px){.league{grid-template-columns:1fr 1fr}}
+  .lg-pane{background:linear-gradient(180deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--space-5);box-shadow:var(--shadow)}
+  .lg-pane h3{margin:0 0 var(--space-2);font-size:var(--text-lg)}
+  .lg-cap{font-size:var(--text-sm);color:var(--muted);margin:0 0 var(--space-4)}
+  .lg-cap b{color:var(--fg)}
+  .lg-rows{display:grid;gap:var(--space-2)}
+  .lg-row{display:grid;grid-template-columns:auto 1fr auto;gap:var(--space-3);align-items:center;
+    background:var(--surface);border:1px solid var(--line);border-left-width:4px;
+    border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);color:var(--fg)}
+  .lg-row:hover{text-decoration:none;border-color:var(--line-2);background:var(--surface-2)}
+  .lg-rank{color:var(--faint);font-variant-numeric:tabular-nums;font-weight:700;min-width:1.6em;text-align:right}
+  .lg-name{font-weight:600;font-size:var(--text-sm)}
+  .lg-meta{grid-column:2;font-size:var(--text-xs);color:var(--muted)}
+  .lg-cat{color:var(--faint)} .lg-cat::after{content:" · "}
+  .lg-date{font-size:var(--text-xs);color:var(--faint);white-space:nowrap}
+  .lg-fair{font-size:var(--text-sm);color:var(--muted);margin:var(--space-2) 0 var(--space-5);max-width:80ch}
+  .lg-fair b{color:var(--fg)}
+  .linklike{background:none;border:none;color:var(--accent);cursor:pointer;font:inherit;padding:0;
+    text-decoration:underline}
+  .lg-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);margin-top:var(--space-3)}
+  .lg-table th{text-align:left;color:var(--faint);font-size:var(--text-xs);text-transform:uppercase;
+    letter-spacing:.06em;border-bottom:1px solid var(--line);padding:var(--space-2) var(--space-3)}
+  .lg-table th button{background:none;border:none;color:inherit;cursor:pointer;font:inherit;
+    text-transform:inherit;letter-spacing:inherit;padding:0}
+  .lg-table th[aria-sort] button{color:var(--fg)}
+  .lg-table td{border-bottom:1px solid var(--line);padding:var(--space-2) var(--space-3)}
+  .lg-table tr:hover td{background:var(--surface-2)}
+  .lg-dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+  .lg-dot.c-red{background:var(--red)} .lg-dot.c-amber{background:var(--amber)}
+  .lg-dot.c-green{background:var(--green)} .lg-dot.c-grey{background:var(--grey)}
   .hero-sub{font-size:var(--text-lg);color:var(--fg);max-width:60ch;margin:0 auto var(--space-3);
     text-align:center}
   .hero-sub b{color:var(--red)}
@@ -844,6 +1101,33 @@ _TEMPLATE = r"""<!doctype html>
         <h3>Bevegelsen — hvor få som har flyttet</h3>
         <p id="narr-movement">…</p></div></div>
     </section>
+
+    <!-- LAYER 2b — the news-driving layer (issue #36): the ranking, not the grid.
+         An equal-area hex cartogram (baked static, click→entity) + a league table
+         with a pinned hall of fame and the most-dependent, each row a permalink to
+         its evidence. The full table below is client-side sortable. -->
+    <h2 id="kart">Norgeskartet</h2>
+    <section class="cartomap" aria-labelledby="kart">
+      <div class="cartomap-fig"><!--__CARTOGRAM__--></div>
+      <div class="cartomap-side">
+        <p>Norges 15 fylker som like store sekskanter — et kartogram, ikke et
+          areakart, så Finnmark ikke visuelt sletter Oslo. Fargen viser
+          <b>fylkeskommunens egen e-postplattform</b> (Oslo: kommunen). Klikk et
+          fylke for organet og kildene.</p>
+        <ul class="carto-legend" aria-hidden="true">
+          <li><span class="sw c-red"></span> USA (CLOUD Act)</li>
+          <li><span class="sw c-amber"></span> USA, bak e-postgateway (gulv)</li>
+          <li><span class="sw c-green"></span> Norge / EØS</li>
+          <li><span class="sw c-grey"></span> Uavklart</li>
+        </ul>
+        <p class="carto-note">E-post er én akse, og fylkeskommunens egen e-post er
+          ikke det samme som kommunene i fylket. Vil du se hvert organ, bruk
+          ligatabellen under.</p>
+      </div>
+    </section>
+
+    <h2 id="liga">Ligatabellen</h2>
+    <div class="league-wrap"><!--__LEAGUE__--></div>
 
     <h2 id="maalet">Målet</h2>
     <div class="goal" id="goal"></div>
@@ -1869,8 +2153,77 @@ _TEMPLATE = r"""<!doctype html>
     if(jump) jump.addEventListener("click", function(){ expandExplore(true); });
   }
 
+  // ---- Ligatabellen (issue #36): the full sortable league over all entities ----
+  // The pinned hall of fame + most-dependent strips are baked static (work without
+  // JS); this is the progressive, sortable full table, mounted on demand.
+  var DEP_TIER = {EU_SOVEREIGN:0, OTHER:1, NONE:1, UAVKLART:1, US_GOOGLE:3, US_MIXED:4, US_MICROSOFT:5};
+  var US_SET = {US_MICROSOFT:1, US_GOOGLE:1, US_MIXED:1};
+  function depScore(e){
+    var tier = DEP_TIER[e.platform]; if(tier===undefined) tier = 1;
+    var fed = (e.flags && e.flags.indexOf("federated")>=0) ? 0.2 : 0;
+    return tier + fed + (e.behind_gateway ? 0 : 0.1);
+  }
+  function jurisLabel(p){ return US_SET[p] ? "USA (CLOUD Act)" : (p==="EU_SOVEREIGN" ? "Norge (EØS)" : "Uavklart"); }
+  var LEAGUE_ROWS = [];
+  CATS.forEach(function(c){ c.entities.forEach(function(e){
+    var nm = nameOf(e);
+    LEAGUE_ROWS.push({name:nm, cat:c.key, catLabel:c.label, slug:slug(nm),
+      platform:e.platform, behind_gateway:e.behind_gateway, flags:e.flags,
+      date:e.sourceDate || DB.meta.sourceDate, dep:depScore(e),
+      css: platMeta(e).css});
+  });});
+  var leagueSort = {key:"dep", dir:-1};  // most dependent first
+  var SORTERS = {
+    name: function(a,b){ return a.name.localeCompare(b.name,"nb"); },
+    cat:  function(a,b){ return a.catLabel.localeCompare(b.catLabel,"nb") || a.name.localeCompare(b.name,"nb"); },
+    dep:  function(a,b){ return (a.dep-b.dep) || a.name.localeCompare(b.name,"nb"); },
+    date: function(a,b){ return String(a.date).localeCompare(String(b.date)) || a.name.localeCompare(b.name,"nb"); }
+  };
+  var COLS = [{key:"name",lab:"Organ"},{key:"cat",lab:"Kategori"},
+    {key:"dep",lab:"Plattform / jurisdiksjon"},{key:"date",lab:"Oppdatert"}];
+  function renderLeagueTable(){
+    var rows = LEAGUE_ROWS.slice().sort(SORTERS[leagueSort.key]);
+    if(leagueSort.dir<0) rows.reverse();
+    var head = COLS.map(function(col){
+      var on = leagueSort.key===col.key;
+      var aria = on ? (leagueSort.dir<0 ? "descending" : "ascending") : null;
+      var arrow = on ? (leagueSort.dir<0 ? " ↓" : " ↑") : "";
+      return '<th'+(aria?' aria-sort="'+aria+'"':"")+'><button type="button" data-sort="'+
+        col.key+'">'+esc(col.lab)+arrow+'</button></th>';
+    }).join("");
+    var body = rows.map(function(r){
+      return '<tr><td><a href="#org/'+esc(r.cat)+'/'+esc(r.slug)+'">'+esc(r.name)+'</a></td>'+
+        '<td>'+esc(r.catLabel)+'</td>'+
+        '<td><span class="lg-dot '+r.css+'"></span>'+esc(platMeta(r).label)+
+          ' · '+esc(jurisLabel(r.platform))+'</td>'+
+        '<td>'+esc(noDate(r.date))+'</td></tr>';
+    }).join("");
+    document.getElementById("league-full").innerHTML =
+      '<p class="count">'+rows.length+' organ — klikk en kolonne for å sortere.</p>'+
+      '<table class="lg-table"><thead><tr>'+head+'</tr></thead><tbody>'+body+'</tbody></table>';
+  }
+  function wireLeague(){
+    var toggle = document.getElementById("league-toggle");
+    var panel = document.getElementById("league-full");
+    if(!toggle || !panel) return;
+    var ready = false;
+    toggle.addEventListener("click", function(){
+      if(panel.classList.contains("hidden")){
+        if(!ready){ renderLeagueTable(); ready = true; }
+        panel.classList.remove("hidden"); toggle.setAttribute("aria-expanded","true");
+      } else { panel.classList.add("hidden"); toggle.setAttribute("aria-expanded","false"); }
+    });
+    panel.addEventListener("click", function(e){
+      var b = e.target.closest("[data-sort]"); if(!b) return;
+      var k = b.getAttribute("data-sort");
+      if(leagueSort.key===k){ leagueSort.dir = -leagueSort.dir; }
+      else { leagueSort.key = k; leagueSort.dir = (k==="dep") ? -1 : 1; }
+      renderLeagueTable();
+    });
+  }
+
   renderNarrative(); renderGoal(); renderCatbar(); renderFilters();
-  renderCorrections(); wireFinder(); wireExplore(); route();
+  renderCorrections(); wireFinder(); wireExplore(); wireLeague(); route();
 })();
 </script>
 </body>
