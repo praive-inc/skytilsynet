@@ -57,7 +57,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Oslo kommune",
@@ -92,7 +92,7 @@
       "tls_issuer": "Amazon",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Alta",
@@ -149,7 +149,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Porsanger",
@@ -198,7 +198,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Storfjord",
@@ -261,7 +261,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nordreisa",
@@ -336,7 +336,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bardu kommune",
@@ -425,7 +425,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Fitjar",
@@ -468,7 +468,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Halden",
@@ -549,7 +549,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ibestad",
@@ -592,7 +592,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Larvik",
@@ -601,7 +601,7 @@
     "domain": "larvik.kommune.no",
     "host": "www.larvik.kommune.no",
     "hosting": {
-      "ip": "150.171.109.74",
+      "ip": "150.171.109.114",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -674,7 +674,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nissedal",
@@ -717,7 +717,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Orkland",
@@ -789,7 +789,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Skjervøy",
@@ -844,7 +844,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kristiansand",
@@ -946,7 +946,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hemnes",
@@ -1033,7 +1033,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Midtre Gauldal",
@@ -1121,7 +1121,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Berlevåg",
@@ -1196,7 +1196,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tromsø",
@@ -1271,7 +1271,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kåfjord",
@@ -1332,7 +1332,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Leirfjord",
@@ -1393,7 +1393,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lyngen",
@@ -1454,7 +1454,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Porsgrunn",
@@ -1583,7 +1583,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Selbu",
@@ -1678,7 +1678,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sunndal",
@@ -1759,7 +1759,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Giske",
@@ -1860,7 +1860,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Moss",
@@ -1959,7 +1959,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Senja",
@@ -2061,7 +2061,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Trondheim",
@@ -2156,11 +2156,11 @@
     "evidence": {
       "server": null,
       "x_powered_by": null,
-      "csp": "script-src https://js.monitor.azure.com https://*.optimizely.com https://optimizely.s3.amazonaws.com https://cdn-assets-prod.s3.amazonaws.com 'self' https://*.trondheim.kommune.no/ https://cdn.jsdelivr.net/syntaxhighlighter/3.0.83/scripts/shBrushJScript.js https://cdn.jsdelivr.net/syntaxhighlighter/3.0.83/scripts/shCore.js https://polyfill-fastly.io/v3/polyfill.min.js https://cdn.tiny.cloud/1/no-origin/tinymce/6.4.2-17/tinymce.min.js https://code.jquery.com/jquery-1.10.2.min.js https://code.jquery.com/jquery-1.12.4.min.js https://code.jquery.com/ui/1.12.0/jquery-ui.min.js https://hsk-widget.web.app/embed/hsk.js https://maps.googleapis.com/ https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js https://player.vimeo.com/ https://siteimproveanalytics.com/js/siteanalyze_6002236.js https://translate.google.com/ https://translate.googleapis.com/ https://translate-pa.googleapis.com/ https://trondheim.bib.no/ https://unpkg.com/@tmcw/togeojson@4.1.0/dist/togeojson.umd.js https://unpkg.com/jszip@3.5.0/dist/jszip.min.js https://unpkg.com/leaflet.gridlayer.googlemutant@0.10.2/Leaflet.GoogleMutant.js https://unpkg.com/leaflet@1.3.1/dist/leaflet.js https://unpkg.com/leaflet@1.6.0/dist/leaflet.js https://unpkg.com/leaflet-kmz@latest/dist/leaflet-kmz.js https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'nonce-8de7866c-ab8d-4593-aa53-ad611d0f37ec' https://*.googletagmanager.com https://www.googletagmanager.com; frame-src 'self' https://accounts.google.com/ https://app.powerbi.com/ https://calendar.google.com/ https://datastudio.google.com/ https://docs.google.com/ https://e.infogram.com/ https://fast.wistia.net/ https://geoinnsyn.nois.no/ https://lookerstudio.google.com/ https://maps.google.no/ https://player.gobistories.com/ https://player.vimeo.com/ https://trondheim-kommune-byplan-statistikk.github.io/ https://trondheim-kommune-byplankontor.github.io https://trondheim.kommunetv.no/ https://viewer.diagrams.net/ https://w.soundcloud.com/ https://www.google.com/maps/ https://www.google.com/recaptcha/ https://www.youtube-nocookie.com/ https://www.youtube.com/ https://*.trondheim.kommune.no/ https://*.cdn.optimizely.com https://*.cdn-pci.optimizely.com; connect-src https://dc.services.visualstudio.com https://js.monitor.azure.com https://*.optimizely.com 'self' https://bibliofil.trondheim.kommune.no/ https://www.google.com/recaptcha/ https://maps.googleapis.com/ https://tk-events.web.app/graphQL https://tkevents.no/graphQL https://translate.googleapis.com/ https://trondheim-elements.digdem.no/ https://trondheim.bib.no/ https://ws.geonorge.no/ https://*.trondheim.kommune.no/ https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; font-src 'self' data: https://fonts.gstatic.com/; img-src https://app.optimizely.com https://cdn.optimizely.com 'self' data: https://*.trondheim.kommune.no/ https://*.siteimproveanalytics.io/ https://cache.kartverket.no/ https://firebasestorage.googleapis.com/ https://fonts.gstatic.com/ https://hsk-widget.web.app/assets/ https://i.vimeocdn.com https://i.ytimg.com/ https://krydder.bib.no/ https://maps.googleapis.com/ https://maps.gstatic.com/ https://mediebank.ntb.no/api/v1/ https://preview.sdl.no/v2/ https://preview-cdn.sdl.no/v2/ https://translate.google.com/ https://translate.googleapis.com/ https://unpkg.com/leaflet@1.3.1/dist/images/ https://unpkg.com/leaflet@1.6.0/dist/images/ https://www.google.com/images/ https://www.gstatic.com/ https://*.googletagmanager.com https://*.google-analytics.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.min.css https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css https://fonts.googleapis.com/ https://unpkg.com/leaflet@1.3.1/dist/leaflet.css https://unpkg.com/leaflet@1.6.0/dist/leaflet.css https://www.gstatic.com/; object-src 'self'; media-src 'self'; manifest-src 'self'; frame-ancestors 'self'; form-action 'self'; default-src 'self'; base-uri 'self';",
+      "csp": "script-src https://js.monitor.azure.com https://*.optimizely.com https://optimizely.s3.amazonaws.com https://cdn-assets-prod.s3.amazonaws.com 'self' https://*.trondheim.kommune.no/ https://cdn.jsdelivr.net/syntaxhighlighter/3.0.83/scripts/shBrushJScript.js https://cdn.jsdelivr.net/syntaxhighlighter/3.0.83/scripts/shCore.js https://polyfill-fastly.io/v3/polyfill.min.js https://cdn.tiny.cloud/1/no-origin/tinymce/6.4.2-17/tinymce.min.js https://code.jquery.com/jquery-1.10.2.min.js https://code.jquery.com/jquery-1.12.4.min.js https://code.jquery.com/ui/1.12.0/jquery-ui.min.js https://hsk-widget.web.app/embed/hsk.js https://maps.googleapis.com/ https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js https://player.vimeo.com/ https://siteimproveanalytics.com/js/siteanalyze_6002236.js https://translate.google.com/ https://translate.googleapis.com/ https://translate-pa.googleapis.com/ https://trondheim.bib.no/ https://unpkg.com/@tmcw/togeojson@4.1.0/dist/togeojson.umd.js https://unpkg.com/jszip@3.5.0/dist/jszip.min.js https://unpkg.com/leaflet.gridlayer.googlemutant@0.10.2/Leaflet.GoogleMutant.js https://unpkg.com/leaflet@1.3.1/dist/leaflet.js https://unpkg.com/leaflet@1.6.0/dist/leaflet.js https://unpkg.com/leaflet-kmz@latest/dist/leaflet-kmz.js https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'nonce-455b7352-3fdf-41d0-a4c0-3d72ea638bb8'; frame-src 'self' https://accounts.google.com/ https://app.powerbi.com/ https://calendar.google.com/ https://datastudio.google.com/ https://docs.google.com/ https://e.infogram.com/ https://fast.wistia.net/ https://geoinnsyn.nois.no/ https://lookerstudio.google.com/ https://maps.google.no/ https://player.gobistories.com/ https://player.vimeo.com/ https://trondheim-kommune-byplan-statistikk.github.io/ https://trondheim-kommune-byplankontor.github.io https://trondheim.kommunetv.no/ https://viewer.diagrams.net/ https://w.soundcloud.com/ https://www.google.com/maps/ https://www.google.com/recaptcha/ https://www.youtube-nocookie.com/ https://www.youtube.com/ https://*.trondheim.kommune.no/ https://*.cdn.optimizely.com https://*.cdn-pci.optimizely.com; connect-src https://dc.services.visualstudio.com https://js.monitor.azure.com https://*.optimizely.com 'self' https://bibliofil.trondheim.kommune.no/ https://www.google.com/recaptcha/ https://maps.googleapis.com/ https://tk-events.web.app/graphQL https://tkevents.no/graphQL https://translate.googleapis.com/ https://trondheim-elements.digdem.no/ https://trondheim.bib.no/ https://ws.geonorge.no/ https://*.trondheim.kommune.no/; font-src 'self' data: https://fonts.gstatic.com/; img-src https://app.optimizely.com https://cdn.optimizely.com 'self' data: https://*.trondheim.kommune.no/ https://*.siteimproveanalytics.io/ https://cache.kartverket.no/ https://firebasestorage.googleapis.com/ https://fonts.gstatic.com/ https://hsk-widget.web.app/assets/ https://i.vimeocdn.com https://i.ytimg.com/ https://krydder.bib.no/ https://maps.googleapis.com/ https://maps.gstatic.com/ https://mediebank.ntb.no/api/v1/ https://preview.sdl.no/v2/ https://preview-cdn.sdl.no/v2/ https://translate.google.com/ https://translate.googleapis.com/ https://unpkg.com/leaflet@1.3.1/dist/images/ https://unpkg.com/leaflet@1.6.0/dist/images/ https://www.google.com/images/ https://www.gstatic.com/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.min.css https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css https://fonts.googleapis.com/ https://unpkg.com/leaflet@1.3.1/dist/leaflet.css https://unpkg.com/leaflet@1.6.0/dist/leaflet.css https://www.gstatic.com/; object-src 'self'; media-src 'self'; manifest-src 'self'; frame-ancestors 'self'; form-action 'self'; default-src 'self'; base-uri 'self';",
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Alstahaug",
@@ -2229,7 +2229,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bømlo",
@@ -2316,7 +2316,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Fauske",
@@ -2383,7 +2383,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Flatanger",
@@ -2432,7 +2432,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hemsedal",
@@ -2537,7 +2537,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Herøy",
@@ -2606,7 +2606,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hvaler",
@@ -2693,7 +2693,7 @@
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kviteseid",
@@ -2742,7 +2742,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kvæfjord",
@@ -2830,7 +2830,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lillehammer",
@@ -2917,7 +2917,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lund",
@@ -2984,7 +2984,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Molde",
@@ -3089,7 +3089,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Narvik",
@@ -3156,7 +3156,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nesseby",
@@ -3205,7 +3205,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Råde",
@@ -3274,7 +3274,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Skien",
@@ -3361,7 +3361,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sogndal",
@@ -3428,7 +3428,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Steigen",
@@ -3495,7 +3495,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sørreisa",
@@ -3544,7 +3544,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Træna",
@@ -3593,7 +3593,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Øyer",
@@ -3680,7 +3680,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Alver",
@@ -3791,7 +3791,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Aurland",
@@ -3902,7 +3902,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Austevoll",
@@ -4013,7 +4013,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Austrheim",
@@ -4124,7 +4124,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Fedje",
@@ -4235,7 +4235,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Flå",
@@ -4346,7 +4346,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gulen",
@@ -4457,7 +4457,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Masfjorden kommune",
@@ -4568,7 +4568,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Modalen",
@@ -4679,7 +4679,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Målselv",
@@ -4790,7 +4790,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nittedal",
@@ -4901,7 +4901,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Osterøy",
@@ -5012,7 +5012,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rennebu",
@@ -5123,7 +5123,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ringerike",
@@ -5237,7 +5237,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Samnanger",
@@ -5348,7 +5348,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sveio",
@@ -5459,7 +5459,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tysnes",
@@ -5570,7 +5570,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vaksdal",
@@ -5681,7 +5681,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Birkenes",
@@ -5773,7 +5773,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Fredrikstad",
@@ -5865,7 +5865,7 @@
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Grane",
@@ -5956,7 +5956,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hasvik",
@@ -6049,7 +6049,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lørenskog",
@@ -6142,7 +6142,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rana",
@@ -6235,7 +6235,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sandefjord",
@@ -6328,7 +6328,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Øygarden",
@@ -6421,7 +6421,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Fjord",
@@ -6494,7 +6494,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Frogn",
@@ -6611,7 +6611,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lunner",
@@ -6686,7 +6686,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Malvik",
@@ -6803,7 +6803,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nesna",
@@ -6879,7 +6879,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nordre Land",
@@ -6954,7 +6954,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rollag",
@@ -7071,7 +7071,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rælingen",
@@ -7188,7 +7188,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sirdal",
@@ -7263,7 +7263,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stavanger",
@@ -7272,7 +7272,7 @@
     "domain": "stavanger.kommune.no",
     "host": "www.stavanger.kommune.no",
     "hosting": {
-      "ip": "150.171.110.193",
+      "ip": "150.171.109.70",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -7384,7 +7384,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sykkylven",
@@ -7455,7 +7455,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Time",
@@ -7531,7 +7531,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Værøy",
@@ -7607,82 +7607,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
-  },
-  {
-    "kommune": "Øksnes",
-    "axis": "web",
-    "url": "https://www.oksnes.kommune.no/",
-    "domain": "oksnes.kommune.no",
-    "host": "www.oksnes.kommune.no",
-    "hosting": {
-      "ip": "176.221.90.98",
-      "asn": "31264",
-      "country": "NO",
-      "name": "stim-computing-as - advania norge as, no",
-      "jurisdiction": "NO (EEA)"
-    },
-    "third_parties": [
-      {
-        "domain": "cdn.jsdelivr.net",
-        "category": "cdn",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "companycast.live",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "oksnes.acossky.no",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "www.facebook.com",
-        "category": "social-tracker",
-        "jurisdiction": "United States (CLOUD Act)",
-        "flags": [
-          "tracker"
-        ]
-      },
-      {
-        "domain": "www.instagram.com",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "www.kommunekart.com",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "www.linkedin.com",
-        "category": "social-tracker",
-        "jurisdiction": "United States (CLOUD Act)",
-        "flags": [
-          "tracker"
-        ]
-      }
-    ],
-    "us_resource_fraction": 0.286,
-    "analytics": false,
-    "flags": [
-      "third_party_trackers"
-    ],
-    "evidence": {
-      "server": null,
-      "x_powered_by": null,
-      "csp": "frame-ancestors 'self';",
-      "tls_issuer": "Let's Encrypt",
-      "security_txt": false
-    },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ørsta",
@@ -7755,7 +7680,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hol",
@@ -7898,7 +7823,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Randaberg",
@@ -8040,7 +7965,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Siljan",
@@ -8183,7 +8108,7 @@
       "tls_issuer": "Buypass AS-983163327",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Grimstad",
@@ -8282,7 +8207,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Harstad",
@@ -8381,7 +8306,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Heim",
@@ -8480,7 +8405,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Luster",
@@ -8579,7 +8504,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Skjåk",
@@ -8680,7 +8605,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Flesberg",
@@ -8803,7 +8728,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Holmestrand",
@@ -8926,7 +8851,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kongsberg",
@@ -9049,7 +8974,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Namsos",
@@ -9173,7 +9098,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nordre Follo",
@@ -9296,7 +9221,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Notodden",
@@ -9419,7 +9344,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sigdal",
@@ -9542,7 +9467,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Aremark",
@@ -9597,7 +9522,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Arendal",
@@ -9702,7 +9627,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Asker",
@@ -9785,7 +9710,7 @@
       "tls_issuer": "Google Trust Services",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Beiarn",
@@ -9840,7 +9765,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bjerkreim",
@@ -9919,7 +9844,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Dyrøy",
@@ -9974,7 +9899,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Fyresdal",
@@ -10029,7 +9954,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Færder",
@@ -10134,7 +10059,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gol",
@@ -10263,7 +10188,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hamarøy",
@@ -10342,7 +10267,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hjartdal",
@@ -10471,7 +10396,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kautokeino",
@@ -10552,7 +10477,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kinn",
@@ -10631,7 +10556,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Klepp",
@@ -10760,7 +10685,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lavangen",
@@ -10815,7 +10740,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Loppa",
@@ -10922,7 +10847,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Måsøy",
@@ -10973,7 +10898,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nesbyen",
@@ -11101,7 +11026,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nore og Uvdal",
@@ -11230,7 +11155,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Overhalla",
@@ -11281,7 +11206,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ringsaker",
@@ -11336,7 +11261,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Salangen",
@@ -11391,7 +11316,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stjørdal",
@@ -11522,7 +11447,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stord",
@@ -11601,7 +11526,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Surnadal",
@@ -11656,7 +11581,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sørfold",
@@ -11735,7 +11660,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tinn",
@@ -11864,7 +11789,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vefsn",
@@ -11919,7 +11844,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Verdal",
@@ -12024,7 +11949,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ål",
@@ -12153,7 +12078,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sarpsborg",
@@ -12342,7 +12267,7 @@
       "tls_issuer": "Buypass AS-983163327",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hitra",
@@ -12503,7 +12428,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Holtålen",
@@ -12640,7 +12565,7 @@
       "tls_issuer": "\"Starfield Technologies",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Meløy",
@@ -12775,7 +12700,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rauma",
@@ -12884,7 +12809,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tydal",
@@ -12995,7 +12920,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sandnes",
@@ -13161,7 +13086,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Drammen",
@@ -13170,7 +13095,7 @@
     "domain": "drammen.kommune.no",
     "host": "www.drammen.kommune.no",
     "hosting": {
-      "ip": "104.18.157.4",
+      "ip": "104.18.187.62",
       "asn": "13335",
       "country": "US",
       "name": "cloudflarenet - cloudflare, inc., us",
@@ -13303,7 +13228,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gjesdal",
@@ -13388,7 +13313,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gran",
@@ -13476,7 +13401,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hattfjelldal",
@@ -13561,7 +13486,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hole",
@@ -13648,7 +13573,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hustadvika",
@@ -13735,7 +13660,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kragerø",
@@ -13820,7 +13745,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Meråker",
@@ -13905,7 +13830,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Namsskogan kommune",
@@ -13990,7 +13915,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nord-Fron",
@@ -14075,7 +14000,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Smøla",
@@ -14160,7 +14085,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stor-Elvdal",
@@ -14245,7 +14170,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sula",
@@ -14332,7 +14257,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vegårshei",
@@ -14417,7 +14342,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vestvågøy",
@@ -14504,7 +14429,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ås",
@@ -14591,7 +14516,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ullensaker",
@@ -14763,7 +14688,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Andøy",
@@ -14880,7 +14805,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Aukra",
@@ -14997,7 +14922,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Frosta",
@@ -15114,7 +15039,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Levanger",
@@ -15231,7 +15156,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vestre Toten",
@@ -15351,7 +15276,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hadsel",
@@ -15497,7 +15422,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Alvdal",
@@ -15618,7 +15543,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bergen kommune",
@@ -15711,7 +15636,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Enebakk",
@@ -15772,7 +15697,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gildeskål",
@@ -15833,7 +15758,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hammerfest",
@@ -15926,7 +15851,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hægebostad",
@@ -15935,7 +15860,7 @@
     "domain": "haegebostad.kommune.no",
     "host": "www.haegebostad.kommune.no",
     "hosting": {
-      "ip": "150.171.109.73",
+      "ip": "150.171.109.117",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -15988,7 +15913,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Høyanger",
@@ -16079,7 +16004,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Karasjok",
@@ -16170,7 +16095,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kristiansund",
@@ -16263,7 +16188,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kvinnherad",
@@ -16354,7 +16279,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kvænangen",
@@ -16415,7 +16340,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Oppdal",
@@ -16424,7 +16349,7 @@
     "domain": "oppdal.kommune.no",
     "host": "www.oppdal.kommune.no",
     "hosting": {
-      "ip": "150.171.109.73",
+      "ip": "150.171.109.117",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -16477,7 +16402,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Skiptvet kommune",
@@ -16538,7 +16463,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Steinkjer",
@@ -16631,7 +16556,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tana",
@@ -16692,7 +16617,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tingvoll",
@@ -16753,7 +16678,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Utsira",
@@ -16878,7 +16803,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vågan",
@@ -16972,7 +16897,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Våler",
@@ -17061,7 +16986,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Åmli",
@@ -17122,7 +17047,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Haugesund",
@@ -17251,7 +17176,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bamble",
@@ -17260,7 +17185,7 @@
     "domain": "bamble.kommune.no",
     "host": "www.bamble.kommune.no",
     "hosting": {
-      "ip": "150.171.109.72",
+      "ip": "150.171.109.114",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -17351,7 +17276,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Eidskog",
@@ -17448,7 +17373,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lyngdal",
@@ -17545,7 +17470,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Marker",
@@ -17644,7 +17569,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rødøy",
@@ -17741,7 +17666,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vestby",
@@ -17840,7 +17765,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Østre Toten",
@@ -17937,7 +17862,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Søndre Land",
@@ -18068,7 +17993,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Grue",
@@ -18242,7 +18167,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Aurskog-Høland",
@@ -18383,7 +18308,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Balsfjord",
@@ -18450,7 +18375,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Båtsfjord",
@@ -18517,7 +18442,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Farsund",
@@ -18526,7 +18451,7 @@
     "domain": "farsund.kommune.no",
     "host": "www.farsund.kommune.no",
     "hosting": {
-      "ip": "150.171.110.194",
+      "ip": "150.171.109.115",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -18585,7 +18510,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gratangen",
@@ -18652,7 +18577,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kvitsøy",
@@ -18715,7 +18640,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lillesand",
@@ -18782,7 +18707,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Moskenes",
@@ -18849,7 +18774,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Osen",
@@ -18858,7 +18783,7 @@
     "domain": "osen.kommune.no",
     "host": "www.osen.kommune.no",
     "hosting": {
-      "ip": "150.171.109.74",
+      "ip": "150.171.109.115",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -18917,7 +18842,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Risør",
@@ -19020,7 +18945,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Skaun",
@@ -19087,7 +19012,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Strand",
@@ -19154,7 +19079,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tokke",
@@ -19221,7 +19146,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vardø",
@@ -19288,7 +19213,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vestnes",
@@ -19391,7 +19316,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vik kommune",
@@ -19458,7 +19383,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lier",
@@ -19642,7 +19567,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nord-Odal",
@@ -19828,7 +19753,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Røros",
@@ -19974,7 +19899,7 @@
       "tls_issuer": "\"Starfield Technologies",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Flakstad",
@@ -20086,7 +20011,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sortland",
@@ -20197,7 +20122,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Suldal",
@@ -20308,7 +20233,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tvedestrand",
@@ -20417,7 +20342,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tysvær",
@@ -20528,7 +20453,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Aure",
@@ -20643,7 +20568,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Brønnøy",
@@ -20716,7 +20641,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bø",
@@ -20789,7 +20714,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Dønna",
@@ -20862,7 +20787,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gjerstad",
@@ -20935,7 +20860,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gloppen",
@@ -21008,7 +20933,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hjelmeland",
@@ -21081,7 +21006,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Krødsherad kommune",
@@ -21154,7 +21079,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lebesby",
@@ -21227,7 +21152,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lindesnes",
@@ -21236,7 +21161,7 @@
     "domain": "lindesnes.kommune.no",
     "host": "www.lindesnes.kommune.no",
     "hosting": {
-      "ip": "150.171.109.71",
+      "ip": "150.171.109.115",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -21301,7 +21226,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nærøysund",
@@ -21374,7 +21299,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sauda",
@@ -21447,7 +21372,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Snåsa",
@@ -21520,7 +21445,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Solund",
@@ -21593,7 +21518,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sør-Fron",
@@ -21666,7 +21591,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ulstein",
@@ -21739,7 +21664,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vennesla",
@@ -21812,7 +21737,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vindafjord",
@@ -21929,7 +21854,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Volda",
@@ -22002,7 +21927,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Iveland kommune",
@@ -22123,7 +22048,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lillestrøm",
@@ -22246,7 +22171,7 @@
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Averøy",
@@ -22325,7 +22250,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hamar",
@@ -22553,86 +22478,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
-  },
-  {
-    "kommune": "Høylandet",
-    "axis": "web",
-    "url": "https://www.hoylandet.kommune.no/",
-    "domain": "hoylandet.kommune.no",
-    "host": "www.hoylandet.kommune.no",
-    "hosting": {
-      "ip": "176.221.90.98",
-      "asn": "31264",
-      "country": "NO",
-      "name": "stim-computing-as - advania norge as, no",
-      "jurisdiction": "NO (EEA)"
-    },
-    "third_parties": [
-      {
-        "domain": "booking.famacweb.no",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "cdn.jsdelivr.net",
-        "category": "cdn",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "im.civis.no",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "namas.no",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "namdalrehab.no",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "namsos-kommune.enterprise.visma.no",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
-        "domain": "www.facebook.com",
-        "category": "social-tracker",
-        "jurisdiction": "United States (CLOUD Act)",
-        "flags": [
-          "tracker"
-        ]
-      },
-      {
-        "domain": "x05.ksx.no",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      }
-    ],
-    "us_resource_fraction": 0.125,
-    "analytics": false,
-    "flags": [
-      "third_party_trackers"
-    ],
-    "evidence": {
-      "server": null,
-      "x_powered_by": null,
-      "csp": "frame-ancestors 'self';",
-      "tls_issuer": "Let's Encrypt",
-      "security_txt": false
-    },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Indre Østfold",
@@ -22711,7 +22557,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Leka",
@@ -22790,7 +22636,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rindal",
@@ -22869,7 +22715,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sømna",
@@ -22948,7 +22794,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tjeldsund",
@@ -23027,7 +22873,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vega",
@@ -23106,7 +22952,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vevelstad",
@@ -23181,7 +23027,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Åfjord",
@@ -23190,7 +23036,7 @@
     "domain": "afjord.kommune.no",
     "host": "www.afjord.kommune.no",
     "hosting": {
-      "ip": "150.171.109.74",
+      "ip": "150.171.109.117",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -23261,7 +23107,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Årdal",
@@ -23394,7 +23240,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Evje og Hornnes kommune",
@@ -23479,7 +23325,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Froland kommune",
@@ -23564,7 +23410,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Frøya",
@@ -23649,7 +23495,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gamvik",
@@ -23734,7 +23580,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gausdal",
@@ -23819,7 +23665,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Herøy",
@@ -23904,7 +23750,92 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
+  },
+  {
+    "kommune": "Høylandet",
+    "axis": "web",
+    "url": "https://www.hoylandet.kommune.no/",
+    "domain": "hoylandet.kommune.no",
+    "host": "www.hoylandet.kommune.no",
+    "hosting": {
+      "ip": "176.221.90.98",
+      "asn": "31264",
+      "country": "NO",
+      "name": "stim-computing-as - advania norge as, no",
+      "jurisdiction": "NO (EEA)"
+    },
+    "third_parties": [
+      {
+        "domain": "booking.famacweb.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
+      {
+        "domain": "cdn.jsdelivr.net",
+        "category": "cdn",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
+      {
+        "domain": "im.civis.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
+      {
+        "domain": "namas.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
+      {
+        "domain": "namdalrehab.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
+      {
+        "domain": "namsos-kommune.enterprise.visma.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
+      {
+        "domain": "www.facebook.com",
+        "category": "social-tracker",
+        "jurisdiction": "United States (CLOUD Act)",
+        "flags": [
+          "tracker"
+        ]
+      },
+      {
+        "domain": "www.hoylandet.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
+      {
+        "domain": "x05.ksx.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      }
+    ],
+    "us_resource_fraction": 0.111,
+    "analytics": false,
+    "flags": [
+      "third_party_trackers"
+    ],
+    "evidence": {
+      "server": null,
+      "x_powered_by": null,
+      "csp": "frame-ancestors 'self';",
+      "tls_issuer": "Let's Encrypt",
+      "security_txt": false
+    },
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Inderøy",
@@ -23989,7 +23920,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Modum",
@@ -24074,7 +24005,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nesodden",
@@ -24159,7 +24090,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Saltdal",
@@ -24244,7 +24175,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sel",
@@ -24383,7 +24314,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sokndal",
@@ -24468,7 +24399,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sunnfjord",
@@ -24509,12 +24440,6 @@
         "flags": []
       },
       {
-        "domain": "sunnfjord.kommune.frivis.com",
-        "category": "other",
-        "jurisdiction": "Undetermined",
-        "flags": []
-      },
-      {
         "domain": "sunnfjord.kommunetv.no",
         "category": "other",
         "jurisdiction": "Undetermined",
@@ -24537,6 +24462,12 @@
         "category": "other",
         "jurisdiction": "Undetermined",
         "flags": []
+      },
+      {
+        "domain": "www.fordefestival.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
       }
     ],
     "us_resource_fraction": 0.111,
@@ -24549,7 +24480,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Voss",
@@ -24634,7 +24565,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ørland",
@@ -24720,7 +24651,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stange",
@@ -25044,7 +24975,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gjemnes",
@@ -25135,7 +25066,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Indre Fosen",
@@ -25144,7 +25075,7 @@
     "domain": "indrefosen.kommune.no",
     "host": "www.indrefosen.kommune.no",
     "hosting": {
-      "ip": "150.171.109.71",
+      "ip": "150.171.109.118",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -25227,7 +25158,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Jevnaker",
@@ -25318,7 +25249,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stad",
@@ -25405,7 +25336,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vanylven",
@@ -25496,7 +25427,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vinje",
@@ -25587,7 +25518,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Midt-Telemark",
@@ -25744,7 +25675,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Etne",
@@ -25841,7 +25772,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nord-Aurdal kommune",
@@ -25938,7 +25869,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nordkapp",
@@ -25947,7 +25878,7 @@
     "domain": "nordkapp.kommune.no",
     "host": "www.nordkapp.kommune.no",
     "hosting": {
-      "ip": "150.171.109.77",
+      "ip": "150.171.109.115",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -26036,7 +25967,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rakkestad",
@@ -26133,7 +26064,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Rendalen",
@@ -26230,7 +26161,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Røyrvik kommune",
@@ -26327,7 +26258,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Seljord",
@@ -26424,7 +26355,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stranda",
@@ -26517,7 +26448,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Trysil",
@@ -26614,7 +26545,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tønsberg",
@@ -26711,7 +26642,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Løten",
@@ -27023,7 +26954,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Folldal",
@@ -27126,7 +27057,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kvam",
@@ -27229,7 +27160,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vestre Slidre",
@@ -27332,7 +27263,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Øystre Slidre",
@@ -27435,7 +27366,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Eidfjord kommune",
@@ -27444,7 +27375,7 @@
     "domain": "eidfjord.kommune.no",
     "host": "www.eidfjord.kommune.no",
     "hosting": {
-      "ip": "150.171.109.71",
+      "ip": "150.171.109.115",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -27542,7 +27473,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Våler",
@@ -27738,7 +27669,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bindal",
@@ -27853,7 +27784,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hyllestad kommune",
@@ -27968,7 +27899,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tolga",
@@ -28083,7 +28014,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Tynset",
@@ -28198,7 +28129,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vang",
@@ -28313,7 +28244,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Etnedal kommune",
@@ -28434,7 +28365,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Os",
@@ -28556,7 +28487,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Valle",
@@ -28683,7 +28614,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sør-Odal",
@@ -29019,7 +28950,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nome",
@@ -29152,7 +29083,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sør-Aurdal",
@@ -29285,7 +29216,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bygland",
@@ -29430,7 +29361,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Stryn",
@@ -29575,7 +29506,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bremanger",
@@ -29744,7 +29675,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kongsvinger",
@@ -30246,7 +30177,7 @@
       "tls_issuer": "GlobalSign nv-sa",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bokn",
@@ -30499,7 +30430,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bjørnafjorden",
@@ -30812,7 +30743,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Askvoll",
@@ -30899,7 +30830,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Askøy",
@@ -31014,7 +30945,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bodø",
@@ -31077,7 +31008,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bykle kommune",
@@ -31176,7 +31107,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Bærum",
@@ -31198,11 +31129,11 @@
     "evidence": {
       "server": "cloudflare",
       "x_powered_by": null,
-      "csp": "default-src 'none'; script-src 'nonce-zivqlgUOSX1T2Z6QjdhX0K' 'unsafe-eval' https://challenges.cloudflare.com; script-src-attr 'none'; style-src 'unsafe-inline'; img-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com blob:; child-src 'self' https://challenges.cloudflare.com blob:; worker-src blob:; form-action http: https:; base-uri 'self'",
+      "csp": "default-src 'none'; script-src 'nonce-D82ZWalintjiy2lh2eXVhL' 'unsafe-eval' https://challenges.cloudflare.com; script-src-attr 'none'; style-src 'unsafe-inline'; img-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com blob:; child-src 'self' https://challenges.cloudflare.com blob:; worker-src blob:; form-action http: https:; base-uri 'self'",
       "tls_issuer": "Google Trust Services",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Dovre",
@@ -31283,7 +31214,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Drangedal",
@@ -31311,7 +31242,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Eidsvoll",
@@ -31339,7 +31270,7 @@
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Eigersund",
@@ -31372,7 +31303,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Elverum",
@@ -31435,7 +31366,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Engerdal kommune",
@@ -31504,7 +31435,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Evenes",
@@ -31561,7 +31492,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Fjaler",
@@ -31642,7 +31573,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Flekkefjord",
@@ -31651,7 +31582,7 @@
     "domain": "flekkefjord.kommune.no",
     "host": "www.flekkefjord.kommune.no",
     "hosting": {
-      "ip": "150.171.109.65",
+      "ip": "150.171.109.114",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -31695,7 +31626,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gjerdrum kommune",
@@ -31723,7 +31654,7 @@
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Gjøvik",
@@ -31739,6 +31670,12 @@
       "jurisdiction": "NO (EEA)"
     },
     "third_parties": [
+      {
+        "domain": "badetassen.no",
+        "category": "other",
+        "jurisdiction": "Undetermined",
+        "flags": []
+      },
       {
         "domain": "cdn.jsdelivr.net",
         "category": "cdn",
@@ -31780,7 +31717,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Grong",
@@ -31855,7 +31792,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Haram",
@@ -31888,7 +31825,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hareid",
@@ -31939,7 +31876,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Horten",
@@ -31984,7 +31921,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hurdal",
@@ -32012,7 +31949,7 @@
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Hå kommune",
@@ -32063,7 +32000,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Karlsøy",
@@ -32108,7 +32045,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Karmøy",
@@ -32147,7 +32084,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Kvinesdal",
@@ -32156,7 +32093,7 @@
     "domain": "kvinesdal.kommune.no",
     "host": "www.kvinesdal.kommune.no",
     "hosting": {
-      "ip": "150.171.110.194",
+      "ip": "150.171.109.113",
       "asn": "8075",
       "country": "US",
       "name": "microsoft-corp-msn-as-block - microsoft corporation, us",
@@ -32188,7 +32125,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lesja",
@@ -32263,7 +32200,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lierne",
@@ -32368,7 +32305,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lom",
@@ -32425,7 +32362,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lurøy",
@@ -32524,7 +32461,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lærdal",
@@ -32581,7 +32518,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Lødingen",
@@ -32650,7 +32587,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nannestad",
@@ -32678,7 +32615,7 @@
       "tls_issuer": "Sectigo Limited",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Nes",
@@ -32706,7 +32643,7 @@
       "tls_issuer": "DigiCert Inc",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ringebu",
@@ -32751,7 +32688,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Røst",
@@ -32814,7 +32751,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sande",
@@ -32865,7 +32802,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sola",
@@ -32904,7 +32841,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Sør-Varanger",
@@ -32973,7 +32910,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ullensvang",
@@ -33026,7 +32963,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ulvik kommune",
@@ -33077,7 +33014,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vadsø",
@@ -33105,7 +33042,7 @@
       "tls_issuer": null,
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vest-Lofoten kommune",
@@ -33144,7 +33081,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Vågå",
@@ -33207,7 +33144,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Ålesund",
@@ -33264,7 +33201,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Åmot",
@@ -33339,7 +33276,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Åseral",
@@ -33446,7 +33383,7 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": true
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Åsnes",
@@ -33474,7 +33411,33 @@
       "tls_issuer": null,
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
+  },
+  {
+    "kommune": "Øksnes",
+    "axis": "web",
+    "url": "https://www.oksnes.kommune.no/",
+    "domain": "oksnes.kommune.no",
+    "host": "www.oksnes.kommune.no",
+    "hosting": {
+      "ip": "176.221.90.98",
+      "asn": "31264",
+      "country": "NO",
+      "name": "stim-computing-as - advania norge as, no",
+      "jurisdiction": "NO (EEA)"
+    },
+    "third_parties": [],
+    "us_resource_fraction": 0.0,
+    "analytics": false,
+    "flags": [],
+    "evidence": {
+      "server": null,
+      "x_powered_by": null,
+      "csp": "frame-ancestors 'self';",
+      "tls_issuer": "Let's Encrypt",
+      "security_txt": false
+    },
+    "sourceDate": "2026-06-29"
   },
   {
     "kommune": "Øvre Eiker",
@@ -33537,6 +33500,6 @@
       "tls_issuer": "Let's Encrypt",
       "security_txt": false
     },
-    "sourceDate": "2026-06-28"
+    "sourceDate": "2026-06-29"
   }
 ]

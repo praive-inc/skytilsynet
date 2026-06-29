@@ -374,7 +374,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net; 40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net",
+          "observation": "40 se.mx4.mx25.net; 30 se.mx3.mailanyone.net; 20 se.mx2.mx25.net; 10 se.mx1.mailanyone.net",
           "source": "dig MX mrfylke.no",
           "observed_at": "2026-06-29",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -651,7 +651,7 @@
         },
         {
           "signal_type": "autodiscover",
-          "observation": "autodiscover.outlook.com",
+          "observation": ";; communications error to 127.0.0.53#53: timed out autodiscover.outlook.com",
           "source": "dig CNAME autodiscover.tromsfylke.no",
           "observed_at": "2026-06-29",
           "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",

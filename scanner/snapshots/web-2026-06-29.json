@@ -1,13 +1,5 @@
 {
-  "meta": {
-    "title": "Norwegian municipality website-infrastructure sovereignty",
-    "source": "public homepage (HTTP headers + embedded third-party resources + TLS issuer + security.txt) and public DNS (A record -> Team Cymru origin ASN)",
-    "sourceDate": "2026-06-29",
-    "license": "CC BY 4.0",
-    "attribution": "Skytilsynet / BetterWorld, skytilsynet.no",
-    "method": "See ../docs/scorecard-spec.md and scanner/README.md.",
-    "axis_note": "Distinct axis from the email scan: website infrastructure, not mail. Hosting jurisdiction is the first homepage IPv4's origin ASN (Team Cymru); third-party jurisdiction is the owner's, not where the asset is cached. Unknown resources/ASNs are 'Undetermined', never guessed."
-  },
+  "date": "2026-06-29",
   "summary": {
     "total": 358,
     "us_hosted": 56,

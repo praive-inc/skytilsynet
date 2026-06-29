@@ -29,7 +29,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 alt3.aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 1 aspmx.l.google.com",
+        "observation": "1 aspmx.l.google.com; 10 alt3.aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 alt4.aspmx.l.google.com",
         "source": "dig MX met.no",
         "observed_at": "2026-06-29",
         "inference": "MX leverer e-post til Google Workspace",
@@ -1190,7 +1190,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 mx2.fd.dep.no; 20 mx1.fd.dep.no",
+        "observation": "20 mx1.fd.dep.no; 20 mx2.fd.dep.no",
         "source": "dig MX fd.dep.no",
         "observed_at": "2026-06-29",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2449,7 +2449,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "5 mxb-003ba702.gslb.pphosted.com; 5 mxa-003ba702.gslb.pphosted.com",
+        "observation": "5 mxa-003ba702.gslb.pphosted.com; 5 mxb-003ba702.gslb.pphosted.com",
         "source": "dig MX nav.no",
         "observed_at": "2026-06-29",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2775,7 +2775,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "40 dk.mx4.mx25.net; 10 dk.mx1.mailanyone.net; 30 dk.mx3.mailanyone.net; 20 dk.mx2.mx25.net",
+        "observation": "10 dk.mx1.mailanyone.net; 40 dk.mx4.mx25.net; 30 dk.mx3.mailanyone.net; 20 dk.mx2.mx25.net",
         "source": "dig MX patentstyret.no",
         "observed_at": "2026-06-29",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2842,7 +2842,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "5 mailgw3.politiet.no; 5 mailgw4.politiet.no",
+        "observation": "5 mailgw4.politiet.no; 5 mailgw3.politiet.no",
         "source": "dig MX politiet.no",
         "observed_at": "2026-06-29",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -3686,7 +3686,7 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 mx2.fd.dep.no; 20 mx1.fd.dep.no",
+        "observation": "20 mx1.fd.dep.no; 20 mx2.fd.dep.no",
         "source": "dig MX smk.dep.no",
         "observed_at": "2026-06-29",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
