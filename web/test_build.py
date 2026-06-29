@@ -1223,5 +1223,193 @@ class BuildMainOnRealData(unittest.TestCase):
                 self.assertIn(o["name"], html)
 
 
+class ForPresse(unittest.TestCase):
+    """Issue #37: the /for-presse press kit. A journalist must be able to file in
+    30 minutes — so one page gathers the CSV + stable API URLs, the "Suverenitet
+    i tall" figures (all data-driven), a one-page method, same-origin embeds
+    (iframe + web-component) with a frozen-as-of-date option, downloadable
+    PNG/SVG graphics, and a CC-BY citation with a named contact. All baked
+    static, no external dep, embeds served same-origin (RFC-001 P5)."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT)
+        self.cats = build.build_categories(DATA, STAT)
+
+    # ---- figures (data-driven, never a slogan) ------------------------------
+    def test_figures_are_data_driven_5_to_8(self):
+        figs = build.press_figures(self.cats)
+        self.assertGreaterEqual(len(figs), 5)
+        self.assertLessEqual(len(figs), 8)
+        for f in figs:
+            self.assertTrue(f["value"])
+            self.assertTrue(f["label"])
+        # The combined US floor (66,7 % over 6 organ) is computed, not hardcoded.
+        combined = build.combine_summaries([c["summary"] for c in self.cats])
+        self.assertIn(build._no_pct(combined["us_pct"]) + " %",
+                      [f["value"] for f in figs])
+
+    def test_i_tall_box_is_on_the_page(self):
+        self.assertIn("Suverenitet i tall", self.html)
+        # A computed figure value survives into the rendered box.
+        combined = build.combine_summaries([c["summary"] for c in self.cats])
+        self.assertIn(build._no_pct(combined["us_pct"]) + " %", self.html)
+
+    def test_figures_state_the_fact_never_moralize(self):
+        hay = " ".join(f["label"] + " " + (f.get("note") or "")
+                       for f in build.press_figures(self.cats)).lower()
+        for bad in ["dårlig", "skammelig", "forræderi", "skandale", "svik"]:
+            self.assertNotIn(bad, hay)
+        self.assertIn("gulv", hay)   # the floor caveat is carried
+
+    # ---- the view + routing -------------------------------------------------
+    def test_view_and_route_and_nav_link(self):
+        self.assertIn('id="view-presse"', self.html)
+        self.assertIn('id="for-presse"', self.html)
+        self.assertIn('href="#for-presse"', self.html)            # masthead nav
+        self.assertIn('"view-presse"', self.html)                 # showView list
+        self.assertIn('hash==="for-presse"', self.html)           # route
+
+    # ---- downloads: CSV + stable API URLs -----------------------------------
+    def test_csv_per_category_and_combined(self):
+        files = build.press_csv(self.cats)
+        self.assertIn("skytilsynet-kombinert.csv", files)
+        for c in self.cats:
+            self.assertIn("skytilsynet-%s.csv" % c["key"], files)
+        # Header + one row per scanned entity, source-dated.
+        comb = files["skytilsynet-kombinert.csv"].strip().splitlines()
+        self.assertEqual(comb[0], ",".join(build._CSV_HEADER))
+        n = sum(len(c["entities"]) for c in self.cats)
+        self.assertEqual(len(comb) - 1, n)
+        self.assertIn("2026-06-28", files["skytilsynet-kommune.csv"])
+
+    def test_csv_and_api_links_on_page(self):
+        self.assertIn("Last ned data", self.html)
+        self.assertIn('href="data/skytilsynet-kombinert.csv"', self.html)
+        self.assertIn('href="data/skytilsynet-kommune.csv"', self.html)
+        # The stable JSON API URLs (the published per-category datasets) are linked.
+        for fn, _ in build.DATA_DOWNLOADS:
+            self.assertIn('href="data/' + fn + '"', self.html)
+
+    # ---- one-page method ----------------------------------------------------
+    def test_one_page_method_present(self):
+        self.assertIn("Metode på éi side", self.html)
+        for term in ["MX", "SPF", "jurisdiksjon", "Gulv", "Dekning"]:
+            self.assertIn(term, self.html)
+        self.assertIn("scanner/scan.py", self.html)
+
+    # ---- citation + named contact -------------------------------------------
+    def test_ccby_citation_and_named_contact(self):
+        self.assertIn("CC BY 4.0", self.html)
+        self.assertIn("Slik siterer du oss", self.html)
+        self.assertIn(build.PRESS_CONTACT_NAME, self.html)
+        self.assertIn(build.PRESS_CONTACT_EMAIL, self.html)
+        self.assertIn("mailto:" + build.PRESS_CONTACT_EMAIL, self.html)
+
+    # ---- graphics: PNG + SVG ------------------------------------------------
+    def test_graphics_links_png_and_svg(self):
+        for fn in ["graphics/gauge.svg", "graphics/gauge.png",
+                   "graphics/kart.svg", "graphics/kart.png"]:
+            self.assertIn('href="' + fn + '"', self.html)
+
+    def test_graphics_svg_are_standalone_concrete(self):
+        gfx = build.press_graphics(self.cats)
+        self.assertIn("gauge.svg", gfx)
+        self.assertIn("kart.svg", gfx)
+        for svg in gfx.values():
+            self.assertTrue(svg.startswith("<svg"))
+            self.assertIn("xmlns=", svg)
+            self.assertNotIn("var(--", svg)   # no CSS-var dependency on the site
+
+    # ---- embeds: iframe + web-component, frozen-as-of-date ------------------
+    def test_embed_snippets_iframe_and_web_component_on_page(self):
+        self.assertIn("Bygg inn figurene", self.html)
+        # iframe snippet (escaped inside the textarea) for the gauge and the map.
+        self.assertIn("&lt;iframe", self.html)
+        self.assertIn("skytilsynet.no/embed/gauge.html", self.html)
+        self.assertIn("skytilsynet.no/embed/kart.html", self.html)
+        # web-component snippet.
+        self.assertIn("skytilsynet-embed.js", self.html)
+        self.assertIn("skytilsynet-gauge", self.html)
+        self.assertIn("skytilsynet-kart", self.html)
+        # the frozen-as-of-date option.
+        self.assertIn("frys-toggle", self.html)
+        self.assertIn("Frys per", self.html)
+
+    def test_embed_files_render_standalone(self):
+        files = build.embed_files(self.cats, DATA["meta"])
+        self.assertEqual(set(files), {"embed/gauge.html", "embed/kart.html",
+                                      "embed/skytilsynet-embed.js"})
+        gauge = files["embed/gauge.html"]
+        self.assertIn('id="arc"', gauge)
+        self.assertIn("URLSearchParams", gauge)        # reads ?pct/?date
+        self.assertIn("CC BY 4.0", gauge)              # citation line
+        self.assertIn("skytilsynet.no", gauge)
+        kart = files["embed/kart.html"]
+        self.assertIn("createElementNS", kart)
+        self.assertIn("CC BY 4.0", kart)
+        comp = files["embed/skytilsynet-embed.js"]
+        self.assertIn("customElements.define", comp)
+        self.assertIn("skytilsynet-gauge", comp)
+        self.assertIn("skytilsynet-kart", comp)
+
+    def test_embeds_have_no_external_dependency(self):
+        # No external host, CDN, font, map tile or script (RFC-001 P5). The only
+        # off-site URL allowed is the same-origin skytilsynet.no citation link;
+        # the SVG xmlns (w3.org namespace) is a spec identifier, not a fetch.
+        for text in build.embed_files(self.cats, DATA["meta"]).values():
+            low = text.lower().replace("http://www.w3.org/2000/svg", "")
+            for bad in ["googleapis", "cdn.", "unpkg", "jsdelivr", "cloudflare",
+                        "http://", "mapbox", "leaflet", "openstreetmap"]:
+                self.assertNotIn(bad, low)
+
+    def test_colorstring_is_15_chars_of_known_classes(self):
+        cs = build.cartogram_colorstring(self.cats)
+        self.assertEqual(len(cs), 15)
+        self.assertTrue(all(ch in "ragx" for ch in cs))
+
+    def test_frozen_embed_pins_the_cited_figure(self):
+        # The frozen iframe snippet carries the exact figure + date in its URL so a
+        # published article's embed never silently changes.
+        us_pct = build.combine_summaries([c["summary"] for c in self.cats])["us_pct"]
+        snip = build.press_snippets_html(DATA["meta"], us_pct,
+                                         build.cartogram_colorstring(self.cats))
+        self.assertIn("gauge.html?pct=%s&amp;date=2026-06-28" % ("%.1f" % us_pct),
+                      snip)
+        # and the web-component frozen form pins it via attributes.
+        self.assertIn('pct=&quot;%.1f&quot;' % us_pct, snip)
+
+    # ---- asset writing ------------------------------------------------------
+    def test_write_press_assets_emits_csv_graphics_and_embeds(self):
+        import tempfile
+        dest = tempfile.mkdtemp()
+        build.write_press_assets(self.cats, DATA["meta"], dest)
+        self.assertTrue(os.path.exists(
+            os.path.join(dest, "data", "skytilsynet-kombinert.csv")))
+        self.assertTrue(os.path.exists(os.path.join(dest, "graphics", "gauge.svg")))
+        self.assertTrue(os.path.exists(os.path.join(dest, "graphics", "kart.svg")))
+        for rel in ["embed/gauge.html", "embed/kart.html",
+                    "embed/skytilsynet-embed.js"]:
+            self.assertTrue(os.path.exists(os.path.join(dest, rel)), rel)
+
+    def test_kommune_only_still_builds_the_press_page(self):
+        html = build.build_html(DATA, HISTORY, TREND)
+        self.assertIn("Suverenitet i tall", html)
+        self.assertIn('id="view-presse"', html)
+
+
+class PressGraphicsCommitted(unittest.TestCase):
+    """The committed PNG press graphics exist and are real PNGs — the deploy
+    rsyncs web/ verbatim, so these must be in the tree (generated by the
+    dev-time make_press_graphics.py, like og-image.png)."""
+
+    def test_png_graphics_committed(self):
+        for fn in ["gauge.png", "kart.png"]:
+            path = os.path.join(build.HERE, "graphics", fn)
+            self.assertTrue(os.path.exists(path), fn + " not committed")
+            w, h = _png_size(path)
+            self.assertGreater(w, 0)
+            self.assertGreater(h, 0)
+
+
 if __name__ == "__main__":
     unittest.main()

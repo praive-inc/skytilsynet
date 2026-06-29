@@ -532,6 +532,341 @@ def league_html(categories):
         '<div id="league-full" class="hidden"></div>')
 
 
+# --------------------------------------------------------------------------
+# /for-presse (issue #37): the press kit. A journalist must be able to file in
+# 30 minutes — so one place gathers the CSV + stable API URLs, the "Suverenitet
+# i tall" headline figures, a one-page method, same-origin embeds (iframe +
+# web-component) with a frozen-as-of-date option, downloadable graphics, and a
+# CC-BY citation with a named contact. Everything baked static, no external dep;
+# the embeds are served same-origin from skytilsynet.no (RFC-001 P5).
+# --------------------------------------------------------------------------
+
+# A named press contact. The metodikk-ansvarlig is already public on the Om page;
+# the presse@ alias is operator-provisioned (like the scan schedule).
+PRESS_CONTACT_NAME = "Jøran Bjerksetmyr"
+PRESS_CONTACT_EMAIL = "presse@skytilsynet.no"
+PRESS_CITATION = "Skytilsynet, skytilsynet.no (CC BY 4.0)"
+
+# Concrete palette for the standalone embeds + graphics — they carry no site
+# stylesheet to inherit the design tokens from, so colours are inlined.
+_EMBED_COLORS = {"r": "#ff6b6b", "a": "#f2b56b", "g": "#4dd6a0", "x": "#7d909f"}
+_CSS_CHAR = {"c-red": "r", "c-amber": "a", "c-green": "g", "c-grey": "x"}
+
+
+def press_figures(categories):
+    """The "Suverenitet i tall" headline figures — pre-written, but ALL derived
+    from the live summaries (CLAUDE.md rule 1: the fact, never a slogan). The
+    problem figures (the US floor) are framed against the goal figure (how few
+    have actually moved). 5-8 entries depending on which categories are present."""
+    combined = combine_summaries([c["summary"] for c in categories])
+    by_key = {c["key"]: c for c in categories}
+    figs = [
+        {"value": _no_pct(combined["us_pct"]) + " %",
+         "label": "av skannet offentlig sektor svarer e-posten til amerikansk "
+                  "jurisdiksjon (CLOUD Act)",
+         "note": "Et gulv — den reelle andelen er minst så høy."},
+        {"value": _no_pct(combined["microsoft_pct"]) + " %",
+         "label": "kjører Microsoft 365", "note": None},
+        {"value": "{} av {}".format(combined["eu_sovereign"], combined["total"]),
+         "label": "organ er på norsk eller europeisk e-postdrift",
+         "note": "Målet: snu dette tallet."},
+    ]
+    if "kommune" in by_key:
+        s = by_key["kommune"]["summary"]
+        figs.append({"value": _no_pct(s["microsoft_pct"]) + " %",
+                     "label": "av kommunene på Microsoft 365",
+                     "note": "{} av {} kommuner".format(s["us_microsoft"], s["total"])})
+    if "helse" in by_key:
+        s = by_key["helse"]["summary"]
+        figs.append({"value": "{} av {}".format(s["us_total"], s["total"]),
+                     "label": "helseforetak på amerikansk sky", "note": None})
+    if "uni" in by_key:
+        s = by_key["uni"]["summary"]
+        figs.append({"value": "{} av {}".format(s["us_total"], s["total"]),
+                     "label": "universiteter og høgskoler på amerikansk sky",
+                     "note": None})
+    if "stat" in by_key:
+        s = by_key["stat"]["summary"]
+        figs.append({"value": _no_pct(s["us_pct"]) + " %",
+                     "label": "av de skannede statlige organene på amerikansk sky",
+                     "note": None})
+    figs.append({"value": str(combined["total"]),
+                 "label": "offentlige organ kartlagt totalt", "note": None})
+    return figs
+
+
+def press_figures_html(categories):
+    cards = []
+    for f in press_figures(categories):
+        note = ('<span class="pf-note">' + f["note"] + '</span>') if f.get("note") else ""
+        cards.append(
+            '<div class="pf"><span class="pf-val">{v}</span>'
+            '<span class="pf-lab">{l}</span>{n}</div>'.format(
+                v=f["value"], l=f["label"], n=note))
+    return "".join(cards)
+
+
+_CSV_HEADER = ["navn", "kategori", "plattform", "jurisdiksjon",
+               "bak_gateway", "kilde_dato"]
+
+
+def _csv_text(rows):
+    import csv
+    import io
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(_CSV_HEADER)
+    w.writerows(rows)
+    return buf.getvalue()
+
+
+def _entity_rows(category):
+    rows = []
+    for e in category["entities"]:
+        rows.append([_entity_name(e), category["label"], e.get("platform") or "",
+                     e.get("jurisdiction") or _juris_label(e.get("platform")),
+                     "ja" if e.get("behind_gateway") else "nei",
+                     e.get("sourceDate") or ""])
+    return rows
+
+
+def press_csv(categories):
+    """{filename: csv_text}: one CSV per category plus a combined CSV over every
+    scanned entity. Plain, source-dated rows — the non-negotiable for a data
+    story (CC BY 4.0). Built from the FULL entity model (jurisdiction included)."""
+    files = {}
+    combined = []
+    for c in categories:
+        rows = _entity_rows(c)
+        files["skytilsynet-{}.csv".format(c["key"])] = _csv_text(rows)
+        combined.extend(rows)
+    files["skytilsynet-kombinert.csv"] = _csv_text(combined)
+    return files
+
+
+def cartogram_colorstring(categories):
+    """The 15-fylke cartogram as a compact 15-char colour string (r/a/g/x, in
+    _FYLKE_HEXES order). Short enough to ride in an embed URL/attribute, so a
+    journalist can freeze the exact map a published article cites."""
+    by_name = {(c["key"], _entity_name(e)): e
+               for c in categories for e in c["entities"]}
+    out = []
+    for county, short, ename, cat, col, row in _FYLKE_HEXES:
+        e = by_name.get((cat, ename))
+        css = _plat_css(e.get("platform"), e.get("behind_gateway")) if e else "c-grey"
+        out.append(_CSS_CHAR[css])
+    return "".join(out)
+
+
+def _hex_cells():
+    """The 15 fylke-hex polygons as concrete geometry (points + label anchor) plus
+    the SVG viewBox — computed once here so the iframe embed, the web component and
+    the static SVG graphic all render the same map from a colour string."""
+    import math
+    s = 30.0
+    hstep = math.sqrt(3) * s
+    vstep = 1.5 * s
+    pad = s + 4
+    cells = []
+    minx = miny = 1e9
+    maxx = maxy = -1e9
+    for county, short, ename, cat, col, row in _FYLKE_HEXES:
+        cx = pad + (col + (row % 2) * 0.5) * hstep
+        cy = pad + row * vstep
+        pts = []
+        for i in range(6):
+            a = math.radians(60 * i - 90)
+            px, py = cx + s * math.cos(a), cy + s * math.sin(a)
+            pts.append([round(px, 1), round(py, 1)])
+            minx, miny = min(minx, px), min(miny, py)
+            maxx, maxy = max(maxx, px), max(maxy, py)
+        cells.append({"short": short, "county": county, "pts": pts,
+                      "lx": round(cx, 1), "ly": round(cy + 4, 1)})
+    vb = [round(minx - 4), round(miny - 4),
+          round(maxx - minx + 8), round(maxy - miny + 8)]
+    return cells, vb
+
+
+def _gauge_svg_concrete(pct, ids=False):
+    """The dominant dial with INLINE colours (no CSS-var dependency), so it stands
+    alone as a downloadable .svg and inside an embed. With ids=True the value text
+    and red arc carry ids so the embed JS can re-skin them on a ?pct override."""
+    import math
+    length = math.pi * 150
+    frac = max(0.0, min(1.0, pct / 100.0))
+    d = "M 20 170 A 150 150 0 0 1 320 170"
+    val_id = ' id="val"' if ids else ""
+    arc_id = ' id="arc"' if ids else ""
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 210" role="img" '
+        'aria-label="Måler: {p} % av skannet norsk offentlig sektor på '
+        'USA-kontrollert sky">'
+        '<path d="{d}" fill="none" stroke="#384654" stroke-width="26" '
+        'stroke-linecap="round"/>'
+        '<path{arc} d="{d}" fill="none" stroke="#ff6b6b" stroke-width="26" '
+        'stroke-linecap="round" stroke-dasharray="{f:.1f} {len:.1f}"/>'
+        '<text{val} x="170" y="158" text-anchor="middle" font-family="sans-serif" '
+        'font-weight="700" font-size="64" fill="#ff6b6b">{p} %</text>'
+        '<text x="170" y="192" text-anchor="middle" font-family="sans-serif" '
+        'font-size="20" fill="#a3b6c6">på USA-kontrollert sky</text>'
+        '</svg>'
+    ).format(p=_no_pct(pct), d=d, arc=arc_id, val=val_id, f=frac * length, len=length)
+
+
+def _cartogram_svg_concrete(colorstring):
+    """The hex cartogram with INLINE colours from a 15-char colour string — a
+    downloadable .svg and the embed default."""
+    cells, vb = _hex_cells()
+    polys = []
+    for i, c in enumerate(cells):
+        ch = colorstring[i] if i < len(colorstring) else "x"
+        fill = _EMBED_COLORS.get(ch, _EMBED_COLORS["x"])
+        pts = " ".join("{},{}".format(p[0], p[1]) for p in c["pts"])
+        polys.append(
+            '<polygon points="{pts}" fill="{fill}" stroke="#0e1217" stroke-width="2">'
+            '<title>{county}</title></polygon>'
+            '<text x="{lx}" y="{ly}" text-anchor="middle" font-family="sans-serif" '
+            'font-size="15" font-weight="700" fill="#0b0e12">{short}</text>'.format(
+                pts=pts, fill=fill, county=c["county"], lx=c["lx"], ly=c["ly"],
+                short=c["short"]))
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb}" role="img" '
+        'aria-label="Kartogram over Norges 15 fylker, farget etter '
+        'e-postplattform">{body}</svg>').format(
+            vb=" ".join(str(x) for x in vb), body="".join(polys))
+
+
+def press_graphics(categories):
+    """{filename: svg_text}: the two key graphics as standalone, publish-ready SVG
+    (concrete colours, no external dep). The matching high-res PNGs are produced by
+    the separate make_press_graphics.py (Pillow) — kept out of build.py so the
+    weekly scan+build stays pure stdlib, exactly like make_og_image.py."""
+    combined = combine_summaries([c["summary"] for c in categories])
+    return {"gauge.svg": _gauge_svg_concrete(combined["us_pct"]),
+            "kart.svg": _cartogram_svg_concrete(cartogram_colorstring(categories))}
+
+
+def _embed_cite_js(date):
+    """The citation line every embed carries — a literal JS expression, so a date
+    override (?date=) flows straight in."""
+    return ("'Per '+date+' · Kilde: <a href=\"https://skytilsynet.no/\" "
+            "target=\"_blank\" rel=\"noopener\">Skytilsynet</a> (CC BY 4.0)'")
+
+
+def _gauge_embed(pct, date):
+    return (_EMBED_GAUGE_TMPL
+            .replace("__SVG__", _gauge_svg_concrete(pct, ids=True))
+            .replace("__PCT__", "{:.1f}".format(pct))
+            .replace("__DATE__", date)
+            .replace("__CITE__", _embed_cite_js(date)))
+
+
+def _kart_embed(colorstring, date):
+    cells, vb = _hex_cells()
+    return (_EMBED_KART_TMPL
+            .replace("__CELLS__", json.dumps(cells, ensure_ascii=False))
+            .replace("__VB__", " ".join(str(x) for x in vb))
+            .replace("__COLORS__", json.dumps(_EMBED_COLORS))
+            .replace("__D__", colorstring)
+            .replace("__DATE__", date)
+            .replace("__CITE__", _embed_cite_js(date)))
+
+
+def _component_js(pct, colorstring, date, cells, vb):
+    return (_EMBED_COMPONENT_TMPL
+            .replace("__CELLS__", json.dumps(cells, ensure_ascii=False))
+            .replace("__VB__", " ".join(str(x) for x in vb))
+            .replace("__COLORS__", json.dumps(_EMBED_COLORS))
+            .replace("__PCT__", "{:.1f}".format(pct))
+            .replace("__D__", colorstring)
+            .replace("__DATE__", date))
+
+
+def embed_files(categories, meta):
+    """{relpath: text} for the same-origin embeds: the gauge + map as iframe
+    targets and as a web-component bundle. Each renders standalone (no fetch, no
+    external dep) and freezes a cited figure via params (?pct/?d/?date) or the
+    matching custom-element attributes — defaults baked to the current scan."""
+    combined = combine_summaries([c["summary"] for c in categories])
+    pct = combined["us_pct"]
+    date = meta.get("sourceDate")
+    cstr = cartogram_colorstring(categories)
+    cells, vb = _hex_cells()
+    return {
+        "embed/gauge.html": _gauge_embed(pct, date),
+        "embed/kart.html": _kart_embed(cstr, date),
+        "embed/skytilsynet-embed.js": _component_js(pct, cstr, date, cells, vb),
+    }
+
+
+def _esc(s):
+    return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+
+def _esc_attr(s):
+    return _esc(s).replace('"', "&quot;")
+
+
+def press_snippets_html(meta, us_pct, colorstring):
+    """The copy-paste embed blocks for the press page: an iframe AND a web-component
+    form for each graphic, with a "frys per dato" toggle (live snippet ↔ a snippet
+    that pins the exact figure/map a published article cites) and the citation line
+    that ships inside every embed."""
+    site = SITE_URL
+    pct = "{:.1f}".format(us_pct)
+    date = meta.get("sourceDate")
+
+    def block(title, live, frozen):
+        return (
+            '<div class="press-embed">'
+            '<h4>{title}</h4>'
+            '<label class="frys"><input type="checkbox" class="frys-toggle"> '
+            'Frys per {date} — figuren en publisert artikkel siterer endrer seg '
+            'aldri</label>'
+            '<textarea class="press-snip" readonly rows="3" '
+            'data-live="{a_live}" data-frozen="{a_frozen}">{t_live}</textarea>'
+            '<div class="press-acts">'
+            '<button type="button" class="copybtn press-copy">Kopier</button>'
+            '<span class="press-cite-note">Siteringslinje følger med i innbyggingen.'
+            '</span></div>'
+            '</div>').format(
+                title=title, date=no_date(date) if date else "",
+                a_live=_esc_attr(live), a_frozen=_esc_attr(frozen),
+                t_live=_esc(live))
+
+    g_if_live = ('<iframe src="{s}/embed/gauge.html" width="360" height="250" '
+                 'style="border:0;max-width:100%" loading="lazy" '
+                 'title="Skybarometeret — måler"></iframe>').format(s=site)
+    g_if_frozen = g_if_live.replace(
+        "/embed/gauge.html", "/embed/gauge.html?pct={}&date={}".format(pct, date))
+    g_wc_live = ('<script src="{s}/embed/skytilsynet-embed.js" async></script>\n'
+                 '<skytilsynet-gauge></skytilsynet-gauge>').format(s=site)
+    g_wc_frozen = ('<script src="{s}/embed/skytilsynet-embed.js" async></script>\n'
+                   '<skytilsynet-gauge pct="{p}" date="{d}"></skytilsynet-gauge>'
+                   ).format(s=site, p=pct, d=date)
+    k_if_live = ('<iframe src="{s}/embed/kart.html" width="360" height="430" '
+                 'style="border:0;max-width:100%" loading="lazy" '
+                 'title="Skybarometeret — kartogram"></iframe>').format(s=site)
+    k_if_frozen = k_if_live.replace(
+        "/embed/kart.html", "/embed/kart.html?d={}&date={}".format(colorstring, date))
+    k_wc_live = ('<script src="{s}/embed/skytilsynet-embed.js" async></script>\n'
+                 '<skytilsynet-kart></skytilsynet-kart>').format(s=site)
+    k_wc_frozen = ('<script src="{s}/embed/skytilsynet-embed.js" async></script>\n'
+                   '<skytilsynet-kart d="{d}" date="{dt}"></skytilsynet-kart>'
+                   ).format(s=site, d=colorstring, dt=date)
+    return (
+        '<h3>Måleren</h3>'
+        '<div class="press-embed-grid">'
+        + block("iframe", g_if_live, g_if_frozen)
+        + block("Web-komponent", g_wc_live, g_wc_frozen)
+        + '</div>'
+        '<h3>Kartogrammet</h3>'
+        '<div class="press-embed-grid">'
+        + block("iframe", k_if_live, k_if_frozen)
+        + block("Web-komponent", k_wc_live, k_wc_frozen)
+        + '</div>')
+
+
 def render_html(meta, categories, history, trend, corrections=None):
     """Render the single-file site from the full category model. Pure.
 
@@ -572,6 +907,10 @@ def render_html(meta, categories, history, trend, corrections=None):
            "reelle andelen er minst så høy.").format(ms=_no_pct(ms_pct), us=_no_pct(us_pct))
     proof = proof_links(categories)
     proof_html = ("Også <b>" + proof + "</b>." if proof else "")
+    # /for-presse (issue #37): the "i tall" figures + the embed snippets, baked
+    # server-side so the press page works with no JS for first read.
+    press_figs = press_figures_html(categories)
+    press_snips = press_snippets_html(meta, us_pct, cartogram_colorstring(categories))
     return (_TEMPLATE
             .replace("/*__DATA__*/", blob)
             .replace("<!--__DOWNLOADS__-->", downloads)
@@ -580,7 +919,11 @@ def render_html(meta, categories, history, trend, corrections=None):
             .replace("<!--__GAUGE__-->", gauge_svg(us_pct))
             .replace("<!--__CARTOGRAM__-->", cartogram_svg(categories))
             .replace("<!--__LEAGUE__-->", league_html(categories))
-            .replace("<!--__PROOF__-->", proof_html))
+            .replace("<!--__PROOF__-->", proof_html)
+            .replace("<!--__PRESS_FIGURES__-->", press_figs)
+            .replace("<!--__PRESS_SNIPPETS__-->", press_snips)
+            .replace("<!--__PRESS_CONTACT_NAME__-->", PRESS_CONTACT_NAME)
+            .replace("<!--__PRESS_CONTACT_EMAIL__-->", PRESS_CONTACT_EMAIL))
 
 
 def build_html(data, history, trend, stat=None, web=None, seeded=None,
@@ -613,6 +956,26 @@ def write_detail_files(categories, dest_dir=WEB_DATA_DIR):
             f.write(text)
 
 
+def write_press_assets(categories, meta, web_dir=HERE):
+    """Write the /for-presse kit's static files into web/: the CSV downloads
+    (data/), the publish-ready SVG graphics (graphics/), and the same-origin
+    embeds (embed/). Committed alongside index.html so the deploy (rsync of web/)
+    serves them with no prod build step (RFC-001 P5)."""
+    data_dir = os.path.join(web_dir, "data")
+    gfx_dir = os.path.join(web_dir, "graphics")
+    for d in (data_dir, gfx_dir, os.path.join(web_dir, "embed")):
+        os.makedirs(d, exist_ok=True)
+    for fn, text in press_csv(categories).items():
+        with open(os.path.join(data_dir, fn), "w") as f:
+            f.write(text)
+    for fn, text in press_graphics(categories).items():
+        with open(os.path.join(gfx_dir, fn), "w") as f:
+            f.write(text)
+    for rel, text in embed_files(categories, meta).items():
+        with open(os.path.join(web_dir, rel), "w") as f:
+            f.write(text)
+
+
 def main():
     data = json.load(open(DATA))
     stat = json.load(open(STAT_DATA)) if os.path.exists(STAT_DATA) else None
@@ -628,6 +991,7 @@ def main():
         f.write(html)
     copy_downloads()
     write_detail_files(categories)
+    write_press_assets(categories, data["meta"])
     n_stat = len(stat["organ"]) if stat else 0
     n_web = len(web["kommuner"]) if web else 0
     print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner "
@@ -1028,6 +1392,29 @@ _TEMPLATE = r"""<!doctype html>
   .explore-btn:hover{background:#15293a}
   .sr-h{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .loading{color:var(--muted);font-size:var(--text-base);padding:var(--space-6) 0}
+  /* /for-presse (issue #37): the press kit. "Suverenitet i tall" figure grid,
+     embed-snippet blocks with a frys-toggle, and the download/citation panels. */
+  .press-lead{font-size:var(--text-lg);color:var(--muted);max-width:72ch;margin:0 0 var(--space-6)}
+  .figs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--space-3);margin:0 0 var(--space-4)}
+  .pf{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line);
+    border-radius:var(--radius);padding:var(--space-5);box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .pf-val{font-size:var(--text-2xl);font-weight:700;color:var(--red);line-height:1.05;
+    letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .pf-lab{font-size:var(--text-sm);color:var(--fg);margin-top:var(--space-2)}
+  .pf-note{font-size:var(--text-xs);color:var(--faint);margin-top:var(--space-2)}
+  .press-embed-grid{display:grid;grid-template-columns:1fr;gap:var(--space-3);margin:0 0 var(--space-5)}
+  @media(min-width:720px){.press-embed-grid{grid-template-columns:1fr 1fr}}
+  .press-embed{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:var(--space-4)}
+  .press-embed h4{margin:0 0 var(--space-2);font-size:var(--text-base)}
+  .press-embed .frys{display:flex;gap:var(--space-2);align-items:baseline;font-size:var(--text-sm);
+    color:var(--muted);margin:0 0 var(--space-2);cursor:pointer}
+  .press-snip{width:100%;resize:vertical;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius-sm);color:#cdd9e3;padding:var(--space-3);
+    font:var(--text-xs)/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .press-acts{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;margin-top:var(--space-2)}
+  .press-cite-note{font-size:var(--text-xs);color:var(--faint)}
+  .press-contact{font-size:var(--text-base)}
+  .press-contact b{color:var(--fg)}
   /* Honour a reduced-motion preference (WCAG 2.3.3): no fills, no smooth scroll */
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -1043,7 +1430,7 @@ _TEMPLATE = r"""<!doctype html>
   <header class="masthead">
     <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
     <span class="kicker">Skybarometeret</span>
-    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#om">Om &amp; metode</a></nav>
+    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a></nav>
   </header>
 
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
@@ -1159,6 +1546,123 @@ _TEMPLATE = r"""<!doctype html>
 
   <!-- DETAIL VIEW (per-entity permalink #org/<kategori>/<slug>) -->
   <section id="view-detail" class="hidden"></section>
+
+  <!-- FOR PRESSE VIEW (#for-presse): the press kit (issue #37). Everything a
+       journalist needs to file in 30 minutes — data, figures, a one-page method,
+       same-origin embeds with a frys-per-dato option, graphics, citation +
+       named contact. Baked static; works with no JS for first read. -->
+  <section id="view-presse" class="hidden">
+    <h2 id="for-presse">For presse</h2>
+    <p class="press-lead">Alt du trenger for å lage en sak på 30 minutter: tallene,
+      rådataene, en metode på éi side, ferdige grafikker, innbyggbare figurer som
+      kan fryses per dato — og en navngitt kontakt. Alt er åpent under
+      <b>CC BY 4.0</b>.</p>
+
+    <h2>Suverenitet i tall</h2>
+    <div class="figs"><!--__PRESS_FIGURES__--></div>
+    <p class="carto-note">Alle tall er utledet av siste skanning og er et
+      <b>gulv</b> — den reelle USA-andelen er minst så høy, aldri lavere.</p>
+
+    <h2 id="last-ned-data">Last ned data</h2>
+    <div class="panel">
+      <h3>CSV — per kategori og kombinert</h3>
+      <ul class="downloads">
+        <li><a href="data/skytilsynet-kombinert.csv" download>Kombinert — alle organ (CSV)</a>
+          <span class="dl-file">skytilsynet-kombinert.csv</span></li>
+        <li><a href="data/skytilsynet-kommune.csv" download>Kommuner (CSV)</a>
+          <span class="dl-file">skytilsynet-kommune.csv</span></li>
+        <li><a href="data/skytilsynet-stat.csv" download>Statlige organ (CSV)</a>
+          <span class="dl-file">skytilsynet-stat.csv</span></li>
+        <li><a href="data/skytilsynet-fylke.csv" download>Fylkeskommuner (CSV)</a>
+          <span class="dl-file">skytilsynet-fylke.csv</span></li>
+        <li><a href="data/skytilsynet-helse.csv" download>Helseforetak (CSV)</a>
+          <span class="dl-file">skytilsynet-helse.csv</span></li>
+        <li><a href="data/skytilsynet-uni.csv" download>Universiteter og høgskoler (CSV)</a>
+          <span class="dl-file">skytilsynet-uni.csv</span></li>
+      </ul>
+      <h3 style="margin-top:14px">API — stabile JSON-URL-er</h3>
+      <p>Det fulle, kildebelagte datasettet (samme som siden bruker) ligger på
+        stabile URL-er — hver rad bærer sin egen kilde og dato:</p>
+      <ul class="downloads"><!--__DOWNLOADS__--></ul>
+      <p style="font-size:13px;color:var(--muted)">Detaljdata per organ (evidens,
+        styresett, web-akse) ligger på <code>data/detail-&lt;kategori&gt;.json</code>.</p>
+    </div>
+
+    <h2>Høyoppløst grafikk</h2>
+    <div class="panel">
+      <p>Publiseringsklare grafikker — SVG (skalerbar, for trykk) og PNG. Alt
+        selvhostet, ingen ekstern avhengighet.</p>
+      <ul class="downloads">
+        <li><a href="graphics/gauge.svg" download>Måleren (SVG)</a>
+          <span class="dl-file">graphics/gauge.svg</span></li>
+        <li><a href="graphics/gauge.png" download>Måleren (PNG)</a>
+          <span class="dl-file">graphics/gauge.png</span></li>
+        <li><a href="graphics/kart.svg" download>Kartogrammet (SVG)</a>
+          <span class="dl-file">graphics/kart.svg</span></li>
+        <li><a href="graphics/kart.png" download>Kartogrammet (PNG)</a>
+          <span class="dl-file">graphics/kart.png</span></li>
+        <li><a href="og-image.png" download>Delekort «9 av 10» (PNG, 1200×630)</a>
+          <span class="dl-file">og-image.png</span></li>
+      </ul>
+    </div>
+
+    <h2>Bygg inn figurene</h2>
+    <div class="panel">
+      <p>Innbyggbar måler og kartogram — som <b>iframe</b> eller
+        <b>web-komponent</b>, begge servert fra skytilsynet.no (ingen ekstern
+        avhengighet). Hver innbygging bærer siteringslinjen. Kryss av for
+        <b>«frys per dato»</b> for å låse den figuren en publisert artikkel viser,
+        så tallet aldri endrer seg i ettertid.</p>
+      <!--__PRESS_SNIPPETS__-->
+    </div>
+
+    <h2>Metode på éi side</h2>
+    <div class="panel">
+      <p>Vi klassifiserer hvert organ ut fra <b>offentlig DNS</b> (pluss ett
+        uautentisert HTTPS-oppslag) — ingen innlogging, ingen kostnad. Signalene,
+        i økende bevisstyrke: <b>MX</b> (hvor e-posten leveres), <b>SPF</b> (hvem
+        som får sende), <b>autodiscover</b> (klientoppsett), <b>getuserrealm</b>
+        (Microsofts egen <code>Managed/Federated</code>-status) og <b>DKIM</b>.</p>
+      <ul class="method-list">
+        <li><b>Dekning og dato.</b> Skanningen dekker kommuner, statlige organ,
+          fylkeskommuner, helseforetak og UH-sektoren. Hver rad er datostemplet;
+          siste måledato vises på hver figur og i hver CSV-rad.</li>
+        <li><b>Datalagring ≠ jurisdiksjon.</b> At dataene lagres i Norge/EU
+          opphever ikke amerikansk jurisdiksjon: er operatøren amerikansk-hjemmehørende,
+          gjelder <b>US CLOUD Act</b> uansett hvor bytene fysisk ligger.</li>
+        <li><b>Gulv, ikke tak.</b> USA-andelen er et gulv — noen gateway-bakender
+          forblir uavdekket, og flere er etter alt å dømme også Microsoft. Reell
+          andel er minst så høy som vist.</li>
+        <li><b>Én akse.</b> Verdiktet gjelder e-post, ikke fagsystemer, arkiv eller
+          øvrige skytjenester. Web-aksen (nettstedets infrastruktur) holdes adskilt.</li>
+      </ul>
+      <p>Klassifiseringskoden er åpen og etterprøvbar linje for linje:
+        <a href="https://github.com/praive-inc/skytilsynet/blob/main/scanner/scan.py"
+          target="_blank" rel="noopener"><code>scanner/scan.py</code> →</a>.
+        Full metode: <a href="#om">Om &amp; metode</a>.</p>
+    </div>
+
+    <h2>Slik siterer du oss</h2>
+    <div class="panel">
+      <p>Datasettene og grafikkene er åpne under <b>Creative Commons CC BY 4.0</b>.
+        Bruk gjerne — oppgi kilde:</p>
+      <p class="press-contact"><b>«Kilde: Skytilsynet / BetterWorld, skytilsynet.no
+        (CC BY 4.0)»</b></p>
+      <p style="font-size:13px;color:var(--muted)">Hver innbygd figur har samme
+        siteringslinje innebygd, med måledato. Skytilsynet er et uavhengig prosjekt
+        — ikke et offentlig organ (se ansvarsfraskrivelsen øverst).</p>
+    </div>
+
+    <h2>Kontakt</h2>
+    <div class="panel">
+      <p class="press-contact"><b>Pressekontakt: <!--__PRESS_CONTACT_NAME__--></b>
+        (metodikk-ansvarlig). E-post:
+        <a href="mailto:<!--__PRESS_CONTACT_EMAIL__-->"><!--__PRESS_CONTACT_EMAIL__--></a>.</p>
+      <p style="font-size:13px;color:var(--muted)">Spørsmål til metoden, datatilgang,
+        intervju eller en retting går til samme navngitte person — ikke en anonym
+        redaksjon.</p>
+    </div>
+  </section>
 
   <!-- OM & METODE VIEW (#om): byttekart + benchmarks + methodology, demoted
        behind a click — the credibility depth, off the first screen. -->
@@ -1967,7 +2471,7 @@ _TEMPLATE = r"""<!doctype html>
   // Three views: home, per-entity detail (#org/<kategori>/<slug>, a permalink),
   // and Om & metode (#om) — the methodology demoted behind a click.
   function showView(id){
-    ["view-home","view-detail","view-om"].forEach(function(v){
+    ["view-home","view-detail","view-om","view-presse"].forEach(function(v){
       document.getElementById(v).classList.toggle("hidden", v!==id); });
   }
   function openDetail(catKey, s){
@@ -1988,6 +2492,7 @@ _TEMPLATE = r"""<!doctype html>
     var m = hash.match(/^org\/([^/]+)\/(.+)$/);
     if(m){ openDetail(m[1], m[2]); return; }
     if(hash==="om" || hash==="metode"){ showView("view-om"); window.scrollTo(0,0); return; }
+    if(hash==="for-presse" || hash==="presse"){ showView("view-presse"); window.scrollTo(0,0); return; }
     showView("view-home");
   }
 
@@ -2046,6 +2551,23 @@ _TEMPLATE = r"""<!doctype html>
     var ta = btn.closest(".funnel").querySelector("textarea");
     var done = function(){ btn.classList.add("ok"); btn.textContent = "Kopiert ✓";
       setTimeout(function(){ btn.classList.remove("ok"); btn.textContent = "Kopier teksten"; }, 2000); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(ta.value).then(done, function(){ ta.select(); });
+    } else { ta.select(); document.execCommand("copy"); done(); }
+  });
+  // /for-presse (issue #37): the frys-per-dato toggle swaps each embed snippet
+  // between its live form and a frozen form that pins the cited figure; the
+  // press-copy button copies the snippet. No data leaves the browser.
+  document.addEventListener("change", function(e){
+    var t = e.target; if(!t || !t.classList || !t.classList.contains("frys-toggle")) return;
+    var ta = t.closest(".press-embed").querySelector(".press-snip");
+    ta.value = t.checked ? ta.getAttribute("data-frozen") : ta.getAttribute("data-live");
+  });
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest(".press-copy"); if(!btn) return;
+    var ta = btn.closest(".press-embed").querySelector(".press-snip");
+    var done = function(){ btn.classList.add("ok"); btn.textContent = "Kopiert ✓";
+      setTimeout(function(){ btn.classList.remove("ok"); btn.textContent = "Kopier"; }, 2000); };
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(ta.value).then(done, function(){ ta.select(); });
     } else { ta.select(); document.execCommand("copy"); done(); }
@@ -2229,6 +2751,124 @@ _TEMPLATE = r"""<!doctype html>
 </body>
 </html>
 """
+
+
+# --------------------------------------------------------------------------
+# Same-origin embed targets (issue #37). Standalone HTML/JS — no fetch, no
+# external dependency (RFC-001 P5) — each renders the graphic and the citation
+# line, and freezes a cited figure via a URL param / custom-element attribute.
+# --------------------------------------------------------------------------
+_EMBED_BASE_CSS = (
+    "html,body{margin:0;background:#0e1217;color:#eef2f6;"
+    "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,"
+    "Arial,sans-serif}.embed{margin:0;padding:12px;text-align:center}"
+    ".embed svg{width:100%;max-width:360px;height:auto}"
+    "figcaption{font-size:12px;color:#a3b6c6;margin-top:8px;line-height:1.4}"
+    "figcaption a{color:#5cb3ff}")
+
+_EMBED_GAUGE_TMPL = (
+    "<!doctype html><html lang=\"nb\"><head><meta charset=\"utf-8\">"
+    "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
+    "<title>Skybarometeret — måler</title><style>" + _EMBED_BASE_CSS +
+    "</style></head><body><figure class=\"embed\">__SVG__"
+    "<figcaption id=\"cap\"></figcaption></figure><script>(function(){"
+    "var p=new URLSearchParams(location.search);var L=Math.PI*150;"
+    "var pct=parseFloat(p.get('pct')||'__PCT__');var date=p.get('date')||'__DATE__';"
+    "if(p.get('pct')){var frac=Math.max(0,Math.min(1,pct/100));"
+    "var arc=document.getElementById('arc');"
+    "if(arc)arc.setAttribute('stroke-dasharray',(frac*L).toFixed(1)+' '+L.toFixed(1));"
+    "var v=document.getElementById('val');"
+    "if(v)v.textContent=pct.toFixed(1).replace('.',',')+' %';}"
+    "document.getElementById('cap').innerHTML=__CITE__;"
+    "})();</script></body></html>")
+
+_EMBED_KART_TMPL = (
+    "<!doctype html><html lang=\"nb\"><head><meta charset=\"utf-8\">"
+    "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
+    "<title>Skybarometeret — kartogram</title><style>" + _EMBED_BASE_CSS +
+    "</style></head><body><figure class=\"embed\"><div id=\"map\"></div>"
+    "<figcaption id=\"cap\"></figcaption></figure><script>(function(){"
+    "var CELLS=__CELLS__,VB=\"__VB__\",COLORS=__COLORS__;"
+    "var p=new URLSearchParams(location.search);"
+    "var d=(p.get('d')||'__D__');var date=p.get('date')||'__DATE__';"
+    "var ns='http://www.w3.org/2000/svg';"
+    "var svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',VB);"
+    "svg.setAttribute('role','img');svg.setAttribute('aria-label',"
+    "'Kartogram over Norges 15 fylker etter e-postplattform');"
+    "CELLS.forEach(function(c,i){var ch=d.charAt(i)||'x';var fill=COLORS[ch]||COLORS.x;"
+    "var poly=document.createElementNS(ns,'polygon');"
+    "poly.setAttribute('points',c.pts.map(function(q){return q[0]+','+q[1];}).join(' '));"
+    "poly.setAttribute('fill',fill);poly.setAttribute('stroke','#0e1217');"
+    "poly.setAttribute('stroke-width','2');"
+    "var ti=document.createElementNS(ns,'title');ti.textContent=c.county;poly.appendChild(ti);"
+    "svg.appendChild(poly);var tx=document.createElementNS(ns,'text');"
+    "tx.setAttribute('x',c.lx);tx.setAttribute('y',c.ly);"
+    "tx.setAttribute('text-anchor','middle');tx.setAttribute('font-family','sans-serif');"
+    "tx.setAttribute('font-size','15');tx.setAttribute('font-weight','700');"
+    "tx.setAttribute('fill','#0b0e12');tx.textContent=c.short;svg.appendChild(tx);});"
+    "document.getElementById('map').appendChild(svg);"
+    "document.getElementById('cap').innerHTML=__CITE__;"
+    "})();</script></body></html>")
+
+# The web-component bundle: <skytilsynet-gauge> and <skytilsynet-kart>, each
+# rendering in a shadow root from baked defaults, overridable by attributes
+# (pct/d + date) to freeze the exact figure a published article cites.
+_EMBED_COMPONENT_TMPL = (
+    "(function(){"
+    "var CELLS=__CELLS__,VB=\"__VB__\",COLORS=__COLORS__;"
+    "var GPCT='__PCT__',GD='__D__',GDATE='__DATE__';"
+    "function cap(date){return 'Per '+date+' · Kilde: <a href=\"https://skytilsynet.no/\" "
+    "target=\"_blank\" rel=\"noopener\">Skytilsynet</a> (CC BY 4.0)';}"
+    "var BASE='<style>:host{display:block;background:#0e1217;color:#eef2f6;"
+    "font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;"
+    "padding:12px}svg{width:100%;max-width:360px;height:auto}"
+    "figcaption{font-size:12px;color:#a3b6c6;margin-top:8px;line-height:1.4}"
+    "a{color:#5cb3ff}</style>';"
+    "function Gauge(){return Reflect.construct(HTMLElement,[],Gauge);}"
+    "Gauge.prototype=Object.create(HTMLElement.prototype);"
+    "Gauge.prototype.connectedCallback=function(){"
+    "var pct=parseFloat(this.getAttribute('pct')||GPCT);"
+    "var date=this.getAttribute('date')||GDATE;"
+    "var L=Math.PI*150,frac=Math.max(0,Math.min(1,pct/100));"
+    "var num=pct.toFixed(1).replace('.',',')+' %';var d='M 20 170 A 150 150 0 0 1 320 170';"
+    "this.attachShadow({mode:'open'}).innerHTML=BASE+'<figure style=\"margin:0\">'+"
+    "'<svg viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Måler: '+num+' på "
+    "USA-kontrollert sky\">'+"
+    "'<path d=\"'+d+'\" fill=\"none\" stroke=\"#384654\" stroke-width=\"26\" "
+    "stroke-linecap=\"round\"/>'+"
+    "'<path d=\"'+d+'\" fill=\"none\" stroke=\"#ff6b6b\" stroke-width=\"26\" "
+    "stroke-linecap=\"round\" stroke-dasharray=\"'+(frac*L).toFixed(1)+' '+L.toFixed(1)+'\"/>'+"
+    "'<text x=\"170\" y=\"158\" text-anchor=\"middle\" font-family=\"sans-serif\" "
+    "font-weight=\"700\" font-size=\"64\" fill=\"#ff6b6b\">'+num+'</text>'+"
+    "'<text x=\"170\" y=\"192\" text-anchor=\"middle\" font-family=\"sans-serif\" "
+    "font-size=\"20\" fill=\"#a3b6c6\">på USA-kontrollert sky</text></svg>'+"
+    "'<figcaption>'+cap(date)+'</figcaption></figure>';};"
+    "function Kart(){return Reflect.construct(HTMLElement,[],Kart);}"
+    "Kart.prototype=Object.create(HTMLElement.prototype);"
+    "Kart.prototype.connectedCallback=function(){"
+    "var d=this.getAttribute('d')||GD;var date=this.getAttribute('date')||GDATE;"
+    "var ns='http://www.w3.org/2000/svg';"
+    "var svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',VB);"
+    "svg.setAttribute('role','img');svg.setAttribute('aria-label',"
+    "'Kartogram over Norges 15 fylker etter e-postplattform');"
+    "CELLS.forEach(function(c,i){var ch=d.charAt(i)||'x';var fill=COLORS[ch]||COLORS.x;"
+    "var poly=document.createElementNS(ns,'polygon');"
+    "poly.setAttribute('points',c.pts.map(function(q){return q[0]+','+q[1];}).join(' '));"
+    "poly.setAttribute('fill',fill);poly.setAttribute('stroke','#0e1217');"
+    "poly.setAttribute('stroke-width','2');"
+    "var ti=document.createElementNS(ns,'title');ti.textContent=c.county;poly.appendChild(ti);"
+    "svg.appendChild(poly);var tx=document.createElementNS(ns,'text');"
+    "tx.setAttribute('x',c.lx);tx.setAttribute('y',c.ly);"
+    "tx.setAttribute('text-anchor','middle');tx.setAttribute('font-family','sans-serif');"
+    "tx.setAttribute('font-size','15');tx.setAttribute('font-weight','700');"
+    "tx.setAttribute('fill','#0b0e12');tx.textContent=c.short;svg.appendChild(tx);});"
+    "var r=this.attachShadow({mode:'open'});r.innerHTML=BASE+"
+    "'<figure style=\"margin:0\"><figcaption>'+cap(date)+'</figcaption></figure>';"
+    "r.querySelector('figure').insertBefore(svg,r.querySelector('figcaption'));};"
+    "if(!customElements.get('skytilsynet-gauge'))customElements.define('skytilsynet-gauge',Gauge);"
+    "if(!customElements.get('skytilsynet-kart'))customElements.define('skytilsynet-kart',Kart);"
+    "})();")
+
 
 if __name__ == "__main__":
     main()
