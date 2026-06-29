@@ -593,6 +593,63 @@ class ActivismFunnel(unittest.TestCase):
         self.assertIn("Kopier", self.html)
 
 
+class ShareCard(unittest.TestCase):
+    """Issue #25: a per-entity shareable 'del'-card that turns visitors into
+    distributors. A screenshot-friendly card (name + email verdict +
+    jurisdiction + governance + the headline floor + skytilsynet.no), one-tap
+    Web Share where available with a copy-link fallback, plus a fully
+    client-side SVG -> canvas -> PNG download (no external image service). The
+    fact is the provocation — no editorializing. Page stays plain static."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+
+    def test_share_card_is_attached_to_the_detail_view(self):
+        # Rendered for every entity the detail view shows (both categories).
+        self.assertIn("renderShareCard", self.html)
+        self.assertIn("renderShareCard(k", self.html)
+        self.assertIn('id="sharecard"', self.html)
+
+    def test_share_card_is_factual_and_carries_the_url(self):
+        # Name + email verdict + jurisdiction + the brand URL, factual framing.
+        self.assertIn("sc-verdict", self.html)
+        self.assertIn("E-POST SVARER TIL", self.html)
+        self.assertIn("skytilsynet.no", self.html)
+        # The headline floor (combined US share) rides along as context.
+        self.assertIn("amerikansk jurisdiksjon", self.html)
+
+    def test_governance_frame_is_on_the_card_when_known(self):
+        # The governance tier rides along when the jurisdiction is determined.
+        self.assertIn("sc-gov", self.html)
+        self.assertIn("Styresett", self.html)
+
+    def test_web_share_api_with_copy_link_fallback(self):
+        # One-tap Web Share where available, else copy the deep link.
+        self.assertIn("navigator.share", self.html)
+        self.assertIn("navigator.clipboard", self.html)
+        self.assertIn("location.href", self.html)
+
+    def test_image_download_is_client_side_svg_to_canvas(self):
+        # "Last ned bilde": render the card to an SVG, rasterize via canvas, no
+        # external image/canvas service.
+        self.assertIn("Last ned bilde", self.html)
+        self.assertIn("image/svg+xml", self.html)
+        self.assertIn("toBlob", self.html)
+        self.assertIn("createObjectURL", self.html)
+
+    def test_share_card_states_the_fact_never_editorializes(self):
+        # The fact is the provocation; the card must not moralize.
+        self.assertNotIn("dårlig", self.html.lower())
+        self.assertNotIn("skammelig", self.html.lower())
+
+    def test_no_external_loads_added_by_the_card(self):
+        # RFC-001 P5: still fully self-contained, no social SDK / external image
+        # service / web font.
+        for bad in ["facebook", "twitter.com", "x.com/intent", "platform.linkedin",
+                    "addthis", "sharethis", "googleapis", "htmlcsstoimage"]:
+            self.assertNotIn(bad, self.html.lower())
+
+
 class BuildMainOnRealData(unittest.TestCase):
     """Smoke test the real pipeline against the committed datasets."""
     def test_real_data_renders_both_categories(self):
