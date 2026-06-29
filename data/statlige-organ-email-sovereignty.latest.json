@@ -9,6 +9,7 @@
     "floor_note": "microsoft_pct and us_pct are a FLOOR, not a ceiling: 0 domain(s) sit behind a mail-security gateway whose backend SPF did not unmask — some are likely Microsoft too. The true US share is >= the figure shown."
   },
   "summary": {
+    "methodology_version": 2,
     "total": 62,
     "us_microsoft": 61,
     "us_google": 1,
@@ -54,7 +55,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 alt4.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 1 aspmx.l.google.com; 10 alt3.aspmx.l.google.com",
+          "observation": "10 alt3.aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 10 alt4.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 1 aspmx.l.google.com",
           "source": "dig MX met.no",
           "observed_at": "2026-06-29",
           "inference": "MX leverer e-post til Google Workspace",
@@ -1590,7 +1591,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "10 mxa-008b4101.gslb.pphosted.com; 10 mxb-008b4101.gslb.pphosted.com",
+          "observation": "10 mxb-008b4101.gslb.pphosted.com; 10 mxa-008b4101.gslb.pphosted.com",
           "source": "dig MX jd.dep.no",
           "observed_at": "2026-06-29",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2474,7 +2475,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "5 mxa-003ba702.gslb.pphosted.com; 5 mxb-003ba702.gslb.pphosted.com",
+          "observation": "5 mxb-003ba702.gslb.pphosted.com; 5 mxa-003ba702.gslb.pphosted.com",
           "source": "dig MX nav.no",
           "observed_at": "2026-06-29",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -2800,7 +2801,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 dk.mx2.mx25.net; 30 dk.mx3.mailanyone.net; 10 dk.mx1.mailanyone.net; 40 dk.mx4.mx25.net",
+          "observation": "40 dk.mx4.mx25.net; 10 dk.mx1.mailanyone.net; 30 dk.mx3.mailanyone.net; 20 dk.mx2.mx25.net",
           "source": "dig MX patentstyret.no",
           "observed_at": "2026-06-29",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
@@ -3711,7 +3712,7 @@
       "evidence": [
         {
           "signal_type": "mx",
-          "observation": "20 mx1.fd.dep.no; 20 mx2.fd.dep.no",
+          "observation": "20 mx2.fd.dep.no; 20 mx1.fd.dep.no",
           "source": "dig MX smk.dep.no",
           "observed_at": "2026-06-29",
           "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
