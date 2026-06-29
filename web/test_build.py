@@ -486,6 +486,70 @@ class DesignPolish(unittest.TestCase):
         self.assertIn('aria-hidden="true"', self.html)
 
 
+class ActivismFunnel(unittest.TestCase):
+    """Issue #3: the activism funnel. Each entity detail view emits copy-ready
+    citizen tooling — a pre-filled offentleglova innsyn request for BOTH
+    categories, plus the category-specific lever (kommune: minsak.no
+    innbyggerforslag; statlig organ: skriftlig spørsmål via a Stortinget rep).
+    Templates are baked client-side from the entity name; no per-citizen data is
+    collected; the page stays plain static."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+
+    def test_funnel_is_attached_to_the_detail_view(self):
+        # The detail render must emit the funnel for every entity it shows.
+        self.assertIn("renderFunnel", self.html)
+        self.assertIn("renderFunnel(k", self.html)
+
+    def test_innsyn_request_is_offentleglova_grounded(self):
+        # Copy-ready innsyn (FOI) request, cited to offentleglova.
+        self.assertIn("offentleglova", self.html)
+        self.assertIn("Innsynskrav", self.html)
+        # The M365/cloud contract + DPIA are the documents requested.
+        self.assertIn("databehandleravtale", self.html)
+        self.assertIn("personvernkonsekvensvurdering", self.html.lower())
+
+    def test_innsyn_cites_the_five_working_day_response(self):
+        # The statutory response window is cited, not invented.
+        self.assertIn("fem", self.html.lower())
+        self.assertIn("§ 29", self.html)
+
+    def test_innsyn_is_offered_for_both_categories(self):
+        # The innsyn lever works for state bodies too, so it must not be gated to
+        # the kommune branch — it sits in the shared part of the funnel.
+        self.assertIn("buildInnsyn", self.html)
+        self.assertIn("buildInnsyn(k", self.html)
+
+    def test_kommune_lever_is_minsak_innbyggerforslag(self):
+        self.assertIn("innbyggerforslag", self.html)
+        self.assertIn("minsak.no", self.html)
+        self.assertIn("300", self.html)               # 300 signatures forces a position
+        self.assertIn("kommuneloven", self.html)
+
+    def test_stat_lever_is_written_question_via_stortinget(self):
+        self.assertIn("skriftlig spørsmål", self.html)
+        self.assertIn("stortinget.no", self.html)
+        # The category-specific lever is chosen by catKey.
+        self.assertIn('catKey==="kommune"', self.html)
+
+    def test_messaging_frames_the_durable_procurement_ask(self):
+        # CLAUDE.md rule 6 / Munich LiMux: the ask is a procurement-rule / strategy
+        # change, never a personal attack on named officials.
+        self.assertIn("anskaffelse", self.html.lower())
+        self.assertIn("strategi", self.html.lower())
+
+    def test_funnel_keeps_no_per_citizen_records(self):
+        # Rule 5: aggregate-only. The funnel must not collect/submit citizen data —
+        # no form, no e-mail capture field, copy-to-clipboard / mailto only.
+        self.assertNotIn("<form", self.html)
+        self.assertNotIn('type="email"', self.html)
+        self.assertIn("clipboard", self.html)
+
+    def test_copy_button_is_present(self):
+        self.assertIn("Kopier", self.html)
+
+
 class BuildMainOnRealData(unittest.TestCase):
     """Smoke test the real pipeline against the committed datasets."""
     def test_real_data_renders_both_categories(self):

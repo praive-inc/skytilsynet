@@ -188,6 +188,22 @@
   table.switch{width:100%;border-collapse:collapse;font-size:var(--text-sm)}
   table.switch td,table.switch th{text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line);vertical-align:top}
   table.switch th{color:var(--faint);font-weight:600;font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase}
+  /* Activism funnel (issue #3): copy-ready citizen tooling per entity */
+  .funnel{padding:var(--space-5) var(--space-6);margin:0 0 var(--space-4)}
+  .funnel h3{margin:0 0 var(--space-2);font-size:var(--text-lg)}
+  .funnel .lead{font-size:var(--text-sm);color:var(--muted);margin:0 0 var(--space-3)}
+  .funnel textarea{width:100%;min-height:200px;resize:vertical;background:var(--bg-2);
+    border:1px solid var(--line);border-radius:var(--radius-sm);color:#cdd9e3;
+    padding:var(--space-3) var(--space-4);
+    font:var(--text-xs)/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .funnel .acts{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;margin-top:var(--space-3)}
+  .copybtn{background:#10202e;border:1px solid var(--accent);border-radius:var(--radius-sm);
+    color:var(--fg);padding:var(--space-2) var(--space-4);font:inherit;font-size:var(--text-sm);
+    font-weight:600;cursor:pointer;min-height:44px}
+  .copybtn:hover{background:#15293a}
+  .copybtn.ok{border-color:var(--green);color:var(--green)}
+  .funnel .ext{font-size:var(--text-sm)}
+  .funnel .stat-note{font-size:var(--text-xs);color:var(--faint);margin-top:var(--space-3)}
   .en{border-top:1px solid var(--line);margin-top:var(--space-16);padding-top:var(--space-6);color:var(--muted);font-size:var(--text-sm)}
   .en strong{color:var(--fg)}
   footer{margin-top:var(--space-10);color:var(--faint);font-size:var(--text-sm)}
@@ -627,6 +643,109 @@
         (host.asn? ": AS"+esc(host.asn)+(host.name?" "+esc(host.name):""):"")+
         '), målt '+esc(noDate(w.sourceDate || DB.meta.sourceDate))+'.</p>';
   }
+  // ---- Activism funnel (issue #3): turn each detail page into ACTION ------
+  // Templates are baked here, client-side, from the entity name — no runtime
+  // fetch, no per-citizen data (rule 5). The ask is always the DURABLE one:
+  // a procurement-rule / strategy change, never a personal attack (rule 6).
+  function buildInnsyn(k){
+    var n = nameOf(k);
+    return ""+
+      "Til "+n+"\n\n"+
+      "Innsynskrav etter offentleglova\n\n"+
+      "Med hjemmel i offentleglova § 3 ber jeg om innsyn i følgende dokumenter:\n\n"+
+      "1. Gjeldende avtale(r) med Microsoft eller annen skyleverandør om e-post, "+
+        "Microsoft 365 / Office 365 og tilknyttede skytjenester, inkludert "+
+        "databehandleravtale.\n"+
+      "2. Personvernkonsekvensvurdering (DPIA) og eventuell risikovurdering for "+
+        "bruken av disse tjenestene.\n"+
+      "3. Vurdering av overføring av personopplysninger til tredjeland (USA) og "+
+        "det rettslige grunnlaget for slik overføring etter personvernforordningen.\n\n"+
+      "Jeg ber om innsyn i elektronisk form. Etter offentleglova § 29 skal kravet "+
+        "avgjøres uten ugrunnet opphold. Krav som ikke er besvart innen fem "+
+        "arbeidsdager regnes etter fast forvaltningspraksis som et avslag som kan "+
+        "påklages. Ved helt eller delvis avslag ber jeg om en skriftlig begrunnelse "+
+        "med henvisning til den bestemmelsen som er brukt, jf. offentleglova § 31, "+
+        "og opplysning om klageadgang.\n\n"+
+      "Med vennlig hilsen\n[Ditt navn]";
+  }
+  function buildKommuneForslag(k){
+    var n = nameOf(k);
+    return ""+
+      "Forslag: Vedta en strategi for digital suverenitet\n\n"+
+      "Vi ber kommunestyret i "+n+" om å vedta at digital suverenitet — at "+
+        "innbyggernes data svarer til norsk og europeisk jurisdiksjon — skal vektes "+
+        "som kriterium i kommunens IKT-anskaffelser, og at det utarbeides en plan for "+
+        "å redusere avhengigheten av leverandører underlagt amerikansk jurisdiksjon "+
+        "(CLOUD Act) der det finnes egnede europeiske alternativer.\n\n"+
+      "Dette er et forslag om varig endring i kommunens innkjøps- og IKT-strategi, "+
+        "ikke en kritikk av enkeltpersoner eller en enkeltstående IT-beslutning som "+
+        "kan reverseres ved neste vedtak.";
+  }
+  function buildStatSporsmal(k){
+    var n = nameOf(k);
+    return ""+
+      "Forslag til skriftlig spørsmål til ansvarlig statsråd:\n\n"+
+      "«Hvilke planer har statsråden for å redusere "+n+" sin avhengighet av "+
+        "programvare- og skytjenester underlagt amerikansk jurisdiksjon (CLOUD Act), "+
+        "og vil statsråden sørge for at hensynet til digital suverenitet vektes som "+
+        "kriterium i statlige IKT-anskaffelser, slik anskaffelsesregelverket allerede "+
+        "åpner for?»\n\n"+
+      "Dette gjelder en varig endring i anskaffelses- og IKT-strategi, ikke en "+
+        "kritikk av enkeltpersoner.";
+  }
+  function mailto(subject, body){
+    return "mailto:?subject="+encodeURIComponent(subject)+
+      "&body="+encodeURIComponent(body);
+  }
+  function tool(title, lead, text, acts){
+    return '<div class="panel funnel">'+
+      '<h3>'+esc(title)+'</h3>'+
+      '<p class="lead">'+lead+'</p>'+
+      '<textarea class="tmpl" readonly aria-label="'+esc(title)+'">'+esc(text)+'</textarea>'+
+      '<div class="acts">'+
+        '<button type="button" class="copybtn">Kopier teksten</button>'+acts+
+      '</div></div>';
+  }
+  function renderFunnel(k, catKey){
+    var n = nameOf(k);
+    var innsyn = buildInnsyn(k);
+    var html = '<h2>Krev svar — verktøy for innbyggere</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">Endringen som '+
+        'varer ligger i <b>innkjøpsreglene og IKT-strategien</b>, ikke i et enkelt '+
+        'vedtak som kan reverseres (lærdommen fra Münchens LiMux). Malene under er '+
+        'ferdig utfylt med organets navn — kopiér, fyll inn ditt eget navn og send. '+
+        'Vi lagrer ingenting om deg.</p>'+
+      tool("1. Innsynskrav (offentleglova)",
+        'Krev innsyn i organets Microsoft 365-/sky-avtale og personvern'+
+          'konsekvensvurdering (DPIA). Etter <b>offentleglova § 29</b> skal kravet '+
+          'avgjøres uten ugrunnet opphold — normalt innen <b>fem arbeidsdager</b>.',
+        innsyn,
+        '<a class="ext" href="'+mailto("Innsynskrav etter offentleglova", innsyn)+
+          '">Åpne i e-post →</a>');
+    if(catKey==="kommune"){
+      var forslag = buildKommuneForslag(k);
+      html += tool("2. Innbyggerforslag (minsak.no)",
+        'Et innbyggerforslag med <b>300 underskrifter</b> (eller 2 % av innbyggerne) '+
+          'forplikter kommunestyret til å ta stilling til saken, jf. <b>kommuneloven '+
+          '§ 12-1</b>. Opprett forslaget på minsak.no.',
+        forslag,
+        '<a class="ext" href="https://www.minsak.no" target="_blank" rel="noopener">'+
+          'Opprett på minsak.no →</a>');
+    } else {
+      var sporsmal = buildStatSporsmal(k);
+      html += tool("2. Skriftlig spørsmål via Stortinget",
+        'Innbyggerforslag gjelder bare kommuner. For et statlig organ er den '+
+          'realistiske kanalen et <b>skriftlig spørsmål</b> til ansvarlig statsråd, '+
+          'stilt av en stortingsrepresentant. Be en representant fra din valgkrets '+
+          'om å fremme spørsmålet — finn representanten på stortinget.no — eller send '+
+          'det direkte til '+esc(n)+' som en alminnelig henvendelse.',
+        sporsmal,
+        '<a class="ext" href="https://www.stortinget.no" target="_blank" '+
+          'rel="noopener">Finn representant på stortinget.no →</a>');
+    }
+    return html;
+  }
+
   function renderDetail(k, catKey){
     var m = platMeta(k);
     var resid = (k.platform==="EU_SOVEREIGN")
@@ -667,7 +786,8 @@
       renderTrail(k.evidence)+
       '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
         'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>'+
-      renderWebAxis(k);
+      renderWebAxis(k)+
+      renderFunnel(k, catKey);
   }
 
   // ---- Routing ------------------------------------------------------------
@@ -713,6 +833,16 @@
     location.hash = "org/"+btn.getAttribute("data-c")+"/"+btn.getAttribute("data-k"); });
   document.addEventListener("click", function(e){
     if(e.target && e.target.id==="back") history.length>1 ? history.back() : (location.hash=""); });
+  // Copy a funnel template to the clipboard (no data leaves the browser).
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest(".copybtn"); if(!btn) return;
+    var ta = btn.closest(".funnel").querySelector("textarea");
+    var done = function(){ btn.classList.add("ok"); btn.textContent = "Kopiert ✓";
+      setTimeout(function(){ btn.classList.remove("ok"); btn.textContent = "Kopier teksten"; }, 2000); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(ta.value).then(done, function(){ ta.select(); });
+    } else { ta.select(); document.execCommand("copy"); done(); }
+  });
   window.addEventListener("hashchange", route);
 
   renderHero(); renderGoal(); renderCatbar(); renderFilters(); renderGrid(); route();
