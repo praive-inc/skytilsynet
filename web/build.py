@@ -206,6 +206,163 @@ def build_goal(combined):
     }
 
 
+# --------------------------------------------------------------------------
+# Suverenitetsscore (issue #38): a transparent, per-entity PRESENTATION score —
+# 0-100, higher = more sovereign. NOT a fork of BetterWorld's multi-axis
+# SovereigntyScore engine (CLAUDE.md rule 3): it is a fixed, open weighting of
+# the three axes Skytilsynet already cites, computed here only so the page can
+# show the formula and rank bodies. When BetterWorld's engine matures we consume
+# it and this becomes a thin renderer of its output.
+#
+# Three axes, fixed weights. An axis with no measurement (no web scan, no rated
+# jurisdiction) is DROPPED and the remaining weights renormalise — never silently
+# counted as zero, which would invent a finding we did not measure. Each axis sub
+# is 0.0-1.0; the contribution shown on the page is its renormalised share of 100.
+SCORE_WEIGHTS = (("email", 60, "E-post (jurisdiksjon)"),
+                 ("web", 25, "Web-akse (infrastruktur)"),
+                 ("governance", 15, "Styresett i jurisdiksjonen"))
+
+# Email-platform jurisdiction -> sub-score. EU/Norwegian drift is full sovereignty;
+# an undetermined platform sits at the honest middle (we have not proven US); a US
+# operator is near zero (the data answers to CLOUD Act jurisdiction). Federated
+# tenants drop the last notch — Azure federation is deeper lock-in (the same nuance
+# dep_score carries), so a federated US tenant scores below a plain one.
+_EMAIL_SUB = {"EU_SOVEREIGN": 1.0, "OTHER": 0.5, "NONE": 0.5, "UAVKLART": 0.5,
+              "US_GOOGLE": 0.1, "US_MIXED": 0.1, "US_MICROSOFT": 0.1}
+
+
+def _email_sub(e):
+    sub = _EMAIL_SUB.get(e.get("platform"), 0.5)
+    if "federated" in (e.get("flags") or []):
+        sub = max(0.0, sub - 0.1)
+    return sub
+
+
+def _web_sub(web):
+    """Web-axis sub-score from the joined web record: where the host answers to
+    (60 %) and how little of the front page is US-served (40 %). None when no web
+    scan covers the entity — the axis is then dropped, not zeroed."""
+    if not web:
+        return None
+    juris = (web.get("hosting") or {}).get("jurisdiction") or ""
+    host = 1.0 if re.search(r"\((EEA|EU)\)", juris) else 0.0 if "CLOUD Act" in juris else 0.5
+    return round(0.6 * host + 0.4 * (1.0 - (web.get("us_resource_fraction") or 0.0)), 4)
+
+
+def _gov_sub(e):
+    """Governance sub-score: the cited Freedom House 0-100 score of the operator's
+    jurisdiction, normalised. None when the jurisdiction is unrated (dropped)."""
+    g = e.get("governance")
+    if not g or g.get("score") is None:
+        return None
+    return g["score"] / 100.0
+
+
+def sovereignty_score(e):
+    """The per-entity score as {score, components}. `score` is 0-100 (higher = more
+    sovereign); `components` is the visible formula — each present axis with its
+    weight, sub-score and renormalised point contribution (the contributions sum to
+    the score). The dominant term is the email axis (60 %); a US operator in a free
+    democracy still scores low because that 60 % is near zero."""
+    subs = {"email": _email_sub(e), "web": _web_sub(e.get("web")), "governance": _gov_sub(e)}
+    present = [(axis, w, label) for axis, w, label in SCORE_WEIGHTS if subs[axis] is not None]
+    wsum = sum(w for _, w, _ in present)
+    components = [{"axis": axis, "label": label, "weight": w, "sub": subs[axis],
+                   "points": round(100.0 * w * subs[axis] / wsum, 1)}
+                  for axis, w, label in present]
+    return {"score": round(sum(c["points"] for c in components)), "components": components}
+
+
+def change_ask(e):
+    """The concrete "kva kan endrast" lever for this entity, with the score it would
+    unlock. For a US/uavklart body: move email to an EU-jurisdiction provider (the
+    durable procurement change, rule 6) — quantified as the score with the email
+    axis lifted to full sovereignty. For an already-sovereign body: hold the line."""
+    cur = sovereignty_score(e)["score"]
+    plat = e.get("platform")
+    alt = e.get("alternative") or "openDesk (Open-Xchange + Nextcloud) / Nextcloud"
+    if plat == "EU_SOVEREIGN":
+        return {"text": "Allerede på europeisk/norsk e-postdrift — hold fast ved "
+                "valget i neste anbud.", "potentialScore": cur, "delta": 0}
+    lifted = {**e, "platform": "EU_SOVEREIGN",
+              "flags": [f for f in (e.get("flags") or []) if f != "federated"]}
+    potential = sovereignty_score(lifted)["score"]
+    verb = ("Avklar og dokumentér e-postdriften, og velg" if plat in ("OTHER", "NONE")
+            else "Flytt e-posten til")
+    return {"text": "{} en EU-jurisdiksjon-leverandør ({}).".format(verb, alt),
+            "potentialScore": potential, "delta": potential - cur}
+
+
+def assign_scores(categories):
+    """Attach the score + national ranking to every entity, in place. `score` and
+    `nationalRank`/`nationalTotal` ride in the LIGHT data (the grid/league need them
+    without a fetch); the formula breakdown (`scoreDetail`) and the `changeAsk` are
+    heavier and stay in the on-demand detail files only.
+
+    The ranking is national (across ALL categories) by score, descending — rank 1 is
+    the most sovereign body. Standard competition ranking: equal scores share a rank
+    (1, 1, 3 …), so a single good scan can't quietly outrank a tied peer."""
+    entities = [e for c in categories for e in c["entities"]]
+    for e in entities:
+        s = sovereignty_score(e)
+        e["score"] = s["score"]
+        e["scoreDetail"] = s
+        e["changeAsk"] = change_ask(e)
+    total = len(entities)
+    for e in entities:
+        e["nationalRank"] = 1 + sum(1 for o in entities if o["score"] > e["score"])
+        e["nationalTotal"] = total
+    return categories
+
+
+# Per-category snapshot series for the per-entity trend. Each category writes its
+# own dated snapshots under scanner/snapshots/ with a distinct prefix; the records
+# key differs (kommuner vs organ). (prefix, records-key) per category key.
+_SNAP_SERIES = {
+    "kommune": ("", "kommuner"), "stat": ("statlige-", "organ"),
+    "fylke": ("fylke-", "organ"), "helse": ("helse-", "organ"),
+    "uni": ("uni-", "organ"),
+}
+
+
+def load_category_snapshots(cat_key, snap_dir=SNAP_DIR):
+    """Every snapshot dict for one category's series, sorted by date. Empty when the
+    series has no snapshots yet (e.g. a freshly seeded category)."""
+    series = _SNAP_SERIES.get(cat_key)
+    if not series or not os.path.isdir(snap_dir):
+        return []
+    prefix, _ = series
+    pat = re.compile(r"^" + re.escape(prefix) + r"\d{4}-\d{2}-\d{2}\.json$")
+    snaps = [json.load(open(os.path.join(snap_dir, f)))
+             for f in sorted(os.listdir(snap_dir)) if pat.match(f)]
+    return sorted(snaps, key=lambda s: _snap_date(s) or "")
+
+
+def entity_trend(name, snaps, records_key="kommuner"):
+    """One entity's platform over time: [{date, platform, methodology_version}, …]
+    in date order, one point per snapshot the entity appears in. The honest
+    over-tid line (#38) — a record of every measured platform, version-stamped so a
+    methodology bump (#24) is read as a new baseline, not a real migration."""
+    points = []
+    for s in sorted(snaps, key=lambda s: _snap_date(s) or ""):
+        rec = next((r for r in s.get(records_key, []) if _entity_name(r) == name), None)
+        if rec:
+            points.append({"date": _snap_date(s), "platform": rec.get("platform"),
+                           "methodology_version": _snap_version(s)})
+    return points
+
+
+def attach_trends(categories, snap_dir=SNAP_DIR):
+    """Attach each entity's `trend` (its platform over time) from that category's
+    snapshot series, in place. Heavy-ish, so it rides only in the detail files."""
+    for c in categories:
+        snaps = load_category_snapshots(c["key"], snap_dir)
+        records_key = _SNAP_SERIES.get(c["key"], ("", "kommuner"))[1]
+        for e in c["entities"]:
+            e["trend"] = entity_trend(_entity_name(e), snaps, records_key)
+    return categories
+
+
 def index_web(web):
     """Index the web-axis dataset by website domain, so each entity can be joined
     to its web record. Empty when no web scan has been published yet."""
@@ -242,6 +399,7 @@ def build_categories(data, stat=None, web=None, seeded=None):
             "key": key, "label": label, "summary": ds["summary"],
             "entities": attach_web(normalize(ds["organ"]), web_index),
         })
+    assign_scores(categories)
     return categories
 
 
@@ -250,7 +408,8 @@ def build_categories(data, stat=None, web=None, seeded=None):
 # heavier — the per-signal evidence trail, the governance frame, the web axis, the
 # verdict — loads on demand from the per-category detail file when a card is opened.
 # `sourceDate` rides along so every league-table row carries its own date (#36).
-LIGHT_FIELDS = ("name", "domain", "platform", "behind_gateway", "flags", "sourceDate")
+LIGHT_FIELDS = ("name", "domain", "platform", "behind_gateway", "flags", "sourceDate",
+                "score", "nationalRank", "nationalTotal")
 
 
 def light_entity(e):
@@ -389,6 +548,7 @@ def league_rows(categories):
                 "slug": slugify(name), "platform": e.get("platform"),
                 "behind_gateway": bool(e.get("behind_gateway")),
                 "date": e.get("sourceDate"), "dep": dep_score(e),
+                "score": e.get("score"),
             })
     return rows
 
@@ -493,12 +653,13 @@ def _league_pane(title, cap, rows, rank_from=1):
             '<span class="lg-rank">{rank}</span>'
             '<span class="lg-name">{name}</span>'
             '<span class="lg-meta"><span class="lg-cat">{cat_label}</span>'
-            '<span class="lg-plat">{plat} · {juris}</span></span>'
+            '<span class="lg-plat">{plat} · {juris}{score}</span></span>'
             '<span class="lg-date">{date}</span></a>'.format(
                 css=css, cat=r["cat"], slug=r["slug"], rank=rank_from + i,
                 name=r["name"], cat_label=r["catLabel"],
                 plat=_PLAT_LABEL.get(r["platform"], "Uavklart"),
                 juris=_juris_label(r["platform"]),
+                score=" · score {}".format(r["score"]) if r.get("score") is not None else "",
                 date=no_date(r["date"]) if r.get("date") else ""))
     return ('<div class="lg-pane"><h3>{title}</h3><p class="lg-cap">{cap}</p>'
             '<div class="lg-rows">{rows}</div></div>').format(
@@ -986,6 +1147,7 @@ def main():
     old, new = load_snapshots()
     trend = compute_trend(old, new)
     categories = build_categories(data, stat, web, seeded)
+    attach_trends(categories)
     html = render_html(data["meta"], categories, history, trend, corrections)
     with open(OUT, "w") as f:
         f.write(html)
@@ -1187,6 +1349,52 @@ _TEMPLATE = r"""<!doctype html>
   .fact .k{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
   .fact .v{font-size:var(--text-lg);font-weight:600;margin-top:var(--space-1)}
   .fact .v.red{color:var(--red)} .fact .v.green{color:var(--green)}
+  /* Suverenitetsscore (issue #38): the per-entity score, formula + lever. */
+  .scorecard{border-radius:var(--radius);border:1px solid var(--line);
+    background:linear-gradient(180deg,var(--surface-2),var(--surface));
+    padding:var(--space-4) var(--space-5);margin:0 0 var(--space-5);border-left:4px solid var(--grey)}
+  .scorecard.green{border-left-color:var(--green)}
+  .scorecard.amber{border-left-color:var(--amber)}
+  .scorecard.red{border-left-color:var(--red)}
+  .sc-top{display:flex;align-items:center;gap:var(--space-4)}
+  .sc-num{display:flex;align-items:baseline;line-height:1}
+  .sc-big{font-size:42px;font-weight:800}
+  .scorecard.green .sc-big{color:var(--green)} .scorecard.amber .sc-big{color:var(--amber)}
+  .scorecard.red .sc-big{color:var(--red)} .scorecard.grey .sc-big{color:var(--grey)}
+  .sc-den{font-size:var(--text-base);color:var(--faint);margin-left:2px}
+  .sc-meta{flex:1;min-width:0}
+  .sc-title{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .sc-bar{height:8px;border-radius:var(--radius-pill);background:var(--line);overflow:hidden;margin:6px 0}
+  .sc-bar span{display:block;height:100%;border-radius:var(--radius-pill);background:var(--grey)}
+  .scorecard.green .sc-bar span{background:var(--green)}
+  .scorecard.amber .sc-bar span{background:var(--amber)}
+  .scorecard.red .sc-bar span{background:var(--red)}
+  .sc-rank{font-size:var(--text-sm);color:var(--muted)}
+  .sc-rank-h{color:var(--faint)}
+  .sc-form{margin-top:var(--space-3);border-top:1px solid var(--line);padding-top:var(--space-3)}
+  .sc-form summary{cursor:pointer;color:var(--accent);font-size:var(--text-sm);font-weight:600}
+  .sc-form-lead{font-size:13px;color:var(--muted);margin:var(--space-2) 0 var(--space-3)}
+  .sc-form-row{display:flex;gap:var(--space-3);font-size:var(--text-sm);padding:4px 0;
+    border-bottom:1px solid var(--line)}
+  .sc-form-axis{flex:1;color:var(--fg)} .sc-form-calc{color:var(--muted)}
+  .sc-form-pts{min-width:64px;text-align:right;color:var(--fg);font-weight:600;
+    font-variant-numeric:tabular-nums}
+  .sc-form-sum{border-bottom:0;font-weight:700;border-top:1px solid var(--line-2);margin-top:2px}
+  .sc-ask{margin-top:var(--space-3);background:var(--bg-2);border-radius:var(--radius);
+    padding:var(--space-3) var(--space-4)}
+  .sc-ask-h{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+  .sc-ask p{margin:var(--space-1) 0 0;font-size:var(--text-sm)}
+  .sc-ask-lift{color:var(--green)}
+  /* Over-tid timeline (issue #38): platform per scan, version-aware. */
+  .timeline{display:flex;flex-direction:column;gap:6px;margin:0 0 var(--space-4)}
+  .tl-point{display:flex;justify-content:space-between;gap:var(--space-3);
+    padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);
+    border:1px solid var(--line);border-left:4px solid var(--grey)}
+  .tl-point.c-red{border-left-color:var(--red)} .tl-point.c-amber{border-left-color:var(--amber)}
+  .tl-point.c-green{border-left-color:var(--green)} .tl-point.c-grey{border-left-color:var(--grey)}
+  .tl-date{color:var(--muted);font-size:var(--text-sm)}
+  .tl-plat{font-weight:600;font-size:var(--text-sm)}
+  .tl-baseline{font-size:11px;color:var(--amber);padding:2px 0 0 var(--space-2)}
   .evidence{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:0 var(--space-4);
     font:var(--text-xs)/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#cdd9e3;
     overflow-x:auto}
@@ -2420,6 +2628,83 @@ _TEMPLATE = r"""<!doctype html>
       '</ul></div>';
   }
 
+  // ---- Suverenitetsscore (issue #38): the per-entity score, its open formula,
+  // the national ranking and the concrete lever. The score is Skytilsynet's
+  // PRESENTATION of the cited axes (CLAUDE.md rule 3), never an opaque verdict —
+  // every point is shown as weight x delscore, so the method is on the page.
+  function scoreCls(s){ return s>=67 ? "green" : s>=34 ? "grey" : "red"; }
+  function renderScoreBlock(k){
+    if(k.score==null) return "";
+    var sd = k.scoreDetail || {components:[]};
+    var cls = scoreCls(k.score);
+    var rank = (k.nationalRank!=null && k.nationalTotal!=null)
+      ? '<div class="sc-rank">Nasjonal plassering: <b>#'+k.nationalRank+'</b> av '+
+        k.nationalTotal+' skannede organ <span class="sc-rank-h">(1 = mest suveren)</span></div>'
+      : "";
+    var rows = (sd.components||[]).map(function(c){
+      return '<div class="sc-form-row">'+
+        '<span class="sc-form-axis">'+esc(c.label)+'</span>'+
+        '<span class="sc-form-calc">vekt '+c.weight+' % · delscore '+
+          Math.round(c.sub*100)+' %</span>'+
+        '<span class="sc-form-pts">'+pct(c.points)+' p</span></div>';
+    }).join("");
+    var ask = k.changeAsk
+      ? '<div class="sc-ask"><div class="sc-ask-h">Kva kan endrast</div>'+
+        '<p>'+esc(k.changeAsk.text)+'</p>'+
+        (k.changeAsk.delta>0
+          ? '<p class="sc-ask-lift">Dette ville løftet suverenitetsscoren fra <b>'+
+            k.score+'</b> til <b>~'+k.changeAsk.potentialScore+'</b> '+
+            '(+'+k.changeAsk.delta+' poeng).</p>' : "")+
+        '</div>'
+      : "";
+    return '<div class="scorecard '+cls+'">'+
+      '<div class="sc-top">'+
+        '<div class="sc-num"><span class="sc-big">'+k.score+'</span>'+
+          '<span class="sc-den">/100</span></div>'+
+        '<div class="sc-meta"><div class="sc-title">Suverenitetsscore</div>'+
+          '<div class="sc-bar"><span style="width:'+k.score+'%"></span></div>'+
+          rank+'</div>'+
+      '</div>'+
+      '<details class="sc-form"><summary>Vis formelen (åpen metode)</summary>'+
+        '<p class="sc-form-lead">Et vektet snitt av aksene vi faktisk måler og '+
+          'kildebelegger: <b>e-post 60 %</b>, <b>web-akse 25 %</b>, '+
+          '<b>styresett 15 %</b>. Akser uten måling for dette organet utelates, og '+
+          'vektene normaliseres — vi teller aldri en akse vi ikke har målt som null. '+
+          'Høyere = mer suveren. Dette er Skytilsynets presentasjon av dataene, ikke '+
+          'en egen scoringsmotor.</p>'+
+        rows+
+        '<div class="sc-form-row sc-form-sum"><span class="sc-form-axis">Sum</span>'+
+          '<span class="sc-form-calc"></span><span class="sc-form-pts">'+
+          k.score+' p</span></div>'+
+      '</details>'+
+      ask+
+      '</div>';
+  }
+  function renderScoreTrend(k){
+    var t = k.trend || [];
+    if(!t.length) return "";
+    var prevV = null, items = t.map(function(p){
+      var baseline = (prevV!=null && p.methodology_version!=null &&
+                      p.methodology_version!==prevV);
+      prevV = p.methodology_version;
+      var pm = platMeta({platform:p.platform});
+      return (baseline ? '<div class="tl-baseline">Metodikk forbedret — ny '+
+                'baseline (v'+p.methodology_version+')</div>' : "")+
+        '<div class="tl-point '+pm.css+'">'+
+          '<span class="tl-date">'+esc(noDate(p.date))+'</span>'+
+          '<span class="tl-plat">'+esc(pm.label)+'</span></div>';
+    }).join("");
+    var lead = t.length<2
+      ? 'Bare én måling foreløpig — linjen vokser ved hver skanning.'
+      : 'Plattformen ved hver skanning. En endring over en metodikk-baseline er '+
+        'omklassifisering, ikke nødvendigvis en reell flytting (se merket).';
+    return '<h2>Over tid — plattform per skanning</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">'+esc(lead)+
+        ' Web- og styresett-aksene måles bare i dag; linjen viser e-postaksen, som '+
+        'veier tyngst.</p>'+
+      '<div class="timeline">'+items+'</div>';
+  }
+
   function renderDetail(k, catKey){
     var m = platMeta(k);
     var resid = (k.platform==="EU_SOVEREIGN")
@@ -2442,6 +2727,7 @@ _TEMPLATE = r"""<!doctype html>
       '<span class="badge">'+esc(kind)+'</span>'+
       '<h1>'+esc(nameOf(k))+'</h1>'+
       '<p class="tagline" style="font-size:16px">E-postdomene: <code>'+esc(k.domain||"—")+'</code></p>'+
+      renderScoreBlock(k)+
       '<div class="facts">'+
         renderVerdict(k)+
         fact("Operatørens jurisdiksjon", esc(m.juris), m.vcls)+
@@ -2463,6 +2749,7 @@ _TEMPLATE = r"""<!doctype html>
       '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
         'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>'+
       renderNotProven(k)+
+      renderScoreTrend(k)+
       renderWebAxis(k)+
       renderFunnel(k, catKey);
   }

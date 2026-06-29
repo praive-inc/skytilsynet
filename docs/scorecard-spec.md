@@ -168,6 +168,47 @@ finding shareable, baked static into `web/index.html` by `web/build.py`:
   tiebreakers (confirmed Azure federation, an unmasked backend) — **not** a
   reimplemented SovereigntyScore (rule 3).
 
+### 8. Per-entity suverenitetsscore + national ranking (issue #38)
+
+The LCV-scorecard lever — *"Køyrer DIN kommune innbyggjarane sine data på
+US-jurisdiksjon sky?"* — needs a single number per body, not just a platform
+tile. `web/build.py` derives a **suverenitetsscore (0–100, higher = more
+sovereign)** as Skytilsynet's **presentation** of the axes it already cites —
+**not** a fork of BetterWorld's multi-axis SovereigntyScore engine (rule 3, the
+RFC-011 seam). When that engine matures, the score becomes a thin renderer of
+its output.
+
+- **The formula is on the page (open method).** A fixed weighting of the three
+  cited axes: **email-platform jurisdiction 60 %**, **web-axis (infrastructure)
+  25 %**, **governance of the operator's jurisdiction 15 %**. Each axis is a
+  0.0–1.0 sub-score; the entity card shows every term as *weight × delscore →
+  poeng* behind a "Vis formelen" disclosure, and the points sum to the score.
+  - *Email sub:* EU/Norwegian drift `1.0`; undetermined `0.5` (we have not proven
+    US — the honest middle); a US operator `0.1`, dropping the last notch to `0.0`
+    for an **Azure-federated** tenant (deeper lock-in — the `+federated` nuance).
+  - *Web sub:* `0.6 ×` host-jurisdiction (EEA/EU `1.0`, CLOUD Act `0.0`, else
+    `0.5`) `+ 0.4 ×` (1 − US-resource-fraction). From the joined web-axis record.
+  - *Governance sub:* the cited Freedom House 0–100 score of the jurisdiction,
+    normalised. So a US body in a free democracy still scores **low** — the 60 %
+    email term is near zero and dominates.
+  - **An axis with no measurement is dropped and the weights renormalise**, never
+    silently counted as zero (which would invent a finding we did not measure).
+- **A national ranking.** Every entity carries `nationalRank` / `nationalTotal`
+  across *all* categories by score, descending (rank 1 = most sovereign), using
+  standard competition ranking (equal scores share a rank). The score also rides
+  on each §7 league row. This ranks on the same cited measurement, never on size.
+- **A per-entity trend over time.** Each card shows the body's email platform at
+  every snapshot in its category series (`entity_trend`), so one good scan can't
+  bury a record. It is **methodology-version aware** (issue #24): a platform
+  change across a version bump is marked a *new baseline*, not a real migration.
+  Web/governance are measured today only, so the line tracks the email axis (the
+  heaviest term) — stated in the caption.
+- **A concrete "kva kan endrast" ask.** For a US/undetermined body the card names
+  the durable lever — *move email to an EU-jurisdiction provider (openDesk /
+  Nextcloud)* — and **quantifies it**: the score it would unlock with the email
+  axis lifted to full sovereignty. Framed as a procurement/strategy change, never
+  a personal attack (rule 6). An already-sovereign body is told to hold the line.
+
 ## MVP scope (what ships)
 
 1. DNS email-sovereignty pipeline (productionise the prototype: scheduled,
