@@ -1413,5 +1413,166 @@ class PressGraphicsCommitted(unittest.TestCase):
             self.assertGreater(h, 0)
 
 
+class SovereigntyScore(unittest.TestCase):
+    """Issue #38: a transparent per-entity sovereignty score (0-100, higher = more
+    sovereign), a visible formula, a national ranking, a per-entity trend, and a
+    concrete "what to change" ask. The score is Skytilsynet's PRESENTATION of the
+    axes we already have (CLAUDE.md rule 3) — a fixed open weighting, never a fork
+    of BetterWorld's engine."""
+
+    def _entity(self, **kw):
+        base = {"name": "X", "platform": "US_MICROSOFT", "flags": [],
+                "behind_gateway": False, "governance": None, "web": None,
+                "alternative": None}
+        base.update(kw)
+        return base
+
+    def test_sovereign_scores_high(self):
+        e = self._entity(platform="EU_SOVEREIGN",
+                         governance={"score": 99}, web=None)
+        s = build.sovereignty_score(e)
+        self.assertGreaterEqual(s["score"], 95)
+        self.assertLessEqual(s["score"], 100)
+
+    def test_us_microsoft_scores_low(self):
+        # Email axis (60 %) near zero dominates even when the US governs freely.
+        e = self._entity(platform="US_MICROSOFT", governance={"score": 81})
+        s = build.sovereignty_score(e)
+        self.assertLess(s["score"], 40)
+
+    def test_federated_lockin_scores_below_plain_us(self):
+        # "+federated nuance": an Azure-federated tenant is deeper lock-in.
+        plain = build.sovereignty_score(
+            self._entity(platform="US_MICROSOFT", governance={"score": 81}))
+        fed = build.sovereignty_score(
+            self._entity(platform="US_MICROSOFT", governance={"score": 81},
+                         flags=["federated"]))
+        self.assertLess(fed["score"], plain["score"])
+
+    def test_components_are_the_visible_formula(self):
+        # Every present axis carries its weight and sub-score so the page can show
+        # the open method; contributions sum to the score.
+        e = self._entity(platform="EU_SOVEREIGN", governance={"score": 99},
+                         web={"hosting": {"jurisdiction": "NO (EEA)"},
+                              "us_resource_fraction": 0.0})
+        s = build.sovereignty_score(e)
+        axes = {c["axis"] for c in s["components"]}
+        self.assertEqual(axes, {"email", "web", "governance"})
+        for c in s["components"]:
+            self.assertIn("weight", c)
+            self.assertIn("sub", c)
+        self.assertEqual(round(sum(c["points"] for c in s["components"])), s["score"])
+
+    def test_missing_axes_are_dropped_not_zeroed(self):
+        # No web scan and no governance rating: the score reflects ONLY the email
+        # axis, not an axis silently counted as zero.
+        e = self._entity(platform="OTHER", governance=None, web=None)
+        s = build.sovereignty_score(e)
+        self.assertEqual([c["axis"] for c in s["components"]], ["email"])
+        # OTHER/uavklart email sits at the honest middle, not 0.
+        self.assertEqual(s["score"], 50)
+
+    def test_web_axis_lowers_a_us_hosted_site(self):
+        host_eu = build.sovereignty_score(self._entity(
+            platform="EU_SOVEREIGN", governance={"score": 99},
+            web={"hosting": {"jurisdiction": "NO (EEA)"}, "us_resource_fraction": 0.0}))
+        host_us = build.sovereignty_score(self._entity(
+            platform="EU_SOVEREIGN", governance={"score": 99},
+            web={"hosting": {"jurisdiction": "United States (CLOUD Act)"},
+                 "us_resource_fraction": 1.0}))
+        self.assertLess(host_us["score"], host_eu["score"])
+
+    def test_change_ask_for_us_entity_is_concrete_and_quantified(self):
+        e = self._entity(platform="US_MICROSOFT", governance={"score": 81},
+                         alternative="openDesk (Open-Xchange + Nextcloud)")
+        ask = build.change_ask(e)
+        self.assertIn("openDesk", ask["text"])
+        # It quantifies the lever: moving email to EU jurisdiction lifts the score.
+        self.assertGreater(ask["potentialScore"], build.sovereignty_score(e)["score"])
+
+    def test_change_ask_for_sovereign_entity_holds(self):
+        e = self._entity(platform="EU_SOVEREIGN", governance={"score": 99})
+        ask = build.change_ask(e)
+        self.assertEqual(ask["potentialScore"], build.sovereignty_score(e)["score"])
+
+    def test_national_rank_assigned_across_all_categories(self):
+        cats = build.build_categories(DATA, STAT)
+        ranks = {}
+        for c in cats:
+            for e in c["entities"]:
+                self.assertIn("score", e)
+                self.assertIn("nationalRank", e)
+                self.assertEqual(e["nationalTotal"], 6)  # 4 kommuner + 2 organ
+                ranks[e["name"]] = (e["score"], e["nationalRank"])
+        # The most sovereign body ranks #1; ranks are 1..N.
+        best = max(ranks.values(), key=lambda v: v[0])
+        self.assertEqual(best[1], 1)
+        # Vest-Lofoten (EU_SOVEREIGN) outranks Oslo (US_MICROSOFT).
+        self.assertLess(ranks["Vest-Lofoten"][1], ranks["Oslo"][1])
+
+    def test_score_and_rank_baked_into_light_data(self):
+        # The home grid / league need the score without fetching a detail file.
+        cats = build.build_categories(DATA, STAT)
+        light = build.light_categories(cats)
+        oslo = next(e for e in light[0]["entities"] if e["name"] == "Oslo")
+        self.assertIn("score", oslo)
+        self.assertIn("nationalRank", oslo)
+
+    def test_detail_carries_formula_trend_and_ask(self):
+        cats = build.build_categories(DATA, STAT)
+        build.attach_trends(cats, _snap_fixture_dir())
+        oslo = next(e for e in cats[0]["entities"] if e["name"] == "Oslo")
+        self.assertIn("scoreDetail", oslo)
+        self.assertTrue(oslo["scoreDetail"]["components"])
+        self.assertIn("changeAsk", oslo)
+        self.assertIn("trend", oslo)
+
+
+def _snap_fixture_dir():
+    """A temp snapshot dir with a two-point kommune series for trend tests."""
+    import tempfile
+    d = tempfile.mkdtemp()
+    for date, plats, ver in [("2026-06-28", {"Oslo": "OTHER"}, 2),
+                             ("2026-06-29", {"Oslo": "US_MICROSOFT"}, 2)]:
+        with open(os.path.join(d, date + ".json"), "w") as f:
+            json.dump(snap(date, plats, ver), f)
+    return d
+
+
+class EntityTrend(unittest.TestCase):
+    """Issue #38: a per-entity platform trend so one good scan can't hide a record.
+    Honest about methodology versioning (issue #24) — a reclassification across a
+    version bump is a new baseline, never a real migration."""
+
+    def _snaps(self, *points):
+        return [snap(d, {"Oslo": p}, v) for d, p, v in points]
+
+    def test_trend_collects_points_in_date_order(self):
+        snaps = self._snaps(("2026-06-29", "US_MICROSOFT", 2),
+                            ("2026-06-27", "OTHER", 2))
+        t = build.entity_trend("Oslo", snaps)
+        self.assertEqual([p["date"] for p in t], ["2026-06-27", "2026-06-29"])
+        self.assertEqual([p["platform"] for p in t], ["OTHER", "US_MICROSOFT"])
+
+    def test_trend_skips_snapshots_missing_the_entity(self):
+        snaps = self._snaps(("2026-06-27", "OTHER", 2))
+        snaps.append(snap("2026-06-29", {"Bergen": "US_MICROSOFT"}, 2))
+        t = build.entity_trend("Oslo", snaps)
+        self.assertEqual([p["date"] for p in t], ["2026-06-27"])
+
+    def test_trend_marks_methodology_version(self):
+        snaps = self._snaps(("2026-06-27", "OTHER", 1),
+                            ("2026-06-29", "US_MICROSOFT", 2))
+        t = build.entity_trend("Oslo", snaps)
+        self.assertEqual([p["methodology_version"] for p in t], [1, 2])
+
+    def test_attach_trends_uses_per_category_snapshot_series(self):
+        cats = build.build_categories(DATA, STAT)
+        build.attach_trends(cats, _snap_fixture_dir())
+        oslo = next(e for e in cats[0]["entities"] if e["name"] == "Oslo")
+        self.assertEqual([p["platform"] for p in oslo["trend"]],
+                         ["OTHER", "US_MICROSOFT"])
+
+
 if __name__ == "__main__":
     unittest.main()
