@@ -218,15 +218,11 @@ def attach_web(entities, web_index):
             for e in entities]
 
 
-def build_html(data, history, trend, stat=None, web=None, seeded=None):
-    """Render the full single-file site. Pure: same inputs -> same output.
-
-    `data` is the kommune dataset; `stat` (optional) the statlige-organ dataset;
-    `seeded` (optional) a list of (dataset, key, label) for the other seeded
-    sectors (fylkeskommuner, helseforetak, UH-sektor) — same {summary, organ}
-    shape as stat; `web` (optional) the website-infrastructure dataset, joined
-    per entity by website domain as a SECOND axis. The categories are baked with
-    their own summaries; the headline is the COMBINED scanned public sector."""
+def build_categories(data, stat=None, web=None, seeded=None):
+    """The full per-category model: each {key, label, summary, entities} with the
+    web axis joined and names normalized. This is the SOURCE of truth used twice —
+    the page bakes a LIGHT slice of it inline (`light_categories`) for first paint,
+    and the on-demand detail files (`detail_files`) carry the full entities."""
     web_index = index_web(web)
     categories = [{
         "key": "kommune", "label": "Kommuner", "summary": data["summary"],
@@ -241,12 +237,108 @@ def build_html(data, history, trend, stat=None, web=None, seeded=None):
             "key": key, "label": label, "summary": ds["summary"],
             "entities": attach_web(normalize(ds["organ"]), web_index),
         })
+    return categories
+
+
+# The only entity fields baked inline (issue #34): enough for the grid tiles, the
+# "Finn din kommune" search and the map colouring. Everything heavier — the
+# per-signal evidence trail, the governance frame, the web axis, the verdict —
+# loads on demand from the per-category detail file when a card is opened.
+LIGHT_FIELDS = ("name", "domain", "platform", "behind_gateway", "flags")
+
+
+def light_entity(e):
+    return {k: e.get(k) for k in LIGHT_FIELDS}
+
+
+def light_categories(categories):
+    return [{"key": c["key"], "label": c["label"], "summary": c["summary"],
+             "entities": [light_entity(e) for e in c["entities"]]}
+            for c in categories]
+
+
+def detail_files(categories):
+    """The on-demand payloads: {filename: json_text}, one per category, each the
+    FULL entity array (evidence + governance + web axis). Served same-origin from
+    web/data/ and fetched only when a detail card is opened (RFC-001 P5: our own
+    EU origin, not an external/US-managed serving dep)."""
+    return {"detail-{}.json".format(c["key"]):
+            json.dumps(c["entities"], ensure_ascii=False, separators=(",", ":"))
+            for c in categories}
+
+
+def slugify(name):
+    """Match the client-side slug() exactly so baked detail links resolve."""
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+# Shock-name proof line (issue #34, layer 1): a handful of bodies whose name alone
+# carries the point. Curated, but only rendered when actually present AND on US
+# email in the data — every name links to its own cited card (CLAUDE.md rule 1).
+PROOF_NAMES = ["Datatilsynet", "Forsvaret", "NAV (Arbeids- og velferdsetaten)",
+               "Skatteetaten", "Politidirektoratet"]
+_US = {"US_MICROSOFT", "US_GOOGLE", "US_MIXED"}
+
+
+def proof_links(categories):
+    """HTML for the proof line: the curated bodies that are present and US-hosted,
+    each a link to its detail card. Empty string if none qualify."""
+    by_name = {e["name"]: (c["key"], e)
+               for c in categories for e in c["entities"]}
+    out = []
+    for name in PROOF_NAMES:
+        hit = by_name.get(name)
+        if hit and hit[1].get("platform") in _US:
+            key, e = hit
+            short = name.split(" (")[0]
+            out.append('<a href="#org/{}/{}">{}</a>'.format(
+                key, slugify(name), short))
+    return ", ".join(out)
+
+
+def _no_pct(v):
+    """90.2 -> '90,2' — Norwegian decimal, for baked copy."""
+    return "{:.1f}".format(v).replace(".", ",")
+
+
+def gauge_svg(us_pct):
+    """A single dominant dial (issue #34): a semicircular gauge filled to the US
+    share, baked static (no JS, no external dep) and labelled for screen readers.
+    The arc length is pi*r; the red value arc uses a stroke-dasharray fraction."""
+    import math
+    cx, cy, r = 170, 170, 150
+    length = math.pi * r
+    frac = max(0.0, min(1.0, us_pct / 100.0))
+    d = "M {} {} A {} {} 0 0 1 {} {}".format(cx - r, cy, r, r, cx + r, cy)
+    label = ("Måler: {} % av skannet norsk offentlig sektor svarer e-posten til "
+             "amerikansk jurisdiksjon".format(_no_pct(us_pct)))
+    return (
+        '<svg class="gauge" viewBox="0 0 340 210" role="img" '
+        'aria-label="{label}">'
+        '<path d="{d}" fill="none" stroke="var(--line-2)" stroke-width="26" '
+        'stroke-linecap="round"/>'
+        '<path d="{d}" fill="none" stroke="var(--red)" stroke-width="26" '
+        'stroke-linecap="round" stroke-dasharray="{fill:.1f} {len:.1f}"/>'
+        '<text x="170" y="158" text-anchor="middle" class="gauge-num">{pct} %</text>'
+        '<text x="170" y="192" text-anchor="middle" class="gauge-cap">'
+        'på USA-kontrollert sky</text>'
+        '</svg>'
+    ).format(label=label, d=d, fill=frac * length, len=length,
+             pct=_no_pct(us_pct))
+
+
+def render_html(meta, categories, history, trend):
+    """Render the single-file site from the full category model. Pure.
+
+    The hero (verdict sentence + gauge + proof) is baked static from the combined
+    headline — real text in the H1 (the finding IS the title), no JS needed for
+    first paint. Only a LIGHT slice of the entities is inlined."""
     combined = combine_summaries([c["summary"] for c in categories])
     payload = {
-        "meta": data["meta"],
+        "meta": meta,
         "combined": combined,
         "goal": build_goal(combined),
-        "categories": categories,
+        "categories": light_categories(categories),
         "history": history,
         "trend": trend,
         # The methodology version rides along from the latest snapshot (via the
@@ -261,8 +353,32 @@ def build_html(data, history, trend, stat=None, web=None, seeded=None):
         '<li><a href="data/{fn}" download>{label}</a>'
         '<span class="dl-file">{fn}</span></li>'.format(fn=fn, label=label)
         for fn, label in DATA_DOWNLOADS)
-    return (_TEMPLATE.replace("/*__DATA__*/", blob)
-            .replace("<!--__DOWNLOADS__-->", downloads))
+    us_pct, ms_pct = combined["us_pct"], combined["microsoft_pct"]
+    # The verdict sentence — the finding as the title (OWID rule). "X av 10" is the
+    # US share floored to a tenth (a floor, like the share itself: "minst X av 10"),
+    # derived from the data, never a hardcoded slogan.
+    av_ti = int(us_pct // 10)
+    h1 = "{} av 10 norske offentlige organ kjører e-posten i USA.".format(av_ti)
+    sub = ("Minst <b>{ms} %</b> kjører Microsoft 365 og <b>{us} %</b> en amerikansk "
+           "skyleverandør (CLOUD Act-jurisdiksjon). Tallet er et <b>gulv</b> — den "
+           "reelle andelen er minst så høy.").format(ms=_no_pct(ms_pct), us=_no_pct(us_pct))
+    proof = proof_links(categories)
+    proof_html = ("Også <b>" + proof + "</b>." if proof else "")
+    return (_TEMPLATE
+            .replace("/*__DATA__*/", blob)
+            .replace("<!--__DOWNLOADS__-->", downloads)
+            .replace("<!--__VERDICT_H1__-->", h1)
+            .replace("<!--__VERDICT_SUB__-->", sub)
+            .replace("<!--__GAUGE__-->", gauge_svg(us_pct))
+            .replace("<!--__PROOF__-->", proof_html))
+
+
+def build_html(data, history, trend, stat=None, web=None, seeded=None):
+    """Convenience wrapper: build the full category model and render. Pure —
+    same inputs -> same output. (main() builds the model once and also writes the
+    on-demand detail files from it.)"""
+    return render_html(data["meta"], build_categories(data, stat, web, seeded),
+                       history, trend)
 
 
 def copy_downloads(dest_dir=WEB_DATA_DIR):
@@ -276,6 +392,16 @@ def copy_downloads(dest_dir=WEB_DATA_DIR):
             shutil.copyfile(src, os.path.join(dest_dir, fn))
 
 
+def write_detail_files(categories, dest_dir=WEB_DATA_DIR):
+    """Write the on-demand per-category detail payloads into web/data/ so the
+    deployed static site serves them same-origin (the detail view fetches them on
+    open). Committed alongside index.html — prod has no build step."""
+    os.makedirs(dest_dir, exist_ok=True)
+    for fn, text in detail_files(categories).items():
+        with open(os.path.join(dest_dir, fn), "w") as f:
+            f.write(text)
+
+
 def main():
     data = json.load(open(DATA))
     stat = json.load(open(STAT_DATA)) if os.path.exists(STAT_DATA) else None
@@ -284,14 +410,17 @@ def main():
     history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
     old, new = load_snapshots()
     trend = compute_trend(old, new)
-    html = build_html(data, history, trend, stat, web, seeded)
+    categories = build_categories(data, stat, web, seeded)
+    html = render_html(data["meta"], categories, history, trend)
     with open(OUT, "w") as f:
         f.write(html)
     copy_downloads()
+    write_detail_files(categories)
     n_stat = len(stat["organ"]) if stat else 0
     n_web = len(web["kommuner"]) if web else 0
     print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner "
-          f"+ {n_stat} statlige organ, web axis on {n_web} entities)")
+          f"+ {n_stat} statlige organ, web axis on {n_web} entities); "
+          f"detail files for {len(categories)} categories")
 
 
 # --------------------------------------------------------------------------
@@ -561,6 +690,62 @@ _TEMPLATE = r"""<!doctype html>
   footer{margin-top:var(--space-10);color:var(--faint);font-size:var(--text-sm)}
   .dot{color:var(--green)}
   .hidden{display:none}
+  /* ---------------------------------------------------------------------
+     Re-ladder (issue #34): hero verdict + gauge, find-your-entity search,
+     tight narrative, the full map demoted behind a click.
+     --------------------------------------------------------------------- */
+  .hero-v{margin:0 0 var(--space-8)}
+  .hero-v h1{margin:var(--space-2) 0 var(--space-5);max-width:18ch}
+  .gauge-wrap{display:flex;justify-content:center;margin:0 0 var(--space-4)}
+  .gauge{width:min(360px,86vw);height:auto}
+  .gauge-num{fill:var(--red);font-weight:700;font-size:64px;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .gauge-cap{fill:var(--muted);font-size:20px}
+  .hero-sub{font-size:var(--text-lg);color:var(--fg);max-width:60ch;margin:0 auto var(--space-3);
+    text-align:center}
+  .hero-sub b{color:var(--red)}
+  .hero-proof{font-size:var(--text-base);color:var(--muted);text-align:center;max-width:60ch;
+    margin:0 auto}
+  .hero-proof b{color:var(--fg)}
+  .hero-proof a{color:var(--fg);border-bottom:1px solid var(--line-2)}
+  /* Find-your-entity (layer 1b): co-equal with the hero */
+  .finder{background:linear-gradient(180deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius-lg);
+    padding:var(--space-6);margin:0 0 var(--space-10)}
+  .finder-label{display:block;font-size:var(--text-lg);font-weight:600;margin:0 0 var(--space-3)}
+  .finder-box{position:relative}
+  #find{width:100%;min-width:0;font-size:var(--text-lg);min-height:52px}
+  .find-results{list-style:none;margin:var(--space-2) 0 0;padding:var(--space-1);position:absolute;
+    left:0;right:0;z-index:5;background:var(--surface-2);border:1px solid var(--line-2);
+    border-radius:var(--radius-sm);box-shadow:var(--shadow);max-height:340px;overflow-y:auto}
+  .find-results li{margin:0}
+  .find-opt{display:flex;justify-content:space-between;gap:var(--space-3);align-items:baseline;
+    width:100%;text-align:left;background:none;border:0;color:var(--fg);font:inherit;
+    padding:var(--space-3) var(--space-4);border-radius:var(--radius-sm);cursor:pointer}
+  .find-opt:hover,.find-opt.active{background:#10202e}
+  .find-opt .fo-cat{color:var(--faint);font-size:var(--text-xs)}
+  .find-opt .fo-pl{color:var(--muted);font-size:var(--text-xs)}
+  .find-none{padding:var(--space-3) var(--space-4);color:var(--faint);font-size:var(--text-sm)}
+  .finder-hint{font-size:var(--text-sm);color:var(--faint);margin:var(--space-3) 0 0}
+  .linklike{background:none;border:0;color:var(--accent);font:inherit;cursor:pointer;padding:0;
+    text-decoration:underline}
+  /* Narrative (layer 2): one idea per step */
+  .narrative{display:grid;gap:var(--space-3);margin:0 0 var(--space-4)}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:var(--space-4);align-items:start;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:var(--space-4) var(--space-5)}
+  .step-n{font-size:var(--text-xl);font-weight:700;color:var(--accent);
+    font-variant-numeric:tabular-nums;line-height:1.2}
+  .step h3{margin:0 0 var(--space-1);font-size:var(--text-lg)}
+  .step p{margin:0;color:var(--muted);font-size:var(--text-base)}
+  .step .spark{margin-top:var(--space-3)}
+  /* Explore toggle: the full map, behind a click (layer 3) */
+  .explore-btn{background:#10202e;border:1px solid var(--accent);border-radius:var(--radius-sm);
+    color:var(--fg);padding:var(--space-3) var(--space-5);font:inherit;font-size:var(--text-base);
+    font-weight:600;cursor:pointer;min-height:48px;margin:0 0 var(--space-4)}
+  .explore-btn:hover{background:#15293a}
+  .sr-h{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .loading{color:var(--muted);font-size:var(--text-base);padding:var(--space-6) 0}
   /* Honour a reduced-motion preference (WCAG 2.3.3): no fills, no smooth scroll */
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -588,51 +773,87 @@ _TEMPLATE = r"""<!doctype html>
       kommunal etat. Navnet beskriver hva vi gjør i overført betydning — vi følger
       med på offentlig sektors avhengighet av skytjenester — og er ikke en offisiell
       rolle. All informasjon er hentet fra åpne kilder og presenteres faktabasert
-      og nøytralt. <a href="#kilde">Metode og kilder ↓</a></p>
+      og nøytralt. <a href="#om">Metode og kilder →</a></p>
   </div>
 
   <main id="main">
 
-  <!-- LANDING VIEW -->
+  <!-- HOME VIEW -->
   <section id="view-home">
-    <span class="badge">Skybarometeret</span>
-    <h1>Hvor avhengig er Norge av utenlandsk teknologi?</h1>
-    <p class="tagline">Hvilken jurisdiksjon norsk offentlig sektors e-post svarer til —
-      kommune for kommune og statlig organ for statlig organ.</p>
 
-    <div class="hero">
-      <div class="stat" id="stat-hero"></div>
-      <div class="stat trend" id="stat-trend"></div>
-    </div>
+    <!-- LAYER 1 — zero-scroll hero: the verdict as a sentence + one dominant
+         gauge + the shock names. Baked static from the combined headline (the
+         finding IS the title) so first paint needs no JS and no fetch. -->
+    <section class="hero-v" aria-labelledby="verdict-h1">
+      <span class="badge">Skybarometeret</span>
+      <h1 id="verdict-h1"><!--__VERDICT_H1__--></h1>
+      <div class="gauge-wrap"><!--__GAUGE__--></div>
+      <p class="hero-sub"><!--__VERDICT_SUB__--></p>
+      <p class="hero-proof"><!--__PROOF__--></p>
+    </section>
+
+    <!-- LAYER 1b — co-equal: find your own entity. The engagement + share
+         engine: a national stat is abstract, "min kommune" is personal. -->
+    <section class="finder" aria-label="Finn ditt organ">
+      <label class="finder-label" for="find">Finn din kommune, ditt sykehus eller universitet</label>
+      <div class="finder-box">
+        <input type="search" id="find" autocomplete="off" spellcheck="false"
+          placeholder="Skriv navnet på et organ …" role="combobox"
+          aria-expanded="false" aria-controls="find-results" aria-autocomplete="list" />
+        <ul class="find-results hidden" id="find-results" role="listbox" aria-label="Treff"></ul>
+      </div>
+      <p class="finder-hint">Søk på navn — eller <button type="button" class="linklike" id="explore-jump">se hele kartet</button>.</p>
+    </section>
+
+    <!-- LAYER 2 — the narrative: scale → mekanismen → bevegelsen → handoff. -->
+    <section class="narrative" aria-label="Slik henger det sammen">
+      <div class="step"><span class="step-n" aria-hidden="true">1</span><div>
+        <h3>486 organ — dine data</h3>
+        <p>Kommunen din, sykehuset ditt, universitetet ditt. E-posten deres — og det
+          den bærer om deg — ligger hos en amerikansk leverandør.</p></div></div>
+      <div class="step"><span class="step-n" aria-hidden="true">2</span><div>
+        <h3>Mekanismen: CLOUD Act</h3>
+        <p>En amerikansk leverandør er underlagt amerikansk jurisdiksjon uansett hvor
+          dataene fysisk lagres. «EU-region» opphever ikke jurisdiksjonen.</p></div></div>
+      <div class="step"><span class="step-n" aria-hidden="true">3</span><div>
+        <h3>Bevegelsen — hvor få som har flyttet</h3>
+        <p id="narr-movement">…</p></div></div>
+    </section>
 
     <h2 id="maalet">Målet</h2>
     <div class="goal" id="goal"></div>
 
-    <h2 id="grid-title">Hele offentlig sektor</h2>
-    <nav class="catbar" id="catbar" aria-label="Velg kategori"></nav>
+    <!-- LAYER 3 — demoted behind a click: the full 486-organ map. -->
+    <h2>Hele offentlig sektor</h2>
     <p class="tagline" style="font-size:15px;margin-bottom:14px">
       Hver rute er ett organ, fargelagt etter hvilken jurisdiksjon e-posten svarer
       til. Klikk for plattform, jurisdiksjon, evidens og anbefalt europeisk alternativ.</p>
-
-    <div class="legend">
-      <span><span class="sw" style="background:var(--red)"></span>USA (CLOUD Act)</span>
-      <span><span class="sw" style="background:var(--green)"></span>Norge / EØS</span>
-      <span><span class="sw" style="background:var(--amber)"></span>USA — bak e-postgateway (gulv, ikke tak)</span>
-      <span><span class="sw" style="background:var(--grey)"></span>Uavklart</span>
+    <button type="button" class="explore-btn" id="explore-toggle"
+      aria-expanded="false" aria-controls="explore">Utforsk hele kartet — alle organ →</button>
+    <div id="explore" class="hidden">
+      <h3 id="grid-title" class="sr-h">Hele offentlig sektor</h3>
+      <nav class="catbar" id="catbar" aria-label="Velg kategori"></nav>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--red)"></span>USA (CLOUD Act)</span>
+        <span><span class="sw" style="background:var(--green)"></span>Norge / EØS</span>
+        <span><span class="sw" style="background:var(--amber)"></span>USA — bak e-postgateway (gulv, ikke tak)</span>
+        <span><span class="sw" style="background:var(--grey)"></span>Uavklart</span>
+      </div>
+      <div class="controls">
+        <input type="search" id="q" placeholder="Søk …" autocomplete="off" />
+        <div class="filters" id="filters"></div>
+      </div>
+      <p class="count" id="count"></p>
+      <div class="grid" id="grid"></div>
     </div>
-    <div class="controls">
-      <input type="search" id="q" placeholder="Søk …" autocomplete="off" />
-      <div class="filters" id="filters"></div>
-    </div>
-    <p class="count" id="count"></p>
-    <div class="grid" id="grid"></div>
   </section>
 
-  <!-- DETAIL VIEW -->
+  <!-- DETAIL VIEW (per-entity permalink #org/<kategori>/<slug>) -->
   <section id="view-detail" class="hidden"></section>
 
-  <!-- SWITCH MAP + BENCHMARK + METHOD: always below the fold -->
-  <section id="static-rest">
+  <!-- OM & METODE VIEW (#om): byttekart + benchmarks + methodology, demoted
+       behind a click — the credibility depth, off the first screen. -->
+  <section id="view-om" class="hidden">
     <h2 id="bytte">Fra USA til Europa — byttekartet</h2>
     <div class="panel">
       <p>Hvert funn har et konkret, adopterbart europeisk alternativ. Men
@@ -832,47 +1053,26 @@ _TEMPLATE = r"""<!doctype html>
   var state = {q:"", filter:"ALL", cat: CATS[0].key};
   function curCat(){ return catBy(state.cat); }
 
-  // ---- Hero (combined) + trend -------------------------------------------
-  function renderHero(){
-    var s = COMBINED;
-    var breakdown = CATS.map(function(c){
-      return esc(c.label)+' '+pct(c.summary.microsoft_pct)+' %'; }).join(' · ');
-    var sectorLabel = CATS.length>1 ? "norsk offentlig sektor (kommuner + statlige organ)"
-                                    : "norske kommuner";
-    document.getElementById("stat-hero").innerHTML =
-      '<div class="big">'+pct(s.microsoft_pct)+' %</div>'+
-      '<div class="cap">av '+sectorLabel+' kjører e-posten på Microsoft 365 '+
-      '(USA; CLOUD Act-jurisdiksjon). '+pct(s.us_pct)+
-      ' % på en amerikansk skyleverandør.</div>'+
-      '<div class="src">'+s.us_total+' av '+s.total+' organ på USA · '+breakdown+
-      ' · målt '+esc(noDate(DB.meta.sourceDate))+
-      ' fra åpne DNS-data (MX, SPF, autodiscover).</div>';
-
-    var t = DB.trend, el = document.getElementById("stat-trend");
-    var spark = renderSpark();
-    if(!t){ el.innerHTML = '<div class="big">Trend</div>'+
-      '<div class="cap">For få målinger til å vise bevegelse ennå.</div>'+spark; return; }
-    if(t.new_baseline){ el.innerHTML =
-      '<div class="big">Bevegelse (kommuner)</div>'+
-      '<div class="cap">Metodikk forbedret — ny baseline fra '+
-        esc(noDate(t.baseline_date))+'.</div>'+
-      '<div class="src">Forbedret kartlegging endret klassifiseringen, så vi '+
-        'sammenligner ikke på tvers av rekalibreringen — det ville vist forbedret '+
-        'kartlegging som faktiske bytter. Bevegelsestall kommer ved neste måling '+
-        'med samme metodikk.</div>'+spark; return; }
-    var left = t.left_microsoft.length, joined = t.joined_microsoft.length;
-    el.innerHTML =
-      '<div class="big">Bevegelse (kommuner)</div>'+
-      '<div class="cap">Siden forrige måling ('+esc(noDate(t.from_date))+' → '+
-        esc(noDate(t.to_date))+'):</div>'+
-      '<div class="row '+(left?"green":"")+'">'+
-        (left? '🟢 '+left+' kommune'+(left===1?"":"r")+' forlot Microsoft'
-             : '— ingen kommuner forlot Microsoft')+'</div>'+
-      '<div class="row '+(joined?"red":"")+'">'+
-        (joined? '🔴 '+joined+' kommune'+(joined===1?"":"r")+' ble kartlagt på Microsoft'
-               : '— ingen nye på Microsoft')+'</div>'+
-      '<div class="src">Over så korte vindu gjenspeiler bevegelse mest forbedret '+
-        'kartlegging, ikke faktiske bytter. Vi sier det rett ut.</div>'+spark;
+  // ---- Narrative movement step (layer 2) ---------------------------------
+  // The hero verdict + gauge are baked static (the finding IS the title); JS only
+  // fills the honest movement line — how few have actually moved — from the trend.
+  function renderNarrative(){
+    var el = document.getElementById("narr-movement");
+    if(!el) return;
+    var g = DB.goal, t = DB.trend;
+    var sov = g ? g.sovereign_count : 0, total = g ? g.total : 0;
+    var html = 'Av '+esc(total)+' skannede organ er bare <b>'+esc(sov)+'</b> på '+
+      'norsk eller europeisk e-post i dag';
+    if(t && !t.new_baseline && t.left_microsoft){
+      var left = t.left_microsoft.length;
+      html += left ? ', og '+left+' forlot Microsoft siden forrige måling'
+                   : ', og ingen forlot Microsoft siden forrige måling';
+    } else if(t && t.new_baseline){
+      html += ' (metodikken ble forbedret — ny baseline, ikke et bytte-tall)';
+    }
+    html += '. Endring som varer ligger i innkjøpsreglene, ikke i et enkeltvedtak '+
+      'som kan reverseres (lærdommen fra Münchens LiMux).';
+    el.innerHTML = html + renderSpark();
   }
   function renderSpark(){
     var h = DB.history || [];
@@ -995,8 +1195,19 @@ _TEMPLATE = r"""<!doctype html>
   }
 
   // ---- Detail -------------------------------------------------------------
-  function bySlug(catKey, s){
-    var arr = catBy(catKey).entities;
+  // The full per-entity record (evidence, governance, web axis) is NOT inlined —
+  // only a light slice is (issue #34). The detail view fetches its category's full
+  // payload same-origin (our own EU origin) the first time it is opened, caches it,
+  // and finds the entity by slug.
+  var DETAIL_CACHE = {};
+  function loadCategory(catKey){
+    if(DETAIL_CACHE[catKey]) return Promise.resolve(DETAIL_CACHE[catKey]);
+    return fetch("data/detail-"+encodeURIComponent(catKey)+".json").then(function(r){
+      if(!r.ok) throw new Error("HTTP "+r.status);
+      return r.json();
+    }).then(function(arr){ DETAIL_CACHE[catKey] = arr; return arr; });
+  }
+  function findBySlug(arr, s){
     for(var i=0;i<arr.length;i++){ if(slug(nameOf(arr[i]))===s) return arr[i]; }
     return null;
   }
@@ -1334,18 +1545,31 @@ _TEMPLATE = r"""<!doctype html>
   }
 
   // ---- Routing ------------------------------------------------------------
+  // Three views: home, per-entity detail (#org/<kategori>/<slug>, a permalink),
+  // and Om & metode (#om) — the methodology demoted behind a click.
+  function showView(id){
+    ["view-home","view-detail","view-om"].forEach(function(v){
+      document.getElementById(v).classList.toggle("hidden", v!==id); });
+  }
+  function openDetail(catKey, s){
+    showView("view-detail"); window.scrollTo(0,0);
+    var v = document.getElementById("view-detail");
+    v.innerHTML = '<p class="loading">Laster organet …</p>';
+    loadCategory(catKey).then(function(arr){
+      var k = findBySlug(arr, s);
+      if(k){ renderDetail(k, catKey); }
+      else { v.innerHTML = '<p class="loading">Fant ikke organet. '+
+        '<a href="#">Til forsiden</a></p>'; }
+    }, function(){
+      v.innerHTML = '<p class="loading">Kunne ikke laste organet akkurat nå. '+
+        '<a href="#">Til forsiden</a></p>'; });
+  }
   function route(){
     var hash = location.hash.replace(/^#/,"");
     var m = hash.match(/^org\/([^/]+)\/(.+)$/);
-    var home = document.getElementById("view-home");
-    var detail = document.getElementById("view-detail");
-    var rest = document.getElementById("static-rest");
-    if(m){
-      var k = bySlug(m[1], m[2]);
-      if(k){ renderDetail(k, m[1]); home.classList.add("hidden"); rest.classList.add("hidden");
-        detail.classList.remove("hidden"); window.scrollTo(0,0); return; }
-    }
-    detail.classList.add("hidden"); home.classList.remove("hidden"); rest.classList.remove("hidden");
+    if(m){ openDetail(m[1], m[2]); return; }
+    if(hash==="om" || hash==="metode"){ showView("view-om"); window.scrollTo(0,0); return; }
+    showView("view-home");
   }
 
   // ---- Wiring -------------------------------------------------------------
@@ -1417,7 +1641,84 @@ _TEMPLATE = r"""<!doctype html>
   });
   window.addEventListener("hashchange", route);
 
-  renderHero(); renderGoal(); renderCatbar(); renderFilters(); renderGrid(); route();
+  // ---- Finn ditt organ (layer 1b): autosuggest over a flat light index -----
+  var FIND_INDEX = [];
+  CATS.forEach(function(c){ c.entities.forEach(function(e){
+    var nm = nameOf(e);
+    FIND_INDEX.push({name:nm, cat:c.key, catLabel:c.label, slug:slug(nm),
+      pl:platMeta(e).label, q:nm.toLowerCase(), dom:(e.domain||"").toLowerCase()});
+  });});
+  function wireFinder(){
+    var input = document.getElementById("find");
+    var box = document.getElementById("find-results");
+    if(!input || !box) return;
+    var active = -1, shown = [];
+    function close(){ box.classList.add("hidden"); box.innerHTML = "";
+      input.setAttribute("aria-expanded","false"); active = -1; shown = []; }
+    function go(opt){ close(); input.value = ""; location.hash = "org/"+opt.cat+"/"+opt.slug; }
+    function render(q){
+      shown = [];
+      if(q){
+        for(var i=0;i<FIND_INDEX.length && shown.length<8;i++){
+          var o = FIND_INDEX[i];
+          if(o.q.indexOf(q)>=0 || (o.dom && o.dom.indexOf(q)>=0)) shown.push(o);
+        }
+      }
+      if(!shown.length){
+        if(!q){ close(); return; }
+        box.innerHTML = '<li class="find-none">Ingen treff på «'+esc(q)+'».</li>';
+        box.classList.remove("hidden"); input.setAttribute("aria-expanded","true"); return;
+      }
+      active = -1;
+      box.innerHTML = shown.map(function(o,i){
+        return '<li role="option" id="fo-'+i+'"><button type="button" class="find-opt" data-i="'+i+'">'+
+          '<span class="fo-nm">'+esc(o.name)+'</span>'+
+          '<span class="fo-cat">'+esc(o.catLabel)+' · <span class="fo-pl">'+esc(o.pl)+'</span></span>'+
+          '</button></li>'; }).join("");
+      box.classList.remove("hidden"); input.setAttribute("aria-expanded","true");
+    }
+    function highlight(){
+      var opts = box.querySelectorAll(".find-opt");
+      for(var i=0;i<opts.length;i++) opts[i].classList.toggle("active", i===active);
+    }
+    input.addEventListener("input", function(){ render(this.value.trim().toLowerCase()); });
+    input.addEventListener("keydown", function(e){
+      if(!shown.length) return;
+      if(e.key==="ArrowDown"){ e.preventDefault(); active=Math.min(active+1,shown.length-1); highlight(); }
+      else if(e.key==="ArrowUp"){ e.preventDefault(); active=Math.max(active-1,0); highlight(); }
+      else if(e.key==="Enter"){ e.preventDefault(); go(shown[active<0?0:active]); }
+      else if(e.key==="Escape"){ close(); }
+    });
+    box.addEventListener("click", function(e){
+      var b = e.target.closest(".find-opt"); if(!b) return;
+      go(shown[parseInt(b.getAttribute("data-i"),10)]); });
+    document.addEventListener("click", function(e){
+      if(!input.contains(e.target) && !box.contains(e.target)) close(); });
+  }
+
+  // ---- Utforsk hele kartet (layer 3): the full grid, behind a click --------
+  var gridReady = false;
+  function expandExplore(scroll){
+    var panel = document.getElementById("explore");
+    var toggle = document.getElementById("explore-toggle");
+    panel.classList.remove("hidden");
+    if(toggle) toggle.setAttribute("aria-expanded","true");
+    if(!gridReady){ renderGrid(); gridReady = true; }
+    if(scroll) panel.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  function wireExplore(){
+    var toggle = document.getElementById("explore-toggle");
+    if(toggle) toggle.addEventListener("click", function(){
+      var panel = document.getElementById("explore");
+      if(panel.classList.contains("hidden")){ expandExplore(false); }
+      else { panel.classList.add("hidden"); toggle.setAttribute("aria-expanded","false"); }
+    });
+    var jump = document.getElementById("explore-jump");
+    if(jump) jump.addEventListener("click", function(){ expandExplore(true); });
+  }
+
+  renderNarrative(); renderGoal(); renderCatbar(); renderFilters();
+  wireFinder(); wireExplore(); route();
 })();
 </script>
 </body>
