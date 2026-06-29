@@ -387,6 +387,29 @@
   .explore-btn:hover{background:#15293a}
   .sr-h{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .loading{color:var(--muted);font-size:var(--text-base);padding:var(--space-6) 0}
+  /* /for-presse (issue #37): the press kit. "Suverenitet i tall" figure grid,
+     embed-snippet blocks with a frys-toggle, and the download/citation panels. */
+  .press-lead{font-size:var(--text-lg);color:var(--muted);max-width:72ch;margin:0 0 var(--space-6)}
+  .figs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--space-3);margin:0 0 var(--space-4)}
+  .pf{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line);
+    border-radius:var(--radius);padding:var(--space-5);box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .pf-val{font-size:var(--text-2xl);font-weight:700;color:var(--red);line-height:1.05;
+    letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .pf-lab{font-size:var(--text-sm);color:var(--fg);margin-top:var(--space-2)}
+  .pf-note{font-size:var(--text-xs);color:var(--faint);margin-top:var(--space-2)}
+  .press-embed-grid{display:grid;grid-template-columns:1fr;gap:var(--space-3);margin:0 0 var(--space-5)}
+  @media(min-width:720px){.press-embed-grid{grid-template-columns:1fr 1fr}}
+  .press-embed{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:var(--space-4)}
+  .press-embed h4{margin:0 0 var(--space-2);font-size:var(--text-base)}
+  .press-embed .frys{display:flex;gap:var(--space-2);align-items:baseline;font-size:var(--text-sm);
+    color:var(--muted);margin:0 0 var(--space-2);cursor:pointer}
+  .press-snip{width:100%;resize:vertical;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius-sm);color:#cdd9e3;padding:var(--space-3);
+    font:var(--text-xs)/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .press-acts{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;margin-top:var(--space-2)}
+  .press-cite-note{font-size:var(--text-xs);color:var(--faint)}
+  .press-contact{font-size:var(--text-base)}
+  .press-contact b{color:var(--fg)}
   /* Honour a reduced-motion preference (WCAG 2.3.3): no fills, no smooth scroll */
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -402,7 +425,7 @@
   <header class="masthead">
     <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
     <span class="kicker">Skybarometeret</span>
-    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#om">Om &amp; metode</a></nav>
+    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a></nav>
   </header>
 
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
@@ -518,6 +541,129 @@
 
   <!-- DETAIL VIEW (per-entity permalink #org/<kategori>/<slug>) -->
   <section id="view-detail" class="hidden"></section>
+
+  <!-- FOR PRESSE VIEW (#for-presse): the press kit (issue #37). Everything a
+       journalist needs to file in 30 minutes — data, figures, a one-page method,
+       same-origin embeds with a frys-per-dato option, graphics, citation +
+       named contact. Baked static; works with no JS for first read. -->
+  <section id="view-presse" class="hidden">
+    <h2 id="for-presse">For presse</h2>
+    <p class="press-lead">Alt du trenger for å lage en sak på 30 minutter: tallene,
+      rådataene, en metode på éi side, ferdige grafikker, innbyggbare figurer som
+      kan fryses per dato — og en navngitt kontakt. Alt er åpent under
+      <b>CC BY 4.0</b>.</p>
+
+    <h2>Suverenitet i tall</h2>
+    <div class="figs"><div class="pf"><span class="pf-val">99,2 %</span><span class="pf-lab">av skannet offentlig sektor svarer e-posten til amerikansk jurisdiksjon (CLOUD Act)</span><span class="pf-note">Et gulv — den reelle andelen er minst så høy.</span></div><div class="pf"><span class="pf-val">97,7 %</span><span class="pf-lab">kjører Microsoft 365</span></div><div class="pf"><span class="pf-val">1 av 486</span><span class="pf-lab">organ er på norsk eller europeisk e-postdrift</span><span class="pf-note">Målet: snu dette tallet.</span></div><div class="pf"><span class="pf-val">98,6 %</span><span class="pf-lab">av kommunene på Microsoft 365</span><span class="pf-note">353 av 358 kommuner</span></div><div class="pf"><span class="pf-val">24 av 25</span><span class="pf-lab">helseforetak på amerikansk sky</span></div><div class="pf"><span class="pf-val">27 av 27</span><span class="pf-lab">universiteter og høgskoler på amerikansk sky</span></div><div class="pf"><span class="pf-val">100,0 %</span><span class="pf-lab">av de skannede statlige organene på amerikansk sky</span></div><div class="pf"><span class="pf-val">486</span><span class="pf-lab">offentlige organ kartlagt totalt</span></div></div>
+    <p class="carto-note">Alle tall er utledet av siste skanning og er et
+      <b>gulv</b> — den reelle USA-andelen er minst så høy, aldri lavere.</p>
+
+    <h2 id="last-ned-data">Last ned data</h2>
+    <div class="panel">
+      <h3>CSV — per kategori og kombinert</h3>
+      <ul class="downloads">
+        <li><a href="data/skytilsynet-kombinert.csv" download>Kombinert — alle organ (CSV)</a>
+          <span class="dl-file">skytilsynet-kombinert.csv</span></li>
+        <li><a href="data/skytilsynet-kommune.csv" download>Kommuner (CSV)</a>
+          <span class="dl-file">skytilsynet-kommune.csv</span></li>
+        <li><a href="data/skytilsynet-stat.csv" download>Statlige organ (CSV)</a>
+          <span class="dl-file">skytilsynet-stat.csv</span></li>
+        <li><a href="data/skytilsynet-fylke.csv" download>Fylkeskommuner (CSV)</a>
+          <span class="dl-file">skytilsynet-fylke.csv</span></li>
+        <li><a href="data/skytilsynet-helse.csv" download>Helseforetak (CSV)</a>
+          <span class="dl-file">skytilsynet-helse.csv</span></li>
+        <li><a href="data/skytilsynet-uni.csv" download>Universiteter og høgskoler (CSV)</a>
+          <span class="dl-file">skytilsynet-uni.csv</span></li>
+      </ul>
+      <h3 style="margin-top:14px">API — stabile JSON-URL-er</h3>
+      <p>Det fulle, kildebelagte datasettet (samme som siden bruker) ligger på
+        stabile URL-er — hver rad bærer sin egen kilde og dato:</p>
+      <ul class="downloads"><li><a href="data/kommune-email-sovereignty.latest.json" download>Kommuner — e-post</a><span class="dl-file">kommune-email-sovereignty.latest.json</span></li><li><a href="data/statlige-organ-email-sovereignty.latest.json" download>Statlige organ — e-post</a><span class="dl-file">statlige-organ-email-sovereignty.latest.json</span></li><li><a href="data/fylkeskommune-email-sovereignty.latest.json" download>Fylkeskommuner — e-post</a><span class="dl-file">fylkeskommune-email-sovereignty.latest.json</span></li><li><a href="data/helseforetak-email-sovereignty.latest.json" download>Helseforetak — e-post</a><span class="dl-file">helseforetak-email-sovereignty.latest.json</span></li><li><a href="data/uh-sektor-email-sovereignty.latest.json" download>Universiteter og høgskoler — e-post</a><span class="dl-file">uh-sektor-email-sovereignty.latest.json</span></li><li><a href="data/kommune-web-sovereignty.latest.json" download>Kommuner — web-akse (infrastruktur)</a><span class="dl-file">kommune-web-sovereignty.latest.json</span></li></ul>
+      <p style="font-size:13px;color:var(--muted)">Detaljdata per organ (evidens,
+        styresett, web-akse) ligger på <code>data/detail-&lt;kategori&gt;.json</code>.</p>
+    </div>
+
+    <h2>Høyoppløst grafikk</h2>
+    <div class="panel">
+      <p>Publiseringsklare grafikker — SVG (skalerbar, for trykk) og PNG. Alt
+        selvhostet, ingen ekstern avhengighet.</p>
+      <ul class="downloads">
+        <li><a href="graphics/gauge.svg" download>Måleren (SVG)</a>
+          <span class="dl-file">graphics/gauge.svg</span></li>
+        <li><a href="graphics/gauge.png" download>Måleren (PNG)</a>
+          <span class="dl-file">graphics/gauge.png</span></li>
+        <li><a href="graphics/kart.svg" download>Kartogrammet (SVG)</a>
+          <span class="dl-file">graphics/kart.svg</span></li>
+        <li><a href="graphics/kart.png" download>Kartogrammet (PNG)</a>
+          <span class="dl-file">graphics/kart.png</span></li>
+        <li><a href="og-image.png" download>Delekort «9 av 10» (PNG, 1200×630)</a>
+          <span class="dl-file">og-image.png</span></li>
+      </ul>
+    </div>
+
+    <h2>Bygg inn figurene</h2>
+    <div class="panel">
+      <p>Innbyggbar måler og kartogram — som <b>iframe</b> eller
+        <b>web-komponent</b>, begge servert fra skytilsynet.no (ingen ekstern
+        avhengighet). Hver innbygging bærer siteringslinjen. Kryss av for
+        <b>«frys per dato»</b> for å låse den figuren en publisert artikkel viser,
+        så tallet aldri endrer seg i ettertid.</p>
+      <h3>Måleren</h3><div class="press-embed-grid"><div class="press-embed"><h4>iframe</h4><label class="frys"><input type="checkbox" class="frys-toggle"> Frys per 29. juni 2026 — figuren en publisert artikkel siterer endrer seg aldri</label><textarea class="press-snip" readonly rows="3" data-live="&lt;iframe src=&quot;https://skytilsynet.no/embed/gauge.html&quot; width=&quot;360&quot; height=&quot;250&quot; style=&quot;border:0;max-width:100%&quot; loading=&quot;lazy&quot; title=&quot;Skybarometeret — måler&quot;&gt;&lt;/iframe&gt;" data-frozen="&lt;iframe src=&quot;https://skytilsynet.no/embed/gauge.html?pct=99.2&amp;date=2026-06-29&quot; width=&quot;360&quot; height=&quot;250&quot; style=&quot;border:0;max-width:100%&quot; loading=&quot;lazy&quot; title=&quot;Skybarometeret — måler&quot;&gt;&lt;/iframe&gt;">&lt;iframe src="https://skytilsynet.no/embed/gauge.html" width="360" height="250" style="border:0;max-width:100%" loading="lazy" title="Skybarometeret — måler"&gt;&lt;/iframe&gt;</textarea><div class="press-acts"><button type="button" class="copybtn press-copy">Kopier</button><span class="press-cite-note">Siteringslinje følger med i innbyggingen.</span></div></div><div class="press-embed"><h4>Web-komponent</h4><label class="frys"><input type="checkbox" class="frys-toggle"> Frys per 29. juni 2026 — figuren en publisert artikkel siterer endrer seg aldri</label><textarea class="press-snip" readonly rows="3" data-live="&lt;script src=&quot;https://skytilsynet.no/embed/skytilsynet-embed.js&quot; async&gt;&lt;/script&gt;
+&lt;skytilsynet-gauge&gt;&lt;/skytilsynet-gauge&gt;" data-frozen="&lt;script src=&quot;https://skytilsynet.no/embed/skytilsynet-embed.js&quot; async&gt;&lt;/script&gt;
+&lt;skytilsynet-gauge pct=&quot;99.2&quot; date=&quot;2026-06-29&quot;&gt;&lt;/skytilsynet-gauge&gt;">&lt;script src="https://skytilsynet.no/embed/skytilsynet-embed.js" async&gt;&lt;/script&gt;
+&lt;skytilsynet-gauge&gt;&lt;/skytilsynet-gauge&gt;</textarea><div class="press-acts"><button type="button" class="copybtn press-copy">Kopier</button><span class="press-cite-note">Siteringslinje følger med i innbyggingen.</span></div></div></div><h3>Kartogrammet</h3><div class="press-embed-grid"><div class="press-embed"><h4>iframe</h4><label class="frys"><input type="checkbox" class="frys-toggle"> Frys per 29. juni 2026 — figuren en publisert artikkel siterer endrer seg aldri</label><textarea class="press-snip" readonly rows="3" data-live="&lt;iframe src=&quot;https://skytilsynet.no/embed/kart.html&quot; width=&quot;360&quot; height=&quot;430&quot; style=&quot;border:0;max-width:100%&quot; loading=&quot;lazy&quot; title=&quot;Skybarometeret — kartogram&quot;&gt;&lt;/iframe&gt;" data-frozen="&lt;iframe src=&quot;https://skytilsynet.no/embed/kart.html?d=rrrrrrrxrxrrrrr&amp;date=2026-06-29&quot; width=&quot;360&quot; height=&quot;430&quot; style=&quot;border:0;max-width:100%&quot; loading=&quot;lazy&quot; title=&quot;Skybarometeret — kartogram&quot;&gt;&lt;/iframe&gt;">&lt;iframe src="https://skytilsynet.no/embed/kart.html" width="360" height="430" style="border:0;max-width:100%" loading="lazy" title="Skybarometeret — kartogram"&gt;&lt;/iframe&gt;</textarea><div class="press-acts"><button type="button" class="copybtn press-copy">Kopier</button><span class="press-cite-note">Siteringslinje følger med i innbyggingen.</span></div></div><div class="press-embed"><h4>Web-komponent</h4><label class="frys"><input type="checkbox" class="frys-toggle"> Frys per 29. juni 2026 — figuren en publisert artikkel siterer endrer seg aldri</label><textarea class="press-snip" readonly rows="3" data-live="&lt;script src=&quot;https://skytilsynet.no/embed/skytilsynet-embed.js&quot; async&gt;&lt;/script&gt;
+&lt;skytilsynet-kart&gt;&lt;/skytilsynet-kart&gt;" data-frozen="&lt;script src=&quot;https://skytilsynet.no/embed/skytilsynet-embed.js&quot; async&gt;&lt;/script&gt;
+&lt;skytilsynet-kart d=&quot;rrrrrrrxrxrrrrr&quot; date=&quot;2026-06-29&quot;&gt;&lt;/skytilsynet-kart&gt;">&lt;script src="https://skytilsynet.no/embed/skytilsynet-embed.js" async&gt;&lt;/script&gt;
+&lt;skytilsynet-kart&gt;&lt;/skytilsynet-kart&gt;</textarea><div class="press-acts"><button type="button" class="copybtn press-copy">Kopier</button><span class="press-cite-note">Siteringslinje følger med i innbyggingen.</span></div></div></div>
+    </div>
+
+    <h2>Metode på éi side</h2>
+    <div class="panel">
+      <p>Vi klassifiserer hvert organ ut fra <b>offentlig DNS</b> (pluss ett
+        uautentisert HTTPS-oppslag) — ingen innlogging, ingen kostnad. Signalene,
+        i økende bevisstyrke: <b>MX</b> (hvor e-posten leveres), <b>SPF</b> (hvem
+        som får sende), <b>autodiscover</b> (klientoppsett), <b>getuserrealm</b>
+        (Microsofts egen <code>Managed/Federated</code>-status) og <b>DKIM</b>.</p>
+      <ul class="method-list">
+        <li><b>Dekning og dato.</b> Skanningen dekker kommuner, statlige organ,
+          fylkeskommuner, helseforetak og UH-sektoren. Hver rad er datostemplet;
+          siste måledato vises på hver figur og i hver CSV-rad.</li>
+        <li><b>Datalagring ≠ jurisdiksjon.</b> At dataene lagres i Norge/EU
+          opphever ikke amerikansk jurisdiksjon: er operatøren amerikansk-hjemmehørende,
+          gjelder <b>US CLOUD Act</b> uansett hvor bytene fysisk ligger.</li>
+        <li><b>Gulv, ikke tak.</b> USA-andelen er et gulv — noen gateway-bakender
+          forblir uavdekket, og flere er etter alt å dømme også Microsoft. Reell
+          andel er minst så høy som vist.</li>
+        <li><b>Én akse.</b> Verdiktet gjelder e-post, ikke fagsystemer, arkiv eller
+          øvrige skytjenester. Web-aksen (nettstedets infrastruktur) holdes adskilt.</li>
+      </ul>
+      <p>Klassifiseringskoden er åpen og etterprøvbar linje for linje:
+        <a href="https://github.com/praive-inc/skytilsynet/blob/main/scanner/scan.py"
+          target="_blank" rel="noopener"><code>scanner/scan.py</code> →</a>.
+        Full metode: <a href="#om">Om &amp; metode</a>.</p>
+    </div>
+
+    <h2>Slik siterer du oss</h2>
+    <div class="panel">
+      <p>Datasettene og grafikkene er åpne under <b>Creative Commons CC BY 4.0</b>.
+        Bruk gjerne — oppgi kilde:</p>
+      <p class="press-contact"><b>«Kilde: Skytilsynet / BetterWorld, skytilsynet.no
+        (CC BY 4.0)»</b></p>
+      <p style="font-size:13px;color:var(--muted)">Hver innbygd figur har samme
+        siteringslinje innebygd, med måledato. Skytilsynet er et uavhengig prosjekt
+        — ikke et offentlig organ (se ansvarsfraskrivelsen øverst).</p>
+    </div>
+
+    <h2>Kontakt</h2>
+    <div class="panel">
+      <p class="press-contact"><b>Pressekontakt: Jøran Bjerksetmyr</b>
+        (metodikk-ansvarlig). E-post:
+        <a href="mailto:presse@skytilsynet.no">presse@skytilsynet.no</a>.</p>
+      <p style="font-size:13px;color:var(--muted)">Spørsmål til metoden, datatilgang,
+        intervju eller en retting går til samme navngitte person — ikke en anonym
+        redaksjon.</p>
+    </div>
+  </section>
 
   <!-- OM & METODE VIEW (#om): byttekart + benchmarks + methodology, demoted
        behind a click — the credibility depth, off the first screen. -->
@@ -1326,7 +1472,7 @@
   // Three views: home, per-entity detail (#org/<kategori>/<slug>, a permalink),
   // and Om & metode (#om) — the methodology demoted behind a click.
   function showView(id){
-    ["view-home","view-detail","view-om"].forEach(function(v){
+    ["view-home","view-detail","view-om","view-presse"].forEach(function(v){
       document.getElementById(v).classList.toggle("hidden", v!==id); });
   }
   function openDetail(catKey, s){
@@ -1347,6 +1493,7 @@
     var m = hash.match(/^org\/([^/]+)\/(.+)$/);
     if(m){ openDetail(m[1], m[2]); return; }
     if(hash==="om" || hash==="metode"){ showView("view-om"); window.scrollTo(0,0); return; }
+    if(hash==="for-presse" || hash==="presse"){ showView("view-presse"); window.scrollTo(0,0); return; }
     showView("view-home");
   }
 
@@ -1405,6 +1552,23 @@
     var ta = btn.closest(".funnel").querySelector("textarea");
     var done = function(){ btn.classList.add("ok"); btn.textContent = "Kopiert ✓";
       setTimeout(function(){ btn.classList.remove("ok"); btn.textContent = "Kopier teksten"; }, 2000); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(ta.value).then(done, function(){ ta.select(); });
+    } else { ta.select(); document.execCommand("copy"); done(); }
+  });
+  // /for-presse (issue #37): the frys-per-dato toggle swaps each embed snippet
+  // between its live form and a frozen form that pins the cited figure; the
+  // press-copy button copies the snippet. No data leaves the browser.
+  document.addEventListener("change", function(e){
+    var t = e.target; if(!t || !t.classList || !t.classList.contains("frys-toggle")) return;
+    var ta = t.closest(".press-embed").querySelector(".press-snip");
+    ta.value = t.checked ? ta.getAttribute("data-frozen") : ta.getAttribute("data-live");
+  });
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest(".press-copy"); if(!btn) return;
+    var ta = btn.closest(".press-embed").querySelector(".press-snip");
+    var done = function(){ btn.classList.add("ok"); btn.textContent = "Kopiert ✓";
+      setTimeout(function(){ btn.classList.remove("ok"); btn.textContent = "Kopier"; }, 2000); };
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(ta.value).then(done, function(){ ta.select(); });
     } else { ta.select(); document.execCommand("copy"); done(); }
