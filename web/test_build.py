@@ -224,16 +224,14 @@ class WebAxisJoin(unittest.TestCase):
 
     def setUp(self):
         self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
-
-    def _payload(self):
-        start = self.html.index('id="data"')
-        open_tag = self.html.index(">", start) + 1
-        close = self.html.index("</script>", open_tag)
-        return json.loads(self.html[open_tag:close].replace("<\\/", "</"))
+        # The web axis is joined onto the full entity, which now lives in the
+        # on-demand per-category detail file (#34), not inlined on the page.
+        self.cats = build.build_categories(DATA, STAT, WEB)
+        self.files = build.detail_files(self.cats)
 
     def _kommune(self, name):
-        cat = next(c for c in self._payload()["categories"] if c["key"] == "kommune")
-        return next(k for k in cat["entities"] if k["kommune"] == name)
+        arr = json.loads(self.files["detail-kommune.json"])
+        return next(k for k in arr if k["name"] == name)
 
     def test_web_record_joined_onto_entity_by_domain(self):
         oslo = self._kommune("Oslo")
@@ -261,17 +259,21 @@ class WebAxisJoin(unittest.TestCase):
         # Backward compatible: the web dataset is optional.
         html = build.build_html(DATA, HISTORY, TREND, STAT)
         self.assertIn("Oslo", html)
-        payload_start = html.index('id="data"')
-        open_tag = html.index(">", payload_start) + 1
-        close = html.index("</script>", open_tag)
-        payload = json.loads(html[open_tag:close].replace("<\\/", "</"))
-        cat = next(c for c in payload["categories"] if c["key"] == "kommune")
-        self.assertIsNone(next(k for k in cat["entities"] if k["kommune"] == "Oslo")["web"])
+        cats = build.build_categories(DATA, STAT)
+        arr = json.loads(build.detail_files(cats)["detail-kommune.json"])
+        self.assertIsNone(next(k for k in arr if k["name"] == "Oslo")["web"])
 
 
 class BuildHtml(unittest.TestCase):
     def setUp(self):
         self.html = build.build_html(DATA, HISTORY, TREND, STAT)
+        # The full per-entity records (evidence, governance, web) are no longer
+        # inlined — they live in the on-demand per-category detail files (#34).
+        self.cats = build.build_categories(DATA, STAT)
+        self.files = build.detail_files(self.cats)
+
+    def _detail(self, key):
+        return json.loads(self.files["detail-%s.json" % key])
 
     def _payload(self):
         start = self.html.index('id="data"')
@@ -322,12 +324,23 @@ class BuildHtml(unittest.TestCase):
         self.assertEqual(cats["stat"]["summary"]["microsoft_pct"], 100.0)
 
     def test_every_entity_carries_cited_evidence(self):
-        # Acceptance: every verdict still links to cited evidence.
+        # Acceptance: every verdict still links to cited evidence — now carried in
+        # the on-demand per-category detail file (#34), not inlined on the page.
+        for c in self.cats:
+            for e in self._detail(c["key"]):
+                self.assertIn("evidence", e)
+                self.assertTrue(e["sourceDate"])
+
+    def test_inline_payload_is_light_not_the_full_evidence(self):
+        # #34 performance: the inlined entities carry only the light grid/search
+        # fields — never the heavy evidence/governance/web/verdict (those load on
+        # demand). This is what keeps first paint small.
         payload = self._payload()
         for c in payload["categories"]:
             for e in c["entities"]:
-                self.assertIn("evidence", e)
-                self.assertTrue(e["sourceDate"])
+                self.assertEqual(set(e), set(build.LIGHT_FIELDS))
+                for heavy in ("evidence", "governance", "web", "verdict"):
+                    self.assertNotIn(heavy, e)
 
     def test_kommune_only_still_builds_without_stat(self):
         # Backward compatible: omitting the second category renders kommune-only.
@@ -352,12 +365,8 @@ class BuildHtml(unittest.TestCase):
         self.assertIn("freedomhouse.org", self.html)    # the source link
 
     def test_governance_is_baked_per_kommune(self):
-        start = self.html.index('id="data"')
-        open_tag = self.html.index(">", start) + 1
-        close = self.html.index("</script>", open_tag)
-        payload = json.loads(self.html[open_tag:close].replace("<\\/", "</"))
-        kommune_cat = next(c for c in payload["categories"] if c["key"] == "kommune")
-        by_name = {k["kommune"]: k for k in kommune_cat["entities"]}
+        # Governance rides along the full entity in the on-demand detail file (#34).
+        by_name = {k["name"]: k for k in self._detail("kommune")}
         self.assertEqual(by_name["Oslo"]["governance"]["tier"], "democracy")
         self.assertEqual(by_name["Oslo"]["governance"]["score"], 81)
         self.assertIsNone(by_name["Alvdal"]["governance"])  # Undetermined -> none
@@ -376,11 +385,13 @@ class BuildHtml(unittest.TestCase):
         self.assertIn("10 mill", self.html)            # NOK 10M/yr
 
     def test_evidence_trail_is_baked_per_signal_with_source_and_date(self):
-        # Issue #8: every signal is a citable record (source query + observed_at).
-        self.assertIn('"signal_type"', self.html)
-        self.assertIn('"observed_at"', self.html)
-        self.assertIn("dig MX oslo.kommune.no", self.html)        # exact query cited
-        self.assertIn("dig CNAME autodiscover.oslo.kommune.no", self.html)
+        # Issue #8: every signal is a citable record (source query + observed_at) —
+        # in the on-demand detail file (#34), fetched when a card is opened.
+        blob = self.files["detail-kommune.json"]
+        self.assertIn('"signal_type"', blob)
+        self.assertIn('"observed_at"', blob)
+        self.assertIn("dig MX oslo.kommune.no", blob)             # exact query cited
+        self.assertIn("dig CNAME autodiscover.oslo.kommune.no", blob)
 
     def test_detail_renders_evidence_trail_and_confidence(self):
         # The detail view must iterate the per-signal trail and show confidence.
@@ -389,14 +400,18 @@ class BuildHtml(unittest.TestCase):
         self.assertIn("Vis hvordan vi vet det", self.html)        # 'show your work' heading
 
     def test_matched_ms_ip_signal_is_highlighted(self):
-        # The spf_ip signal carries the matched MS IP and the template marks it.
+        # The spf_ip signal carries the matched MS IP; the template marks it (the
+        # rendering stays inline), the IP itself rides the on-demand detail file.
         self.assertIn("spf_ip", self.html)
-        self.assertIn("40.92.1.5", self.html)
+        self.assertIn("40.92.1.5", self.files["detail-kommune.json"])
 
     def test_uavklart_verdict_is_baked_honestly(self):
-        # Alvdal can't be resolved -> honest Uavklart, not a guess.
-        self.assertIn('"uavklart":true', self.html)
-        self.assertIn("ikke avgjort fra DNS", self.html)
+        # Alvdal can't be resolved -> honest Uavklart, not a guess. The verdict is
+        # in the detail file; the "ikke avgjort fra DNS" copy is rendered inline.
+        self.assertIn('"uavklart":true', self.files["detail-kommune.json"])
+        self.assertIn("ikke avgjort fra DNS", self.files["detail-kommune.json"])
+        # The inline detail template still renders the honest fallback copy.
+        self.assertIn("Ikke avgjort fra DNS", self.html)
 
     def test_trend_is_data_driven_not_hardcoded(self):
         # The honest trend object must be baked in; no fabricated "3 left".
@@ -410,7 +425,8 @@ class BuildHtml(unittest.TestCase):
         html = build.build_html(DATA, HISTORY, baseline, STAT)
         self.assertIn('"new_baseline":true', html)
         self.assertIn("ny baseline", html)
-        self.assertIn("Metodikk forbedret", html)
+        # No fabricated movement count across a methodology recalibration.
+        self.assertIn("ikke et bytte-tall", html)
 
     def test_no_us_managed_serving_dependency(self):
         # RFC-001 P5: no external fetches — no CDN, fonts, map tiles.
@@ -803,6 +819,124 @@ class DataDownloads(unittest.TestCase):
         for fn, _ in build.DATA_DOWNLOADS:
             self.assertTrue(os.path.exists(os.path.join(dest, fn)),
                             fn + " was not copied for serving")
+
+
+class ReLadder(unittest.TestCase):
+    """Issue #34 — re-ladder the page: a zero-scroll hero (the verdict as a
+    sentence + one dominant gauge + the shock names), a co-equal find-your-entity
+    search, a tight narrative, and the 486-organ grid + methodology demoted behind
+    a click. Performance: only a LIGHT per-entity slice is inlined; the full
+    evidence loads on demand same-origin. Plain static, no build step, no deps."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+
+    # --- Layer 1: the verdict sentence + gauge ---------------------------------
+    def test_h1_is_the_verdict_as_a_sentence_not_a_question(self):
+        # OWID rule: the title IS the finding. The old question H1 is gone.
+        self.assertNotIn("Hvor avhengig er Norge", self.html)
+        m = re.search(r'id="verdict-h1">([^<]+)<', self.html)
+        self.assertIsNotNone(m)
+        h1 = m.group(1)
+        self.assertIn("kjører e-posten i USA", h1)
+        self.assertRegex(h1, r"\d+ av 10")          # "X av 10 …"
+
+    def test_verdict_sentence_is_derived_from_the_data(self):
+        # The "X av 10" is the combined US share floored to a tenth, not hardcoded.
+        # Fixture: 2 organ + 2 kommuner US of 6 -> us_pct 66.7 -> "6 av 10".
+        c = build.combine_summaries([DATA["summary"], STAT["summary"]])
+        self.assertEqual(c["us_pct"], round(100 * 4 / 6, 1))
+        self.assertIn("%d av 10" % int(c["us_pct"] // 10), self.html)
+
+    def test_dominant_gauge_is_baked_static_and_labelled(self):
+        # A single dial, readable at a glance, with a text alternative — and baked
+        # (no JS, no external dep) so it is on the first screen with no fetch.
+        self.assertIn('class="gauge"', self.html)
+        self.assertIn('role="img"', self.html)
+        self.assertIn("USA-kontrollert sky", self.html)
+        self.assertIn("gauge-num", self.html)          # the big % readout
+
+    def test_shock_names_proof_line_links_to_cited_cards(self):
+        # The shock names are one-line proof, each a link to its own cited card.
+        self.assertIn("hero-proof", self.html)
+        self.assertIn("Datatilsynet", self.html)
+        self.assertIn('href="#org/stat/skatteetaten"', self.html)
+
+    def test_proof_line_only_shows_present_us_bodies(self):
+        # Honesty (rule 1): a curated name renders only if present AND US in data.
+        cats = build.build_categories(DATA, STAT)
+        links = build.proof_links(cats)
+        # Fixture has Skatteetaten + NAV (present, US) but not Datatilsynet/Forsvaret.
+        self.assertIn("Skatteetaten", links)
+        self.assertIn('href="#org/stat/skatteetaten"', links)
+        self.assertNotIn("Datatilsynet", links)        # absent -> never fabricated
+        self.assertNotIn("Forsvaret", links)
+
+    # --- Layer 1b: find-your-entity search -------------------------------------
+    def test_find_your_entity_search_is_present(self):
+        self.assertIn('id="find"', self.html)
+        self.assertIn("Finn din kommune", self.html)
+        self.assertIn('role="combobox"', self.html)
+        self.assertIn("FIND_INDEX", self.html)         # the JS autosuggest index
+        self.assertIn('location.hash = "org/"', self.html)  # resolves to one card
+
+    # --- Layer 3: grid + methodology demoted behind a click --------------------
+    def test_full_grid_is_behind_a_click(self):
+        # The 486-grid sits inside a panel hidden until the explore toggle is hit.
+        self.assertIn('id="explore-toggle"', self.html)
+        self.assertIn('id="explore" class="hidden"', self.html)
+        self.assertIn('aria-expanded="false"', self.html)
+
+    def test_methodology_is_a_separate_view_behind_a_click(self):
+        # Om & metode moves to its own #om view, hidden by default, linked from nav.
+        self.assertIn('id="view-om" class="hidden"', self.html)
+        self.assertIn('href="#om"', self.html)
+        self.assertIn('hash==="om"', self.html)        # the route handles it
+        # The methodology content moved there (not on the first screen).
+        self.assertIn("Slik måler vi", self.html)
+
+    def test_disclaimer_present_on_every_view(self):
+        # Rule 2: load-bearing, rendered once outside the routed views.
+        self.assertIn("ikke et offentlig organ", self.html)
+        self.assertIn("not a government body", self.html)
+        # It sits outside the three swappable view sections.
+        disc = self.html.index("ikke et offentlig organ")
+        self.assertLess(disc, self.html.index('id="view-home"'))
+
+    # --- Performance: light inline + on-demand same-origin ---------------------
+    def test_initial_payload_is_markedly_smaller(self):
+        # Was ~1.7 MB with all evidence inlined; the light page must be far under.
+        self.assertLess(len(self.html), 400_000)
+
+    def test_detail_files_are_emitted_per_category_with_full_evidence(self):
+        cats = build.build_categories(DATA, STAT, WEB)
+        files = build.detail_files(cats)
+        self.assertEqual(set(files), {"detail-kommune.json", "detail-stat.json"})
+        kommune = json.loads(files["detail-kommune.json"])
+        oslo = next(k for k in kommune if k["name"] == "Oslo")
+        # Full record: evidence trail + governance + web axis, the heavy stuff.
+        self.assertTrue(oslo["evidence"])
+        self.assertEqual(oslo["governance"]["tier"], "democracy")
+        self.assertIsNotNone(oslo["web"])
+
+    def test_detail_view_loads_evidence_on_demand_same_origin(self):
+        # The detail view fetches its category's file from our OWN origin (data/),
+        # never an external/US-managed serving dep (RFC-001 P5).
+        self.assertIn('fetch("data/detail-"', self.html)
+        self.assertIn("loadCategory", self.html)
+        # No external script/style/CDN was introduced by the lazy load.
+        for bad in ["<script src", "googleapis", "jsdelivr", "unpkg", "cloudflare"]:
+            self.assertNotIn(bad, self.html)
+
+    def test_write_detail_files_writes_each_category(self):
+        import tempfile
+        dest = tempfile.mkdtemp()
+        cats = build.build_categories(DATA, STAT, WEB)
+        build.write_detail_files(cats, dest)
+        for c in cats:
+            path = os.path.join(dest, "detail-%s.json" % c["key"])
+            self.assertTrue(os.path.exists(path))
+            json.loads(open(path).read())           # valid JSON
 
 
 class BuildMainOnRealData(unittest.TestCase):
