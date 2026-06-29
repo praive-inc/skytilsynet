@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "Norwegian county authorities (fylkeskommuner) — email-scan seed",
+    "source": "Brønnøysund Enhetsregisteret (legal name + website per orgnr)",
+    "sourceUrl": "https://data.brreg.no/enhetsregisteret/api/enheter/",
+    "sourceDate": "2026-06-29",
+    "license": "CC BY 4.0",
+    "selection": "Identities resolved from Enhetsregisteret; mail domains curated (the register lists the website, not the mail domain) and confirmed against public DNS.",
+    "count": 14
+  },
+  "organ": [
+    {
+      "name": "Agder fylkeskommune",
+      "legal_name": "AGDER FYLKESKOMMUNE",
+      "orgnr": "921707134",
+      "domain": "agderfk.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/921707134"
+    },
+    {
+      "name": "Akershus fylkeskommune",
+      "legal_name": "AKERSHUS FYLKESKOMMUNE",
+      "orgnr": "930580783",
+      "domain": "akershusfylke.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/930580783"
+    },
+    {
+      "name": "Buskerud fylkeskommune",
+      "legal_name": "BUSKERUD FYLKESKOMMUNE",
+      "orgnr": "930580260",
+      "domain": "buskerudfylke.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/930580260"
+    },
+    {
+      "name": "Finnmark fylkeskommune",
+      "legal_name": "FINNMARK FYLKESKOMMUNE",
+      "orgnr": "830090282",
+      "domain": "ffk.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/830090282"
+    },
+    {
+      "name": "Innlandet fylkeskommune",
+      "legal_name": "INNLANDET FYLKESKOMMUNE",
+      "orgnr": "920717152",
+      "domain": "innlandetfylke.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/920717152"
+    },
+    {
+      "name": "Møre og Romsdal fylkeskommune",
+      "legal_name": "MØRE OG ROMSDAL FYLKESKOMMUNE",
+      "orgnr": "944183779",
+      "domain": "mrfylke.no",
+      "website": "www.mrfylke.no",
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/944183779"
+    },
+    {
+      "name": "Nordland fylkeskommune",
+      "legal_name": "NORDLAND FYLKESKOMMUNE",
+      "orgnr": "964982953",
+      "domain": "nfk.no",
+      "website": "www.nfk.no/",
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/964982953"
+    },
+    {
+      "name": "Rogaland fylkeskommune",
+      "legal_name": "ROGALAND FYLKESKOMMUNE",
+      "orgnr": "971045698",
+      "domain": "rogfk.no",
+      "website": "www.rogfk.no",
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971045698"
+    },
+    {
+      "name": "Telemark fylkeskommune",
+      "legal_name": "TELEMARK FYLKESKOMMUNE",
+      "orgnr": "929882989",
+      "domain": "telemarkfylke.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/929882989"
+    },
+    {
+      "name": "Troms fylkeskommune",
+      "legal_name": "TROMS FYLKESKOMMUNE",
+      "orgnr": "930068128",
+      "domain": "tromsfylke.no",
+      "website": "www.tromsfylke.no",
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/930068128"
+    },
+    {
+      "name": "Trøndelag fylkeskommune",
+      "legal_name": "TRØNDELAG FYLKESKOMMUNE",
+      "orgnr": "817920632",
+      "domain": "trondelagfylke.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/817920632"
+    },
+    {
+      "name": "Vestfold fylkeskommune",
+      "legal_name": "VESTFOLD FYLKESKOMMUNE",
+      "orgnr": "929882385",
+      "domain": "vestfoldfylke.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/929882385"
+    },
+    {
+      "name": "Vestland fylkeskommune",
+      "legal_name": "VESTLAND FYLKESKOMMUNE",
+      "orgnr": "821311632",
+      "domain": "vestlandfylke.no",
+      "website": "vestlandfylke.no",
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/821311632"
+    },
+    {
+      "name": "Østfold fylkeskommune",
+      "legal_name": "ØSTFOLD FYLKESKOMMUNE",
+      "orgnr": "930580694",
+      "domain": "ofk.no",
+      "website": null,
+      "orgform": "FYLK",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/930580694"
+    }
+  ]
+}

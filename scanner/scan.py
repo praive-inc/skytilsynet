@@ -46,15 +46,59 @@ METHODOLOGY_VERSION = 2
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC  = os.path.join(HERE, "kommuner_wikidata.json")
-STATLIGE = os.path.join(HERE, "statlige_organ.json")
 OVERRIDES_FILE = os.path.join(HERE, "mail_domain_overrides.json")
 SNAP_DIR = os.path.join(HERE, "snapshots")
 HISTORY  = os.path.join(HERE, "history.json")
 LATEST   = os.path.join(HERE, "kommune_sovereignty.json")
 DATASET  = os.path.join(HERE, os.pardir, "data", "kommune-email-sovereignty.latest.json")
-STAT_HISTORY = os.path.join(HERE, "statlige_history.json")
-STAT_LATEST  = os.path.join(HERE, "statlige_sovereignty.json")
-STAT_DATASET = os.path.join(HERE, os.pardir, "data", "statlige-organ-email-sovereignty.latest.json")
+
+
+def _data(name):
+    return os.path.join(HERE, os.pardir, "data", name)
+
+
+# Seeded categories: each is a curated seed list (gen_statlige_organ.py /
+# gen_sectors.py) of bodies with their real mail domain, scanned through the
+# identical email pipeline and kept as its OWN series (snapshot + history + latest
+# + published dataset), exactly like statlige. The `category` tags each record;
+# only "kommune" gets the website parent-walk + <slug>.kommune.no fallback —
+# seeded bodies are scanned on their seed domain verbatim. Order = scan order.
+SEEDED_CATEGORIES = {
+    "stat": {
+        "seed": os.path.join(HERE, "statlige_organ.json"), "snap_prefix": "statlige",
+        "history": os.path.join(HERE, "statlige_history.json"),
+        "latest": os.path.join(HERE, "statlige_sovereignty.json"),
+        "dataset": _data("statlige-organ-email-sovereignty.latest.json"),
+        "label": "statlige organ",
+        "title": "Norwegian state-body (statlige organ) email-platform sovereignty",
+    },
+    "fylke": {
+        "seed": os.path.join(HERE, "fylkeskommuner.json"), "snap_prefix": "fylke",
+        "history": os.path.join(HERE, "fylke_history.json"),
+        "latest": os.path.join(HERE, "fylke_sovereignty.json"),
+        "dataset": _data("fylkeskommune-email-sovereignty.latest.json"),
+        "label": "fylkeskommuner",
+        "title": "Norwegian county-authority (fylkeskommuner) email-platform sovereignty",
+    },
+    "helse": {
+        "seed": os.path.join(HERE, "helseforetak.json"), "snap_prefix": "helse",
+        "history": os.path.join(HERE, "helse_history.json"),
+        "latest": os.path.join(HERE, "helse_sovereignty.json"),
+        "dataset": _data("helseforetak-email-sovereignty.latest.json"),
+        "label": "helseforetak",
+        "title": "Norwegian health-trust (helseforetak) email-platform sovereignty",
+    },
+    "uni": {
+        "seed": os.path.join(HERE, "uh_sektor.json"), "snap_prefix": "uni",
+        "history": os.path.join(HERE, "uni_history.json"),
+        "latest": os.path.join(HERE, "uni_sovereignty.json"),
+        "dataset": _data("uh-sektor-email-sovereignty.latest.json"),
+        "label": "universiteter og høgskoler",
+        "title": "Norwegian higher-education (universiteter og høgskoler) email-platform sovereignty",
+    },
+}
+SEEDED_SOURCE = ("public DNS (MX + SPF + autodiscover CNAME); entities from "
+                 "Brønnøysund Enhetsregisteret")
 
 MICROSOFT = ("mail.protection.outlook.com", "spf.protection.outlook.com",
              "outlook.com", "microsoft.com", "office365.us", "mx.microsoft")
@@ -538,11 +582,17 @@ def load_kommuner():
     return list(by_item.values())
 
 
-def load_statlige():
-    """(name, mail_domain) per state body from the curated, Enhetsregisteret-sourced
-    seed (gen_statlige_organ.py)."""
-    data = json.load(open(STATLIGE))
+def load_seed(path):
+    """(name, mail_domain) per body from a curated, Enhetsregisteret-sourced seed
+    (gen_statlige_organ.py / gen_sectors.py — statlige organ, fylkeskommuner,
+    helseforetak, UH-sektor all share this shape)."""
+    data = json.load(open(path))
     return [(o["name"], o["domain"]) for o in data["organ"]]
+
+
+def load_statlige():
+    """(name, mail_domain) per state body from the curated statlige seed."""
+    return load_seed(SEEDED_CATEGORIES["stat"]["seed"])
 
 
 def resolve_all(entities, category, date, overrides, workers):
@@ -597,32 +647,36 @@ def scan_kommuner(date):
     print_summary("kommuner", agg, date, f"{date}.json", history)
 
 
-def scan_statlige(date):
-    entities = load_statlige()
-    print(f"[{date}] resolving {len(entities)} statlige organ mail domains "
+def scan_seeded(key, date):
+    """Scan one seeded category (stat / fylke / helse / uni) through the identical
+    email pipeline and write its own snapshot + latest + dataset + history."""
+    cfg = SEEDED_CATEGORIES[key]
+    entities = load_seed(cfg["seed"])
+    print(f"[{date}] resolving {len(entities)} {cfg['label']} mail domains "
           "(same MX+SPF+autodiscover+deep pipeline)…", file=sys.stderr)
-    results = resolve_all(entities, "stat", date, {}, workers=16)
+    results = resolve_all(entities, key, date, {}, workers=16)
     agg = aggregate(results)
     os.makedirs(SNAP_DIR, exist_ok=True)
-    json.dump({"date": date, "methodology_version": METHODOLOGY_VERSION,
-               "summary": agg, "organ": results},
-              open(os.path.join(SNAP_DIR, f"statlige-{date}.json"), "w"),
-              ensure_ascii=False, indent=2)
-    json.dump(results, open(STAT_LATEST, "w"), ensure_ascii=False, indent=2)
-    write_dataset(STAT_DATASET, "Norwegian state-body (statlige organ) email-platform sovereignty",
-                  "public DNS (MX + SPF + autodiscover CNAME); entities from Brønnøysund Enhetsregisteret",
-                  date, agg, results, "organ")
-    history = update_history(STAT_HISTORY, date, agg)
-    print_summary("statlige organ", agg, date, f"statlige-{date}.json", history)
+    snap_name = f"{cfg['snap_prefix']}-{date}.json"
+    json.dump({"date": date, "methodology_version": METHODOLOGY_VERSION, "summary": agg, "organ": results},
+              open(os.path.join(SNAP_DIR, snap_name), "w"), ensure_ascii=False, indent=2)
+    json.dump(results, open(cfg["latest"], "w"), ensure_ascii=False, indent=2)
+    write_dataset(cfg["dataset"], cfg["title"], SEEDED_SOURCE, date, agg, results, "organ")
+    history = update_history(cfg["history"], date, agg)
+    print_summary(cfg["label"], agg, date, snap_name, history)
 
 
 def main():
     date = os.environ.get("SCAN_DATE") or datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    only = os.environ.get("SCAN_ONLY")       # "kommune" | "stat" to scan one category
-    if only != "stat":
+    # SCAN_ONLY: comma-separated category keys to scan a subset, e.g. "kommune" or
+    # "stat,fylke". Default scans every category.
+    only = os.environ.get("SCAN_ONLY")
+    keys = [k.strip() for k in only.split(",")] if only else ["kommune", *SEEDED_CATEGORIES]
+    if "kommune" in keys:
         scan_kommuner(date)
-    if only != "kommune":
-        scan_statlige(date)
+    for key in SEEDED_CATEGORIES:
+        if key in keys:
+            scan_seeded(key, date)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "title": "Norwegian higher education (universiteter og høgskoler) — email-scan seed",
+    "source": "Brønnøysund Enhetsregisteret (legal name + website per orgnr)",
+    "sourceUrl": "https://data.brreg.no/enhetsregisteret/api/enheter/",
+    "sourceDate": "2026-06-29",
+    "license": "CC BY 4.0",
+    "selection": "Identities resolved from Enhetsregisteret; mail domains curated (the register lists the website, not the mail domain) and confirmed against public DNS.",
+    "count": 27
+  },
+  "organ": [
+    {
+      "name": "Arkitektur- og designhøgskolen i Oslo",
+      "legal_name": "ARKITEKTUR- OG DESIGNHØGSKOLEN I OSLO",
+      "orgnr": "971526378",
+      "domain": "aho.no",
+      "website": "www.aho.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971526378"
+    },
+    {
+      "name": "Dronning Mauds Minne Høgskole",
+      "legal_name": "DRONNING MAUDS MINNE HØGSKOLE FOR BARNEHAGELÆRERUTDANNING STI",
+      "orgnr": "971574747",
+      "domain": "dmmh.no",
+      "website": null,
+      "orgform": "STI",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971574747"
+    },
+    {
+      "name": "Høgskolen i Molde",
+      "legal_name": "HØGSKOLEN I MOLDE",
+      "orgnr": "971555483",
+      "domain": "himolde.no",
+      "website": "www.himolde.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971555483"
+    },
+    {
+      "name": "Høgskolen i Østfold",
+      "legal_name": "HØGSKOLEN I ØSTFOLD",
+      "orgnr": "971567376",
+      "domain": "hiof.no",
+      "website": "www.hiof.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971567376"
+    },
+    {
+      "name": "Høgskulen i Volda",
+      "legal_name": "HØGSKULEN I VOLDA",
+      "orgnr": "974809672",
+      "domain": "hivolda.no",
+      "website": "www.hivolda.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974809672"
+    },
+    {
+      "name": "Høgskulen på Vestlandet",
+      "legal_name": "HØGSKULEN PÅ VESTLANDET",
+      "orgnr": "917641404",
+      "domain": "hvl.no",
+      "website": "hvl.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/917641404"
+    },
+    {
+      "name": "Kunsthøgskolen i Oslo",
+      "legal_name": "KUNSTHØGSKOLEN I OSLO",
+      "orgnr": "977027233",
+      "domain": "khio.no",
+      "website": "khio.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/977027233"
+    },
+    {
+      "name": "Lovisenberg diakonale høgskole",
+      "legal_name": "LOVISENBERG DIAKONALE HØGSKOLE AS",
+      "orgnr": "994881078",
+      "domain": "ldh.no",
+      "website": "www.ldh.no",
+      "orgform": "AS",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/994881078"
+    },
+    {
+      "name": "MF vitenskapelig høyskole",
+      "legal_name": "MF VITENSKAPELIG HØYSKOLE STI",
+      "orgnr": "917387079",
+      "domain": "mf.no",
+      "website": "www.mf.no",
+      "orgform": "STI",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/917387079"
+    },
+    {
+      "name": "NLA Høgskolen",
+      "legal_name": "NLA HØGSKOLEN AS",
+      "orgnr": "995189186",
+      "domain": "nla.no",
+      "website": "www.nla.no",
+      "orgform": "AS",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/995189186"
+    },
+    {
+      "name": "NTNU",
+      "legal_name": "NORGES TEKNISK-NATURVITENSKAPELIGE UNIVERSITET NTNU",
+      "orgnr": "974767880",
+      "domain": "ntnu.no",
+      "website": "www.ntnu.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974767880"
+    },
+    {
+      "name": "Nord universitet",
+      "legal_name": "NORD UNIVERSITET",
+      "orgnr": "970940243",
+      "domain": "nord.no",
+      "website": "www.nord.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/970940243"
+    },
+    {
+      "name": "Norges handelshøyskole (NHH)",
+      "legal_name": "NORGES HANDELSHØYSKOLE",
+      "orgnr": "974789523",
+      "domain": "nhh.no",
+      "website": "www.nhh.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974789523"
+    },
+    {
+      "name": "Norges idrettshøgskole",
+      "legal_name": "NORGES IDRETTSHØGSKOLE",
+      "orgnr": "971526033",
+      "domain": "nih.no",
+      "website": "www.nih.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971526033"
+    },
+    {
+      "name": "Norges miljø- og biovitenskapelige universitet (NMBU)",
+      "legal_name": "NORGES MILJØ- OG BIOVITENSKAPELIGE UNIVERSITET (NMBU)",
+      "orgnr": "969159570",
+      "domain": "nmbu.no",
+      "website": "www.nmbu.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/969159570"
+    },
+    {
+      "name": "Norges musikkhøgskole",
+      "legal_name": "NORGES MUSIKKHØGSKOLE",
+      "orgnr": "974761106",
+      "domain": "nmh.no",
+      "website": "www.nmh.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974761106"
+    },
+    {
+      "name": "OsloMet – storbyuniversitetet",
+      "legal_name": "OSLOMET - STORBYUNIVERSITETET",
+      "orgnr": "997058925",
+      "domain": "oslomet.no",
+      "website": null,
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/997058925"
+    },
+    {
+      "name": "Politihøgskolen",
+      "legal_name": "POLITIHØGSKOLEN",
+      "orgnr": "974761017",
+      "domain": "phs.no",
+      "website": "www.phs.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/974761017"
+    },
+    {
+      "name": "Samisk høgskole",
+      "legal_name": "SÁMI ALLASKUVLA SAMISK HØGSKOLE",
+      "orgnr": "971519363",
+      "domain": "samas.no",
+      "website": "www.samas.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971519363"
+    },
+    {
+      "name": "UiT Norges arktiske universitet",
+      "legal_name": "UNIVERSITETET I TROMSØ - NORGES ARKTISKE UNIVERSITET",
+      "orgnr": "970422528",
+      "domain": "uit.no",
+      "website": "www.uit.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/970422528"
+    },
+    {
+      "name": "Universitetet i Agder",
+      "legal_name": "UNIVERSITETET I AGDER",
+      "orgnr": "970546200",
+      "domain": "uia.no",
+      "website": "www.uia.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/970546200"
+    },
+    {
+      "name": "Universitetet i Bergen",
+      "legal_name": "UNIVERSITETET I BERGEN",
+      "orgnr": "874789542",
+      "domain": "uib.no",
+      "website": "www.uib.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/874789542"
+    },
+    {
+      "name": "Universitetet i Innlandet",
+      "legal_name": "UNIVERSITETET I INNLANDET",
+      "orgnr": "918108467",
+      "domain": "inn.no",
+      "website": null,
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/918108467"
+    },
+    {
+      "name": "Universitetet i Oslo",
+      "legal_name": "UNIVERSITETET I OSLO",
+      "orgnr": "971035854",
+      "domain": "uio.no",
+      "website": "www.uio.no/",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971035854"
+    },
+    {
+      "name": "Universitetet i Stavanger",
+      "legal_name": "UNIVERSITETET I STAVANGER",
+      "orgnr": "971564679",
+      "domain": "uis.no",
+      "website": "www.uis.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/971564679"
+    },
+    {
+      "name": "Universitetet i Sørøst-Norge",
+      "legal_name": "UNIVERSITETET I SØRØST-NORGE",
+      "orgnr": "911770709",
+      "domain": "usn.no",
+      "website": "www.usn.no",
+      "orgform": "ORGL",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/911770709"
+    },
+    {
+      "name": "VID vitenskapelige høgskole",
+      "legal_name": "VID VITENSKAPELIGE HØGSKOLE AS",
+      "orgnr": "915635520",
+      "domain": "vid.no",
+      "website": null,
+      "orgform": "AS",
+      "source": "https://data.brreg.no/enhetsregisteret/api/enheter/915635520"
+    }
+  ]
+}

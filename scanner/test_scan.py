@@ -434,6 +434,33 @@ class Category(unittest.TestCase):
         # Every seeded entity carries a mail domain to scan.
         self.assertTrue(all(d for _, d in organ))
 
+    def test_resolve_fylke_helse_uni_tag_their_category(self):
+        # The new sectors (issue #26) reuse the seeded pipeline; each record is
+        # tagged with its own category and uses the seed domain verbatim.
+        for key, name, domain in [("fylke", "Vestland fylkeskommune", "vestlandfylke.no"),
+                                  ("helse", "Helse Bergen HF", "helse-bergen.no"),
+                                  ("uni", "Universitetet i Bergen", "uib.no")]:
+            rec = scan.resolve(name, domain, {}, "2026-06-29", category=key,
+                               fetch=lambda d: ev(mx=["0 x.mail.protection.outlook.com"]))
+            self.assertEqual(rec["category"], key)
+            self.assertEqual(rec["name"], name)
+            self.assertEqual(rec["domain"], domain)
+            self.assertNotIn("kommune", rec)
+
+    def test_every_seeded_category_seed_loads(self):
+        # Each new category has its own committed seed with mail domains to scan.
+        for key in ("stat", "fylke", "helse", "uni"):
+            entities = scan.load_seed(scan.SEEDED_CATEGORIES[key]["seed"])
+            self.assertTrue(entities)
+            self.assertTrue(all(n and d for n, d in entities))
+
+    def test_seeded_categories_have_distinct_output_paths(self):
+        # Each category keeps its snapshot/history/latest/dataset separate, like
+        # statlige — no two categories may collide on an output file.
+        for field in ("history", "latest", "dataset", "snap_prefix"):
+            vals = [c[field] for c in scan.SEEDED_CATEGORIES.values()]
+            self.assertEqual(len(vals), len(set(vals)), f"{field} collides")
+
 
 class Aggregate(unittest.TestCase):
     def test_floor_is_stated_and_unmasked_counted(self):
