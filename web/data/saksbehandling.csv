@@ -1,2 +1,2 @@
-domain,category,vendor,vendor_method,vendor_source,vendor_date,hosting,hosting_jurisdiction,hosting_method,hosting_source,hosting_date,note
-larvik.kommune.no,kommune,Acos WebSak,vendor-statement,https://www.digi.no/artikler/norsk-kommune-frir-seg-fra-microsoft-foles-fantastisk/566770,2026-01-15,,,,,,"Larvik bygde teksteditoren inn i Acos WebSak; rundt 99 % av utgående post skrives uten amerikanske kontorverktøy. Hosting er kundevalg og ikke offentliggjort."
+domain,category,vendor,vendor_method,vendor_source,vendor_date,hosting,hosting_jurisdiction,hosting_method,hosting_source,hosting_source_type,hosting_date,note
+larvik.kommune.no,kommune,Acos WebSak,vendor-statement,https://www.digi.no/artikler/norsk-kommune-frir-seg-fra-microsoft-foles-fantastisk/566770,2026-01-15,,,,,,,"Larvik bygde teksteditoren inn i Acos WebSak; rundt 99 % av utgående post skrives uten amerikanske kontorverktøy. Hosting er kundevalg og ikke offentliggjort."
