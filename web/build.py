@@ -804,6 +804,148 @@ def press_figures_html(categories):
     return "".join(cards)
 
 
+# --------------------------------------------------------------------------
+# English entry page (issue #44): a self-contained /en/ summary for international
+# press. Same data model, English copy. The gauge and by-the-numbers figures are
+# derived from the live summaries exactly like the Norwegian ones (rule 1: the
+# fact, never a slogan) — only the wording is translated.
+# --------------------------------------------------------------------------
+def gauge_svg_en(us_pct):
+    """The dominant dial, English caption. Same geometry as gauge_svg; only the
+    aria-label and the caption are in English (the number is language-neutral)."""
+    import math
+    cx, cy, r = 170, 170, 150
+    length = math.pi * r
+    frac = max(0.0, min(1.0, us_pct / 100.0))
+    d = "M {} {} A {} {} 0 0 1 {} {}".format(cx - r, cy, r, r, cx + r, cy)
+    label = ("Gauge: {} % of scanned Norwegian public bodies answer, for email, "
+             "to US jurisdiction".format(_no_pct(us_pct).replace(",", ".")))
+    return (
+        '<svg class="gauge" viewBox="0 0 340 210" role="img" '
+        'aria-label="{label}">'
+        '<path d="{d}" fill="none" stroke="var(--line-2)" stroke-width="26" '
+        'stroke-linecap="round"/>'
+        '<path d="{d}" fill="none" stroke="var(--red)" stroke-width="26" '
+        'stroke-linecap="round" stroke-dasharray="{fill:.1f} {len:.1f}"/>'
+        '<text x="170" y="158" text-anchor="middle" class="gauge-num">{pct} %</text>'
+        '<text x="170" y="192" text-anchor="middle" class="gauge-cap">'
+        'on US-controlled cloud</text>'
+        '</svg>'
+    ).format(label=label, d=d, fill=frac * length, len=length,
+             pct=_no_pct(us_pct))
+
+
+def press_figures_en(categories):
+    """The by-the-numbers figures for /en/ — English labels, every value derived
+    from the live summaries (never hardcoded). Mirrors press_figures()."""
+    combined = combine_summaries([c["summary"] for c in categories])
+    by_key = {c["key"]: c for c in categories}
+    figs = [
+        {"value": _no_pct(combined["us_pct"]) + " %",
+         "label": "of scanned public bodies answer, for email, to US "
+                  "jurisdiction (CLOUD Act)",
+         "note": "A floor — the real share is at least this high."},
+        {"value": _no_pct(combined["microsoft_pct"]) + " %",
+         "label": "run Microsoft 365", "note": None},
+        {"value": "{} of {}".format(combined["eu_sovereign"], combined["total"]),
+         "label": "bodies run email on Norwegian or European infrastructure",
+         "note": "The goal: turn this number around."},
+    ]
+    labels = {"kommune": ("of municipalities on Microsoft 365", "municipalities"),
+              "helse": "health trusts on US cloud",
+              "uni": "universities and colleges on US cloud",
+              "stat": "of the scanned state bodies on US cloud"}
+    if "kommune" in by_key:
+        s = by_key["kommune"]["summary"]
+        figs.append({"value": _no_pct(s["microsoft_pct"]) + " %",
+                     "label": labels["kommune"][0],
+                     "note": "{} of {} municipalities".format(
+                         s["us_microsoft"], s["total"])})
+    if "helse" in by_key:
+        s = by_key["helse"]["summary"]
+        figs.append({"value": "{} of {}".format(s["us_total"], s["total"]),
+                     "label": labels["helse"], "note": None})
+    if "uni" in by_key:
+        s = by_key["uni"]["summary"]
+        figs.append({"value": "{} of {}".format(s["us_total"], s["total"]),
+                     "label": labels["uni"], "note": None})
+    if "stat" in by_key:
+        s = by_key["stat"]["summary"]
+        figs.append({"value": _no_pct(s["us_pct"]) + " %",
+                     "label": labels["stat"], "note": None})
+    figs.append({"value": str(combined["total"]),
+                 "label": "public bodies mapped in total", "note": None})
+    return figs
+
+
+def press_figures_en_html(categories):
+    cards = []
+    for f in press_figures_en(categories):
+        note = ('<span class="pf-note">' + f["note"] + '</span>') if f.get("note") else ""
+        cards.append(
+            '<div class="pf"><span class="pf-val">{v}</span>'
+            '<span class="pf-lab">{l}</span>{n}</div>'.format(
+                v=f["value"], l=f["label"], n=note))
+    return "".join(cards)
+
+
+# The curated shock names for the English proof line — same bodies as the
+# Norwegian page, with a short English gloss so an international reader gets why
+# each name lands. Only rendered when present AND US in the data (rule 1).
+_EN_GLOSS = {
+    "Datatilsynet": "the Data Protection Authority",
+    "Forsvaret": "the Armed Forces",
+    "NAV (Arbeids- og velferdsetaten)": "the Labour and Welfare Administration",
+    "Skatteetaten": "the Tax Administration",
+    "Politidirektoratet": "the Police Directorate",
+}
+
+
+def proof_names_en(categories):
+    """The shock names that are present and US-hosted, each glossed in English.
+    Plain text (the interactive per-entity cards live on the Norwegian site)."""
+    by_name = {e["name"]: e for c in categories for e in c["entities"]}
+    out = []
+    for name in PROOF_NAMES:
+        e = by_name.get(name)
+        if e and e.get("platform") in _US:
+            short = name.split(" (")[0]
+            out.append("<b>{}</b> ({})".format(_esc(short), _EN_GLOSS.get(name, "")))
+    return out
+
+
+def render_en_html(meta, categories):
+    """Render the self-contained English entry page (/en/). Pure. Same data as the
+    Norwegian site, English copy; links to the language-neutral CSV + embeds and to
+    the fuller Norwegian methodology + open code."""
+    combined = combine_summaries([c["summary"] for c in categories])
+    us_pct, ms_pct = combined["us_pct"], combined["microsoft_pct"]
+    av_ti = int(us_pct // 10)
+    h1 = "{} of 10 Norwegian public bodies run their email in the USA.".format(av_ti)
+    us_en, ms_en = _no_pct(us_pct).replace(",", "."), _no_pct(ms_pct).replace(",", ".")
+    sub = ("At least <b>{ms} %</b> run Microsoft 365 and <b>{us} %</b> a US cloud "
+           "provider (CLOUD Act jurisdiction). This is a <b>floor</b> — the real "
+           "share is at least this high.").format(ms=ms_en, us=us_en)
+    proof = proof_names_en(categories)
+    proof_html = ("Among them: " + ", ".join(proof) + ".") if proof else ""
+    return (_EN_TEMPLATE
+            .replace("<!--__VERDICT_H1__-->", _esc(h1))
+            .replace("<!--__VERDICT_SUB__-->", sub)
+            .replace("<!--__GAUGE__-->", gauge_svg_en(us_pct))
+            .replace("<!--__PROOF__-->", proof_html)
+            .replace("<!--__FIGURES__-->", press_figures_en_html(categories))
+            .replace("<!--__TOTAL__-->", str(combined["total"])))
+
+
+def write_en_file(categories, meta, web_dir=HERE):
+    """Write the English entry page to web/en/index.html. Committed alongside
+    index.html — prod has no build step (the deploy rsyncs web/ verbatim)."""
+    en_dir = os.path.join(web_dir, "en")
+    os.makedirs(en_dir, exist_ok=True)
+    with open(os.path.join(en_dir, "index.html"), "w") as f:
+        f.write(render_en_html(meta, categories))
+
+
 _CSV_HEADER = ["navn", "kategori", "plattform", "jurisdiksjon",
                "bak_gateway", "kilde_dato"]
 
@@ -1192,6 +1334,7 @@ def main():
     copy_downloads()
     write_detail_files(categories)
     write_press_assets(categories, data["meta"])
+    write_en_file(categories, data["meta"])
     n_stat = len(stat["organ"]) if stat else 0
     n_web = len(web["kommuner"]) if web else 0
     print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner "
@@ -1211,6 +1354,10 @@ _TEMPLATE = r"""<!doctype html>
 <title>Skybarometeret — hvor avhengig er Norge av utenlandsk teknologi?</title>
 <meta name="description" content="Skybarometeret: hvilken jurisdiksjon norske kommuners e-post svarer til, kommune for kommune. Faktabasert og kildebelagt. Et uavhengig prosjekt — ikke et offentlig organ." />
 <link rel="canonical" href="https://skytilsynet.no/" />
+<!-- Language alternates (issue #44): a focused English entry page at /en/. -->
+<link rel="alternate" hreflang="nb" href="https://skytilsynet.no/" />
+<link rel="alternate" hreflang="en" href="https://skytilsynet.no/en/" />
+<link rel="alternate" hreflang="x-default" href="https://skytilsynet.no/" />
 <!-- Social / link-preview meta (issue #32). The hook is the fact — the US
      floor — never a moral judgement (CLAUDE.md rule 1). The og:image is a
      self-hosted static asset served from web/ (RFC-001 P5: no external host). -->
@@ -1704,7 +1851,7 @@ _TEMPLATE = r"""<!doctype html>
   <header class="masthead">
     <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
     <span class="kicker">Skybarometeret</span>
-    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a></nav>
+    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a> · <a href="en/" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
@@ -3155,6 +3302,261 @@ _TEMPLATE = r"""<!doctype html>
   renderCorrections(); wireFinder(); wireExplore(); wireLeague(); wireMapToggle(); route();
 })();
 </script>
+</body>
+</html>
+"""
+
+
+# --------------------------------------------------------------------------
+# The English entry page (issue #44). One self-contained static file served at
+# /en/ — its own compact stylesheet (same design tokens as the main site), no
+# external dep, no framework. The full interactive per-entity site stays
+# Norwegian; this is the international press entry point.
+# --------------------------------------------------------------------------
+_EN_TEMPLATE = r"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skytilsynet — 9 in 10 Norwegian public bodies run their email in the USA</title>
+<meta name="description" content="Nearly every Norwegian public body runs its email on US cloud (CLOUD Act jurisdiction). Data residency is not jurisdiction. Mapped body by body — factual, sourced, open data." />
+<link rel="canonical" href="https://skytilsynet.no/en/" />
+<!-- Language alternates (issue #44) — the Norwegian site is the default. -->
+<link rel="alternate" hreflang="nb" href="https://skytilsynet.no/" />
+<link rel="alternate" hreflang="en" href="https://skytilsynet.no/en/" />
+<link rel="alternate" hreflang="x-default" href="https://skytilsynet.no/" />
+<!-- English social / link-preview meta. The hook is the fact, never a moral
+     judgement (CLAUDE.md rule 1). The og:image is the self-hosted static asset. -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en" />
+<meta property="og:site_name" content="Skytilsynet" />
+<meta property="og:url" content="https://skytilsynet.no/en/" />
+<meta property="og:title" content="9 in 10 Norwegian public bodies run their email in the USA" />
+<meta property="og:description" content="Nearly every Norwegian public body runs its email on US cloud, so the data answers to US jurisdiction under the CLOUD Act — regardless of where it is stored. Mapped body by body: factual, sourced, open data." />
+<meta property="og:image" content="https://skytilsynet.no/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="9 in 10 Norwegian public bodies run their email in the USA" />
+<meta name="twitter:description" content="Data residency is not jurisdiction. Nearly all Norwegian public email answers to the US CLOUD Act. Mapped, sourced, open." />
+<meta name="twitter:image" content="https://skytilsynet.no/og-image.png" />
+<style>
+  :root{
+    --bg:#0e1217; --surface:#161d25; --surface-2:#1b232c;
+    --line:#2a343f; --line-2:#384654;
+    --fg:#eef2f6; --muted:#a3b6c6; --faint:#7d909f; --accent:#5cb3ff;
+    --red:#ff6b6b; --green:#4dd6a0;
+    --disc-bg:#1c1410; --disc-line:#6a4329; --disc-fg:#f1e3d5; --disc-strong:#ffd9a8;
+    --text-xs:12px; --text-sm:13px; --text-md:16px; --text-lg:18px; --text-xl:21px;
+    --text-2xl:clamp(22px,4vw,30px); --text-display:clamp(30px,5vw,46px);
+    --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
+    --space-6:24px; --space-8:32px; --space-10:40px; --space-12:52px; --space-16:72px;
+    --radius-sm:10px; --radius:12px; --radius-lg:16px; --radius-pill:999px;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.5);
+    --ring:0 0 0 2px var(--bg),0 0 0 4px var(--accent);
+    --maxw:1040px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth} html,body{margin:0;padding:0}
+  body{
+    background:radial-gradient(1200px 600px at 50% -200px,#13202b 0,transparent 70%),var(--bg);
+    color:var(--fg);
+    font:var(--text-md)/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  a:focus-visible,button:focus-visible{outline:none;box-shadow:var(--ring);border-radius:var(--radius-sm)}
+  .skip{position:absolute;left:var(--space-4);top:-48px;z-index:10;background:var(--surface);
+    color:var(--fg);border:1px solid var(--line-2);border-radius:var(--radius-sm);
+    padding:var(--space-2) var(--space-4);transition:top .15s ease}
+  .skip:focus{top:var(--space-4);text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:var(--space-6) var(--space-6) var(--space-16)}
+  .masthead{display:flex;align-items:baseline;gap:var(--space-3);flex-wrap:wrap;
+    padding-bottom:var(--space-5);margin-bottom:var(--space-6);border-bottom:1px solid var(--line)}
+  .masthead .wordmark{font-weight:700;letter-spacing:-.01em;font-size:var(--text-lg)}
+  .masthead .wordmark .dot{color:var(--green)}
+  .masthead .kicker{color:var(--faint);font-size:var(--text-sm);letter-spacing:.12em;text-transform:uppercase}
+  .mast-nav{margin-left:auto;font-size:var(--text-sm);color:var(--faint)}
+  .badge{display:inline-block;font-size:var(--text-sm);letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line);border-radius:var(--radius-pill);
+    padding:var(--space-1) var(--space-3);margin-bottom:var(--space-5)}
+  h1{font-size:var(--text-display);line-height:1.05;margin:0 0 var(--space-2);letter-spacing:-.02em}
+  h2{font-size:var(--text-sm);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+    margin:var(--space-12) 0 var(--space-4);font-weight:700;display:flex;align-items:center;gap:var(--space-3)}
+  h2::after{content:"";flex:1;height:1px;background:var(--line)}
+  p{margin:0 0 var(--space-4);max-width:68ch}
+  .disclaimer{background:var(--disc-bg);border:1px solid var(--disc-line);border-radius:var(--radius-lg);
+    padding:var(--space-4) var(--space-6);margin:0 0 var(--space-8)}
+  .disclaimer strong{color:var(--disc-strong)} .disclaimer p{margin:var(--space-2) 0 0;font-size:var(--text-sm);color:var(--disc-fg);max-width:80ch}
+  .hero-v{margin:0 0 var(--space-8);text-align:center}
+  .hero-v h1{margin:var(--space-2) auto var(--space-5);max-width:20ch}
+  .gauge-wrap{display:flex;justify-content:center;margin:0 0 var(--space-4)}
+  .gauge{width:min(360px,86vw);height:auto}
+  .gauge-num{fill:var(--red);font-weight:700;font-size:64px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .gauge-cap{fill:var(--muted);font-size:20px}
+  .hero-sub{font-size:var(--text-lg);color:var(--fg);max-width:60ch;margin:0 auto var(--space-3)}
+  .hero-sub b{color:var(--red)}
+  .hero-proof{font-size:var(--text-md);color:var(--muted);max-width:62ch;margin:0 auto}
+  .hero-proof b{color:var(--fg)}
+  .pf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4);margin:var(--space-4) 0}
+  .pf{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line);
+    border-radius:var(--radius);padding:var(--space-5);box-shadow:var(--shadow)}
+  .pf-val{font-size:var(--text-2xl);font-weight:700;color:var(--red);line-height:1.05;
+    display:block;font-variant-numeric:tabular-nums}
+  .pf-lab{font-size:var(--text-sm);color:var(--fg);margin-top:var(--space-2);display:block}
+  .pf-note{font-size:var(--text-xs);color:var(--faint);margin-top:var(--space-2);display:block}
+  .panel{background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line);
+    border-radius:var(--radius-lg);padding:var(--space-6);box-shadow:var(--shadow);margin:0 0 var(--space-4)}
+  .panel h3{margin:0 0 var(--space-2);font-size:var(--text-lg)}
+  .keystone{border-left:3px solid var(--accent)}
+  .good{border-left:3px solid var(--green)}
+  .good li{margin-bottom:var(--space-2)}
+  .downloads{list-style:none;margin:0 0 var(--space-4);padding:0;display:grid;gap:var(--space-2)}
+  .downloads li{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2)}
+  .downloads a{font-weight:600}
+  .downloads .dl-file{color:var(--faint);font:var(--text-xs)/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  footer{margin-top:var(--space-12);padding-top:var(--space-6);border-top:1px solid var(--line);
+    color:var(--faint);font-size:var(--text-sm)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="masthead">
+    <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
+    <span class="kicker">The cloud barometer</span>
+    <nav class="mast-nav" aria-label="Language"><a href="../" hreflang="nb" lang="nb">Norsk</a></nav>
+  </header>
+
+  <!-- DISCLAIMER: load-bearing, always rendered (CLAUDE.md rule 2). Never remove. -->
+  <div class="disclaimer" role="note">
+    <strong>⚠️ Skytilsynet is not a government body.</strong>
+    <p>We are independent and <b>not affiliated with, operated by, or endorsed by</b>
+       the Norwegian Data Protection Authority, the Norwegian Digitalisation Agency,
+       or any other state or municipal authority. The name (Norwegian for
+       "the cloud inspectorate") describes what we do figuratively — we track the
+       public sector's dependence on cloud services — and is not an official role.
+       All information comes from open sources and is presented factually and
+       neutrally.</p>
+  </div>
+
+  <main id="main">
+
+    <!-- The verdict + gauge -->
+    <section class="hero-v" aria-labelledby="verdict-h1">
+      <span class="badge">Digital sovereignty</span>
+      <h1 id="verdict-h1"><!--__VERDICT_H1__--></h1>
+      <div class="gauge-wrap"><!--__GAUGE__--></div>
+      <p class="hero-sub"><!--__VERDICT_SUB__--></p>
+      <p class="hero-proof"><!--__PROOF__--></p>
+    </section>
+
+    <section>
+      <p>Skytilsynet maps how dependent Norwegian public bodies are on foreign cloud
+         technology, starting with email. For each body we read the public DNS
+         records that reveal who runs the mailbox, and derive the jurisdiction that
+         data answers to. Every claim is sourced. The email axis is one axis — and
+         the share below is a <b>floor</b>: bodies whose backend hides behind a mail
+         gateway are not all unmasked, so the real US share is at least this high.</p>
+    </section>
+
+    <!-- By the numbers -->
+    <section>
+      <h2>By the numbers</h2>
+      <p>Every figure is computed from the same open dataset — municipalities
+         (kommuner), state bodies (statlige organ), health trusts (helseforetak),
+         universities and colleges, and county authorities (fylkeskommuner):</p>
+      <div class="pf-grid"><!--__FIGURES__--></div>
+    </section>
+
+    <!-- The mechanism: residency ≠ jurisdiction -->
+    <section>
+      <h2>Why residency is not jurisdiction</h2>
+      <div class="panel keystone">
+        <h3>The CLOUD Act reaches the provider, not the datacentre</h3>
+        <p>A common defence is "the data is stored in the EU." That is data
+           <b>residency</b> — and it is not the same as <b>jurisdiction</b>. Under the
+           US <b>CLOUD Act</b> (2018), a US-headquartered provider — Microsoft, Google,
+           Amazon — can be compelled by US authorities to hand over data it controls
+           <b>regardless of where in the world that data is physically stored</b>. An
+           "EU data boundary" changes where the bytes sit; it does not change whose
+           law the operator must obey. So when a public body's email runs on Microsoft
+           365, the honest statement is not "the data is in Ireland" — it is
+           <b>"the data answers to US jurisdiction."</b> That is the fact this site
+           reports, body by body.</p>
+      </div>
+      <div class="panel good">
+        <h3>What good looks like</h3>
+        <p>Sovereign public email is not hypothetical — European bodies are already
+           doing it:</p>
+        <ul class="good">
+          <li><b>Schleswig-Holstein</b> (Germany) is moving ~30,000 government
+             workstations off Microsoft to open-source (Linux, LibreOffice, Nextcloud,
+             Open-Xchange), a shift the state budgets at roughly <b>€15M/yr</b> — framed
+             as digital sovereignty, not cost-cutting.</li>
+          <li><b>Denmark</b>'s government and the city of Copenhagen have announced
+             moves away from Microsoft toward open, EU-controlled alternatives.</li>
+          <li><b>Larvik</b> — a Norwegian municipality already on European/Norwegian
+             email infrastructure, showing the sovereign path exists at home too.</li>
+        </ul>
+        <p>The lesson from Munich's LiMux is that this is a durable procurement and
+           strategy choice, not a flippable IT decision — so the ask is a change in
+           the rules, never a personal attack on any official.</p>
+      </div>
+    </section>
+
+    <!-- Method + open data -->
+    <section>
+      <h2>Method &amp; open data</h2>
+      <p>The method is deliberately simple and reproducible: for each body's domain we
+         query public DNS (MX, SPF, autodiscover) with <code>dig</code> and classify
+         the email platform and its jurisdiction from those records alone. No login,
+         no scraping of private systems — just the records anyone can read. Where the
+         records are gateway-masked or ambiguous, the body is marked
+         <i>undetermined</i> rather than guessed, which is why the US figure is a
+         floor. The full methodology (in Norwegian) and the scanner source are open:</p>
+      <p><a href="../#om">Full methodology (Norwegian) →</a> ·
+         <a href="https://github.com/praive-inc/skytilsynet" target="_blank" rel="noopener">Open source &amp; scanner on GitHub →</a></p>
+      <p>The dataset is open (CC BY 4.0). The CSV exports and the embeddable
+         gauge/cartogram are <b>language-neutral</b> — reuse them directly:</p>
+      <ul class="downloads">
+        <li><a href="../data/skytilsynet-kombinert.csv" download>Combined — all bodies (CSV)</a>
+          <span class="dl-file">skytilsynet-kombinert.csv</span></li>
+        <li><a href="../data/skytilsynet-kommune.csv" download>Municipalities (CSV)</a>
+          <span class="dl-file">skytilsynet-kommune.csv</span></li>
+        <li><a href="../data/skytilsynet-stat.csv" download>State bodies (CSV)</a>
+          <span class="dl-file">skytilsynet-stat.csv</span></li>
+        <li><a href="../data/skytilsynet-helse.csv" download>Health trusts (CSV)</a>
+          <span class="dl-file">skytilsynet-helse.csv</span></li>
+        <li><a href="../data/skytilsynet-uni.csv" download>Universities &amp; colleges (CSV)</a>
+          <span class="dl-file">skytilsynet-uni.csv</span></li>
+        <li><a href="../data/skytilsynet-fylke.csv" download>County authorities (CSV)</a>
+          <span class="dl-file">skytilsynet-fylke.csv</span></li>
+      </ul>
+      <p>Embeddable, same-origin (no external dependency): the
+         <a href="../embed/gauge.html">gauge</a> and the
+         <a href="../embed/kart.html">Norway cartogram</a> as iframes, or the
+         <code>&lt;script src="../embed/skytilsynet-embed.js"&gt;</code> web component.</p>
+    </section>
+
+    <section>
+      <h2>Correction &amp; contact</h2>
+      <p>Spotted an error? We publish corrections openly and keep nothing personal —
+         aggregate figures only. For corrections or press enquiries, contact the
+         methodology lead at <a href="mailto:presse@skytilsynet.no">presse@skytilsynet.no</a>.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><b><!--__TOTAL__--></b> Norwegian public bodies mapped. Data © Skytilsynet,
+       CC BY 4.0 · Code MIT. An independent project from BetterWorld — not a
+       government body. · <a href="../">Se hele nettstedet på norsk →</a></p>
+  </footer>
+
+</div>
 </body>
 </html>
 """

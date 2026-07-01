@@ -63,8 +63,11 @@ honest trend inline as JSON in `index.html` (small first paint); the **heavy
 per-entity evidence loads on demand** from `web/data/detail-<kategori>.json` via a
 **same-origin** fetch (our own EU origin). No CDN, web fonts, map tiles or any
 external/US-managed serving dependency — RFC-001 P5 forbids *external* deps, not a
-fetch from our own origin. `build.py` writes both `index.html` and the
-`web/data/detail-*.json` files — commit them together.
+fetch from our own origin. `build.py` also writes a self-contained English entry
+page at `web/en/index.html` (served at `/en/`) for international press — same data,
+English copy, `hreflang`-linked both ways with the Norwegian site. `build.py` writes
+`index.html`, the `web/data/detail-*.json` files and `en/index.html` — commit them
+together.
 
 Deploy is a plain rsync of `web/` behind Caddy (no build step in prod — see
 [`deploy/deploy-local.sh`](deploy/deploy-local.sh)), so the generated
