@@ -1499,8 +1499,8 @@ _TEMPLATE = r"""<!doctype html>
     background:var(--bg-2);border:1px solid var(--line);border-left-width:4px;
     border-radius:var(--radius-sm);padding:var(--space-3) var(--space-4)}
   .rung .yr{font-weight:700;font-size:var(--text-sm);color:var(--faint);min-width:54px;font-variant-numeric:tabular-nums}
-  .rung .nm{font-weight:600}
-  .rung .ds{font-size:var(--text-sm);color:var(--muted);margin-top:2px}
+  .rung .nm{font-weight:600;display:block}
+  .rung .ds{display:block;font-size:var(--text-sm);color:var(--muted);margin-top:2px}
   .rung.on{border-left-color:var(--green);background:#10201a}
   .rung.on .yr,.rung.on .nm{color:var(--green)}
   /* Category toggle (Kommuner | Statlige organ) */
