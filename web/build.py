@@ -19,6 +19,11 @@ import os
 import re
 import shutil
 
+# Committed, simplified geographic fylke geometry for the real Norway map (issue
+# #46). Generated once by make_fylke_geo.py and baked here so production serves
+# inline SVG paths with no external map tile (RFC-001 P5).
+from fylke_geo import FYLKE_PATHS, FYLKE_VIEWBOX
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DATA = os.path.join(ROOT, "data", "kommune-email-sovereignty.latest.json")
@@ -644,6 +649,38 @@ def cartogram_svg(categories):
                 vb=vb, body="".join(hexes))
 
 
+def choropleth_svg(categories):
+    """The REAL geographic Norway map (issue #46): the same 15 fylker as the
+    cartogram, but drawn on committed simplified boundary geometry so the shape is
+    recognisable. Same colour legend, same click→entity permalink. Inline SVG paths
+    only — no external map tile (RFC-001 P5). Large sparse northern fylker visually
+    over-weight vs. population here; that honesty note (and the cartogram) is why
+    both exist."""
+    by_name = {(c["key"], _entity_name(e)): e
+               for c in categories for e in c["entities"]}
+    shapes = []
+    for county, short, ename, cat, col, row in _FYLKE_HEXES:
+        path = FYLKE_PATHS.get(county)
+        if not path:
+            continue
+        e = by_name.get((cat, ename))
+        css = _plat_css(e.get("platform"), e.get("behind_gateway")) if e else "c-grey"
+        plat = _PLAT_LABEL.get(e.get("platform"), "Uavklart") if e else "Uavklart"
+        title = "{}: {}".format(county, plat)
+        # Same permalink contract as the cartogram — valid on the live site; colour
+        # falls back to grey only if this dataset lacks the unit.
+        shapes.append(
+            '<a href="#org/{cat}/{slug}" class="fylke {css}" aria-label="{title}">'
+            '<path d="{d}" fill="{fill}" stroke="var(--bg)" stroke-width="0.6"/>'
+            '<title>{title}</title></a>'.format(
+                cat=cat, slug=slugify(ename), css=css, title=title,
+                d=path, fill=_CARTO_COLOR[css]))
+    return ('<svg class="choropleth" viewBox="{vb}" role="group" '
+            'aria-label="Geografisk kart over Norges 15 fylker, farget etter '
+            'fylkeskommunens e-postplattform">{body}</svg>').format(
+                vb=FYLKE_VIEWBOX, body="".join(shapes))
+
+
 def _league_pane(title, cap, rows, rank_from=1):
     items = []
     for i, r in enumerate(rows):
@@ -1078,6 +1115,7 @@ def render_html(meta, categories, history, trend, corrections=None):
             .replace("<!--__VERDICT_H1__-->", h1)
             .replace("<!--__VERDICT_SUB__-->", sub)
             .replace("<!--__GAUGE__-->", gauge_svg(us_pct))
+            .replace("<!--__CHOROPLETH__-->", choropleth_svg(categories))
             .replace("<!--__CARTOGRAM__-->", cartogram_svg(categories))
             .replace("<!--__LEAGUE__-->", league_html(categories))
             .replace("<!--__PROOF__-->", proof_html)
@@ -1517,7 +1555,8 @@ _TEMPLATE = r"""<!doctype html>
     background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line);
     border-radius:var(--radius-lg);padding:var(--space-6);box-shadow:var(--shadow)}
   @media(min-width:720px){.cartomap{grid-template-columns:minmax(0,360px) 1fr}}
-  .cartomap-fig{display:flex;justify-content:center}
+  .cartomap-main{min-width:0}
+  .cartomap-fig{display:flex;flex-direction:column;align-items:center;justify-content:center}
   .cartogram{width:min(360px,80vw);height:auto}
   .cartogram .hex{cursor:pointer}
   .cartogram .hex polygon{transition:filter .12s ease}
@@ -1525,6 +1564,21 @@ _TEMPLATE = r"""<!doctype html>
   .cartogram .hex:focus-visible{outline:none}
   .cartogram .hex:focus-visible polygon{stroke:var(--accent);stroke-width:3}
   .hex-lab{fill:#0b0e12;font-size:15px;font-weight:700;pointer-events:none}
+  /* Real geographic Norway map (issue #46) — inline simplified fylke paths. */
+  .choropleth{width:min(340px,78vw);height:auto}
+  .choropleth .fylke{cursor:pointer}
+  .choropleth .fylke path{transition:filter .12s ease}
+  .choropleth .fylke:hover path,.choropleth .fylke:focus-visible path{filter:brightness(1.3)}
+  .choropleth .fylke:focus-visible{outline:none}
+  .choropleth .fylke:focus-visible path{stroke:var(--accent);stroke-width:1.6}
+  .map-geo-note{max-width:340px;margin-top:var(--space-3)}
+  /* Geografisk kart / kartogram-veksleren. */
+  .map-toggle{display:inline-flex;gap:2px;margin-bottom:var(--space-4);padding:3px;
+    background:var(--bg-2);border:1px solid var(--line);border-radius:999px}
+  .map-tab{appearance:none;border:0;background:transparent;color:var(--muted);cursor:pointer;
+    font:inherit;font-size:var(--text-sm);padding:6px 14px;border-radius:999px;transition:all .12s ease}
+  .map-tab[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:var(--shadow)}
+  .map-tab:focus-visible{outline:none;box-shadow:var(--ring)}
   .cartomap-side p{color:var(--muted);font-size:var(--text-base)}
   .cartomap-side b{color:var(--fg)}
   .carto-note{font-size:var(--text-sm);color:var(--faint)}
@@ -1720,12 +1774,27 @@ _TEMPLATE = r"""<!doctype html>
          its evidence. The full table below is client-side sortable. -->
     <h2 id="kart">Norgeskartet</h2>
     <section class="cartomap" aria-labelledby="kart">
-      <div class="cartomap-fig"><!--__CARTOGRAM__--></div>
+      <div class="cartomap-main">
+        <div class="map-toggle" role="group" aria-label="Velg karttype">
+          <button type="button" class="map-tab" id="map-tab-geo" data-map="geo"
+            aria-pressed="true">Geografisk kart</button>
+          <button type="button" class="map-tab" id="map-tab-carto" data-map="carto"
+            aria-pressed="false">Kartogram (likeareal)</button>
+        </div>
+        <div class="cartomap-fig" id="map-geo">
+          <!--__CHOROPLETH__-->
+          <p class="carto-note map-geo-note">På et ekte kart veier store, tynt
+            befolkede <b>nordlige fylker</b> visuelt langt tyngre enn folketallet
+            tilsier — Finnmark er størst i areal, minst i folketall. Derfor finnes
+            også kartogrammet, som gir hvert fylke like stor flate.</p>
+        </div>
+        <div class="cartomap-fig hidden" id="map-carto"><!--__CARTOGRAM__--></div>
+      </div>
       <div class="cartomap-side">
-        <p>Norges 15 fylker som like store sekskanter — et kartogram, ikke et
-          areakart, så Finnmark ikke visuelt sletter Oslo. Fargen viser
-          <b>fylkeskommunens egen e-postplattform</b> (Oslo: kommunen). Klikk et
-          fylke for organet og kildene.</p>
+        <p>Norges 15 fylker, farget etter <b>fylkeskommunens egen e-postplattform</b>
+          (Oslo: kommunen). Klikk et fylke for organet og kildene. Bytt mellom det
+          <b>geografiske kartet</b> og et <b>likeareal-kartogram</b> — sekskanter der
+          Finnmark ikke visuelt sletter Oslo.</p>
         <ul class="carto-legend" aria-hidden="true">
           <li><span class="sw c-red"></span> USA (CLOUD Act)</li>
           <li><span class="sw c-amber"></span> USA, bak e-postgateway (gulv)</li>
@@ -2994,6 +3063,25 @@ _TEMPLATE = r"""<!doctype html>
     if(jump) jump.addEventListener("click", function(){ expandExplore(true); });
   }
 
+  // ---- Norgeskartet (issue #46): toggle geographic map <-> equal-area cartogram.
+  // Both are baked inline; no-JS shows the geographic map (cartogram stays hidden).
+  function wireMapToggle(){
+    var tabs = document.querySelectorAll(".map-tab");
+    if(!tabs.length) return;
+    function show(which){
+      var geo = document.getElementById("map-geo");
+      var carto = document.getElementById("map-carto");
+      if(geo) geo.classList.toggle("hidden", which!=="geo");
+      if(carto) carto.classList.toggle("hidden", which!=="carto");
+      tabs.forEach(function(t){
+        t.setAttribute("aria-pressed", t.getAttribute("data-map")===which ? "true":"false");
+      });
+    }
+    tabs.forEach(function(t){
+      t.addEventListener("click", function(){ show(t.getAttribute("data-map")); });
+    });
+  }
+
   // ---- Ligatabellen (issue #36): the full sortable league over all entities ----
   // The pinned hall of fame + most-dependent strips are baked static (work without
   // JS); this is the progressive, sortable full table, mounted on demand.
@@ -3064,7 +3152,7 @@ _TEMPLATE = r"""<!doctype html>
   }
 
   renderNarrative(); renderGoal(); renderCatbar(); renderFilters();
-  renderCorrections(); wireFinder(); wireExplore(); wireLeague(); route();
+  renderCorrections(); wireFinder(); wireExplore(); wireLeague(); wireMapToggle(); route();
 })();
 </script>
 </body>

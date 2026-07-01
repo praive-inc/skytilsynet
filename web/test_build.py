@@ -1189,6 +1189,41 @@ class NorwayCartogram(unittest.TestCase):
         self.assertIn("var(--grey)", self.svg)
 
 
+class NorwayChoropleth(unittest.TestCase):
+    """Issue #46 — a REAL geographic Norway map (choropleth) alongside the hex
+    cartogram, from committed simplified fylke geometry, rendered inline (no
+    external tiles, RFC-001 P5). Same colour legend, same click→entity card."""
+
+    def setUp(self):
+        self.cats = build.build_categories(DATA, STAT, None, SEEDED)
+        self.svg = build.choropleth_svg(self.cats)
+
+    def test_geometry_is_committed_for_all_fifteen_fylker(self):
+        import fylke_geo
+        counties = {c for c, *_ in build._FYLKE_HEXES}
+        self.assertEqual(len(counties), 15)
+        for county in counties:
+            self.assertIn(county, fylke_geo.FYLKE_PATHS)
+        self.assertTrue(fylke_geo.FYLKE_VIEWBOX)
+
+    def test_is_inline_svg_with_real_paths_no_external(self):
+        self.assertIn("<svg", self.svg)
+        self.assertIn("<path", self.svg)          # real geometry, not hex polygons
+        self.assertNotIn("http://", self.svg)
+        self.assertNotIn("https://", self.svg)
+        self.assertNotIn("<image", self.svg)       # no raster map tiles
+
+    def test_fylke_shape_links_to_its_fylkeskommune_card(self):
+        self.assertIn('href="#org/fylke/agder-fylkeskommune"', self.svg)
+
+    def test_oslo_shape_links_to_oslo_kommune(self):
+        self.assertIn('href="#org/kommune/oslo-kommune"', self.svg)
+
+    def test_shape_is_coloured_by_platform(self):
+        self.assertIn("var(--red)", self.svg)
+        self.assertIn("var(--grey)", self.svg)
+
+
 class NorwayMapAndLeagueInPage(unittest.TestCase):
     """Issue #36 — the map + league table land in the built page, prominently and
     self-contained."""
@@ -1221,6 +1256,23 @@ class NorwayMapAndLeagueInPage(unittest.TestCase):
     def test_no_external_map_dependency(self):
         for bad in ["openstreetmap", "mapbox", "leaflet", "tile.", "googleapis"]:
             self.assertNotIn(bad, self.html.lower())
+
+    def test_geographic_choropleth_rendered_into_the_home_view(self):
+        # Issue #46 — the real map is baked into the page too (inline <path>,
+        # same click→entity permalink as the cartogram).
+        self.assertIn("choropleth", self.html)
+        self.assertIn("<path", self.html)
+
+    def test_map_type_toggle_between_geographic_and_cartogram(self):
+        # Both views are kept; the toggle labels name each type and expose state.
+        self.assertIn("Geografisk kart", self.html)
+        self.assertIn("Kartogram (likeareal)", self.html)
+        self.assertIn("aria-pressed", self.html)
+
+    def test_geographic_view_carries_the_honesty_note(self):
+        # The area-vs-population caveat that justifies the cartogram existing.
+        self.assertIn("map-geo-note", self.html)
+        self.assertIn("nordlige", self.html)
 
 
 class BuildMainOnRealData(unittest.TestCase):
