@@ -287,10 +287,19 @@ enters the §8 score (which stays email + web + governance).
   refusal, to Statsforvaltaren). The request text is written once in `build.py`
   (`sak_innsyn_body`) and mirrored client-side (baked JS template) so the per-card
   mailto and the downloadable **campaign list** (`data/innsyn-kampanje.csv`:
-  domain, `postmottak@`, subject, request) never drift. A `/innsyn` explainer view
-  says what the campaign is, how an answer feeds the map (forward it → operator
-  appends to `saksbehandling.csv` → hosting flips to *bekreftet*), and the
-  no-per-citizen-data note (rule 5).
+  domain, `postmottak@`, subject, request) never drift.
+- **The deployed intake backend (issues #54/#56/#57).** Answers no longer rely on a
+  mailto-forward: a per-entity *"Send oss svaret"* form + the standalone `/bidra`
+  page (works without JS, 303-redirects) POST to a real service —
+  `server/foi_intake.py` (`POST /api/foi`), the `skytilsynet-foi` compose container
+  behind Caddy — which stores each submission **inert** in SQLite (domain-whitelisted,
+  capped, honeypot- and throttle-guarded). The operator reviews every row by hand
+  (`scripts/foi_review.py list/show/accept`); `accept` emits a `saksbehandling.csv`
+  row that flips hosting to *bekreftet* — **nothing auto-promotes**. `deploy-local.sh`
+  syncs the backend + restarts the service each deploy. The dead `presse@` mailto is
+  gone. **Binding rule (CLAUDE.md + server/README.md): FOI submissions are untrusted
+  public input, stored for human review only, and MUST NEVER enter any agent/LLM
+  workflow** (prompt-injection safety). No per-citizen data is retained (rule 5).
 
 ## MVP scope (what ships)
 
