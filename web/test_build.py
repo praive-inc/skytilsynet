@@ -1645,5 +1645,137 @@ class EntityTrend(unittest.TestCase):
                          ["OTHER", "US_MICROSOFT"])
 
 
+class EnglishPage(unittest.TestCase):
+    """Issue #44: a self-contained English entry page served at /en/ for
+    international press. Same data, English copy — the verdict + gauge, the
+    by-the-numbers figures, the CLOUD-Act / residency≠jurisdiction mechanism, a
+    short method + the language-neutral CSV/embeds, and the load-bearing
+    disclaimer in English. Plain static, no external dep."""
+
+    def setUp(self):
+        self.cats = build.build_categories(DATA, STAT, None, SEEDED)
+        self.html = build.render_en_html(DATA["meta"], self.cats)
+
+    # ---- shell + language wiring --------------------------------------------
+    def test_page_declares_english_and_canonical_en_url(self):
+        self.assertIn('<html lang="en"', self.html)
+        self.assertIn('<link rel="canonical" href="https://skytilsynet.no/en/"',
+                      self.html)
+
+    def test_hreflang_links_both_directions(self):
+        self.assertIn('hreflang="nb" href="https://skytilsynet.no/"', self.html)
+        self.assertIn('hreflang="en" href="https://skytilsynet.no/en/"', self.html)
+
+    def test_visible_language_link_back_to_norwegian(self):
+        # A journalist must be able to hop back to the full Norwegian site.
+        self.assertRegex(self.html, r'href="\.\./"[^>]*hreflang="nb"')
+        self.assertIn("Norsk", self.html)
+
+    def test_english_og_meta(self):
+        self.assertIn('property="og:locale" content="en"', self.html)
+        self.assertIn('property="og:url" content="https://skytilsynet.no/en/"',
+                      self.html)
+        # English, not the Norwegian description copied verbatim.
+        m = re.search(r'property="og:description" content="([^"]+)"', self.html)
+        self.assertIsNotNone(m)
+        self.assertNotIn("kjører", m.group(1))
+
+    # ---- verdict + gauge (English, data-driven) -----------------------------
+    def test_verdict_h1_is_english_and_derived_from_the_data(self):
+        m = re.search(r'id="verdict-h1">([^<]+)<', self.html)
+        self.assertIsNotNone(m)
+        h1 = m.group(1)
+        self.assertIn("email in the USA", h1)
+        c = build.combine_summaries([c["summary"] for c in self.cats])
+        self.assertIn("%d of 10" % int(c["us_pct"] // 10), h1)
+
+    def test_gauge_is_english_and_baked(self):
+        self.assertIn('class="gauge"', self.html)
+        self.assertIn('role="img"', self.html)
+        # The Norwegian caption must not leak into the English gauge.
+        self.assertNotIn("USA-kontrollert sky", self.html)
+        self.assertIn("US-controlled cloud", self.html)
+
+    def test_floor_caveat_present(self):
+        self.assertIn("floor", self.html.lower())
+
+    def test_shock_names_present_and_glossed_for_internationals(self):
+        # Only bodies present AND US in the data render, each glossed in English so
+        # a non-Norwegian reader gets why the name lands (Skatteetaten is US in the
+        # fixture; the Tax Administration gloss travels).
+        self.assertIn("hero-proof", self.html)
+        self.assertIn("Skatteetaten", self.html)
+        self.assertIn("Tax Administration", self.html)
+
+    # ---- by the numbers ------------------------------------------------------
+    def test_by_the_numbers_is_data_driven(self):
+        figs = build.press_figures_en(self.cats)
+        self.assertGreaterEqual(len(figs), 5)
+        for f in figs:
+            self.assertTrue(f["value"])
+            self.assertTrue(f["label"])
+        c = build.combine_summaries([c["summary"] for c in self.cats])
+        self.assertTrue(any(build._no_pct(c["us_pct"]) in f["value"] for f in figs))
+
+    def test_by_the_numbers_labels_are_english(self):
+        blob = " ".join(f["label"] for f in build.press_figures_en(self.cats))
+        self.assertNotIn("skannet", blob)
+        self.assertIn("CLOUD Act", blob)
+
+    # ---- the mechanism -------------------------------------------------------
+    def test_residency_is_not_jurisdiction_keystone(self):
+        low = self.html.lower()
+        self.assertIn("cloud act", low)
+        self.assertIn("residency", low)
+        self.assertIn("jurisdiction", low)
+
+    def test_what_good_looks_like(self):
+        self.assertIn("Schleswig-Holstein", self.html)
+        self.assertIn("Denmark", self.html)
+        self.assertIn("Larvik", self.html)
+
+    # ---- method + language-neutral artifacts --------------------------------
+    def test_links_open_code_and_methodology(self):
+        self.assertIn("github.com/praive-inc/skytilsynet", self.html)
+        # The fuller methodology lives on the Norwegian site.
+        self.assertIn("../#om", self.html)
+
+    def test_reuses_neutral_csv_and_embeds(self):
+        self.assertIn("../data/skytilsynet-kombinert.csv", self.html)
+        self.assertIn("../embed/", self.html)
+
+    # ---- disclaimer (load-bearing, CLAUDE.md rule 2) ------------------------
+    def test_english_disclaimer_is_present_and_load_bearing(self):
+        low = self.html.lower()
+        self.assertIn("not a government body", low)
+        self.assertIn("not affiliated", low)
+
+    # ---- no external dependency ---------------------------------------------
+    def test_no_external_serving_dependency(self):
+        for bad in ("http://", "cdn.", "googleapis", "fonts.g", "unpkg", "jsdelivr"):
+            self.assertNotIn(bad, self.html.replace("https://skytilsynet.no", "")
+                                            .replace("https://github.com", "")
+                                            .replace("https://creativecommons.org", ""))
+
+
+class EnglishPageWiredIntoMain(unittest.TestCase):
+    """The main Norwegian page must point to /en/ and carry hreflang, and main()
+    must write web/en/index.html alongside index.html (prod has no build step)."""
+
+    def test_main_page_has_hreflang_and_english_link(self):
+        html = build.build_html(DATA, HISTORY, TREND, STAT)
+        self.assertIn('hreflang="en" href="https://skytilsynet.no/en/"', html)
+        self.assertRegex(html, r'href="en/"[^>]*hreflang="en"')
+
+    def test_main_writes_en_index(self):
+        import tempfile
+        dest = tempfile.mkdtemp()
+        build.write_en_file(self.cats, DATA["meta"], web_dir=dest)
+        self.assertTrue(os.path.exists(os.path.join(dest, "en", "index.html")))
+
+    def setUp(self):
+        self.cats = build.build_categories(DATA, STAT, None, SEEDED)
+
+
 if __name__ == "__main__":
     unittest.main()
