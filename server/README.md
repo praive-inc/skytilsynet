@@ -61,6 +61,7 @@ FOI_OPERATOR_TOKEN=changeme python3 server/foi_intake.py
 python3 scripts/foi_review.py list            # the 'new' queue
 python3 scripts/foi_review.py show 3
 python3 scripts/foi_review.py accept 3         # marks accepted + prints a CSV row
+python3 scripts/foi_review.py accept 3 --source-type offentlig-journal
 python3 scripts/foi_review.py reject 4
 ```
 
@@ -68,6 +69,26 @@ python3 scripts/foi_review.py reject 4
 `source` + date, `*_method=innsyn-foi`) to **stdout**. The operator pastes it into
 `data/saksbehandling.csv` by hand, then `cd web && python3 build.py` and deploys.
 `saksbehandling.csv` stays human-curated — nothing here writes to it.
+
+**Trust & verification (issue #55).** `accept` **shows the submission's `source`
+and refuses to accept without one** — no verdict reaches the dataset as
+*bekreftet* without a source a skeptic can re-check. It stamps the emitted row's
+`hosting_source_type` with the re-checkable-source **tier**:
+
+- `--source-type offentlig-journal` — the source is a public postjournal /
+  journalpost (einnsyn.no / norske-postlister.no), a databehandleravtale, or a
+  Doffin award URL. **Highest**; rendered as a clickable evidence link.
+- `--source-type innsyn-pa-fil` *(default)* — a real innsyn answer held on file,
+  offered on request (not a public URL). **Medium**.
+
+No `hosting_source_type` (or an `offentlig-journal` tier whose source is not a
+resolvable URL) → the row stays *utledet* (vendor inference), never *bekreftet*.
+At build time the axis also auto-cross-checks each vendor claim against the
+body's innsyn-portal fingerprint (`*.onacos.no`→Acos, `*.elementscloud.no`→Sikri,
+`*.360online.com`→Tietoevry, `ephinnsyn.*`→ePhorte): agreement earns a "bekreftet
+av to uavhengige kilder" marker, a conflict is flagged and **not published**.
+Every add/change is recorded in the public per-axis change log
+(`data/saksbehandling-endringslogg.json`).
 
 ## Deploy — systemd unit + Caddy (the operator wires these)
 

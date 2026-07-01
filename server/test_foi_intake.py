@@ -227,6 +227,45 @@ class ReviewCliTest(unittest.TestCase):
         self.assertEqual(d["hosting_jurisdiction"], "Norge (EØS)")
         self.assertEqual(d["hosting_source"], "https://ex.org/svar")
 
+    def test_emitted_row_carries_the_source_tier(self):
+        # Issue #55: the emitted row stamps the re-checkable-source tier so the
+        # published dataset knows how the verdict can be re-checked.
+        ents = {"larvik.kommune.no": {"category": "kommune"}}
+        d = dict(zip(foi_review.SAKS_HEADER,
+                     foi_review.saksbehandling_row(self._sub(), ents)))
+        self.assertEqual(d["hosting_source_type"], "innsyn-pa-fil")   # default tier
+        d2 = dict(zip(foi_review.SAKS_HEADER,
+                      foi_review.saksbehandling_row(self._sub(), ents,
+                                                    source_type="offentlig-journal")))
+        self.assertEqual(d2["hosting_source_type"], "offentlig-journal")
+
+    def test_accept_refuses_a_submission_without_a_source(self):
+        # #55 §5: no verdict without a re-checkable source — accept must have one.
+        rec = dict(self.rec); rec["source"] = ""
+        sid = foi_intake.store(self.conn, rec, "identhash2")
+        with self.assertRaises(SystemExit):
+            foi_review.cmd_accept(self.conn, _Args(id=sid))
+        # And it stays 'new' — nothing was promoted.
+        self.assertEqual(foi_review._fetch(self.conn, sid)["status"], "new")
+
+    def test_accept_shows_the_source_before_emitting(self):
+        import io
+        from contextlib import redirect_stderr
+        buf = io.StringIO()
+        with redirect_stderr(buf):
+            foi_review.cmd_accept(self.conn, _Args(id=self.sid))
+        self.assertIn("https://ex.org/svar", buf.getvalue())         # source shown
+        self.assertIn("innsyn-pa-fil", buf.getvalue())               # tier shown
+
+    def test_accept_stamps_chosen_tier_on_emitted_row(self):
+        import io
+        from contextlib import redirect_stdout
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            foi_review.cmd_accept(self.conn,
+                                  _Args(id=self.sid, source_type="offentlig-journal"))
+        self.assertIn("offentlig-journal", buf.getvalue())
+
     def test_reject_sets_status(self):
         foi_review.cmd_reject(self.conn, _Args(id=self.sid))
         self.assertEqual(self._sub()["status"], "rejected")

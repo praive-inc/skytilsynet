@@ -235,16 +235,42 @@ enters the §8 score (which stays email + web + governance).
   per domain, each carrying a `vendor_source` + `vendor_date`). The **hosting**
   jurisdiction is either *inferred* from an open vendor→hosting table (in
   `build.py`: `VENDOR_HOSTING`, each row carrying a source + a confidence) or
-  *confirmed* per body via an offentleglova FOI answer the operator collects
-  (`hosting_method=innsyn-foi`, with its own source + date).
+  *confirmed* per body against a **re-checkable source** the operator records.
+- **Trust & verification: publish evidence, not claims (issue #55).** A hosting
+  claim only becomes *bekreftet* if it carries a source a skeptic can
+  independently re-check. Two ranked tiers, both stamped in the CSV's
+  `hosting_source_type` column:
+  - **`offentlig-journal`** — a postjournal saksnummer/journalpost (resolvable on
+    einnsyn.no / norske-postlister.no), a published databehandleravtale, or a
+    Doffin award URL. **Highest**; MUST carry a resolvable `http(s)` URL (else it
+    can't be re-checked → not *bekreftet*), rendered as a **clickable evidence
+    link**.
+  - **`innsyn-pa-fil`** — a real innsyn response the operator verified, held on
+    file (offered on request), not necessarily a public URL. **Medium.**
+  No re-checkable source → the row stays *utledet* (vendor inference) or *ikke
+  kartlagt*, **never** *bekreftet*. The per-entity badge reflects the tier:
+  `bekreftet – offentlig journal` › `bekreftet – innsyn på fil` ›
+  `utledet (leverandør, <confidence>)` › `ikke kartlagt`. (Legacy rows using
+  `hosting_method=innsyn-foi` map to the `innsyn-pa-fil` tier.)
+- **Automated cross-check with the portal fingerprint (issue #55 §3).** The
+  third-party innsyn-portal host a body's site loads is an independent signal of
+  its sakarkiv vendor (`*.onacos.no`/`*.acossky.no`→Acos, `*.elementscloud.no`→
+  Sikri, `*.360online.com`→Tietoevry, `ephinnsyn.*`→ePhorte). When a per-body
+  vendor claim agrees with the fingerprint the card shows *"bekreftet av to
+  uavhengige kilder"*; a conflict is **flagged for operator review and not
+  published**. (Larvik's Acos WebSak claim + its real `innsynpluss.onacos.no`
+  fingerprint is a live example of agreement.)
+- **Public change log (issue #55 §4).** Every add/change to this axis — its
+  method, source, and date — is recorded in `data/saksbehandling-endringslogg.json`
+  (CC-BY, baked inline) and rendered under Om & metode, like the corrections log.
 - **Rule 1 is binding, twice.** A CSV row with no `vendor_source` is **not** a
   verdict (`resolve_saksbehandling` returns `None`). A table row that asserts a
   real jurisdiction MUST carry a source; a customer-choosable/unknown vendor
   (Acos WebSak, ePhorte) stays `Uavklart` and asserts nothing.
 - **Honest framing.** Table-derived hosting always renders *"utledet fra
-  leverandør, &lt;confidence&gt;"* — only a FOI answer earns *"bekreftet via
-  innsyn &lt;dato&gt;"*. No unflagged per-body jurisdiction claim from the table.
-  (Confidence in the seed table is deliberately conservative — Documaster's
+  leverandør, &lt;confidence&gt;"* — only a re-checkable source earns a
+  *"bekreftet – …"* tier badge. No unflagged per-body jurisdiction claim from the
+  table. (Confidence in the seed table is deliberately conservative — Documaster's
   Nordic hosting and Sikri's Azure are vendor positioning we could not pin to a
   single hard statement, so both are *circumstantial*, not *confirmed*.)
 - **Empty state + intake funnel.** A body with no row shows *"ikke kartlagt

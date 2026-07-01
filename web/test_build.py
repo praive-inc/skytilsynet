@@ -1913,8 +1913,10 @@ class SaksbehandlingRender(unittest.TestCase):
         self.assertIn("Krev innsyn", self.html)                # intake CTA
 
     def test_render_distinguishes_confirmed_from_inferred(self):
-        self.assertIn("bekreftet via innsyn", self.html)       # FOI path
-        self.assertIn("utledet fra leverandør", self.html)     # table path
+        # #55: the confirmed path now renders a re-checkable-source TIER label
+        # (Bærum's legacy innsyn-foi row maps to the innsyn-på-fil tier).
+        self.assertIn("bekreftet – innsyn på fil", self.html)  # confirmed tier
+        self.assertIn("utledet fra leverandør", self.html)          # table path
 
     def test_aggregate_line_present_and_derived(self):
         agg = build.sak_aggregate(build.build_categories(DATA, STAT, WEB, sak=SAK))
@@ -1951,6 +1953,193 @@ class SaksbehandlingSeed(unittest.TestCase):
         self.assertEqual(larvik["saksbehandling"]["vendor"], "Acos WebSak")
         # Acos hosting is customer-choosable → table says Uavklart, never a verdict.
         self.assertEqual(larvik["saksbehandling"]["hosting"]["jurisdiction"], "Uavklart")
+
+
+# Issue #55: the trust & verification layer. Fixtures exercise each source tier
+# and the innsyn-portal cross-check. A minimal web record supplies the third-party
+# portal host the fingerprint reads.
+def _web_with_portal(domain, portal_host):
+    return {"kommune": domain, "axis": "web", "domain": domain,
+            "url": "https://"+domain+"/", "host": domain,
+            "hosting": {"ip": "1.1.1.1", "asn": "1", "country": "NO",
+                        "name": "x", "jurisdiction": "NO (EEA)"},
+            "third_parties": [{"domain": portal_host, "category": "other",
+                               "jurisdiction": "Norge / EØS", "flags": []}],
+            "us_resource_fraction": 0.0, "analytics": False, "flags": [],
+            "evidence": {"server": "nginx", "tls_issuer": "Let's Encrypt"},
+            "sourceDate": "2026-06-28"}
+
+
+class SaksbehandlingSourceTiers(unittest.TestCase):
+    """#55 §1-2: no 'bekreftet' without a re-checkable source; ranked tiers."""
+
+    def _row(self, **kw):
+        base = {"domain": "x.kommune.no", "vendor": "Acos WebSak",
+                "vendor_source": "https://ex.org/v", "vendor_date": "2026-06-01"}
+        base.update(kw)
+        return base
+
+    def test_offentlig_journal_is_top_tier_and_clickable(self):
+        rec = build.resolve_saksbehandling(self._row(
+            hosting_jurisdiction="Norge / EØS", hosting_source_type="offentlig-journal",
+            hosting_source="https://einnsyn.no/journalpost/123", hosting_date="2026-06-10"))
+        h = rec["hosting"]
+        self.assertTrue(h["confirmed"])
+        self.assertEqual(h["tier"], "offentlig-journal")
+        self.assertTrue(h["clickable"])
+        self.assertEqual(h["source"], "https://einnsyn.no/journalpost/123")
+
+    def test_innsyn_pa_fil_is_medium_tier_not_clickable(self):
+        rec = build.resolve_saksbehandling(self._row(
+            hosting_jurisdiction="Norge / EØS", hosting_source_type="innsyn-pa-fil",
+            hosting_source="Innsynssvar 12/345 på fil", hosting_date="2026-06-10"))
+        h = rec["hosting"]
+        self.assertTrue(h["confirmed"])
+        self.assertEqual(h["tier"], "innsyn-pa-fil")
+        self.assertFalse(h["clickable"])
+
+    def test_offentlig_journal_without_resolvable_url_is_not_bekreftet(self):
+        # §1: a postjournal tier with no re-checkable URL falls back to the vendor
+        # table (utledet), never 'bekreftet'.
+        rec = build.resolve_saksbehandling(self._row(
+            hosting_jurisdiction="Norge / EØS", hosting_source_type="offentlig-journal",
+            hosting_source="saksnr 12/345"))          # not a URL → not re-checkable
+        h = rec["hosting"]
+        self.assertFalse(h["confirmed"])
+        self.assertEqual(h["tier"], "utledet")
+
+    def test_innsyn_pa_fil_without_source_is_not_bekreftet(self):
+        rec = build.resolve_saksbehandling(self._row(
+            vendor="Tietoevry Public 360", hosting_source_type="innsyn-pa-fil",
+            hosting_source=""))
+        self.assertFalse(rec["hosting"]["confirmed"])       # falls back to table
+
+    def test_legacy_innsyn_foi_still_earns_bekreftet(self):
+        # Back-compat: pre-#55 rows used hosting_method=innsyn-foi with a source.
+        rec = build.resolve_saksbehandling(self._row(
+            hosting_jurisdiction="Norge / EØS", hosting_method="innsyn-foi",
+            hosting_source="https://ex.org/svar"))
+        h = rec["hosting"]
+        self.assertTrue(h["confirmed"])
+        self.assertEqual(h["tier"], "innsyn-pa-fil")
+
+
+class PortalFingerprintCrossCheck(unittest.TestCase):
+    """#55 §3: automated cross-check of the vendor claim vs the innsyn-portal host."""
+
+    def test_fingerprint_maps_known_hosts_to_vendors(self):
+        self.assertEqual(build.portal_fingerprint(
+            _web_with_portal("a.no", "innsynpluss.onacos.no"))["vendor"], "Acos")
+        self.assertEqual(build.portal_fingerprint(
+            _web_with_portal("a.no", "prod01.elementscloud.no"))["vendor"], "Sikri")
+        self.assertEqual(build.portal_fingerprint(
+            _web_with_portal("a.no", "opengov.360online.com"))["vendor"], "Tietoevry")
+        self.assertIsNone(build.portal_fingerprint(
+            _web_with_portal("a.no", "www.google-analytics.com")))
+
+    def test_agreement_marks_two_independent_sources(self):
+        xc = build.crosscheck_vendor("Acos WebSak",
+                                     _web_with_portal("a.no", "innsynpluss.onacos.no"))
+        self.assertTrue(xc["agree"])
+        self.assertEqual(xc["portal_vendor"], "Acos")
+
+    def test_conflict_is_detected(self):
+        xc = build.crosscheck_vendor("Sikri Elements",
+                                     _web_with_portal("a.no", "innsynpluss.onacos.no"))
+        self.assertFalse(xc["agree"])
+
+    def test_no_portal_signal_yields_none(self):
+        self.assertIsNone(build.crosscheck_vendor("Acos WebSak", None))
+        self.assertIsNone(build.crosscheck_vendor(
+            "Acos WebSak", _web_with_portal("a.no", "www.google-analytics.com")))
+
+    def test_vendor_without_family_agree_is_none(self):
+        xc = build.crosscheck_vendor("Documaster",
+                                     _web_with_portal("a.no", "innsynpluss.onacos.no"))
+        self.assertIsNone(xc["agree"])
+
+    def test_attach_flags_conflict_and_withholds_from_confirmed(self):
+        sak = {"a.kommune.no": {
+            "domain": "a.kommune.no", "vendor": "Sikri Elements",
+            "vendor_source": "https://ex.org/v", "vendor_date": "2026-06-01",
+            "hosting_jurisdiction": "Norge / EØS", "hosting_source_type": "innsyn-pa-fil",
+            "hosting_source": "svar på fil"}}
+        entities = [{"domain": "a.kommune.no", "name": "A",
+                     "web": _web_with_portal("a.kommune.no", "innsynpluss.onacos.no")}]
+        out = build.attach_saksbehandling(entities, sak)
+        rec = out[0]["saksbehandling"]
+        self.assertTrue(rec["conflict"])
+        agg = build.sak_aggregate([{"entities": out}])
+        self.assertEqual(agg["confirmed"], 0)          # conflict not published
+
+    def test_real_larvik_agrees_with_its_onacos_portal(self):
+        # The seed row (Acos WebSak) + Larvik's real innsynpluss.onacos.no web
+        # fingerprint → 'to uavhengige kilder' in the real build.
+        idx = build.load_saksbehandling()
+        data = json.load(open(build.DATA))
+        web = json.load(open(build.WEB_DATA)) if os.path.exists(build.WEB_DATA) else None
+        cats = build.build_categories(data, web=web, sak=idx)
+        larvik = next(e for e in cats[0]["entities"]
+                      if e.get("domain") == "larvik.kommune.no")
+        xc = larvik["saksbehandling"]["crosscheck"]
+        self.assertIsNotNone(xc)
+        self.assertTrue(xc["agree"])
+
+
+class SaksbehandlingTierRender(unittest.TestCase):
+    """#55 §2-4: tier badges + evidence link, two-source marker, endringslogg."""
+
+    def setUp(self):
+        self.sak = {
+            "oslo.kommune.no": {
+                "domain": "oslo.kommune.no", "vendor": "Tietoevry Public 360",
+                "vendor_method": "portal-fingerprint",
+                "vendor_source": "https://ex.org/oslo", "vendor_date": "2026-06-01",
+                "hosting_jurisdiction": "United States (CLOUD Act)",
+                "hosting_source_type": "offentlig-journal",
+                "hosting_source": "https://einnsyn.no/journalpost/999",
+                "hosting_date": "2026-06-10"},
+            "baerum.kommune.no": {
+                "domain": "baerum.kommune.no", "vendor": "Documaster",
+                "vendor_method": "vendor-statement",
+                "vendor_source": "https://ex.org/baerum", "vendor_date": "2026-06-02",
+                "hosting_jurisdiction": "Norge / EØS",
+                "hosting_source_type": "innsyn-pa-fil",
+                "hosting_source": "Innsynssvar 12/345 på fil",
+                "hosting_date": "2026-06-15"},
+        }
+        self.log = [{"date": "2026-06-10", "entity": "Oslo kommune",
+                     "domain": "oslo.kommune.no", "method": "offentlig-journal",
+                     "source": "https://einnsyn.no/journalpost/999",
+                     "summary": "Bekreftet hosting via postjournal."}]
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB,
+                                     sak=self.sak, sak_log=self.log)
+
+    def test_tier_badges_are_rendered(self):
+        self.assertIn("bekreftet – offentlig journal", self.html)
+        self.assertIn("bekreftet – innsyn på fil", self.html)  # from JS branches
+
+    def test_offentlig_journal_evidence_is_clickable(self):
+        # The clickable evidence link is wired for the offentlig-journal tier.
+        self.assertIn("h.clickable", self.html)
+        self.assertIn("offentlig journal", self.html)
+
+    def test_two_independent_sources_marker_is_wired(self):
+        self.assertIn("bekreftet av to uavhengige kilder", self.html)
+        self.assertIn("Flagget for gjennomgang", self.html)    # conflict path
+
+    def test_endringslogg_is_baked_and_rendered(self):
+        self.assertIn("sak-endringslogg", self.html)           # the list element
+        self.assertIn("renderSakEndringslogg", self.html)      # the render fn
+        self.assertIn("Bekreftet hosting via postjournal", self.html)  # baked entry
+
+    def test_endringslogg_empty_state_when_no_log(self):
+        html = build.build_html(DATA, HISTORY, TREND, STAT, WEB, sak=self.sak)
+        self.assertIn("Ingen endringer logget ennå", html)
+
+    def test_real_endringslogg_file_loads(self):
+        log = json.load(open(build.SAK_ENDRINGSLOGG))
+        self.assertTrue(any(e.get("domain") == "larvik.kommune.no" for e in log))
 
 
 class InnsynFoiKit(unittest.TestCase):

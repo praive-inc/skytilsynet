@@ -27,7 +27,16 @@ from server import foi_intake  # noqa: E402
 # Mirrors data/saksbehandling.csv exactly so an accepted row pastes straight in.
 SAKS_HEADER = ["domain", "category", "vendor", "vendor_method", "vendor_source",
                "vendor_date", "hosting", "hosting_jurisdiction", "hosting_method",
-               "hosting_source", "hosting_date", "note"]
+               "hosting_source", "hosting_source_type", "hosting_date", "note"]
+
+# The re-checkable source tiers (issue #55). Highest first; the accept CLI stamps
+# the emitted row with one so nothing reaches the published dataset as "bekreftet"
+# without a source a skeptic can re-check. innsyn-pa-fil is the conservative
+# default (a crowd innsyn answer held on file); the operator passes
+# --source-type offentlig-journal when the source is a public postjournal /
+# databehandleravtale / Doffin URL.
+HOSTING_SOURCE_TYPES = ["offentlig-journal", "innsyn-pa-fil"]
+DEFAULT_SOURCE_TYPE = "innsyn-pa-fil"
 
 _COLS = ["id", "created_at", "domain", "entity_name", "vendor", "hosting",
          "jurisdiction", "source", "note", "status"]
@@ -40,10 +49,12 @@ def _fetch(conn, sub_id):
     return dict(zip(_COLS, row)) if row else None
 
 
-def saksbehandling_row(sub, entities):
+def saksbehandling_row(sub, entities, source_type=DEFAULT_SOURCE_TYPE):
     """An accepted submission → a data/saksbehandling.csv row (list). vendor and
     hosting are both cited as innsyn-foi answers (that's what earns 'bekreftet').
-    The date is the submission date; the operator can adjust before pasting."""
+    The emitted hosting row carries the re-checkable-source TIER (issue #55):
+    hosting_source_type ∈ {offentlig-journal, innsyn-pa-fil}. The date is the
+    submission date; the operator can adjust before pasting."""
     date = (sub.get("created_at") or "")[:10]
     category = entities.get(sub["domain"], {}).get("category", "")
     has_vendor = bool(sub.get("vendor"))
@@ -59,6 +70,7 @@ def saksbehandling_row(sub, entities):
         sub.get("jurisdiction") or "",
         "innsyn-foi" if has_hosting else "",
         sub.get("source") or "" if has_hosting else "",
+        source_type if has_hosting else "",
         date if has_hosting else "",
         sub.get("note") or "",
     ]
@@ -103,9 +115,22 @@ def _set_status(conn, sub_id, status):
 
 
 def cmd_accept(conn, args):
-    sub = _set_status(conn, args.id, "accepted")
+    # Issue #55: no verdict reaches the published dataset without a re-checkable
+    # source — the operator SEES the source and must have one before accept.
+    sub = _fetch(conn, args.id)
+    if not sub:
+        sys.exit("fann ikkje innsending #%d" % args.id)
+    source = (sub.get("source") or "").strip()
+    source_type = getattr(args, "source_type", None) or DEFAULT_SOURCE_TYPE
+    print("# kjelde (må etterprøvast før aksept): %s" % (source or "(inga kjelde!)"),
+          file=sys.stderr)
+    print("# kildetype (tier): %s" % source_type, file=sys.stderr)
+    if not source:
+        sys.exit("nekta: innsending #%d har inga kjelde — kan ikkje bli «bekreftet» "
+                 "(issue #55). Avvis, eller be om ei etterprøvbar kjelde." % args.id)
+    _set_status(conn, args.id, "accepted")
     entities = foi_intake.known_entities()
-    row = saksbehandling_row(sub, entities)
+    row = saksbehandling_row(sub, entities, source_type)
     print("# lim denne raden inn i data/saksbehandling.csv (menneske-kurert):",
           file=sys.stderr)
     print(_row_csv(row))
@@ -123,6 +148,11 @@ def main(argv=None):
     lp = sub.add_parser("list"); lp.add_argument("--all", action="store_true")
     for name in ("show", "accept", "reject"):
         sp = sub.add_parser(name); sp.add_argument("id", type=int)
+        if name == "accept":
+            sp.add_argument("--source-type", dest="source_type",
+                            choices=HOSTING_SOURCE_TYPES, default=DEFAULT_SOURCE_TYPE,
+                            help="re-checkable-source tier for the emitted row "
+                                 "(default: %s)" % DEFAULT_SOURCE_TYPE)
     args = p.parse_args(argv)
 
     conn = foi_intake.init_db(args.db)
