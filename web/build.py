@@ -18,6 +18,7 @@ import json
 import os
 import re
 import shutil
+import sys
 
 # Committed, simplified geographic fylke geometry for the real Norway map (issue
 # #46). Generated once by make_fylke_geo.py and baked here so production serves
@@ -26,6 +27,10 @@ from fylke_geo import FYLKE_PATHS, FYLKE_VIEWBOX
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+# The FOI intake form's honeypot field name is owned by the backend service; bake
+# the SAME name into the page so the two never drift (issue #54).
+sys.path.insert(0, ROOT)
+from server.foi_intake import HONEYPOT_FIELD as FOI_HP_FIELD  # noqa: E402
 DATA = os.path.join(ROOT, "data", "kommune-email-sovereignty.latest.json")
 STAT_DATA = os.path.join(ROOT, "data", "statlige-organ-email-sovereignty.latest.json")
 # Additional seeded public-sector categories (same {summary, organ} shape as stat).
@@ -932,10 +937,10 @@ def league_html(categories):
 # the embeds are served same-origin from skytilsynet.no (RFC-001 P5).
 # --------------------------------------------------------------------------
 
-# A named press contact. The metodikk-ansvarlig is already public on the Om page;
-# the presse@ alias is operator-provisioned (like the scan schedule).
+# A named press contact — the metodikk-ansvarlig, already public on the Om page.
+# (The dead presse@ mailto is gone: FOI answers now come in through the /api/foi
+# intake form + /bidra, stored for human review — see server/foi_intake.py, #54.)
 PRESS_CONTACT_NAME = "Jøran Bjerksetmyr"
-PRESS_CONTACT_EMAIL = "presse@skytilsynet.no"
 PRESS_CITATION = "Skytilsynet, skytilsynet.no (CC BY 4.0)"
 
 # Concrete palette for the standalone embeds + graphics — they carry no site
@@ -1137,6 +1142,135 @@ def write_en_file(categories, meta, web_dir=HERE):
     os.makedirs(en_dir, exist_ok=True)
     with open(os.path.join(en_dir, "index.html"), "w") as f:
         f.write(render_en_html(meta, categories))
+
+
+def render_bidra_html():
+    """The standalone /bidra intake page (issue #54). A plain server-side form that
+    POSTs the FOI answer to /api/foi and WORKS WITHOUT JS (the service 303-redirects
+    to /bidra?sendt=1). A tiny inline script prefills ?domain= and shows the success
+    state. Collects NO required personal data (rule 5); carries the independence
+    disclaimer (rule 2). No external dep — system fonts only (RFC-001 P5)."""
+    return _BIDRA_TEMPLATE.replace("<!--__FOI_HP_FIELD__-->", _esc_attr(FOI_HP_FIELD))
+
+
+def write_bidra_file(web_dir=HERE):
+    """Write the standalone intake page to web/bidra/index.html (served at /bidra).
+    Committed alongside index.html — prod has no build step."""
+    bidra_dir = os.path.join(web_dir, "bidra")
+    os.makedirs(bidra_dir, exist_ok=True)
+    with open(os.path.join(bidra_dir, "index.html"), "w") as f:
+        f.write(render_bidra_html())
+
+
+_BIDRA_TEMPLATE = r"""<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Send oss svaret — Skytilsynet</title>
+<meta name="description" content="Send inn eit innsynssvar om eit norsk offentleg organ sitt sak-/arkivsystem og hosting. Lagra for manuell gjennomgang; ingen personopplysningar." />
+<link rel="canonical" href="https://skytilsynet.no/bidra" />
+<meta name="robots" content="index,follow" />
+<style>
+  :root{--bg:#0e1217;--bg-2:#0a0d11;--surface:#161d25;--line:#2a343f;--line-2:#384654;
+    --fg:#eef2f6;--muted:#a3b6c6;--accent:#5cb3ff;--green:#4dd6a0;
+    --disc-bg:#1c1410;--disc-line:#6a4329;--disc-fg:#f1e3d5}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  main{max-width:40rem;margin:0 auto;padding:1.5rem 1rem 4rem}
+  a{color:var(--accent)}
+  h1{font-size:1.7rem;margin:.5rem 0}
+  .disclaimer{background:var(--disc-bg);border:1px solid var(--disc-line);
+    color:var(--disc-fg);border-radius:8px;padding:.75rem 1rem;font-size:.9rem;margin:1rem 0}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.25rem;margin:1rem 0}
+  label{display:block;margin-top:1rem;font-size:.9rem;color:var(--muted);font-weight:600}
+  input,textarea{display:block;width:100%;margin-top:.35rem;padding:.55rem .7rem;
+    background:var(--bg-2);border:1px solid var(--line-2);border-radius:6px;color:var(--fg);
+    font:inherit;min-height:44px}
+  textarea{min-height:70px;resize:vertical}
+  button{margin-top:1.25rem;background:#10202e;border:1px solid var(--accent);border-radius:6px;
+    color:var(--fg);padding:.6rem 1.1rem;font:inherit;font-weight:600;cursor:pointer;min-height:44px}
+  button:hover{background:#15293a}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .ok{background:#0f2a20;border:1px solid var(--green);color:var(--green);
+    border-radius:8px;padding:.75rem 1rem;margin:1rem 0}
+  .muted{color:var(--muted);font-size:.85rem}
+  #msg{font-size:.9rem;color:var(--muted);margin-top:.75rem}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="/">← Skybarometeret</a></p>
+  <h1>Send oss svaret</h1>
+  <p class="disclaimer"><b>Skytilsynet er eit uavhengig prosjekt</b> — ikkje
+    tilknytt, drive av eller godkjent av noko norsk offentleg organ.</p>
+
+  <p>Har du fått eit innsynssvar (offentleglova) om kva <b>sak-/arkivsystem</b>
+    eit organ bruker og <b>kvar det driftast</b>? Send det inn her. Svaret blir
+    lagra for <b>manuell gjennomgang</b> av ein operatør — ingenting blir publisert
+    automatisk. Sjekkar det ut, legg vi leverandør, produkt og hosting inn i det
+    opne datasettet (CC BY 4.0) med lenke til svaret som kjelde.</p>
+
+  <div class="ok" id="ok" hidden>Takk — svaret er lagra for manuell gjennomgang.</div>
+
+  <form class="panel" id="foi-form" method="post" action="/api/foi">
+    <label>Domene (organets e-postdomene, t.d. <code>larvik.kommune.no</code>)
+      <input name="domain" id="domain" maxlength="253" required
+        placeholder="organ.kommune.no"></label>
+    <label>Sak-/arkivsystem (leverandør + produkt)
+      <input name="vendor" maxlength="200" placeholder="t.d. Acos WebSak"></label>
+    <label>Hosting (land/region)
+      <input name="hosting" maxlength="200" placeholder="t.d. Norge"></label>
+    <label>Jurisdiksjon
+      <input name="jurisdiction" maxlength="120" placeholder="t.d. Norge (EØS)"></label>
+    <label>Kjelde — lenke til innsynssvaret eller ein referanse
+      <input name="source" maxlength="2000" placeholder="https:// … eller saksnr."></label>
+    <label>Merknad (valfri)
+      <textarea name="note" maxlength="4000" rows="3"></textarea></label>
+    <div class="hp" aria-hidden="true"><label>Firma (la stå tom)
+      <input name="<!--__FOI_HP_FIELD__-->" tabindex="-1" autocomplete="off"></label></div>
+    <button type="submit">Send svaret</button>
+    <p id="msg" role="status" aria-live="polite"></p>
+    <p class="muted">Vi ber ikkje om — og lagrar ikkje — personopplysningar om deg
+      (regel 5). Berre svaret om organet blir teke vare på.</p>
+  </form>
+</main>
+<script>
+(function(){
+  "use strict";
+  var params = new URLSearchParams(location.search);
+  var dom = params.get("domain");
+  if(dom){ var f = document.getElementById("domain"); if(f) f.value = dom; }
+  if(params.get("sendt")){ var ok = document.getElementById("ok"); if(ok) ok.hidden = false; }
+  var form = document.getElementById("foi-form");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var msg = document.getElementById("msg");
+    var btn = form.querySelector("button");
+    var data = {};
+    Array.prototype.forEach.call(form.elements, function(el){
+      if(el.name) data[el.name] = el.value; });
+    btn.disabled = true; msg.textContent = "Sender …";
+    fetch("/api/foi", {method:"POST", headers:{
+        "Content-Type":"application/json","Accept":"application/json"},
+        body: JSON.stringify(data)})
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; },
+        function(){ return {ok:r.ok,j:{}}; }); })
+      .then(function(res){
+        if(res.ok){ form.reset(); document.getElementById("ok").hidden = false;
+          msg.textContent = ""; btn.disabled = false; window.scrollTo(0,0); }
+        else { btn.disabled = false;
+          msg.textContent = "Kunne ikkje sende: "+((res.j&&res.j.error)||"prøv igjen"); }
+      }, function(){ btn.disabled = false;
+        msg.textContent = "Nettverksfeil — prøv igjen."; });
+  });
+})();
+</script>
+</body>
+</html>
+"""
 
 
 _CSV_HEADER = ["navn", "kategori", "plattform", "jurisdiksjon",
@@ -1463,10 +1597,10 @@ def render_html(meta, categories, history, trend, corrections=None):
             .replace("<!--__PRESS_FIGURES__-->", press_figs)
             .replace("<!--__PRESS_SNIPPETS__-->", press_snips)
             .replace("<!--__PRESS_CONTACT_NAME__-->", PRESS_CONTACT_NAME)
-            .replace("<!--__PRESS_CONTACT_EMAIL__-->", PRESS_CONTACT_EMAIL)
             # offentleglova FOI kit (issue #51): the request text is baked ONCE
             # here — as a JS template with a __NAVN__ placeholder the client fills —
             # so the per-card mailto and the downloadable CSV never drift.
+            .replace("<!--__FOI_HP_FIELD__-->", _esc_attr(FOI_HP_FIELD))
             .replace("<!--__SAK_INNSYN_SUBJECT__-->", _esc_attr(SAK_INNSYN_SUBJECT))
             .replace('"/*__SAK_INNSYN_TMPL__*/"', json.dumps(
                 sak_innsyn_body("__NAVN__"), ensure_ascii=False)))
@@ -1542,6 +1676,7 @@ def main():
     write_innsyn_kit(categories)
     write_press_assets(categories, data["meta"])
     write_en_file(categories, data["meta"])
+    write_bidra_file()
     n_stat = len(stat["organ"]) if stat else 0
     n_web = len(web["kommuner"]) if web else 0
     print(f"Wrote {OUT} ({len(html):,} bytes, {len(data['kommuner'])} kommuner "
@@ -1845,6 +1980,24 @@ _TEMPLATE = r"""<!doctype html>
   .copybtn.ok{border-color:var(--green);color:var(--green)}
   .funnel .ext{font-size:var(--text-sm)}
   .funnel .stat-note{font-size:var(--text-xs);color:var(--faint);margin-top:var(--space-3)}
+  /* "Send oss svaret" FOI intake form (issue #54). The honeypot is off-screen —
+     invisible to humans, a magnet for form-filling bots. No personal-data field. */
+  .foi-form label{display:block;margin-top:var(--space-3);font-size:var(--text-sm);
+    color:var(--muted);font-weight:600}
+  .foi-form input,.foi-form textarea{display:block;width:100%;box-sizing:border-box;
+    margin-top:var(--space-1);padding:var(--space-2) var(--space-3);background:var(--bg-2);
+    border:1px solid var(--line-2);border-radius:var(--radius-sm);color:var(--fg);
+    font:inherit;font-size:var(--text-sm);min-height:44px}
+  .foi-form textarea{min-height:64px;resize:vertical}
+  .foi-form .foi-for{margin:0 0 var(--space-1);font-size:var(--text-sm);color:var(--muted)}
+  .foi-submit{background:#10202e;border:1px solid var(--accent);border-radius:var(--radius-sm);
+    color:var(--fg);padding:var(--space-2) var(--space-4);font:inherit;font-size:var(--text-sm);
+    font-weight:600;cursor:pointer;min-height:44px}
+  .foi-submit:hover{background:#15293a}
+  .foi-submit:disabled{opacity:.6;cursor:default}
+  .foi-msg{font-size:var(--text-sm);color:var(--muted);margin-top:var(--space-2)}
+  .foi-ok{color:var(--green);font-size:var(--text-sm);margin:0}
+  .foi-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
   /* Share card (issue #25): a screenshot-friendly per-entity 'del'-card.
      The fact is the provocation — name + email verdict + jurisdiction +
      governance + the headline floor + skytilsynet.no. */
@@ -2063,7 +2216,7 @@ _TEMPLATE = r"""<!doctype html>
   <header class="masthead">
     <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
     <span class="kicker">Skybarometeret</span>
-    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#innsyn">Krev innsyn</a> · <a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a> · <a href="en/" hreflang="en" lang="en">English</a></nav>
+    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#innsyn">Krev innsyn</a> · <a href="/bidra">Send oss svaret</a> · <a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a> · <a href="en/" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
@@ -2358,16 +2511,16 @@ _TEMPLATE = r"""<!doctype html>
 
     <h2>Slik fyller svaret ut kartet</h2>
     <div class="panel">
-      <p>Fekk du svar? Send det til intake-adressa <b><!--__PRESS_CONTACT_EMAIL__--></b>,
-        eller opne ei sak i prosjektets opne
+      <p>Fekk du svar? Send det inn via <a href="/bidra"><b>bidra-skjemaet</b></a>
+        (òg lenkja frå kvart organkort), eller opne ei sak i prosjektets opne
         <a href="https://github.com/praive-inc/skytilsynet/issues" target="_blank" rel="noopener">GitHub</a>.
-        Vi legg leverandør, produkt og hosting inn i det opne datasettet
-        (<code>data/saksbehandling.csv</code>, CC BY 4.0) med lenke til svaret som
-        kjelde — og hostingen går frå <b>utleda</b> til <b>bekrefta via innsyn</b>
-        på organets kort.</p>
+        Svaret blir lagra for <b>manuell gjennomgang</b> av ein operatør — ingenting
+        blir publisert automatisk. Sjekkar det ut, legg vi leverandør, produkt og
+        hosting inn i det opne datasettet (<code>data/saksbehandling.csv</code>,
+        CC BY 4.0) med lenke til svaret som kjelde — og hostingen går frå
+        <b>utleda</b> til <b>bekrefta via innsyn</b> på organets kort.</p>
       <p class="jur-note" style="margin:0"><b>Vi lagrar ingen personopplysningar
-        om deg.</b> Verktøyet sender inga skjemadata og fangar ingen e-postadresse —
-        du kopierer teksten eller opnar di eiga e-postklient. Vi held berre
+        om deg.</b> Skjemaet krev inga kontaktinformasjon; vi held berre
         aggregerte data om organa, aldri per innbyggjar (regel 5).</p>
     </div>
 
@@ -2639,12 +2792,12 @@ _TEMPLATE = r"""<!doctype html>
   var DB = JSON.parse(document.getElementById("data").textContent);
   var CATS = DB.categories;                 // [{key,label,summary,entities}]
   var COMBINED = DB.combined;               // headline over the whole public sector
-  var PRESS_EMAIL = "<!--__PRESS_CONTACT_EMAIL__-->";  // intake address for FOI answers (#50)
   // offentleglova FOI kit (issue #51): the request subject + body baked once
   // server-side so the per-card mailto matches the downloadable campaign CSV.
   // The body carries a __NAVN__ placeholder the client fills per body.
   var SAK_INNSYN_SUBJECT = "<!--__SAK_INNSYN_SUBJECT__-->";
   var SAK_INNSYN_TMPL = "/*__SAK_INNSYN_TMPL__*/";
+  var HP_FIELD = "<!--__FOI_HP_FIELD__-->";  // honeypot name; matches the server (#54)
   function nameOf(k){ return k.name || k.kommune; }
 
   // platform -> {label, juris, css color class}
@@ -2958,15 +3111,49 @@ _TEMPLATE = r"""<!doctype html>
       '<p class="lead">Send eit innsynskrav etter <b>offentleglova</b> og be om tre '+
         'ting: (1) sak-/arkivsystemet (leverandør + produkt), (2) '+
         'databehandleravtalen, (3) kvar data lagrast og kva underleverandørar/land '+
-        'som er involvert (hosting + jurisdiksjon). '+toLine+'Fekk du svar? Send det '+
-        'til <a href="mailto:'+esc(PRESS_EMAIL)+'">'+esc(PRESS_EMAIL)+'</a> — så '+
-        'kartlegg vi det, med kjelde. Sjå òg <a href="#innsyn">innsyn-dugnaden</a>.</p>'+
+        'som er involvert (hosting + jurisdiksjon). '+toLine+
+        'Sjå òg <a href="#innsyn">innsyn-dugnaden</a>.</p>'+
       '<textarea class="tmpl" readonly aria-label="Innsynskrav (sak-/arkivsystem)">'+
         esc(body)+'</textarea>'+
       '<div class="acts"><button type="button" class="copybtn">Kopier teksten</button>'+
         (to? '<a class="ext" href="'+mailtoTo(to, SAK_INNSYN_SUBJECT, body)+
           '">Åpne i e-post →</a>' : '')+
-      '</div></div>';
+      '</div></div>'+
+      foiForm(k);
+  }
+  // "Send oss svaret" (issue #54): the real intake that replaced the dead presse@
+  // mailto. Prefilled with THIS body's domain/name, POSTs to the small EU-hosted
+  // /api/foi service, which stores it for MANUAL operator review — nothing
+  // auto-promotes, and no personal data is required (rule 5). A native <form>
+  // action so it still works without JS (server 303s to /bidra); the submit
+  // handler below enhances it into an inline thank-you.
+  function foiForm(k){
+    var dom = k.domain || "";
+    return '<div class="panel funnel foi-intake">'+
+      '<h3>Send oss svaret</h3>'+
+      '<p class="lead">Fekk du svar frå organet? Send det inn her. Vi legg '+
+        'leverandør, produkt og hosting inn i det opne datasettet med lenke til '+
+        'svaret som kjelde, etter <b>manuell gjennomgang</b>. Ingenting blir '+
+        'publisert automatisk, og vi ber ikkje om personopplysningar (regel 5).</p>'+
+      '<form class="foi-form" method="post" action="/api/foi">'+
+        '<input type="hidden" name="domain" value="'+esc(dom)+'">'+
+        '<p class="foi-for">Gjeld: <b>'+esc(nameOf(k))+'</b> '+
+          (dom? '<code>'+esc(dom)+'</code>' : '')+'</p>'+
+        '<label>Sak-/arkivsystem (leverandør + produkt)'+
+          '<input name="vendor" maxlength="200" placeholder="t.d. Acos WebSak"></label>'+
+        '<label>Hosting (land/region)'+
+          '<input name="hosting" maxlength="200" placeholder="t.d. Norge"></label>'+
+        '<label>Jurisdiksjon'+
+          '<input name="jurisdiction" maxlength="120" placeholder="t.d. Norge (EØS)"></label>'+
+        '<label>Kjelde — lenke til innsynssvaret eller ein referanse'+
+          '<input name="source" maxlength="2000" placeholder="https:// … eller saksnr."></label>'+
+        '<label>Merknad (valfri)'+
+          '<textarea name="note" maxlength="4000" rows="2"></textarea></label>'+
+        '<div class="hp" aria-hidden="true"><label>Firma (la stå tom)'+
+          '<input name="'+HP_FIELD+'" tabindex="-1" autocomplete="off"></label></div>'+
+        '<div class="acts"><button type="submit" class="foi-submit">Send svaret</button></div>'+
+        '<p class="foi-msg" role="status" aria-live="polite"></p>'+
+      '</form></div>';
   }
   function renderSaksarkiv(k){
     var s = k.saksbehandling;
@@ -3472,6 +3659,37 @@ _TEMPLATE = r"""<!doctype html>
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(ta.value).then(done, function(){ ta.select(); });
     } else { ta.select(); document.execCommand("copy"); done(); }
+  });
+  // "Send oss svaret" (issue #54): enhance the FOI intake <form> into an inline
+  // POST to /api/foi with a thank-you state. Without JS the native form submit
+  // still works (server 303s to /bidra). We send no personal data — just the
+  // whitelisted answer fields the user typed.
+  document.addEventListener("submit", function(e){
+    var form = e.target && e.target.closest && e.target.closest(".foi-form");
+    if(!form) return;
+    e.preventDefault();
+    var msg = form.querySelector(".foi-msg");
+    var btn = form.querySelector(".foi-submit");
+    var data = {};
+    Array.prototype.forEach.call(form.elements, function(el){
+      if(el.name) data[el.name] = el.value; });
+    btn.disabled = true; msg.textContent = "Sender …";
+    fetch("/api/foi", {method:"POST", headers:{
+        "Content-Type":"application/json", "Accept":"application/json"},
+        body: JSON.stringify(data)})
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; },
+        function(){ return {ok:r.ok, j:{}}; }); })
+      .then(function(res){
+        if(res.ok){
+          form.innerHTML = '<p class="foi-ok">Takk — svaret er lagra for '+
+            '<b>manuell gjennomgang</b>. Sjekkar det ut, legg vi det inn i det '+
+            'opne datasettet med kjelde.</p>';
+        } else {
+          btn.disabled = false;
+          msg.textContent = "Kunne ikkje sende: "+((res.j&&res.j.error)||"prøv igjen");
+        }
+      }, function(){ btn.disabled = false;
+        msg.textContent = "Nettverksfeil — prøv igjen."; });
   });
   // /for-presse (issue #37): the frys-per-dato toggle swaps each embed snippet
   // between its live form and a frozen form that pins the cited figure; the

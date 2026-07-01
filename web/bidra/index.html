@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Send oss svaret — Skytilsynet</title>
+<meta name="description" content="Send inn eit innsynssvar om eit norsk offentleg organ sitt sak-/arkivsystem og hosting. Lagra for manuell gjennomgang; ingen personopplysningar." />
+<link rel="canonical" href="https://skytilsynet.no/bidra" />
+<meta name="robots" content="index,follow" />
+<style>
+  :root{--bg:#0e1217;--bg-2:#0a0d11;--surface:#161d25;--line:#2a343f;--line-2:#384654;
+    --fg:#eef2f6;--muted:#a3b6c6;--accent:#5cb3ff;--green:#4dd6a0;
+    --disc-bg:#1c1410;--disc-line:#6a4329;--disc-fg:#f1e3d5}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  main{max-width:40rem;margin:0 auto;padding:1.5rem 1rem 4rem}
+  a{color:var(--accent)}
+  h1{font-size:1.7rem;margin:.5rem 0}
+  .disclaimer{background:var(--disc-bg);border:1px solid var(--disc-line);
+    color:var(--disc-fg);border-radius:8px;padding:.75rem 1rem;font-size:.9rem;margin:1rem 0}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.25rem;margin:1rem 0}
+  label{display:block;margin-top:1rem;font-size:.9rem;color:var(--muted);font-weight:600}
+  input,textarea{display:block;width:100%;margin-top:.35rem;padding:.55rem .7rem;
+    background:var(--bg-2);border:1px solid var(--line-2);border-radius:6px;color:var(--fg);
+    font:inherit;min-height:44px}
+  textarea{min-height:70px;resize:vertical}
+  button{margin-top:1.25rem;background:#10202e;border:1px solid var(--accent);border-radius:6px;
+    color:var(--fg);padding:.6rem 1.1rem;font:inherit;font-weight:600;cursor:pointer;min-height:44px}
+  button:hover{background:#15293a}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .ok{background:#0f2a20;border:1px solid var(--green);color:var(--green);
+    border-radius:8px;padding:.75rem 1rem;margin:1rem 0}
+  .muted{color:var(--muted);font-size:.85rem}
+  #msg{font-size:.9rem;color:var(--muted);margin-top:.75rem}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="/">← Skybarometeret</a></p>
+  <h1>Send oss svaret</h1>
+  <p class="disclaimer"><b>Skytilsynet er eit uavhengig prosjekt</b> — ikkje
+    tilknytt, drive av eller godkjent av noko norsk offentleg organ.</p>
+
+  <p>Har du fått eit innsynssvar (offentleglova) om kva <b>sak-/arkivsystem</b>
+    eit organ bruker og <b>kvar det driftast</b>? Send det inn her. Svaret blir
+    lagra for <b>manuell gjennomgang</b> av ein operatør — ingenting blir publisert
+    automatisk. Sjekkar det ut, legg vi leverandør, produkt og hosting inn i det
+    opne datasettet (CC BY 4.0) med lenke til svaret som kjelde.</p>
+
+  <div class="ok" id="ok" hidden>Takk — svaret er lagra for manuell gjennomgang.</div>
+
+  <form class="panel" id="foi-form" method="post" action="/api/foi">
+    <label>Domene (organets e-postdomene, t.d. <code>larvik.kommune.no</code>)
+      <input name="domain" id="domain" maxlength="253" required
+        placeholder="organ.kommune.no"></label>
+    <label>Sak-/arkivsystem (leverandør + produkt)
+      <input name="vendor" maxlength="200" placeholder="t.d. Acos WebSak"></label>
+    <label>Hosting (land/region)
+      <input name="hosting" maxlength="200" placeholder="t.d. Norge"></label>
+    <label>Jurisdiksjon
+      <input name="jurisdiction" maxlength="120" placeholder="t.d. Norge (EØS)"></label>
+    <label>Kjelde — lenke til innsynssvaret eller ein referanse
+      <input name="source" maxlength="2000" placeholder="https:// … eller saksnr."></label>
+    <label>Merknad (valfri)
+      <textarea name="note" maxlength="4000" rows="3"></textarea></label>
+    <div class="hp" aria-hidden="true"><label>Firma (la stå tom)
+      <input name="company" tabindex="-1" autocomplete="off"></label></div>
+    <button type="submit">Send svaret</button>
+    <p id="msg" role="status" aria-live="polite"></p>
+    <p class="muted">Vi ber ikkje om — og lagrar ikkje — personopplysningar om deg
+      (regel 5). Berre svaret om organet blir teke vare på.</p>
+  </form>
+</main>
+<script>
+(function(){
+  "use strict";
+  var params = new URLSearchParams(location.search);
+  var dom = params.get("domain");
+  if(dom){ var f = document.getElementById("domain"); if(f) f.value = dom; }
+  if(params.get("sendt")){ var ok = document.getElementById("ok"); if(ok) ok.hidden = false; }
+  var form = document.getElementById("foi-form");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var msg = document.getElementById("msg");
+    var btn = form.querySelector("button");
+    var data = {};
+    Array.prototype.forEach.call(form.elements, function(el){
+      if(el.name) data[el.name] = el.value; });
+    btn.disabled = true; msg.textContent = "Sender …";
+    fetch("/api/foi", {method:"POST", headers:{
+        "Content-Type":"application/json","Accept":"application/json"},
+        body: JSON.stringify(data)})
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; },
+        function(){ return {ok:r.ok,j:{}}; }); })
+      .then(function(res){
+        if(res.ok){ form.reset(); document.getElementById("ok").hidden = false;
+          msg.textContent = ""; btn.disabled = false; window.scrollTo(0,0); }
+        else { btn.disabled = false;
+          msg.textContent = "Kunne ikkje sende: "+((res.j&&res.j.error)||"prøv igjen"); }
+      }, function(){ btn.disabled = false;
+        msg.textContent = "Nettverksfeil — prøv igjen."; });
+  });
+})();
+</script>
+</body>
+</html>

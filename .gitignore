@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .DS_Store
 *.swp
+.claude/
+# FOI intake service's local SQLite DB (untrusted submissions — never committed).
+server/data/
