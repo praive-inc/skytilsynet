@@ -323,14 +323,18 @@ def _consteq(a, b):
 
 def run():
     port = int(os.environ.get("PORT", "8781"))
+    # Bind host: 127.0.0.1 by default (host-systemd behind Caddy). In a container on
+    # an internal-only docker network (no host port mapping), set HOST=0.0.0.0 so the
+    # sibling Caddy container can reach it by name — still not exposed to the host/net.
+    host = os.environ.get("HOST", "127.0.0.1")
     token = os.environ.get("FOI_OPERATOR_TOKEN", "")
     salt = os.environ.get("FOI_HASH_SALT") or token or "skytilsynet-foi"
     if not token:
         raise SystemExit("FOI_OPERATOR_TOKEN must be set (guards /api/foi/pending)")
     conn = init_db()
     handler = make_app(conn, known_entities(), token, salt)
-    httpd = ThreadingHTTPServer(("127.0.0.1", port), handler)
-    print("FOI intake listening on 127.0.0.1:%d" % port)
+    httpd = ThreadingHTTPServer((host, port), handler)
+    print("FOI intake listening on %s:%d" % (host, port))
     httpd.serve_forever()
 
 
