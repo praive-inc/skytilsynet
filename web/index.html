@@ -94,9 +94,21 @@
   p{margin:0 0 var(--space-4)}
   /* Disclaimer — load-bearing, always rendered above every view (CLAUDE.md rule 2) */
   .disclaimer{background:var(--disc-bg);border:1px solid var(--disc-line);
-    border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);margin:0 0 var(--space-8)}
+    border-radius:var(--radius-lg);padding:var(--space-4) var(--space-6);margin:0 0 var(--space-8)}
   .disclaimer strong{color:var(--disc-strong)}
-  .disclaimer p{font-size:var(--text-sm);color:var(--disc-fg);margin:0;max-width:80ch}
+  /* Issue #45 — accordion: headline in the button (always visible), detail collapsed. */
+  .disclaimer-toggle{display:flex;align-items:baseline;gap:var(--space-3);width:100%;
+    background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left;
+    font:inherit;color:var(--disc-fg)}
+  .disclaimer-toggle strong{font-size:var(--text-sm)}
+  .disclaimer-more{margin-left:auto;white-space:nowrap;color:var(--disc-strong);
+    font-size:var(--text-xs);font-weight:600}
+  .disclaimer-toggle .chev{display:inline-block;transition:transform .15s ease}
+  .disclaimer-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .disclaimer-toggle:focus-visible{outline:2px solid var(--disc-strong);
+    outline-offset:3px;border-radius:var(--radius-sm)}
+  .disclaimer-detail{font-size:var(--text-sm);color:var(--disc-fg);
+    margin:var(--space-3) 0 0;max-width:80ch}
   /* Shared card surface */
   .stat,.goal,.fact,.panel{background:linear-gradient(180deg,var(--surface-2),var(--surface));
     border:1px solid var(--line);box-shadow:var(--shadow)}
@@ -477,7 +489,12 @@
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
        every "page" (landing and per-kommune detail). Never remove. -->
   <div class="disclaimer" role="note">
-    <p><strong>⚠️ Skytilsynet er ikke et offentlig organ.</strong>
+    <button type="button" class="disclaimer-toggle" aria-expanded="false"
+            aria-controls="disclaimer-detail">
+      <strong>⚠️ Skytilsynet er ikke et offentlig organ.</strong>
+      <span class="disclaimer-more">vis mer <span class="chev" aria-hidden="true">▾</span></span>
+    </button>
+    <p id="disclaimer-detail" class="disclaimer-detail" hidden>
       Vi er ikke tilknyttet, drevet av eller godkjent av norske myndigheter,
       Datatilsynet, Digitaliseringsdirektoratet eller noen annen statlig eller
       kommunal etat. Navnet beskriver hva vi gjør i overført betydning — vi følger
@@ -936,6 +953,21 @@
 <script>
 (function(){
   "use strict";
+
+  // Disclaimer accordion (issue #45): headline stays visible, detail toggles.
+  (function(){
+    var t = document.querySelector(".disclaimer-toggle");
+    if(!t) return;
+    var d = document.getElementById(t.getAttribute("aria-controls"));
+    var more = t.querySelector(".disclaimer-more");
+    t.addEventListener("click", function(){
+      var open = t.getAttribute("aria-expanded") === "true";
+      t.setAttribute("aria-expanded", open ? "false" : "true");
+      if(d) d.hidden = open;
+      if(more) more.firstChild.nodeValue = open ? "vis mer " : "vis mindre ";
+    });
+  })();
+
   var DB = JSON.parse(document.getElementById("data").textContent);
   var CATS = DB.categories;                 // [{key,label,summary,entities}]
   var COMBINED = DB.combined;               // headline over the whole public sector

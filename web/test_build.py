@@ -286,6 +286,25 @@ class BuildHtml(unittest.TestCase):
         self.assertIn("ikke et offentlig organ", self.html)
         self.assertIn("not a government body", self.html)
 
+    def test_disclaimer_is_a_collapsed_accordion(self):
+        # Issue #45 — the load-bearing headline stays visible, the supporting
+        # detail collapses. A real <button> with aria-expanded, collapsed by
+        # default (aria-expanded="false"), keyboard/SR accessible.
+        self.assertRegex(self.html, r'<button[^>]*aria-expanded="false"')
+        # The headline lives inside the toggle button, always visible.
+        btn = self.html[self.html.index('class="disclaimer'):]
+        btn = btn[:btn.index("</button>")]
+        self.assertIn("ikke et offentlig organ", btn)
+        # An expand affordance is present.
+        self.assertIn("vis mer", self.html)
+
+    def test_disclaimer_detail_is_present_but_controlled(self):
+        # Full supporting text still shipped (expands on click), and the
+        # button controls the detail region via aria-controls.
+        self.assertIn("Datatilsynet", self.html)
+        self.assertIn("Metode og kilder", self.html)
+        self.assertRegex(self.html, r'aria-controls="([^"]+)"')
+
     def test_every_kommune_is_in_the_page(self):
         for k in DATA["kommuner"]:
             self.assertIn(k["kommune"], self.html)
