@@ -148,14 +148,24 @@ posture is therefore part of the spec, not cosmetics:
 The grid of 486 isn't the story — the **ranking** is. Two artifacts make the
 finding shareable, baked static into `web/index.html` by `web/build.py`:
 
-- **An equal-area hex cartogram of Norway's 15 fylker.** Identical hexes (a
-  cartogram, not an area choropleth) so sparse-but-huge Finnmark cannot visually
-  erase Oslo. The geometry is committed in `build.py` (`_FYLKE_HEXES`) and
-  rendered to inline SVG — **no external map tiles** (RFC-001 P5). Each hex is
-  coloured by that county government's own email platform and is a hash permalink
-  to its entity card (the fylkeskommune; Oslo → the kommune). It shows the
-  fylkeskommune's *own* email, not an aggregate of the county's kommuner — stated
-  in the caption (honesty about what the axis covers).
+- **Two maps of Norway's 15 fylker, with a toggle** (issue #46). Both are baked
+  static into `web/index.html`, coloured by that county government's own email
+  platform, and each unit is a hash permalink to its entity card (the
+  fylkeskommune; Oslo → the kommune):
+    - **A real geographic choropleth** (default, for recognisability) — real
+      Norwegian fylke boundaries as committed, aggressively simplified inline SVG
+      `<path>`s. The geometry is generated once from open Kartverket-derived data
+      by `web/make_fylke_geo.py` (dev-time only; Web-Mercator projection +
+      Douglas–Peucker) into the committed `web/fylke_geo.py` — production serves it
+      with **no external map tiles** (RFC-001 P5). It carries a load-bearing
+      honesty note: on a real map large, sparse northern fylker visually
+      over-weight vs. population — which is *why* the cartogram also exists.
+    - **An equal-area hex cartogram.** Identical hexes so sparse-but-huge Finnmark
+      cannot visually erase Oslo. The geometry is committed in `build.py`
+      (`_FYLKE_HEXES`), also rendered to inline SVG.
+  Both show the fylkeskommune's *own* email, not an aggregate of the county's
+  kommuner — stated in the caption (honesty about what the axis covers). The
+  toggle degrades gracefully: with no JS the geographic map shows.
 - **A league table** with a pinned **hall of fame** (most sovereign) and the
   **most dependent**, plus a client-side **sortable** full table over every
   scanned body. Each row is a permalink to its evidence card and is date-stamped.
