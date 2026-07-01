@@ -419,7 +419,8 @@ class BuildHtml(unittest.TestCase):
         # The detail view must iterate the per-signal trail and show confidence.
         self.assertIn("k.evidence", self.html)
         self.assertIn("konfidens", self.html.lower())
-        self.assertIn("Vis hvordan vi vet det", self.html)        # 'show your work' heading
+        # 'show your work' section — relabeled + collapsed into an accordion (#59).
+        self.assertIn("Evidens — de faktiske DNS-oppslagene", self.html)
 
     def test_matched_ms_ip_signal_is_highlighted(self):
         # The spf_ip signal carries the matched MS IP; the template marks it (the
@@ -2273,6 +2274,59 @@ class FoiIntakeForm(unittest.TestCase):
         dest = tempfile.mkdtemp()
         build.write_bidra_file(dest)
         self.assertTrue(os.path.exists(os.path.join(dest, "bidra", "index.html")))
+
+
+class DetailAccordions(unittest.TestCase):
+    """Issue #59 — the long technical/supporting sections on the per-entity
+    detail page collapse into native <details>/<summary> accordions (same
+    accessible primitive as the disclaimer / score formula), collapsed by
+    default with a meaningful summary; the verdict/key-facts stay open."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT)
+
+    def test_accordion_is_a_native_collapsed_details(self):
+        # Reuses the native <details>/<summary> primitive — no JS, no external
+        # dep — and is collapsed by default each load (no `open` attribute).
+        self.assertIn('<details class="acc"><summary>', self.html)
+        self.assertNotIn('<details class="acc" open', self.html)
+        # Keyboard/focus affordance for the summary control.
+        self.assertIn(".acc>summary:focus-visible", self.html)
+
+    def test_evidens_collapses_with_a_meaningful_summary(self):
+        # The raw DNS records collapse; the summary still says what is inside so
+        # meaning isn't hidden, only detail. Trust preserved — proof one click away.
+        self.assertIn("Evidens — de faktiske DNS-oppslagene", self.html)
+        # No longer a bare, always-open section heading.
+        self.assertNotIn("<h2>Evidens", self.html)
+
+    def test_web_axis_collapses_with_a_meaningful_summary(self):
+        self.assertIn("Web-akse — nettstedets infrastruktur", self.html)
+        self.assertNotIn("<h2>Web-akse — nettstedets infrastruktur</h2>", self.html)
+
+    def test_over_tid_collapses_with_a_meaningful_summary(self):
+        self.assertIn("Over tid — plattform per skanning", self.html)
+        self.assertNotIn("<h2>Over tid — plattform per skanning</h2>", self.html)
+
+    def test_innsyn_letter_collapses_but_intro_and_buttons_stay_visible(self):
+        # The long offentleglova letter hides behind "Vis innsynsmalen"; the
+        # copy/open-in-email actions stay visible outside the collapsed region.
+        self.assertIn('<details class="tmpl-acc"><summary>Vis innsynsmalen</summary>', self.html)
+        # The template textarea is still shipped (it moved inside the fold), and
+        # the fold closes before the actions — copy/open stay visible outside it.
+        self.assertIn('class="tmpl"', self.html)
+        self.assertIn('</details>', self.html)
+        # The action buttons are NOT inside the accordion (still one tap away).
+        self.assertIn('Kopier teksten', self.html)
+
+    def test_kept_open_sections_are_not_collapsed(self):
+        # The point of the page stays open: residency-armor, honesty box, the
+        # saksbehandling verdict, the recommended alternative, the score ask.
+        self.assertIn("<h2>Datalagring ≠ jurisdiksjon</h2>", self.html)
+        self.assertIn("<h2>Hva dette IKKE beviser</h2>", self.html)
+        self.assertIn("<h2>Saksbehandling / arkiv</h2>", self.html)
+        self.assertIn("<h2>Anbefalt europeisk alternativ</h2>", self.html)
+        self.assertIn("Kva kan endrast", self.html)
 
 
 if __name__ == "__main__":
