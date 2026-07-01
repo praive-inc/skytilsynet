@@ -401,7 +401,10 @@ class BuildHtml(unittest.TestCase):
         self.assertIn("Schleswig-Holstein", self.html)
         self.assertIn("15 mill", self.html)            # €15M/yr
         self.assertIn("Larvik", self.html)
-        self.assertIn("10 mill", self.html)            # NOK 10M/yr
+        # Accurate Larvik framing: case-handling doc production off Word/Google Docs
+        # via the editor built into Acos WebSak — NOT the (conflated) NOK-10M claim.
+        self.assertIn("Acos", self.html)
+        self.assertNotIn("10 mill", self.html)         # the 10M was a separate 2019 move
 
     def test_evidence_trail_is_baked_per_signal_with_source_and_date(self):
         # Issue #8: every signal is a citable record (source query + observed_at) —
