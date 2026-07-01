@@ -1896,6 +1896,27 @@ _TEMPLATE = r"""<!doctype html>
     display:flex;align-items:center;gap:var(--space-3)}
   h2::after{content:"";flex:1;height:1px;background:var(--line)}
   p{margin:0 0 var(--space-4)}
+  /* Collapsible technical/supporting sections on the detail page (issue #59).
+     Native <details> — keyboard/SR-accessible, collapsed by default each load.
+     The summary reads like the section's h2 and states what is inside, so we
+     hide detail, never meaning (the disclaimer/score-formula accordion pattern). */
+  .acc{margin:var(--space-12) 0 var(--space-4)}
+  .acc>summary{cursor:pointer;list-style:none;font-size:var(--text-sm);
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;
+    display:flex;align-items:center;gap:var(--space-3)}
+  .acc>summary::-webkit-details-marker{display:none}
+  .acc>summary::after{content:"Vis ▾";margin-left:auto;flex-shrink:0;
+    letter-spacing:normal;text-transform:none;color:var(--accent);font-size:var(--text-sm)}
+  .acc[open]>summary::after{content:"Skjul ▴"}
+  .acc>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;
+    border-radius:var(--radius-sm)}
+  .acc-body{margin-top:var(--space-4)}
+  /* Innsyn template letter collapse (issue #59) — inside a funnel panel, so the
+     intro + Kopier/Åpne-i-e-post actions stay visible, the long letter folds. */
+  .tmpl-acc{margin:0 0 var(--space-3)}
+  .tmpl-acc>summary{cursor:pointer;color:var(--accent);font-size:var(--text-sm);
+    font-weight:600;padding:var(--space-1) 0}
+  .tmpl-acc>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   /* Disclaimer — load-bearing, always rendered above every view (CLAUDE.md rule 2) */
   .disclaimer{background:var(--disc-bg);border:1px solid var(--disc-line);
     border-radius:var(--radius-lg);padding:var(--space-4) var(--space-6);margin:0 0 var(--space-8)}
@@ -3134,6 +3155,14 @@ _TEMPLATE = r"""<!doctype html>
     return '<div class="fact verdict"><div class="k">Plattform (e-post) — konfidensvektet verdikt</div>'+
       '<div class="v '+verdictCls(vd.platform)+'">'+esc(vd.label)+' '+pct+note+'</div></div>';
   }
+  // Collapse a long technical/supporting section behind a native <details>
+  // accordion (issue #59) — the same keyboard/SR-accessible primitive as the
+  // disclaimer and score formula, collapsed by default each load. `summary`
+  // carries the meaning (never hidden), `inner` is the detail folded away.
+  function acc(summary, inner){
+    return '<details class="acc"><summary>'+esc(summary)+'</summary>'+
+      '<div class="acc-body">'+inner+'</div></details>';
+  }
   function renderTrail(trail){
     if(!trail || !trail.length)
       return '<div class="evidence">(ingen e-postsignaler funnet i DNS)</div>';
@@ -3188,7 +3217,7 @@ _TEMPLATE = r"""<!doctype html>
     }).join("");
     if(!tp) tp = '<div class="ev"><span class="obs">Ingen eksterne tredjeparts-'+
       'ressurser lastet fra forsiden.</span></div>';
-    return '<h2>Web-akse — nettstedets infrastruktur</h2>'+
+    return acc('Web-akse — nettstedets infrastruktur',
       '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">En '+
         '<b>egen akse, skilt fra e-post</b>: hvor svarer selve nettstedet til? '+
         'Utledet av det en nettleser uansett henter — HTTP-headere, innebygde '+
@@ -3207,7 +3236,7 @@ _TEMPLATE = r"""<!doctype html>
         esc(w.url || ("https://"+(w.host||"")))+' (HTTP-headere + innebygde '+
         'ressurser + TLS-utsteder) og offentlig DNS (A → Team Cymru origin-ASN'+
         (host.asn? ": AS"+esc(host.asn)+(host.name?" "+esc(host.name):""):"")+
-        '), målt '+esc(noDate(w.sourceDate || DB.meta.sourceDate))+'.</p>';
+        '), målt '+esc(noDate(w.sourceDate || DB.meta.sourceDate))+'.</p>');
   }
   // ---- Saksbehandling / arkiv axis (issue #50): the THIRD axis. Which NOARK-5
   // sakarkiv system the body runs, and its hosting jurisdiction. Two sub-axes:
@@ -3237,8 +3266,10 @@ _TEMPLATE = r"""<!doctype html>
         'databehandleravtalen, (3) kvar data lagrast og kva underleverandørar/land '+
         'som er involvert (hosting + jurisdiksjon). '+toLine+
         'Sjå òg <a href="#innsyn">innsyn-dugnaden</a>.</p>'+
-      '<textarea class="tmpl" readonly aria-label="Innsynskrav (sak-/arkivsystem)">'+
-        esc(body)+'</textarea>'+
+      '<details class="tmpl-acc"><summary>Vis innsynsmalen</summary>'+
+        '<textarea class="tmpl" readonly aria-label="Innsynskrav (sak-/arkivsystem)">'+
+          esc(body)+'</textarea>'+
+      '</details>'+
       '<div class="acts"><button type="button" class="copybtn">Kopier teksten</button>'+
         (to? '<a class="ext" href="'+mailtoTo(to, SAK_INNSYN_SUBJECT, body)+
           '">Åpne i e-post →</a>' : '')+
@@ -3407,11 +3438,17 @@ _TEMPLATE = r"""<!doctype html>
     return "mailto:"+encodeURIComponent(to)+"?subject="+encodeURIComponent(subject)+
       "&body="+encodeURIComponent(body);
   }
-  function tool(title, lead, text, acts){
+  // The long letter itself collapses behind a native <details> (issue #59) —
+  // "Vis malen" — so the intro + copy/open actions stay one tap away, focused.
+  // `summary` labels the fold; the copy handler reaches the textarea by
+  // querySelector, so it works whether the fold is open or closed.
+  function tool(title, lead, text, acts, summary){
     return '<div class="panel funnel">'+
       '<h3>'+esc(title)+'</h3>'+
       '<p class="lead">'+lead+'</p>'+
-      '<textarea class="tmpl" readonly aria-label="'+esc(title)+'">'+esc(text)+'</textarea>'+
+      '<details class="tmpl-acc"><summary>'+esc(summary||"Vis malen")+'</summary>'+
+        '<textarea class="tmpl" readonly aria-label="'+esc(title)+'">'+esc(text)+'</textarea>'+
+      '</details>'+
       '<div class="acts">'+
         '<button type="button" class="copybtn">Kopier teksten</button>'+acts+
       '</div></div>';
@@ -3431,7 +3468,7 @@ _TEMPLATE = r"""<!doctype html>
           'avgjøres uten ugrunnet opphold — normalt innen <b>fem arbeidsdager</b>.',
         innsyn,
         '<a class="ext" href="'+mailto("Innsynskrav etter offentleglova", innsyn)+
-          '">Åpne i e-post →</a>');
+          '">Åpne i e-post →</a>', "Vis innsynsmalen");
     if(catKey==="kommune"){
       var forslag = buildKommuneForslag(k);
       html += tool("2. Innbyggerforslag (minsak.no)",
@@ -3665,11 +3702,11 @@ _TEMPLATE = r"""<!doctype html>
       ? 'Bare én måling foreløpig — linjen vokser ved hver skanning.'
       : 'Plattformen ved hver skanning. En endring over en metodikk-baseline er '+
         'omklassifisering, ikke nødvendigvis en reell flytting (se merket).';
-    return '<h2>Over tid — plattform per skanning</h2>'+
+    return acc('Over tid — plattform per skanning',
       '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">'+esc(lead)+
         ' Web- og styresett-aksene måles bare i dag; linjen viser e-postaksen, som '+
         'veier tyngst.</p>'+
-      '<div class="timeline">'+items+'</div>';
+      '<div class="timeline">'+items+'</div>');
   }
 
   function renderDetail(k, catKey){
@@ -3708,13 +3745,13 @@ _TEMPLATE = r"""<!doctype html>
       '<h2>Anbefalt europeisk alternativ</h2>'+
       '<div class="panel"><p style="margin:0">'+alt+'. Se byttekartet og '+
         'fallgruvene for suverenitetsvasking på forsiden.</p></div>'+
-      '<h2>Evidens — Vis hvordan vi vet det</h2>'+
-      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">Hvert signal under '+
-        'bærer sin egen kilde (den eksakte spørringen) og dato. Det er hele '+
-        'troverdighetsgrunnlaget: ingen påstand uten kilde.</p>'+
-      renderTrail(k.evidence)+
-      '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
-        'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>'+
+      acc('Evidens — de faktiske DNS-oppslagene',
+        '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">Hvert signal under '+
+          'bærer sin egen kilde (den eksakte spørringen) og dato. Det er hele '+
+          'troverdighetsgrunnlaget: ingen påstand uten kilde.</p>'+
+        renderTrail(k.evidence)+
+        '<p style="font-size:13px;color:var(--muted);margin-top:10px">Kilde: offentlig DNS, '+
+          'målt '+esc(noDate(k.sourceDate||DB.meta.sourceDate))+'. Datasett: CC BY 4.0.</p>')+
       renderNotProven(k)+
       renderScoreTrend(k)+
       renderWebAxis(k)+
