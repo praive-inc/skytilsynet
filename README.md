@@ -58,10 +58,13 @@ python3 build.py         # regenerates web/index.html from data/ + scanner/
 python3 -m unittest      # tests the build (trend logic + rendered output)
 ```
 
-`build.py` bakes the latest dataset, the aggregate history, and the honest
-per-kommune trend into a single self-contained `index.html`. The data is inlined
-as JSON — the page makes **no runtime fetch and has no US-managed serving
-dependency** (no CDN, web fonts, or map tiles), per BetterWorld RFC-001 P5.
+`build.py` bakes a **light per-entity summary** + the aggregate history and the
+honest trend inline as JSON in `index.html` (small first paint); the **heavy
+per-entity evidence loads on demand** from `web/data/detail-<kategori>.json` via a
+**same-origin** fetch (our own EU origin). No CDN, web fonts, map tiles or any
+external/US-managed serving dependency — RFC-001 P5 forbids *external* deps, not a
+fetch from our own origin. `build.py` writes both `index.html` and the
+`web/data/detail-*.json` files — commit them together.
 
 Deploy is a plain rsync of `web/` behind Caddy (no build step in prod — see
 [`deploy/deploy-local.sh`](deploy/deploy-local.sh)), so the generated
