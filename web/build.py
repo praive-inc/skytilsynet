@@ -3930,8 +3930,9 @@ _EN_TEMPLATE = r"""<!doctype html>
     <section>
       <h2>Correction &amp; contact</h2>
       <p>Spotted an error? We publish corrections openly and keep nothing personal —
-         aggregate figures only. For corrections or press enquiries, contact the
-         methodology lead at <a href="mailto:presse@skytilsynet.no">presse@skytilsynet.no</a>.</p>
+         aggregate figures only. For corrections or press enquiries, open an issue in
+         the project's public
+         <a href="https://github.com/praive-inc/skytilsynet/issues" target="_blank" rel="noopener">GitHub</a>.</p>
     </section>
 
   </main>
