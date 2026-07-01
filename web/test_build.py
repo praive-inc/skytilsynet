@@ -1947,5 +1947,88 @@ class SaksbehandlingSeed(unittest.TestCase):
         self.assertEqual(larvik["saksbehandling"]["hosting"]["jurisdiction"], "Uavklart")
 
 
+class InnsynFoiKit(unittest.TestCase):
+    """Issue #51: the offentleglova FOI kit that fills the saksbehandling hosting
+    axis. A per-entity 'krev innsyn' mailto (prefilled to postmottak@<domain> with
+    the 3-point request), a downloadable campaign recipient+request list, and a
+    /innsyn explainer. No per-citizen data retained (rule 5)."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+        self.cats = build.build_categories(DATA, STAT, WEB)
+
+    def test_postmottak_derived_from_domain(self):
+        # Best-effort: postmottak@<domain>, the near-universal public-body intake.
+        self.assertEqual(build.postmottak("oslo.kommune.no"), "postmottak@oslo.kommune.no")
+        self.assertEqual(build.postmottak(""), "")
+
+    def test_request_body_asks_for_the_three_things(self):
+        body = build.sak_innsyn_body("Oslo kommune")
+        self.assertIn("Oslo kommune", body)
+        low = body.lower()
+        self.assertIn("sak-", low)                 # 1. sak-/arkivsystem
+        self.assertIn("leverandør", low)           #    leverandør + produkt
+        self.assertIn("databehandleravtale", low)  # 2. databehandleravtalen
+        self.assertIn("underleverand", low)        # 3. hosting: underleverandører/land
+
+    def test_request_body_cites_offentleglova_sections(self):
+        body = build.sak_innsyn_body("Oslo kommune")
+        for s in ["§ 3", "§ 28", "§ 29", "§ 32"]:
+            self.assertIn(s, body)
+        # § 32: no answer in 5 working days → appealable to Statsforvaltaren.
+        self.assertIn("Statsforvaltaren", body)
+        self.assertIn("fem", body.lower())
+
+    def test_campaign_csv_has_recipient_and_request_per_entity(self):
+        files = build.innsyn_csv(self.cats)
+        self.assertIn("innsyn-kampanje.csv", files)
+        text = files["innsyn-kampanje.csv"]
+        import csv
+        import io
+        rows = list(csv.DictReader(io.StringIO(text)))
+        by_domain = {r["domene"]: r for r in rows}
+        # Every scanned entity with a domain is a recipient row.
+        domains = {e.get("domain") for c in self.cats for e in c["entities"] if e.get("domain")}
+        self.assertEqual(set(by_domain), domains)
+        # Recipient derived from the domain, and the request text rides along.
+        self.assertEqual(by_domain["oslo.kommune.no"]["postmottak"], "postmottak@oslo.kommune.no")
+        self.assertEqual(by_domain["nav.no"]["postmottak"], "postmottak@nav.no")
+        self.assertIn("databehandleravtale", by_domain["oslo.kommune.no"]["innsynskrav"].lower())
+
+    def test_write_innsyn_kit_writes_the_csv(self):
+        import tempfile
+        dest = tempfile.mkdtemp()
+        build.write_innsyn_kit(self.cats, dest)
+        self.assertTrue(os.path.exists(os.path.join(dest, "innsyn-kampanje.csv")))
+
+    def test_per_entity_krev_innsyn_mailto_on_detail_card(self):
+        # The detail render emits a prefilled mailto to postmottak@<domain> with the
+        # saksbehandling 3-point request, wired into the saksarkiv axis.
+        self.assertIn("buildSakInnsyn", self.html)
+        self.assertIn("postmottak@", self.html)
+        self.assertIn("mailtoTo", self.html)
+        self.assertIn("renderSaksarkiv(k", self.html)
+        # The baked request template carries the law + the three asks.
+        for s in ["§ 28", "§ 29", "§ 32", "Statsforvaltaren", "databehandleravtale"]:
+            self.assertIn(s, self.html)
+
+    def test_innsyn_explainer_view_present_and_routed(self):
+        self.assertIn('id="view-innsyn"', self.html)
+        self.assertIn('href="#innsyn"', self.html)          # nav link
+        self.assertIn('hash==="innsyn"', self.html)          # route handles it
+        self.assertIn('"view-innsyn"', self.html)            # showView swaps it in
+        # The downloadable campaign list is linked from the explainer.
+        self.assertIn("data/innsyn-kampanje.csv", self.html)
+
+    def test_innsyn_view_keeps_no_personal_data(self):
+        # Rule 5: aggregate only, no per-citizen records — the explainer says so.
+        start = self.html.index('id="view-innsyn"')
+        view = self.html[start:self.html.index("</section>", start)]
+        self.assertIn("ingen personopplysningar", view.lower())
+        self.assertIn("aggregerte data", view.lower())
+        # And explains how an answer feeds the map (send it to the intake alias).
+        self.assertIn(build.PRESS_CONTACT_EMAIL, view)
+
+
 if __name__ == "__main__":
     unittest.main()

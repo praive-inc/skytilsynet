@@ -495,6 +495,87 @@ def sak_aggregate(categories):
     return {"mapped": len(mapped), "total": len(ents), "confirmed": len(confirmed)}
 
 
+# --------------------------------------------------------------------------
+# offentleglova FOI kit (issue #51): the campaign tooling that FILLS the
+# saksbehandling hosting axis. The operator (or a crowd) sends an innsyn request
+# to each body and adds the answer to data/saksbehandling.csv (hosting_method=
+# innsyn-foi → the axis flips from "utledet" to "bekreftet"). This makes sending
+# copy-paste: one prefilled request per body, plus one downloadable recipient
+# list for the whole campaign. The request text is written ONCE here and mirrored
+# client-side (baked as a JS template with a __NAVN__ placeholder) so the CSV and
+# the per-card mailto never drift.
+
+# The recipient is derived from the entity's email domain. Most Norwegian public
+# bodies route innsyn to postmottak@<domain>; this is a best-effort pattern, noted
+# as such wherever it's shown (rule 1: we don't assert what we can't cite).
+SAK_INNSYN_SUBJECT = "Innsynskrav etter offentleglova — sak-/arkivsystem og hosting"
+
+
+def postmottak(domain):
+    """postmottak@<domain>, the near-universal public-body innsyn intake address —
+    best-effort (most kommuner use it). Empty string when there's no domain."""
+    return "postmottak@" + domain if domain else ""
+
+
+def sak_innsyn_body(name):
+    """The 3-point offentleglova innsyn request for the saksbehandling/arkiv axis:
+    (1) the sak-/arkivsystem (leverandør + produkt), (2) the databehandleravtale,
+    (3) where data is stored + which sub-processors/countries (hosting +
+    jurisdiction). Cites offentleglova § 3 (saksdokument), § 28 (no grounds
+    needed), § 29 (answer «utan ugrunna opphald»), § 32 (no answer within 5 working
+    days = an appealable refusal, to Statsforvaltaren). `name` is the body."""
+    return (
+        "Til " + name + "\n\n"
+        "Innsynskrav etter offentleglova\n\n"
+        "Med hjemmel i offentleglova § 3 ber jeg om innsyn i saksdokument om "
+        "organets sak- og arkivsystem. Kravet fremmes uten grunngiving, jf. § 28. "
+        "Jeg ber konkret om følgende tre ting:\n\n"
+        "1. Navnet på sak-/arkivsystemet organet bruker — både leverandør og "
+        "produkt (f.eks. Acos WebSak, Sikri Elements, Tietoevry Public 360).\n"
+        "2. Databehandleravtalen for dette systemet.\n"
+        "3. Hvor data lagres (land/region) og hvilke underleverandører og land som "
+        "er involvert i driften — altså hosting og jurisdiksjon.\n\n"
+        "Etter offentleglova § 29 skal kravet avgjerast utan ugrunna opphald. Får "
+        "jeg ikkje svar innan fem arbeidsdagar, reknar eg det etter § 32 som eit "
+        "avslag som kan påklagast til Statsforvaltaren. Jeg ber om svar i "
+        "elektronisk form.\n\n"
+        "Med vennleg helsing\n[Ditt namn]")
+
+
+_INNSYN_CSV_HEADER = ["organ", "domene", "postmottak", "emne", "innsynskrav"]
+
+
+def innsyn_csv(categories):
+    """{filename: csv_text}: the downloadable campaign recipient+request list — one
+    row per scanned body that has a domain, with its derived postmottak@ address,
+    the subject and the full prefilled request text. One work-through-the-whole-
+    campaign file (CC BY 4.0), the same request the per-card mailto sends."""
+    import csv
+    import io
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(_INNSYN_CSV_HEADER)
+    for c in categories:
+        for e in c["entities"]:
+            domain = e.get("domain")
+            if not domain:
+                continue
+            name = _entity_name(e)
+            w.writerow([name, domain, postmottak(domain), SAK_INNSYN_SUBJECT,
+                        sak_innsyn_body(name)])
+    return {"innsyn-kampanje.csv": buf.getvalue()}
+
+
+def write_innsyn_kit(categories, dest_dir=WEB_DATA_DIR):
+    """Write the downloadable innsyn campaign list into web/data/ so the deployed
+    static site (web/ rsynced verbatim to Caddy) serves it — no external host, no
+    prod build step. Committed alongside index.html."""
+    os.makedirs(dest_dir, exist_ok=True)
+    for fn, text in innsyn_csv(categories).items():
+        with open(os.path.join(dest_dir, fn), "w") as f:
+            f.write(text)
+
+
 def build_categories(data, stat=None, web=None, seeded=None, sak=None):
     """The full per-category model: each {key, label, summary, entities} with the
     web axis joined and names normalized. This is the SOURCE of truth used twice —
@@ -1382,7 +1463,13 @@ def render_html(meta, categories, history, trend, corrections=None):
             .replace("<!--__PRESS_FIGURES__-->", press_figs)
             .replace("<!--__PRESS_SNIPPETS__-->", press_snips)
             .replace("<!--__PRESS_CONTACT_NAME__-->", PRESS_CONTACT_NAME)
-            .replace("<!--__PRESS_CONTACT_EMAIL__-->", PRESS_CONTACT_EMAIL))
+            .replace("<!--__PRESS_CONTACT_EMAIL__-->", PRESS_CONTACT_EMAIL)
+            # offentleglova FOI kit (issue #51): the request text is baked ONCE
+            # here — as a JS template with a __NAVN__ placeholder the client fills —
+            # so the per-card mailto and the downloadable CSV never drift.
+            .replace("<!--__SAK_INNSYN_SUBJECT__-->", _esc_attr(SAK_INNSYN_SUBJECT))
+            .replace('"/*__SAK_INNSYN_TMPL__*/"', json.dumps(
+                sak_innsyn_body("__NAVN__"), ensure_ascii=False)))
 
 
 def build_html(data, history, trend, stat=None, web=None, seeded=None,
@@ -1452,6 +1539,7 @@ def main():
         f.write(html)
     copy_downloads()
     write_detail_files(categories)
+    write_innsyn_kit(categories)
     write_press_assets(categories, data["meta"])
     write_en_file(categories, data["meta"])
     n_stat = len(stat["organ"]) if stat else 0
@@ -1975,7 +2063,7 @@ _TEMPLATE = r"""<!doctype html>
   <header class="masthead">
     <span class="wordmark"><span class="dot" aria-hidden="true">●</span> Skytilsynet</span>
     <span class="kicker">Skybarometeret</span>
-    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a> · <a href="en/" hreflang="en" lang="en">English</a></nav>
+    <nav class="mast-nav" aria-label="Sidenavigasjon"><a href="#innsyn">Krev innsyn</a> · <a href="#for-presse">For presse</a> · <a href="#om">Om &amp; metode</a> · <a href="en/" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <!-- DISCLAIMER: rendered once, outside the routed views, so it is present on
@@ -2226,6 +2314,74 @@ _TEMPLATE = r"""<!doctype html>
         intervju eller en retting tas via prosjektets åpne
         <a href="https://github.com/praive-inc/skytilsynet/issues" target="_blank" rel="noopener">GitHub</a>
         — til en navngitt person, ikke en anonym redaksjon.</p>
+    </div>
+  </section>
+
+  <!-- KREV INNSYN VIEW (#innsyn): the offentleglova FOI dugnad (issue #51). What
+       the campaign is, the 3-point request, how an answer feeds the map, the
+       downloadable recipient list — and the no-personal-data note (rule 5). -->
+  <section id="view-innsyn" class="hidden">
+    <h2 id="innsyn">Krev innsyn — offentleglova-dugnad</h2>
+    <p class="press-lead">E-postaksen skanner vi sjølv. <b>Sak-/arkivsystemet</b>
+      (og kvar det driftast) må organa sjølve opplyse — så vi ber om det, med
+      heimel i <b>offentleglova</b>. Send eit innsynskrav, vidaresend svaret til
+      oss, og aksen på kartet fyllest ut — med kjelde.</p>
+
+    <h2>Kva vi ber om — tre ting</h2>
+    <div class="panel">
+      <ul class="method-list">
+        <li><b>Sak-/arkivsystemet.</b> Namnet på systemet organet bruker —
+          leverandør og produkt (t.d. Acos WebSak, Sikri Elements, Tietoevry
+          Public 360).</li>
+        <li><b>Databehandleravtalen.</b> Avtalen for systemet.</li>
+        <li><b>Kvar data lagrast.</b> Land/region og kva underleverandørar/land
+          som er involvert i driften — altså <b>hosting og jurisdiksjon</b>.</li>
+      </ul>
+    </div>
+
+    <h2>Heimelen — offentleglova</h2>
+    <div class="panel">
+      <ul class="method-list">
+        <li><b>§ 3</b> — du har rett til innsyn i saksdokument.</li>
+        <li><b>§ 28</b> — kravet kan vere munnleg eller skriftleg, og treng
+          <b>inga grunngiving</b>.</li>
+        <li><b>§ 29</b> — kravet skal avgjerast <b>utan ugrunna opphald</b>.</li>
+        <li><b>§ 32</b> — får du ikkje svar innan <b>fem arbeidsdagar</b>, reknast
+          det som eit avslag som kan <b>påklagast til Statsforvaltaren</b>.</li>
+      </ul>
+      <p style="font-size:13px;color:var(--muted)">Mottakaren er som regel
+        <b>postmottak@&lt;domene&gt;</b> — den vanlege innsyns-adressa hos norske
+        offentlege organ. Det er eit <b>beste anslag</b>; sjekk organets eiga
+        nettside om krav kjem i retur. Kvart organ har ei ferdig utfylt
+        «Krev innsyn»-lenke på sitt eige kort.</p>
+    </div>
+
+    <h2>Slik fyller svaret ut kartet</h2>
+    <div class="panel">
+      <p>Fekk du svar? Send det til intake-adressa <b><!--__PRESS_CONTACT_EMAIL__--></b>,
+        eller opne ei sak i prosjektets opne
+        <a href="https://github.com/praive-inc/skytilsynet/issues" target="_blank" rel="noopener">GitHub</a>.
+        Vi legg leverandør, produkt og hosting inn i det opne datasettet
+        (<code>data/saksbehandling.csv</code>, CC BY 4.0) med lenke til svaret som
+        kjelde — og hostingen går frå <b>utleda</b> til <b>bekrefta via innsyn</b>
+        på organets kort.</p>
+      <p class="jur-note" style="margin:0"><b>Vi lagrar ingen personopplysningar
+        om deg.</b> Verktøyet sender inga skjemadata og fangar ingen e-postadresse —
+        du kopierer teksten eller opnar di eiga e-postklient. Vi held berre
+        aggregerte data om organa, aldri per innbyggjar (regel 5).</p>
+    </div>
+
+    <h2>Heile kampanjelista</h2>
+    <div class="panel">
+      <p>Ei nedlastbar liste over alle skanna organ — med domene, den avleidde
+        <code>postmottak@</code>-adressa, emne og den ferdige innsynsteksten — så
+        du kan jobbe deg gjennom heile kampanjen:</p>
+      <ul class="downloads">
+        <li><a href="data/innsyn-kampanje.csv" download>Innsyn-kampanje — mottakarar + krav (CSV)</a>
+          <span class="dl-file">data/innsyn-kampanje.csv</span></li>
+      </ul>
+      <p style="font-size:13px;color:var(--muted)">Åpen under CC BY 4.0. Same krav
+        som «Åpne i e-post»-lenka på kvart organkort sender.</p>
     </div>
   </section>
 
@@ -2484,6 +2640,11 @@ _TEMPLATE = r"""<!doctype html>
   var CATS = DB.categories;                 // [{key,label,summary,entities}]
   var COMBINED = DB.combined;               // headline over the whole public sector
   var PRESS_EMAIL = "<!--__PRESS_CONTACT_EMAIL__-->";  // intake address for FOI answers (#50)
+  // offentleglova FOI kit (issue #51): the request subject + body baked once
+  // server-side so the per-card mailto matches the downloadable campaign CSV.
+  // The body carries a __NAVN__ placeholder the client fills per body.
+  var SAK_INNSYN_SUBJECT = "<!--__SAK_INNSYN_SUBJECT__-->";
+  var SAK_INNSYN_TMPL = "/*__SAK_INNSYN_TMPL__*/";
   function nameOf(k){ return k.name || k.kommune; }
 
   // platform -> {label, juris, css color class}
@@ -2780,6 +2941,33 @@ _TEMPLATE = r"""<!doctype html>
     return '<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(label||"kilde")+
       (date? ' · '+esc(noDate(date)) : "")+'</a>';
   }
+  // offentleglova FOI kit (issue #51): a per-entity 'krev innsyn' tool prefilled
+  // to postmottak@<domain> with the 3-point request that fills THIS axis. The
+  // request text is the baked template (matches the downloadable campaign CSV);
+  // the recipient is best-effort (most bodies use postmottak@). No per-citizen
+  // data leaves the browser (rule 5) — copy-to-clipboard / mailto only.
+  function postmottakOf(k){ return k.domain ? "postmottak@"+k.domain : ""; }
+  function buildSakInnsyn(k){ return SAK_INNSYN_TMPL.split("__NAVN__").join(nameOf(k)); }
+  function krevInnsynSak(k){
+    var to = postmottakOf(k), body = buildSakInnsyn(k);
+    var toLine = to
+      ? 'Mottaker: <b>'+esc(to)+'</b> <span class="sak-inferred">(vanleg '+
+        'postmottak-adresse — beste anslag)</span>. '
+      : '';
+    return '<div class="panel funnel"><h3>Krev innsyn — kartlegg denne aksen</h3>'+
+      '<p class="lead">Send eit innsynskrav etter <b>offentleglova</b> og be om tre '+
+        'ting: (1) sak-/arkivsystemet (leverandør + produkt), (2) '+
+        'databehandleravtalen, (3) kvar data lagrast og kva underleverandørar/land '+
+        'som er involvert (hosting + jurisdiksjon). '+toLine+'Fekk du svar? Send det '+
+        'til <a href="mailto:'+esc(PRESS_EMAIL)+'">'+esc(PRESS_EMAIL)+'</a> — så '+
+        'kartlegg vi det, med kjelde. Sjå òg <a href="#innsyn">innsyn-dugnaden</a>.</p>'+
+      '<textarea class="tmpl" readonly aria-label="Innsynskrav (sak-/arkivsystem)">'+
+        esc(body)+'</textarea>'+
+      '<div class="acts"><button type="button" class="copybtn">Kopier teksten</button>'+
+        (to? '<a class="ext" href="'+mailtoTo(to, SAK_INNSYN_SUBJECT, body)+
+          '">Åpne i e-post →</a>' : '')+
+      '</div></div>';
+  }
   function renderSaksarkiv(k){
     var s = k.saksbehandling;
     var head = '<h2>Saksbehandling / arkiv</h2>'+
@@ -2790,15 +2978,11 @@ _TEMPLATE = r"""<!doctype html>
         'fra leverandøren (flagget) eller <b>bekreftet</b> via innsyn etter '+
         'offentleglova. Påvirker ikke e-postverdiktet over.</p>';
     if(!s){
-      // Honest empty state + the "krev innsyn" intake CTA (the offentleglova tool
-      // is rendered right below, in the funnel).
+      // Honest empty state + the prefilled 'krev innsyn' tool (issue #51) that
+      // fills this axis: send it, forward the answer, we map it with a source.
       return head+
         '<div class="facts">'+fact("Saksarkiv", "Ikke kartlagt ennå", "")+'</div>'+
-        '<div class="panel"><p style="margin:0">Vi har ikke kildebelagt sak-/'+
-          'arkivsystemet for dette organet ennå. <b>Krev innsyn</b> etter '+
-          'offentleglova (bruk innsynsmalen under) og send oss svaret på '+
-          '<a href="mailto:'+esc(PRESS_EMAIL)+'">'+esc(PRESS_EMAIL)+'</a> — så '+
-          'kartlegger vi det, med kilde.</p></div>';
+        krevInnsynSak(k);
     }
     var vendorFact = fact("Saksarkiv", esc(s.vendor)+
       ' <span class="sak-src">'+sakSrc(s.vendor_source, s.vendor_date)+'</span>');
@@ -2822,7 +3006,8 @@ _TEMPLATE = r"""<!doctype html>
     var note = s.note
       ? '<p style="font-size:13px;color:var(--muted);margin-top:10px">'+esc(s.note)+'</p>'
       : "";
-    return head+'<div class="facts">'+vendorFact+hostFact+'</div>'+note;
+    return head+'<div class="facts">'+vendorFact+hostFact+'</div>'+note+
+      krevInnsynSak(k);
   }
   // ---- Activism funnel (issue #3): turn each detail page into ACTION ------
   // Templates are baked here, client-side, from the entity name — no runtime
@@ -2876,6 +3061,12 @@ _TEMPLATE = r"""<!doctype html>
   }
   function mailto(subject, body){
     return "mailto:?subject="+encodeURIComponent(subject)+
+      "&body="+encodeURIComponent(body);
+  }
+  // Same, with an explicit recipient — the per-entity 'krev innsyn' link (#51)
+  // opens the citizen's mail client prefilled to postmottak@<domain>.
+  function mailtoTo(to, subject, body){
+    return "mailto:"+encodeURIComponent(to)+"?subject="+encodeURIComponent(subject)+
       "&body="+encodeURIComponent(body);
   }
   function tool(title, lead, text, acts){
@@ -3197,7 +3388,7 @@ _TEMPLATE = r"""<!doctype html>
   // Three views: home, per-entity detail (#org/<kategori>/<slug>, a permalink),
   // and Om & metode (#om) — the methodology demoted behind a click.
   function showView(id){
-    ["view-home","view-detail","view-om","view-presse"].forEach(function(v){
+    ["view-home","view-detail","view-om","view-presse","view-innsyn"].forEach(function(v){
       document.getElementById(v).classList.toggle("hidden", v!==id); });
   }
   function openDetail(catKey, s){
@@ -3219,6 +3410,7 @@ _TEMPLATE = r"""<!doctype html>
     if(m){ openDetail(m[1], m[2]); return; }
     if(hash==="om" || hash==="metode"){ showView("view-om"); window.scrollTo(0,0); return; }
     if(hash==="for-presse" || hash==="presse"){ showView("view-presse"); window.scrollTo(0,0); return; }
+    if(hash==="innsyn"){ showView("view-innsyn"); window.scrollTo(0,0); return; }
     showView("view-home");
   }
 
