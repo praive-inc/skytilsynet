@@ -1538,7 +1538,7 @@ _TEMPLATE = r"""<!doctype html>
   .en strong{color:var(--fg)}
   footer{margin-top:var(--space-10);color:var(--faint);font-size:var(--text-sm)}
   .dot{color:var(--green)}
-  .hidden{display:none}
+  .hidden{display:none !important}  /* utility must win over element display rules (e.g. .cartomap-fig{display:flex}) defined later */
   /* ---------------------------------------------------------------------
      Re-ladder (issue #34): hero verdict + gauge, find-your-entity search,
      tight narrative, the full map demoted behind a click.
