@@ -198,6 +198,11 @@
   .fact .k{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
   .fact .v{font-size:var(--text-lg);font-weight:600;margin-top:var(--space-1)}
   .fact .v.red{color:var(--red)} .fact .v.green{color:var(--green)}
+  /* Saksbehandling / arkiv axis (issue #50): the inferred-vs-confirmed flag + source. */
+  .sak-inferred{font-size:var(--text-sm);font-weight:400;color:var(--muted)}
+  .sak-src{font-size:var(--text-xs);font-weight:400}
+  .sak-src a{color:var(--accent)}
+  .sak-agg{display:block;margin-top:var(--space-2);color:var(--muted)}
   /* Suverenitetsscore (issue #38): the per-entity score, formula + lever. */
   .scorecard{border-radius:var(--radius);border:1px solid var(--line);
     background:linear-gradient(180deg,var(--surface-2),var(--surface));
@@ -676,7 +681,7 @@
       <h3 style="margin-top:14px">API — stabile JSON-URL-er</h3>
       <p>Det fulle, kildebelagte datasettet (samme som siden bruker) ligger på
         stabile URL-er — hver rad bærer sin egen kilde og dato:</p>
-      <ul class="downloads"><li><a href="data/kommune-email-sovereignty.latest.json" download>Kommuner — e-post</a><span class="dl-file">kommune-email-sovereignty.latest.json</span></li><li><a href="data/statlige-organ-email-sovereignty.latest.json" download>Statlige organ — e-post</a><span class="dl-file">statlige-organ-email-sovereignty.latest.json</span></li><li><a href="data/fylkeskommune-email-sovereignty.latest.json" download>Fylkeskommuner — e-post</a><span class="dl-file">fylkeskommune-email-sovereignty.latest.json</span></li><li><a href="data/helseforetak-email-sovereignty.latest.json" download>Helseforetak — e-post</a><span class="dl-file">helseforetak-email-sovereignty.latest.json</span></li><li><a href="data/uh-sektor-email-sovereignty.latest.json" download>Universiteter og høgskoler — e-post</a><span class="dl-file">uh-sektor-email-sovereignty.latest.json</span></li><li><a href="data/kommune-web-sovereignty.latest.json" download>Kommuner — web-akse (infrastruktur)</a><span class="dl-file">kommune-web-sovereignty.latest.json</span></li></ul>
+      <ul class="downloads"><li><a href="data/kommune-email-sovereignty.latest.json" download>Kommuner — e-post</a><span class="dl-file">kommune-email-sovereignty.latest.json</span></li><li><a href="data/statlige-organ-email-sovereignty.latest.json" download>Statlige organ — e-post</a><span class="dl-file">statlige-organ-email-sovereignty.latest.json</span></li><li><a href="data/fylkeskommune-email-sovereignty.latest.json" download>Fylkeskommuner — e-post</a><span class="dl-file">fylkeskommune-email-sovereignty.latest.json</span></li><li><a href="data/helseforetak-email-sovereignty.latest.json" download>Helseforetak — e-post</a><span class="dl-file">helseforetak-email-sovereignty.latest.json</span></li><li><a href="data/uh-sektor-email-sovereignty.latest.json" download>Universiteter og høgskoler — e-post</a><span class="dl-file">uh-sektor-email-sovereignty.latest.json</span></li><li><a href="data/kommune-web-sovereignty.latest.json" download>Kommuner — web-akse (infrastruktur)</a><span class="dl-file">kommune-web-sovereignty.latest.json</span></li><li><a href="data/saksbehandling.csv" download>Saksbehandling / arkiv — leverandør + hosting (CSV)</a><span class="dl-file">saksbehandling.csv</span></li></ul>
       <p style="font-size:13px;color:var(--muted)">Detaljdata per organ (evidens,
         styresett, web-akse) ligger på <code>data/detail-&lt;kategori&gt;.json</code>.</p>
     </div>
@@ -903,6 +908,14 @@
         HTTP-headere, innebygde tredjeparts-ressurser og TLS-utsteder — utledet av
         det en nettleser uansett henter. Den påvirker aldri e-postverdiktet; de to
         aksene holdes adskilt.</p>
+      <p><b>Saksbehandling / arkiv (tredje akse).</b> Hvilket sak-/arkivsystem
+        (NOARK-5 sakarkiv) organet bruker, og hvilken jurisdiksjon driften svarer
+        til. To delakser med ulik sikkerhet: <b>leverandøren</b> kildebelegges per
+        organ, mens <b>hostingen</b> enten <i>utledes</i> fra en åpen leverandør→
+        hosting-tabell (alltid flagget med sikkerhetsgrad) eller <i>bekreftes</i>
+        per organ via et innsynssvar etter offentleglova. Ingen jurisdiksjon
+        påstås per organ fra tabellen uten «utledet»-flagget; bare innsynssvar gir
+        «bekreftet». <span class="sak-agg"><b>Saksarkiv kartlagt for 1 av 486 organ; 0 med hosting bekreftet via innsyn.</b></span></p>
       <p><b>Klassifiseringskoden er åpen.</b> Reglene som gjør et DNS-oppslag om til
         et verdikt er ikke en svart boks — de er én lesbar fil du kan etterprøve
         linje for linje:
@@ -936,7 +949,7 @@
       <h3 id="apne-data">Åpne data</h3>
       <p>Datasettene er åpne under <b>CC BY 4.0</b>. Hver rad bærer sin egen kilde
         og dato. Last ned per kategori — for journalister og forskere:</p>
-      <ul class="downloads"><li><a href="data/kommune-email-sovereignty.latest.json" download>Kommuner — e-post</a><span class="dl-file">kommune-email-sovereignty.latest.json</span></li><li><a href="data/statlige-organ-email-sovereignty.latest.json" download>Statlige organ — e-post</a><span class="dl-file">statlige-organ-email-sovereignty.latest.json</span></li><li><a href="data/fylkeskommune-email-sovereignty.latest.json" download>Fylkeskommuner — e-post</a><span class="dl-file">fylkeskommune-email-sovereignty.latest.json</span></li><li><a href="data/helseforetak-email-sovereignty.latest.json" download>Helseforetak — e-post</a><span class="dl-file">helseforetak-email-sovereignty.latest.json</span></li><li><a href="data/uh-sektor-email-sovereignty.latest.json" download>Universiteter og høgskoler — e-post</a><span class="dl-file">uh-sektor-email-sovereignty.latest.json</span></li><li><a href="data/kommune-web-sovereignty.latest.json" download>Kommuner — web-akse (infrastruktur)</a><span class="dl-file">kommune-web-sovereignty.latest.json</span></li></ul>
+      <ul class="downloads"><li><a href="data/kommune-email-sovereignty.latest.json" download>Kommuner — e-post</a><span class="dl-file">kommune-email-sovereignty.latest.json</span></li><li><a href="data/statlige-organ-email-sovereignty.latest.json" download>Statlige organ — e-post</a><span class="dl-file">statlige-organ-email-sovereignty.latest.json</span></li><li><a href="data/fylkeskommune-email-sovereignty.latest.json" download>Fylkeskommuner — e-post</a><span class="dl-file">fylkeskommune-email-sovereignty.latest.json</span></li><li><a href="data/helseforetak-email-sovereignty.latest.json" download>Helseforetak — e-post</a><span class="dl-file">helseforetak-email-sovereignty.latest.json</span></li><li><a href="data/uh-sektor-email-sovereignty.latest.json" download>Universiteter og høgskoler — e-post</a><span class="dl-file">uh-sektor-email-sovereignty.latest.json</span></li><li><a href="data/kommune-web-sovereignty.latest.json" download>Kommuner — web-akse (infrastruktur)</a><span class="dl-file">kommune-web-sovereignty.latest.json</span></li><li><a href="data/saksbehandling.csv" download>Saksbehandling / arkiv — leverandør + hosting (CSV)</a><span class="dl-file">saksbehandling.csv</span></li></ul>
       <p style="font-size:13px;color:var(--muted)">Attribusjon ved gjenbruk:
         «Skytilsynet / BetterWorld, skytilsynet.no (CC BY 4.0)».
         <a href="https://github.com/praive-inc/skytilsynet">Kode og full metode på GitHub →</a></p>
@@ -1009,6 +1022,7 @@
   var DB = JSON.parse(document.getElementById("data").textContent);
   var CATS = DB.categories;                 // [{key,label,summary,entities}]
   var COMBINED = DB.combined;               // headline over the whole public sector
+  var PRESS_EMAIL = "presse@skytilsynet.no";  // intake address for FOI answers (#50)
   function nameOf(k){ return k.name || k.kommune; }
 
   // platform -> {label, juris, css color class}
@@ -1253,7 +1267,8 @@
   // Jurisdiction string -> the same red/green coding the email axis uses.
   function jurCls(j){
     j = j || "";
-    return /CLOUD Act/.test(j) ? "red" : /\(EEA\)|\(EU\)/.test(j) ? "green" : "";
+    return /CLOUD Act/.test(j) ? "red"
+         : /\(EEA\)|\(EU\)|EØS/.test(j) ? "green" : "";
   }
   // ---- Web axis (issue #13): the SECOND, distinct axis. Where does the website
   // infrastructure answer to? Joined per entity by website domain, never merged
@@ -1294,6 +1309,59 @@
         'ressurser + TLS-utsteder) og offentlig DNS (A → Team Cymru origin-ASN'+
         (host.asn? ": AS"+esc(host.asn)+(host.name?" "+esc(host.name):""):"")+
         '), målt '+esc(noDate(w.sourceDate || DB.meta.sourceDate))+'.</p>';
+  }
+  // ---- Saksbehandling / arkiv axis (issue #50): the THIRD axis. Which NOARK-5
+  // sakarkiv system the body runs, and its hosting jurisdiction. Two sub-axes:
+  // the vendor is cited per body; the hosting is either INFERRED from the open
+  // vendor→hosting table (always flagged) or CONFIRMED via an offentleglova FOI
+  // answer (only that earns "bekreftet"). No record → "ikke kartlagt" + intake CTA.
+  function sakSrc(url, date, label){
+    return '<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(label||"kilde")+
+      (date? ' · '+esc(noDate(date)) : "")+'</a>';
+  }
+  function renderSaksarkiv(k){
+    var s = k.saksbehandling;
+    var head = '<h2>Saksbehandling / arkiv</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">En '+
+        '<b>egen akse, skilt fra e-post</b>: hvilket sak-/arkivsystem (NOARK-5 '+
+        'sakarkiv) organet bruker, og hvilken jurisdiksjon driften svarer til. '+
+        'Leverandøren er kildebelagt per organ; hostingen er enten <b>utledet</b> '+
+        'fra leverandøren (flagget) eller <b>bekreftet</b> via innsyn etter '+
+        'offentleglova. Påvirker ikke e-postverdiktet over.</p>';
+    if(!s){
+      // Honest empty state + the "krev innsyn" intake CTA (the offentleglova tool
+      // is rendered right below, in the funnel).
+      return head+
+        '<div class="facts">'+fact("Saksarkiv", "Ikke kartlagt ennå", "")+'</div>'+
+        '<div class="panel"><p style="margin:0">Vi har ikke kildebelagt sak-/'+
+          'arkivsystemet for dette organet ennå. <b>Krev innsyn</b> etter '+
+          'offentleglova (bruk innsynsmalen under) og send oss svaret på '+
+          '<a href="mailto:'+esc(PRESS_EMAIL)+'">'+esc(PRESS_EMAIL)+'</a> — så '+
+          'kartlegger vi det, med kilde.</p></div>';
+    }
+    var vendorFact = fact("Saksarkiv", esc(s.vendor)+
+      ' <span class="sak-src">'+sakSrc(s.vendor_source, s.vendor_date)+'</span>');
+    var h = s.hosting, hostFact;
+    if(!h){
+      hostFact = fact("Hosting (jurisdiksjon)", "Uavklart", "");
+    } else if(h.confirmed){
+      hostFact = fact("Hosting (jurisdiksjon)",
+        esc(h.jurisdiction)+' — <b>bekreftet via innsyn'+
+          (h.date? ' '+esc(noDate(h.date)) : "")+'</b>'+
+          ' <span class="sak-src">'+sakSrc(h.source, h.date, "innsynssvar")+'</span>',
+        jurCls(h.jurisdiction));
+    } else {
+      var src = h.source
+        ? ' <span class="sak-src">'+sakSrc(h.source, null, "leverandørkilde")+'</span>' : "";
+      hostFact = fact("Hosting (jurisdiksjon)",
+        esc(h.jurisdiction)+' <span class="sak-inferred">(utledet fra leverandør, '+
+          esc(h.confidence_label || h.confidence)+')</span>'+src,
+        jurCls(h.jurisdiction));
+    }
+    var note = s.note
+      ? '<p style="font-size:13px;color:var(--muted);margin-top:10px">'+esc(s.note)+'</p>'
+      : "";
+    return head+'<div class="facts">'+vendorFact+hostFact+'</div>'+note;
   }
   // ---- Activism funnel (issue #3): turn each detail page into ACTION ------
   // Templates are baked here, client-side, from the entity name — no runtime
@@ -1660,6 +1728,7 @@
       renderNotProven(k)+
       renderScoreTrend(k)+
       renderWebAxis(k)+
+      renderSaksarkiv(k)+
       renderFunnel(k, catKey);
   }
 

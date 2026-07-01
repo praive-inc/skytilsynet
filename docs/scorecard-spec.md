@@ -222,6 +222,36 @@ its output.
   axis lifted to full sovereignty. Framed as a procurement/strategy change, never
   a personal attack (rule 6). An already-sovereign body is told to hold the line.
 
+### 9. Saksbehandling / arkiv axis: vendor + hosting jurisdiction (issue #50)
+
+A second honest axis beyond email: which **case-management/archive (NOARK-5
+sakarkiv)** system each body runs, and the jurisdiction that system's hosting
+answers to. It is a *distinct* axis, rendered in its own per-entity block and
+never conflated with the email verdict — and, like the email axis, it never
+enters the §8 score (which stays email + web + governance).
+
+- **Two sub-axes, different confidence.** The **vendor** is citable per body
+  (`data/saksbehandling.csv`, CC-BY, human-appendable as answers arrive; one row
+  per domain, each carrying a `vendor_source` + `vendor_date`). The **hosting**
+  jurisdiction is either *inferred* from an open vendor→hosting table (in
+  `build.py`: `VENDOR_HOSTING`, each row carrying a source + a confidence) or
+  *confirmed* per body via an offentleglova FOI answer the operator collects
+  (`hosting_method=innsyn-foi`, with its own source + date).
+- **Rule 1 is binding, twice.** A CSV row with no `vendor_source` is **not** a
+  verdict (`resolve_saksbehandling` returns `None`). A table row that asserts a
+  real jurisdiction MUST carry a source; a customer-choosable/unknown vendor
+  (Acos WebSak, ePhorte) stays `Uavklart` and asserts nothing.
+- **Honest framing.** Table-derived hosting always renders *"utledet fra
+  leverandør, &lt;confidence&gt;"* — only a FOI answer earns *"bekreftet via
+  innsyn &lt;dato&gt;"*. No unflagged per-body jurisdiction claim from the table.
+  (Confidence in the seed table is deliberately conservative — Documaster's
+  Nordic hosting and Sikri's Azure are vendor positioning we could not pin to a
+  single hard statement, so both are *circumstantial*, not *confirmed*.)
+- **Empty state + intake funnel.** A body with no row shows *"ikke kartlagt
+  ennå"* + a "krev innsyn" CTA (the offentleglova template is already on the
+  card). An aggregate line states *"Saksarkiv kartlagt for X av N; Y med hosting
+  bekreftet via innsyn"* — never inflated by inferences.
+
 ## MVP scope (what ships)
 
 1. DNS email-sovereignty pipeline (productionise the prototype: scheduled,
@@ -233,8 +263,9 @@ its output.
 
 ## Out of scope (roadmap)
 
-- Additional axes (web hosting/CDN signatures, procurement contracts via
-  TED/Doffin, productivity-suite detection) — additive once the surface exists.
+- Additional axes (procurement contracts via TED/Doffin, productivity-suite
+  detection) — additive once the surface exists. (The web-infrastructure axis
+  shipped in §5/§8; the saksbehandling/arkiv axis in §9.)
 - Other public-body types (counties, state agencies, hospitals) and other EEA
   markets — the model is designed to generalize (RFC-016), built Norway-first.
 - The business/employer (private-company) scorecard — same engine, its own RFC.

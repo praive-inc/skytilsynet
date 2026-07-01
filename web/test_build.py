@@ -1780,5 +1780,172 @@ class EnglishPageWiredIntoMain(unittest.TestCase):
         self.cats = build.build_categories(DATA, STAT, None, SEEDED)
 
 
+# Issue #50: the saksbehandling / arkiv axis. A synthetic intake mirroring the
+# CSV shape (domain -> row). Exercises each rendering branch: FOI-confirmed,
+# table-inferred, and a vendor claim with no source (rule 1 → not a verdict).
+SAK = {
+    # Table-inferred hosting: a vendor in the table, no hosting_method → the
+    # vendor→hosting table supplies an *inferred*, flagged jurisdiction.
+    "oslo.kommune.no": {
+        "domain": "oslo.kommune.no", "category": "kommune",
+        "vendor": "Tietoevry Public 360", "vendor_method": "portal-fingerprint",
+        "vendor_source": "https://example.org/oslo-360", "vendor_date": "2026-06-01",
+        "hosting": "", "hosting_jurisdiction": "", "hosting_method": "",
+        "hosting_source": "", "hosting_date": "", "note": ""},
+    # FOI-confirmed hosting: hosting_method=innsyn-foi earns "bekreftet via innsyn".
+    "baerum.kommune.no": {
+        "domain": "baerum.kommune.no", "category": "kommune",
+        "vendor": "Documaster", "vendor_method": "vendor-statement",
+        "vendor_source": "https://example.org/baerum", "vendor_date": "2026-06-02",
+        "hosting": "Documaster (Norge)", "hosting_jurisdiction": "Norge / EØS",
+        "hosting_method": "innsyn-foi", "hosting_source": "https://example.org/baerum-innsyn",
+        "hosting_date": "2026-06-15", "note": "Bekreftet i innsynssvar."},
+    # A vendor claim with NO source → not rendered as a verdict (CLAUDE.md rule 1).
+    "nykommuneilofoten.no": {
+        "domain": "nykommuneilofoten.no", "category": "kommune",
+        "vendor": "Acos WebSak", "vendor_method": "curated", "vendor_source": "",
+        "vendor_date": "", "hosting": "", "hosting_jurisdiction": "",
+        "hosting_method": "", "hosting_source": "", "hosting_date": "", "note": ""},
+    # (alvdal.kommune.no deliberately absent → "ikke kartlagt ennå".)
+}
+
+
+class SaksbehandlingResolve(unittest.TestCase):
+    """The pure resolver: a raw CSV row → the rendered saksbehandling record."""
+
+    def test_table_inferred_hosting_is_flagged_never_confirmed(self):
+        rec = build.resolve_saksbehandling(SAK["oslo.kommune.no"])
+        self.assertEqual(rec["vendor"], "Tietoevry Public 360")
+        self.assertEqual(rec["vendor_source"], "https://example.org/oslo-360")
+        h = rec["hosting"]
+        self.assertFalse(h["confirmed"])
+        self.assertEqual(h["method"], "vendor-table")
+        self.assertEqual(h["jurisdiction"], "United States (CLOUD Act)")
+        self.assertEqual(h["confidence"], "confirmed")     # the TABLE's confidence
+        self.assertIsNotNone(h["source"])                  # the table row's source
+
+    def test_foi_confirmed_hosting_earns_bekreftet(self):
+        rec = build.resolve_saksbehandling(SAK["baerum.kommune.no"])
+        h = rec["hosting"]
+        self.assertTrue(h["confirmed"])
+        self.assertEqual(h["method"], "innsyn-foi")
+        self.assertEqual(h["jurisdiction"], "Norge / EØS")
+        self.assertEqual(h["source"], "https://example.org/baerum-innsyn")
+        self.assertEqual(h["date"], "2026-06-15")
+
+    def test_vendor_without_source_is_not_a_verdict(self):
+        # Rule 1 is binding: a claim without a source URL is not rendered.
+        self.assertIsNone(build.resolve_saksbehandling(SAK["nykommuneilofoten.no"]))
+
+    def test_vendor_not_in_table_has_no_inferred_hosting(self):
+        row = {"domain": "x", "vendor": "Ukjent Sakssystem AS",
+               "vendor_source": "https://example.org/x", "vendor_date": "2026-06-01",
+               "hosting_method": ""}
+        rec = build.resolve_saksbehandling(row)
+        self.assertEqual(rec["vendor"], "Ukjent Sakssystem AS")
+        self.assertIsNone(rec["hosting"])
+
+    def test_every_table_row_with_a_jurisdiction_carries_a_source(self):
+        # Rule 1 across the whole inference table: any row that asserts a real
+        # (non-"Uavklart") jurisdiction MUST carry a source URL.
+        for vendor, t in build.VENDOR_HOSTING.items():
+            if t["jurisdiction"] != "Uavklart":
+                self.assertTrue(t.get("source"), "%s asserts a jurisdiction with no source" % vendor)
+
+
+class SaksbehandlingAttach(unittest.TestCase):
+    """The join onto entities + the aggregate, and that it stays out of light data."""
+
+    def setUp(self):
+        self.cats = build.build_categories(DATA, STAT, WEB, sak=SAK)
+        self.files = build.detail_files(self.cats)
+
+    def _kommune(self, name):
+        arr = json.loads(self.files["detail-kommune.json"])
+        return next(k for k in arr if k["name"] == name)
+
+    def test_record_joined_by_domain(self):
+        self.assertEqual(self._kommune("Oslo")["saksbehandling"]["vendor"],
+                         "Tietoevry Public 360")
+
+    def test_entity_without_row_has_none(self):
+        self.assertIsNone(self._kommune("Alvdal")["saksbehandling"])
+
+    def test_sourceless_row_yields_none(self):
+        self.assertIsNone(self._kommune("Vest-Lofoten")["saksbehandling"])
+
+    def test_axis_does_not_alter_email_verdict(self):
+        oslo = self._kommune("Oslo")
+        self.assertEqual(oslo["platform"], "US_MICROSOFT")     # unchanged
+        self.assertEqual(oslo["verdict"]["platform"], "US_MICROSOFT")
+
+    def test_saksbehandling_not_in_light_data(self):
+        # Heavy evidence rides only in the detail files, never inline (issue #34).
+        light = build.light_categories(self.cats)
+        oslo = next(e for c in light for e in c["entities"] if e["name"] == "Oslo")
+        self.assertNotIn("saksbehandling", oslo)
+
+    def test_aggregate_counts_mapped_and_confirmed(self):
+        agg = build.sak_aggregate(self.cats)
+        # Oslo (table-inferred) + Bærum (FOI) are mapped; Vest-Lofoten sourceless,
+        # Alvdal + the 2 stat organ absent. 6 entities total.
+        self.assertEqual(agg["total"], 6)
+        self.assertEqual(agg["mapped"], 2)
+        self.assertEqual(agg["confirmed"], 1)                  # only Bærum via innsyn
+
+
+class SaksbehandlingRender(unittest.TestCase):
+    """The per-entity block and the aggregate line, in the built page + detail JS."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB, sak=SAK)
+
+    def test_axis_has_its_own_block_and_intake_cta(self):
+        self.assertIn("k.saksbehandling", self.html)           # detail iterates it
+        self.assertIn("Saksbehandling / arkiv", self.html)     # its own heading
+        self.assertIn("Ikke kartlagt ennå", self.html)         # unmapped empty state
+        self.assertIn("Krev innsyn", self.html)                # intake CTA
+
+    def test_render_distinguishes_confirmed_from_inferred(self):
+        self.assertIn("bekreftet via innsyn", self.html)       # FOI path
+        self.assertIn("utledet fra leverandør", self.html)     # table path
+
+    def test_aggregate_line_present_and_derived(self):
+        agg = build.sak_aggregate(build.build_categories(DATA, STAT, WEB, sak=SAK))
+        self.assertIn("Saksarkiv kartlagt for %d av %d" % (agg["mapped"], agg["total"]),
+                      self.html)
+        self.assertIn("%d med hosting bekreftet via innsyn" % agg["confirmed"], self.html)
+
+    def test_builds_without_sak_data(self):
+        # Backward compatible: the saksbehandling intake is optional.
+        html = build.build_html(DATA, HISTORY, TREND, STAT)
+        self.assertIn("Oslo", html)
+        cats = build.build_categories(DATA, STAT)
+        oslo = next(e for e in cats[0]["entities"] if e["name"] == "Oslo")
+        self.assertIsNone(oslo["saksbehandling"])
+
+
+class SaksbehandlingSeed(unittest.TestCase):
+    """The committed seed CSV: citable rows only, parsed by the loader."""
+
+    def test_seed_csv_loads_and_has_larvik_acos_row(self):
+        idx = build.load_saksbehandling()
+        self.assertIn("larvik.kommune.no", idx)
+        row = idx["larvik.kommune.no"]
+        self.assertEqual(row["vendor"], "Acos WebSak")
+        self.assertTrue(row["vendor_source"].startswith("http"))
+        self.assertTrue(row["vendor_date"])
+
+    def test_real_build_surfaces_larvik_saksarkiv(self):
+        idx = build.load_saksbehandling()
+        data = json.load(open(build.DATA))
+        cats = build.build_categories(data, sak=idx)
+        larvik = next(e for e in cats[0]["entities"]
+                      if e.get("domain") == "larvik.kommune.no")
+        self.assertEqual(larvik["saksbehandling"]["vendor"], "Acos WebSak")
+        # Acos hosting is customer-choosable → table says Uavklart, never a verdict.
+        self.assertEqual(larvik["saksbehandling"]["hosting"]["jurisdiction"], "Uavklart")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -60,6 +60,7 @@ DATA_DOWNLOADS = [
     ("helseforetak-email-sovereignty.latest.json", "Helseforetak — e-post"),
     ("uh-sektor-email-sovereignty.latest.json", "Universiteter og høgskoler — e-post"),
     ("kommune-web-sovereignty.latest.json", "Kommuner — web-akse (infrastruktur)"),
+    ("saksbehandling.csv", "Saksbehandling / arkiv — leverandør + hosting (CSV)"),
 ]
 
 MS = "US_MICROSOFT"
@@ -385,15 +386,126 @@ def attach_web(entities, web_index):
             for e in entities]
 
 
-def build_categories(data, stat=None, web=None, seeded=None):
+# --------------------------------------------------------------------------
+# Saksbehandling / arkiv axis (issue #50): the SECOND honest axis beyond email —
+# which case-management/archive (NOARK-5 sakarkiv) system each body runs, and the
+# jurisdiction that system's hosting answers to. Two sub-axes with DIFFERENT
+# confidence: the VENDOR is citable per body (a row in data/saksbehandling.csv);
+# the HOSTING is either *inferred* from the vendor→hosting table below (always
+# flagged) or *confirmed* per body via an offentleglova FOI answer the operator
+# collects (hosting_method=innsyn-foi). Rule 1 is binding — a claim without a
+# source is never rendered as a verdict.
+
+# The published, source-carrying vendor→hosting inference table. Each row is what
+# a browser/citizen can verify about the VENDOR's hosting (never a per-body claim):
+# a body only earns an *inferred* jurisdiction here, always flagged with its
+# confidence and the vendor's own source. "Uavklart" asserts nothing, so it needs
+# no source; a real jurisdiction MUST carry one. Confidence is deliberately
+# conservative — Documaster's Nordic hosting and Sikri's Azure are vendor
+# positioning we could not pin to a single hard statement, so both are marked
+# circumstantial rather than confirmed (honesty over the roadmap table).
+VENDOR_HOSTING = {
+    "Tietoevry Public 360": {
+        "hosting": "Microsoft Azure", "jurisdiction": "United States (CLOUD Act)",
+        "confidence": "confirmed",   # vendor-stated on the Azure marketplace listing
+        "source": "https://marketplace.microsoft.com/en-us/product/web-apps/tietocorporation-1060429.public_360"},
+    "Sikri Elements": {
+        "hosting": "Microsoft Azure (sannsynlig)", "jurisdiction": "United States (CLOUD Act)",
+        "confidence": "circumstantial",
+        "source": "https://www.sikri.no/produkter/elements"},
+    "Acos WebSak": {
+        "hosting": "Ikke offentliggjort (kundevalg)", "jurisdiction": "Uavklart",
+        "confidence": "unknown", "source": None},
+    "Documaster": {
+        "hosting": "Norske/nordiske datasentre", "jurisdiction": "Norge / EØS",
+        "confidence": "circumstantial", "source": "https://www.documaster.com/"},
+    "ePhorte (legacy)": {
+        "hosting": "Varierer", "jurisdiction": "Uavklart",
+        "confidence": "unknown", "source": None},
+}
+# The confidence tokens, in Norwegian for display (kept English in the data so the
+# tests and dataset stay language-neutral). "confirmed" here is *vendor-confirmed*,
+# never the FOI "bekreftet" — the two must not be confused.
+_SAK_CONF_NO = {"confirmed": "leverandørbekreftet", "circumstantial": "indisier",
+                "unknown": "ukjent"}
+SAKSBEHANDLING = os.path.join(ROOT, "data", "saksbehandling.csv")
+
+
+def load_saksbehandling(path=SAKSBEHANDLING):
+    """The committed CC-BY intake, keyed by domain. Human-appendable as FOI answers
+    arrive — an empty/absent file just means no bodies mapped yet."""
+    import csv
+    if not os.path.exists(path):
+        return {}
+    with open(path, newline="", encoding="utf-8") as f:
+        return {r["domain"]: r for r in csv.DictReader(f) if r.get("domain")}
+
+
+def resolve_saksbehandling(row, vendor_table=VENDOR_HOSTING):
+    """A raw CSV row → the rendered saksbehandling record, or None. A vendor claim
+    without a source URL is NOT a verdict (rule 1) → None. Hosting is *confirmed*
+    only when hosting_method=innsyn-foi (an offentleglova answer); otherwise it
+    falls back to the vendor→hosting table (an *inferred*, flagged jurisdiction),
+    or None when the vendor isn't in the table."""
+    if not row.get("vendor") or not row.get("vendor_source"):
+        return None
+    rec = {
+        "vendor": row["vendor"],
+        "vendor_method": row.get("vendor_method") or None,
+        "vendor_source": row.get("vendor_source"),
+        "vendor_date": row.get("vendor_date") or None,
+        "note": row.get("note") or None,
+    }
+    if (row.get("hosting_method") or "") == "innsyn-foi" and row.get("hosting_source"):
+        rec["hosting"] = {
+            "confirmed": True, "method": "innsyn-foi",
+            "jurisdiction": row.get("hosting_jurisdiction") or "Uavklart",
+            "hosting": row.get("hosting") or None,
+            "confidence": None, "confidence_label": None,
+            "source": row.get("hosting_source"), "date": row.get("hosting_date") or None,
+        }
+    else:
+        t = vendor_table.get(row["vendor"])
+        rec["hosting"] = {
+            "confirmed": False, "method": "vendor-table",
+            "jurisdiction": t["jurisdiction"], "hosting": t["hosting"],
+            "confidence": t["confidence"],
+            "confidence_label": _SAK_CONF_NO.get(t["confidence"], t["confidence"]),
+            "source": t.get("source"), "date": None,
+        } if t else None
+    return rec
+
+
+def attach_saksbehandling(entities, sak_index):
+    """Join each body's saksbehandling record onto it as `saksbehandling`, keyed by
+    email domain. Bodies with no intake row carry None — the axis stays distinct
+    from the email verdict, and 'ikke kartlagt ennå' is an honest empty state."""
+    return [{**e, "saksbehandling":
+             resolve_saksbehandling(sak_index[e.get("domain")])
+             if e.get("domain") in sak_index else None}
+            for e in entities]
+
+
+def sak_aggregate(categories):
+    """The honest tally for the aggregate line: how many bodies are mapped at all,
+    and how many have hosting CONFIRMED via innsyn (never inflated by inferences)."""
+    ents = [e for c in categories for e in c["entities"]]
+    mapped = [e for e in ents if e.get("saksbehandling")]
+    confirmed = [e for e in mapped if (e["saksbehandling"].get("hosting") or {}).get("confirmed")]
+    return {"mapped": len(mapped), "total": len(ents), "confirmed": len(confirmed)}
+
+
+def build_categories(data, stat=None, web=None, seeded=None, sak=None):
     """The full per-category model: each {key, label, summary, entities} with the
     web axis joined and names normalized. This is the SOURCE of truth used twice —
     the page bakes a LIGHT slice of it inline (`light_categories`) for first paint,
     and the on-demand detail files (`detail_files`) carry the full entities."""
     web_index = index_web(web)
+    sak_index = sak or {}
+    join = lambda recs: attach_saksbehandling(attach_web(normalize(recs), web_index), sak_index)
     categories = [{
         "key": "kommune", "label": "Kommuner", "summary": data["summary"],
-        "entities": attach_web(normalize(data["kommuner"]), web_index),
+        "entities": join(data["kommuner"]),
     }]
     extra = []
     if stat:
@@ -402,7 +514,7 @@ def build_categories(data, stat=None, web=None, seeded=None):
     for ds, key, label in extra:
         categories.append({
             "key": key, "label": label, "summary": ds["summary"],
-            "entities": attach_web(normalize(ds["organ"]), web_index),
+            "entities": join(ds["organ"]),
         })
     assign_scores(categories)
     return categories
@@ -1251,8 +1363,14 @@ def render_html(meta, categories, history, trend, corrections=None):
     # server-side so the press page works with no JS for first read.
     press_figs = press_figures_html(categories)
     press_snips = press_snippets_html(meta, us_pct, cartogram_colorstring(categories))
+    # Saksbehandling / arkiv axis (issue #50): the honest aggregate line, derived
+    # from the live intake — never inflated by table inferences.
+    sa = sak_aggregate(categories)
+    sak_line = ("<b>Saksarkiv kartlagt for {mapped} av {total} organ; "
+                "{confirmed} med hosting bekreftet via innsyn.</b>").format(**sa)
     return (_TEMPLATE
             .replace("/*__DATA__*/", blob)
+            .replace("<!--__SAK_AGGREGATE__-->", sak_line)
             .replace("<!--__DOWNLOADS__-->", downloads)
             .replace("<!--__VERDICT_H1__-->", h1)
             .replace("<!--__VERDICT_SUB__-->", sub)
@@ -1268,11 +1386,11 @@ def render_html(meta, categories, history, trend, corrections=None):
 
 
 def build_html(data, history, trend, stat=None, web=None, seeded=None,
-               corrections=None):
+               corrections=None, sak=None):
     """Convenience wrapper: build the full category model and render. Pure —
     same inputs -> same output. (main() builds the model once and also writes the
     on-demand detail files from it.)"""
-    return render_html(data["meta"], build_categories(data, stat, web, seeded),
+    return render_html(data["meta"], build_categories(data, stat, web, seeded, sak),
                        history, trend, corrections)
 
 
@@ -1324,9 +1442,10 @@ def main():
     web = json.load(open(WEB_DATA)) if os.path.exists(WEB_DATA) else None
     history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
     corrections = json.load(open(CORRECTIONS)) if os.path.exists(CORRECTIONS) else []
+    sak = load_saksbehandling()
     old, new = load_snapshots()
     trend = compute_trend(old, new)
-    categories = build_categories(data, stat, web, seeded)
+    categories = build_categories(data, stat, web, seeded, sak)
     attach_trends(categories)
     html = render_html(data["meta"], categories, history, trend, corrections)
     with open(OUT, "w") as f:
@@ -1546,6 +1665,11 @@ _TEMPLATE = r"""<!doctype html>
   .fact .k{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
   .fact .v{font-size:var(--text-lg);font-weight:600;margin-top:var(--space-1)}
   .fact .v.red{color:var(--red)} .fact .v.green{color:var(--green)}
+  /* Saksbehandling / arkiv axis (issue #50): the inferred-vs-confirmed flag + source. */
+  .sak-inferred{font-size:var(--text-sm);font-weight:400;color:var(--muted)}
+  .sak-src{font-size:var(--text-xs);font-weight:400}
+  .sak-src a{color:var(--accent)}
+  .sak-agg{display:block;margin-top:var(--space-2);color:var(--muted)}
   /* Suverenitetsscore (issue #38): the per-entity score, formula + lever. */
   .scorecard{border-radius:var(--radius);border:1px solid var(--line);
     background:linear-gradient(180deg,var(--surface-2),var(--surface));
@@ -2245,6 +2369,14 @@ _TEMPLATE = r"""<!doctype html>
         HTTP-headere, innebygde tredjeparts-ressurser og TLS-utsteder — utledet av
         det en nettleser uansett henter. Den påvirker aldri e-postverdiktet; de to
         aksene holdes adskilt.</p>
+      <p><b>Saksbehandling / arkiv (tredje akse).</b> Hvilket sak-/arkivsystem
+        (NOARK-5 sakarkiv) organet bruker, og hvilken jurisdiksjon driften svarer
+        til. To delakser med ulik sikkerhet: <b>leverandøren</b> kildebelegges per
+        organ, mens <b>hostingen</b> enten <i>utledes</i> fra en åpen leverandør→
+        hosting-tabell (alltid flagget med sikkerhetsgrad) eller <i>bekreftes</i>
+        per organ via et innsynssvar etter offentleglova. Ingen jurisdiksjon
+        påstås per organ fra tabellen uten «utledet»-flagget; bare innsynssvar gir
+        «bekreftet». <span class="sak-agg"><!--__SAK_AGGREGATE__--></span></p>
       <p><b>Klassifiseringskoden er åpen.</b> Reglene som gjør et DNS-oppslag om til
         et verdikt er ikke en svart boks — de er én lesbar fil du kan etterprøve
         linje for linje:
@@ -2351,6 +2483,7 @@ _TEMPLATE = r"""<!doctype html>
   var DB = JSON.parse(document.getElementById("data").textContent);
   var CATS = DB.categories;                 // [{key,label,summary,entities}]
   var COMBINED = DB.combined;               // headline over the whole public sector
+  var PRESS_EMAIL = "<!--__PRESS_CONTACT_EMAIL__-->";  // intake address for FOI answers (#50)
   function nameOf(k){ return k.name || k.kommune; }
 
   // platform -> {label, juris, css color class}
@@ -2595,7 +2728,8 @@ _TEMPLATE = r"""<!doctype html>
   // Jurisdiction string -> the same red/green coding the email axis uses.
   function jurCls(j){
     j = j || "";
-    return /CLOUD Act/.test(j) ? "red" : /\(EEA\)|\(EU\)/.test(j) ? "green" : "";
+    return /CLOUD Act/.test(j) ? "red"
+         : /\(EEA\)|\(EU\)|EØS/.test(j) ? "green" : "";
   }
   // ---- Web axis (issue #13): the SECOND, distinct axis. Where does the website
   // infrastructure answer to? Joined per entity by website domain, never merged
@@ -2636,6 +2770,59 @@ _TEMPLATE = r"""<!doctype html>
         'ressurser + TLS-utsteder) og offentlig DNS (A → Team Cymru origin-ASN'+
         (host.asn? ": AS"+esc(host.asn)+(host.name?" "+esc(host.name):""):"")+
         '), målt '+esc(noDate(w.sourceDate || DB.meta.sourceDate))+'.</p>';
+  }
+  // ---- Saksbehandling / arkiv axis (issue #50): the THIRD axis. Which NOARK-5
+  // sakarkiv system the body runs, and its hosting jurisdiction. Two sub-axes:
+  // the vendor is cited per body; the hosting is either INFERRED from the open
+  // vendor→hosting table (always flagged) or CONFIRMED via an offentleglova FOI
+  // answer (only that earns "bekreftet"). No record → "ikke kartlagt" + intake CTA.
+  function sakSrc(url, date, label){
+    return '<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(label||"kilde")+
+      (date? ' · '+esc(noDate(date)) : "")+'</a>';
+  }
+  function renderSaksarkiv(k){
+    var s = k.saksbehandling;
+    var head = '<h2>Saksbehandling / arkiv</h2>'+
+      '<p style="font-size:13px;color:var(--muted);margin:-6px 0 12px">En '+
+        '<b>egen akse, skilt fra e-post</b>: hvilket sak-/arkivsystem (NOARK-5 '+
+        'sakarkiv) organet bruker, og hvilken jurisdiksjon driften svarer til. '+
+        'Leverandøren er kildebelagt per organ; hostingen er enten <b>utledet</b> '+
+        'fra leverandøren (flagget) eller <b>bekreftet</b> via innsyn etter '+
+        'offentleglova. Påvirker ikke e-postverdiktet over.</p>';
+    if(!s){
+      // Honest empty state + the "krev innsyn" intake CTA (the offentleglova tool
+      // is rendered right below, in the funnel).
+      return head+
+        '<div class="facts">'+fact("Saksarkiv", "Ikke kartlagt ennå", "")+'</div>'+
+        '<div class="panel"><p style="margin:0">Vi har ikke kildebelagt sak-/'+
+          'arkivsystemet for dette organet ennå. <b>Krev innsyn</b> etter '+
+          'offentleglova (bruk innsynsmalen under) og send oss svaret på '+
+          '<a href="mailto:'+esc(PRESS_EMAIL)+'">'+esc(PRESS_EMAIL)+'</a> — så '+
+          'kartlegger vi det, med kilde.</p></div>';
+    }
+    var vendorFact = fact("Saksarkiv", esc(s.vendor)+
+      ' <span class="sak-src">'+sakSrc(s.vendor_source, s.vendor_date)+'</span>');
+    var h = s.hosting, hostFact;
+    if(!h){
+      hostFact = fact("Hosting (jurisdiksjon)", "Uavklart", "");
+    } else if(h.confirmed){
+      hostFact = fact("Hosting (jurisdiksjon)",
+        esc(h.jurisdiction)+' — <b>bekreftet via innsyn'+
+          (h.date? ' '+esc(noDate(h.date)) : "")+'</b>'+
+          ' <span class="sak-src">'+sakSrc(h.source, h.date, "innsynssvar")+'</span>',
+        jurCls(h.jurisdiction));
+    } else {
+      var src = h.source
+        ? ' <span class="sak-src">'+sakSrc(h.source, null, "leverandørkilde")+'</span>' : "";
+      hostFact = fact("Hosting (jurisdiksjon)",
+        esc(h.jurisdiction)+' <span class="sak-inferred">(utledet fra leverandør, '+
+          esc(h.confidence_label || h.confidence)+')</span>'+src,
+        jurCls(h.jurisdiction));
+    }
+    var note = s.note
+      ? '<p style="font-size:13px;color:var(--muted);margin-top:10px">'+esc(s.note)+'</p>'
+      : "";
+    return head+'<div class="facts">'+vendorFact+hostFact+'</div>'+note;
   }
   // ---- Activism funnel (issue #3): turn each detail page into ACTION ------
   // Templates are baked here, client-side, from the entity name — no runtime
@@ -3002,6 +3189,7 @@ _TEMPLATE = r"""<!doctype html>
       renderNotProven(k)+
       renderScoreTrend(k)+
       renderWebAxis(k)+
+      renderSaksarkiv(k)+
       renderFunnel(k, catKey);
   }
 
