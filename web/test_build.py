@@ -622,11 +622,17 @@ class ActivismFunnel(unittest.TestCase):
         self.assertIn("strategi", self.html.lower())
 
     def test_funnel_keeps_no_per_citizen_records(self):
-        # Rule 5: aggregate-only. The funnel must not collect/submit citizen data —
-        # no form, no e-mail capture field, copy-to-clipboard / mailto only.
-        self.assertNotIn("<form", self.html)
+        # Rule 5: aggregate-only. The activism levers stay copy-to-clipboard / mailto
+        # (no citizen data captured). The FOI intake form (issue #54) DOES post — but
+        # only ABOUT the organ (domain/vendor/hosting), never a personal field: no
+        # e-mail capture, no name/contact input.
         self.assertNotIn('type="email"', self.html)
+        self.assertNotIn('name="epost"', self.html)
+        self.assertNotIn('name="navn"', self.html)
         self.assertIn("clipboard", self.html)
+        # The only form is the FOI answer intake, keyed on the body's domain.
+        self.assertIn('class="foi-form"', self.html)
+        self.assertIn('name="domain"', self.html)
 
     def test_copy_button_is_present(self):
         self.assertIn("Kopier", self.html)
@@ -2026,8 +2032,58 @@ class InnsynFoiKit(unittest.TestCase):
         view = self.html[start:self.html.index("</section>", start)]
         self.assertIn("ingen personopplysningar", view.lower())
         self.assertIn("aggregerte data", view.lower())
-        # And explains how an answer feeds the map (send it to the intake alias).
-        self.assertIn(build.PRESS_CONTACT_EMAIL, view)
+        # And explains how an answer feeds the map (via the /bidra intake form —
+        # the dead presse@ mailto is gone, issue #54).
+        self.assertIn("/bidra", view)
+
+
+class FoiIntakeForm(unittest.TestCase):
+    """Issue #54: the 'Send oss svaret' intake replaces the dead presse@ mailto.
+    A prefilled form on each organ card (via renderSaksarkiv) + a standalone /bidra
+    page, both POSTing to /api/foi — stored for manual review, no personal data."""
+
+    def setUp(self):
+        self.html = build.build_html(DATA, HISTORY, TREND, STAT, WEB)
+
+    def test_no_presse_email_anywhere(self):
+        # The whole point: the dead intake alias is gone from the page.
+        self.assertNotIn("presse@skytilsynet.no", self.html)
+        self.assertFalse(hasattr(build, "PRESS_CONTACT_EMAIL"))
+
+    def test_foi_form_posts_to_api_and_is_prefilled(self):
+        self.assertIn('action="/api/foi"', self.html)
+        self.assertIn('class="foi-form"', self.html)
+        # The domain is baked into the form per organ (prefill), and the submit
+        # handler enhances it with a fetch to the same endpoint.
+        self.assertIn('name="domain"', self.html)
+        self.assertIn('fetch("/api/foi"', self.html)
+        self.assertIn("foiForm(k)", self.html)
+
+    def test_honeypot_name_matches_the_backend(self):
+        # The honeypot field is baked from the server's constant so the two never
+        # drift — a mismatch would silently break bot rejection.
+        from server.foi_intake import HONEYPOT_FIELD
+        self.assertIn('var HP_FIELD = "%s"' % HONEYPOT_FIELD, self.html)
+
+    def test_bidra_page_is_a_standalone_no_js_form(self):
+        page = build.render_bidra_html()
+        self.assertIn('action="/api/foi"', page)       # native submit works w/o JS
+        self.assertIn('method="post"', page)
+        self.assertIn('name="domain"', page)
+        # Rule 2: the independence disclaimer is on the public-facing page.
+        self.assertIn("uavhengig prosjekt", page)
+        # Rule 5: no required personal-data field.
+        self.assertNotIn('type="email"', page)
+        self.assertNotIn('name="navn"', page)
+        # The honeypot is present and matches the backend.
+        from server.foi_intake import HONEYPOT_FIELD
+        self.assertIn('name="%s"' % HONEYPOT_FIELD, page)
+
+    def test_write_bidra_file_emits_index(self):
+        import tempfile
+        dest = tempfile.mkdtemp()
+        build.write_bidra_file(dest)
+        self.assertTrue(os.path.exists(os.path.join(dest, "bidra", "index.html")))
 
 
 if __name__ == "__main__":
