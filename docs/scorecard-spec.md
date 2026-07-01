@@ -38,8 +38,11 @@ Validated by research 2026-06-27 and a working data spike:
   2025-05-15; 2026 on-site inspections). Digitaliseringsminister Karianne Tung
   publicly challenged Microsoft's ~75% public-sector share (Apr 2026).
 - A **vivid benchmark**: Schleswig-Holstein moved ~30,000 workstations off
-  Windows/M365 (≈€15M/yr saved); Norway's own Larvik kommune freed its
-  case-management from both Microsoft and Google (≈NOK 10M/yr saved).
+  Windows/M365 (≈€15M/yr saved); Norway's own Larvik kommune made its
+  case-handling document production independent of Microsoft Word and Google Docs
+  by building the editor into its Norwegian case system (Acos WebSak). (NB: the
+  often-cited "≈NOK 10M/yr" was a *separate* 2019 licensing move, and Larvik's
+  email/office suite still runs on Google — sovereignty is won system by system.)
 - **The data spike already proves feasibility.** A zero-cost DNS scan
   ([kommune-sovereignty-scan](../scanner/)) classified
   all 358 municipalities by email platform: **90.2% on Microsoft 365, 91.3% on a

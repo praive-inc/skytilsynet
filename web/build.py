@@ -2182,8 +2182,11 @@ _TEMPLATE = r"""<!doctype html>
         Microsoft 365 over på Linux og åpen kildekode — anslått <b>≈ 15 mill. euro
         spart per år</b> og full kontroll over egen infrastruktur.</p>
       <h3 style="margin-top:14px">Larvik kommune</h3>
-      <p>Larvik friga saksbehandlingen sin fra både Microsoft og Google — anslått
-        <b>≈ 10 mill. kroner spart per år</b>. Det er gjort, i Norge, av en kommune.</p>
+      <p>Larvik gjorde selve saksbehandlingen uavhengig av Microsoft Word og Google
+        Docs: teksteditoren er bygget inn i det norske saksbehandlingssystemet (Acos
+        WebSak), så standardbrev — rundt <b>99 % av utgående post</b> — skrives uten
+        amerikanske kontorverktøy. Gjort, i Norge, av en kommune.
+        <a href="https://www.digi.no/artikler/norsk-kommune-frir-seg-fra-microsoft-foles-fantastisk/566770" rel="nofollow noopener" target="_blank">(digi.no)</a></p>
       <p style="font-size:13px;color:var(--muted);margin-top:10px">Endring som varer
         ligger i innkjøpsreglene, ikke i en enkelt IT-beslutning som kan reverseres
         ved neste kommunestyrevedtak (lærdommen fra Münchens LiMux).</p>
@@ -3498,8 +3501,11 @@ _EN_TEMPLATE = r"""<!doctype html>
              as digital sovereignty, not cost-cutting.</li>
           <li><b>Denmark</b>'s government and the city of Copenhagen have announced
              moves away from Microsoft toward open, EU-controlled alternatives.</li>
-          <li><b>Larvik</b> — a Norwegian municipality already on European/Norwegian
-             email infrastructure, showing the sovereign path exists at home too.</li>
+          <li><b>Larvik</b> (Norway) built the text editor into its Norwegian
+             case-handling system (Acos WebSak) so standard letters — ~99% of
+             outgoing mail — are produced without Microsoft Word or Google Docs;
+             the sovereign path exists at home too. (Its email, though, still runs
+             on Google — sovereignty is won system by system.)</li>
         </ul>
         <p>The lesson from Munich's LiMux is that this is a durable procurement and
            strategy choice, not a flippable IT decision — so the ask is a change in
