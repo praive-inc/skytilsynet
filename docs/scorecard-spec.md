@@ -251,6 +251,20 @@ enters the §8 score (which stays email + web + governance).
   ennå"* + a "krev innsyn" CTA (the offentleglova template is already on the
   card). An aggregate line states *"Saksarkiv kartlagt for X av N; Y med hosting
   bekreftet via innsyn"* — never inflated by inferences.
+- **The FOI kit that fills the axis (issue #51).** Every entity card carries a
+  per-body *"Krev innsyn"* `mailto:` prefilled to `postmottak@<domain>` (the
+  near-universal public-body intake address, best-effort) with the 3-point
+  offentleglova request: (1) the sak-/arkivsystem (leverandør + produkt), (2) the
+  databehandleravtale, (3) where data is stored + which sub-processors/countries.
+  It cites offentleglova §3 (saksdokument), §28 (no grounds needed), §29 (answer
+  «utan ugrunna opphald»), §32 (no answer in 5 working days = an appealable
+  refusal, to Statsforvaltaren). The request text is written once in `build.py`
+  (`sak_innsyn_body`) and mirrored client-side (baked JS template) so the per-card
+  mailto and the downloadable **campaign list** (`data/innsyn-kampanje.csv`:
+  domain, `postmottak@`, subject, request) never drift. A `/innsyn` explainer view
+  says what the campaign is, how an answer feeds the map (forward it → operator
+  appends to `saksbehandling.csv` → hosting flips to *bekreftet*), and the
+  no-per-citizen-data note (rule 5).
 
 ## MVP scope (what ships)
 
