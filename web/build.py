@@ -72,6 +72,7 @@ DATA_DOWNLOADS = [
     ("uh-sektor-email-sovereignty.latest.json", "Universiteter og høgskoler — e-post"),
     ("kommune-web-sovereignty.latest.json", "Kommuner — web-akse (infrastruktur)"),
     ("saksbehandling.csv", "Saksbehandling / arkiv — leverandør + hosting (CSV)"),
+    ("saksbehandling-auto.json", "Saksbehandling / arkiv — auto leverandør (innsynsportal-fingeravtrykk, JSON)"),
     ("saksbehandling-endringslogg.json", "Saksbehandling / arkiv — endringslogg (JSON)"),
 ]
 
@@ -441,6 +442,9 @@ VENDOR_HOSTING = {
 _SAK_CONF_NO = {"confirmed": "leverandørbekreftet", "circumstantial": "indisier",
                 "unknown": "ukjent"}
 SAKSBEHANDLING = os.path.join(ROOT, "data", "saksbehandling.csv")
+# The generated portal-fingerprint dataset (issue #61): auto-derived VENDOR rows
+# that fill the gaps under the human CSV — merged with manual/FOI always winning.
+SAKSBEHANDLING_AUTO = os.path.join(ROOT, "data", "saksbehandling-auto.json")
 
 # Trust & verification layer (issue #55): a hosting claim only becomes a *bekreftet*
 # verdict if it carries a source a skeptic can independently re-check. Two ranked
@@ -463,7 +467,9 @@ PORTAL_FINGERPRINTS = [
     ("acossky.no", "Acos"),
     ("elementscloud.no", "Sikri"),
     ("360online.com", "Tietoevry"),
+    ("public.cloudservices.no", "Tietoevry"),
     ("ephinnsyn", "ePhorte"),
+    ("ephorte", "ePhorte"),
 ]
 # The vendor "family" tokens the fingerprints resolve to, matched case-insensitively
 # as a substring of the CSV vendor name ("Acos WebSak" -> Acos, "Sikri Elements" ->
@@ -516,6 +522,24 @@ def load_saksbehandling(path=SAKSBEHANDLING):
         return {}
     with open(path, newline="", encoding="utf-8") as f:
         return {r["domain"]: r for r in csv.DictReader(f) if r.get("domain")}
+
+
+def load_saksbehandling_auto(path=SAKSBEHANDLING_AUTO):
+    """The GENERATED portal-fingerprint dataset (scanner/saksarkiv_probe.py, issue
+    #61), keyed by domain. Vendor identification ONLY — each row carries a
+    vendor_method=portal-fingerprint and a citable portal source, never a hosting
+    claim. Absent file = the probe hasn't run yet."""
+    if not os.path.exists(path):
+        return {}
+    ds = json.load(open(path))
+    return {r["domain"]: r for r in ds.get("records", []) if r.get("domain")}
+
+
+def merge_saksbehandling(manual, auto):
+    """Merge the auto (portal-fingerprint) index UNDER the human-curated one:
+    manual/FOI rows ALWAYS win (issue #61 §3). The auto rows only fill domains the
+    human intake hasn't mapped — a fingerprint never overrides a curated claim."""
+    return {**auto, **manual}
 
 
 def _hosting_source_tier(row):
@@ -587,6 +611,12 @@ def attach_saksbehandling(entities, sak_index):
                if e.get("domain") in sak_index else None)
         if rec:
             xc = crosscheck_vendor(rec["vendor"], e.get("web"))
+            # A portal-fingerprint vendor claim (issue #61) IS the portal signal —
+            # cross-checking it against the same portal is not TWO independent
+            # sources, so it earns no corroboration badge. Only a manual/FOI claim
+            # that AGREES with the portal is "bekreftet av to uavhengige kilder".
+            if rec.get("vendor_method") == "portal-fingerprint":
+                xc = None
             rec["crosscheck"] = xc
             # A conflict between the vendor claim and the portal fingerprint is
             # flagged for operator review and NOT published as a verdict (#55 §3).
@@ -1773,7 +1803,7 @@ def main():
     history = json.load(open(HISTORY)) if os.path.exists(HISTORY) else []
     corrections = json.load(open(CORRECTIONS)) if os.path.exists(CORRECTIONS) else []
     sak_log = json.load(open(SAK_ENDRINGSLOGG)) if os.path.exists(SAK_ENDRINGSLOGG) else []
-    sak = load_saksbehandling()
+    sak = merge_saksbehandling(load_saksbehandling(), load_saksbehandling_auto())
     old, new = load_snapshots()
     trend = compute_trend(old, new)
     categories = build_categories(data, stat, web, seeded, sak)
@@ -3345,8 +3375,15 @@ _TEMPLATE = r"""<!doctype html>
       ? ' <span class="sak-2src" title="Leverandørpåstand og innsynsportal-'+
         'fingeravtrykk ('+esc(xc.host)+') stemmer overens">✓ bekreftet av to '+
         'uavhengige kilder</span>' : "";
+    // Portal-fingerprint vendor (issue #61): identified from the public innsyn-
+    // portal host — flagged as such, and a VENDOR signal only (hosting stays
+    // utledet/Uavklart below; a fingerprint never confirms a jurisdiction).
+    var fp = (s.vendor_method === "portal-fingerprint")
+      ? ' <span class="sak-inferred" title="Leverandøren er utledet av'+
+        ' innsynsportal-verten organet bruker — ikke en hostingkilde">'+
+        '(identifisert via innsynsportal)</span>' : "";
     var vendorFact = fact("Saksarkiv", esc(s.vendor)+
-      ' <span class="sak-src">'+sakSrc(s.vendor_source, s.vendor_date)+'</span>'+twoSrc);
+      ' <span class="sak-src">'+sakSrc(s.vendor_source, s.vendor_date)+'</span>'+fp+twoSrc);
     var h = s.hosting, hostFact;
     if(!h){
       hostFact = fact("Hosting (jurisdiksjon)", "Uavklart", "");
