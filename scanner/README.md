@@ -272,18 +272,51 @@ cited axis, explicitly separate from the email verdict (never conflated). The
 dataset is optional: with no web scan published yet, the page builds unchanged
 and every entity simply carries no web axis.
 
+## Third axis: sakarkiv vendor via innsyn-portal fingerprint (`saksarkiv_probe.py`)
+
+`saksarkiv_probe.py` populates the **saksbehandling / arkiv** axis' *vendor*
+sub-axis at scale (issue #61). It identifies which NOARK-5 sakarkiv **vendor** a
+body runs from the third-party host its public innsyn/postliste portal answers to
+(`onacos.no`/`acossky.no` → Acos WebSak, `elementscloud.no` → Sikri Elements,
+`360online.com`/`public.cloudservices.no` → Tietoevry Public 360, `ephinnsyn`/
+`ephorte` → ePhorte). A portal fingerprint identifies the **vendor only** — it
+NEVER asserts a hosting jurisdiction (that stays *utledet/Uavklart* until an
+offentleglova FOI answer confirms it).
+
+Two passes, cheapest first:
+
+1. **Zero-cost** — mine the third-party hosts the web axis already collected. No
+   new request; ~121/358 kommuner resolve to a vendor from this alone.
+2. **Probe** (opt-in, `SAK_PROBE=1`) — for the rest, fetch `/innsyn` +
+   `/postliste` and fingerprint the hosts they link. **Respectful:** robots-aware,
+   rate-limited, cached across runs (`.saksarkiv_probe_cache.json`, gitignored),
+   and it **backs off on the first 403** (the Apr-2026 vendor bot-blocking risk).
+
+```bash
+python3 saksarkiv_probe.py             # zero-cost pass only (no network)
+SAK_PROBE=1 python3 saksarkiv_probe.py # + polite live probe of the remaining bodies
+```
+
+Output: `../data/saksbehandling-auto.json` (vendor rows,
+`vendor_method=portal-fingerprint`). **It never writes the human CSV.**
+`web/build.py` merges it UNDER the human-curated `data/saksbehandling.csv` (manual
++ FOI always win); auto rows fill only the gaps and render as a flagged
+vendor-only signal. The aggregate ("Saksarkiv kartlagt for X av Y organ") reflects
+auto + manual; the "hosting bekreftet via innsyn" count never counts a fingerprint.
+
 ## Scheduling the re-scan
 
-`scan.py` and `web_scan.py` are cron-friendly: no args, no auth, idempotent (a
-same-date re-run replaces that day's snapshot/history row). Scheduling is **wired
-by the operator**, not via GitHub Actions (CLAUDE.md — the push token has no
-`workflow` scope). The operator runs them off the devbox, e.g. weekly crontab
-lines — run `web_scan.py` alongside `scan.py`, then rebuild the site so both axes
-land together:
+`scan.py`, `web_scan.py` and `saksarkiv_probe.py` are cron-friendly: no args, no
+auth, idempotent (a same-date re-run replaces that day's snapshot/dataset).
+Scheduling is **wired by the operator**, not via GitHub Actions (CLAUDE.md — the
+push token has no `workflow` scope). The operator runs them off the devbox, e.g.
+weekly crontab lines — run the probe after `web_scan.py` (it mines that axis'
+output), then rebuild the site so all axes land together:
 
 ```cron
 0 6 * * 1  cd /path/to/skytilsynet/scanner && /usr/bin/python3 scan.py >> scan.log 2>&1
 5 6 * * 1  cd /path/to/skytilsynet/scanner && /usr/bin/python3 web_scan.py >> web_scan.log 2>&1
+7 6 * * 1  cd /path/to/skytilsynet/scanner && SAK_PROBE=1 /usr/bin/python3 saksarkiv_probe.py >> sak_probe.log 2>&1
 8 6 * * 1  cd /path/to/skytilsynet/web && /usr/bin/python3 build.py >> build.log 2>&1
 ```
 
@@ -291,9 +324,10 @@ Then `python3 transition.py` surfaces which municipalities moved since the prior
 
 ## Caveats / roadmap
 
-- Two axes so far: email (`scan.py`) and website infrastructure (`web_scan.py`,
-  above). A full scorecard still adds procurement contracts (TED API + Doffin CSV)
-  and org resolution (Brønnøysund).
+- Three axes so far: email (`scan.py`), website infrastructure (`web_scan.py`) and
+  the sakarkiv *vendor* (`saksarkiv_probe.py`, portal fingerprint — vendor only,
+  not hosting). A full scorecard still adds procurement contracts (TED API + Doffin
+  CSV) and org resolution (Brønnøysund).
 - The web axis reads only the homepage `<head>`/markup, not JS-injected resources;
   a tracker added by client-side script after load is not seen. The US-resource
   fraction is therefore a floor, like the email Microsoft share.

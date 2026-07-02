@@ -5,3 +5,5 @@ __pycache__/
 .claude/
 # FOI intake service's local SQLite DB (untrusted submissions — never committed).
 server/data/
+# sakarkiv probe's cross-run cache (issue #61) — a runtime artifact, not data.
+scanner/.saksarkiv_probe_cache.json
