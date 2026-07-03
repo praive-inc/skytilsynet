@@ -168,6 +168,45 @@ class ProbeAll(unittest.TestCase):
         self.assertTrue(slept)            # a delay was applied
 
 
+class NormalizeOrgan(unittest.TestCase):
+    """The non-kommune categories (statlig/fylke/helse/uni) come from the email
+    axis files, which lack the kommune web axis' url + third_parties. Normalise
+    them into probe-able records: no web-axis to mine, so they carry an empty
+    third_parties and a portal base built from the website_domain (issue #65)."""
+
+    def test_normalises_organ_row_to_probeable_record(self):
+        rows = [{"name": "Meteorologisk institutt", "domain": "met.no",
+                 "website_domain": "met.no", "category": "stat"}]
+        rec = sp._normalize_organ(rows, "stat")[0]
+        self.assertEqual(rec["kommune"], "Meteorologisk institutt")
+        self.assertEqual(rec["domain"], "met.no")
+        self.assertEqual(rec["url"], "https://met.no")
+        self.assertEqual(rec["category"], "stat")
+        self.assertEqual(rec["third_parties"], [])  # no web axis → nothing to mine
+
+    def test_builds_portal_base_from_website_domain(self):
+        rows = [{"name": "X", "domain": "post.x.no", "website_domain": "x.no"}]
+        self.assertEqual(sp._normalize_organ(rows, "helse")[0]["url"], "https://x.no")
+
+    def test_skips_rows_without_a_domain(self):
+        self.assertEqual(sp._normalize_organ([{"name": "X"}], "uni"), [])
+
+
+class LoadEntities(unittest.TestCase):
+    """The probe now spans every public-body category, not just kommuner."""
+
+    def test_covers_all_five_categories(self):
+        cats = {r["category"] for r in sp.load_entities()}
+        self.assertEqual(cats, {"kommune", "stat", "fylke", "helse", "uni"})
+
+    def test_non_kommune_records_are_probeable(self):
+        stat = [r for r in sp.load_entities() if r["category"] == "stat"]
+        self.assertTrue(stat)
+        for r in stat:
+            self.assertTrue(r["url"].startswith("https://"))
+            self.assertEqual(r["third_parties"], [])  # direct fetch, not mining
+
+
 class BuildDataset(unittest.TestCase):
     RECORDS = [
         {"kommune": "Øygarden", "domain": "oygarden.kommune.no",
@@ -193,6 +232,37 @@ class BuildDataset(unittest.TestCase):
         rec = ds["records"][0]
         self.assertNotIn("hosting", rec)
         self.assertNotIn("hosting_jurisdiction", rec)
+
+
+class PerCategoryCoverage(unittest.TestCase):
+    """Coverage must be reported per category, honestly — statlig organ are mostly
+    einnsyn.no-masked, so their fingerprint rate is expected to be low (issue #65)."""
+    RECORDS = [
+        {"kommune": "Øygarden", "domain": "oygarden.kommune.no", "category": "kommune",
+         "url": "https://www.oygarden.kommune.no",
+         "third_parties": [{"domain": "oygarden.acossky.no"}]},
+        {"kommune": "Ukjent", "domain": "ukjent.kommune.no", "category": "kommune",
+         "url": "https://www.ukjent.kommune.no",
+         "third_parties": [{"domain": "www.youtube.com"}]},
+        {"kommune": "Meteorologisk institutt", "domain": "met.no", "category": "stat",
+         "url": "https://met.no", "third_parties": []},
+        {"kommune": "Statens vegvesen", "domain": "vegvesen.no", "category": "stat",
+         "url": "https://vegvesen.no", "third_parties": []},
+    ]
+
+    def test_coverage_broken_down_by_category(self):
+        extra = [sp._record("Meteorologisk institutt", "met.no", "Sikri Elements",
+                            "innsyn.elementscloud.no", "2026-07-02", "probe:/innsyn",
+                            category="stat")]
+        ds = sp.build_dataset(self.RECORDS, "2026-07-02", extra=extra)
+        by_cat = ds["meta"]["coverage"]["by_category"]
+        self.assertEqual(by_cat["kommune"], {"fingerprinted": 1, "total": 2})
+        self.assertEqual(by_cat["stat"], {"fingerprinted": 1, "total": 2})
+
+    def test_output_records_carry_their_category(self):
+        ds = sp.build_dataset(self.RECORDS, "2026-07-02")
+        by_dom = {r["domain"]: r for r in ds["records"]}
+        self.assertEqual(by_dom["oygarden.kommune.no"]["category"], "kommune")
 
 
 if __name__ == "__main__":

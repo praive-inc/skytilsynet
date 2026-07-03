@@ -275,22 +275,32 @@ and every entity simply carries no web axis.
 ## Third axis: sakarkiv vendor via innsyn-portal fingerprint (`saksarkiv_probe.py`)
 
 `saksarkiv_probe.py` populates the **saksbehandling / arkiv** axis' *vendor*
-sub-axis at scale (issue #61). It identifies which NOARK-5 sakarkiv **vendor** a
-body runs from the third-party host its public innsyn/postliste portal answers to
-(`onacos.no`/`acossky.no` → Acos WebSak, `elementscloud.no` → Sikri Elements,
-`360online.com`/`public.cloudservices.no` → Tietoevry Public 360, `ephinnsyn`/
-`ephorte` → ePhorte). A portal fingerprint identifies the **vendor only** — it
-NEVER asserts a hosting jurisdiction (that stays *utledet/Uavklart* until an
-offentleglova FOI answer confirms it).
+sub-axis at scale (issue #61, extended to non-kommune bodies in #65). It identifies
+which NOARK-5 sakarkiv **vendor** a body runs from the third-party host its public
+innsyn/postliste portal answers to (`onacos.no`/`acossky.no` → Acos WebSak,
+`elementscloud.no` → Sikri Elements, `360online.com`/`public.cloudservices.no` →
+Tietoevry Public 360, `ephinnsyn`/`ephorte` → ePhorte). A portal fingerprint
+identifies the **vendor only** — it NEVER asserts a hosting jurisdiction (that
+stays *utledet/Uavklart* until an offentleglova FOI answer confirms it).
+
+It spans **every** public-body category — kommuner *and* the 62 statlige organ,
+fylkeskommuner, helseforetak and universiteter. Kommuner carry a web axis, so they
+resolve for free in the zero-cost pass; the non-kommune bodies have no web axis and
+resolve only via the direct portal fetch. Coverage is reported **per category, and
+honestly**: statlige organ are mandated onto **einnsyn.no**, which masks the
+underlying vendor (the same gateway problem as email), so their fingerprint rate is
+expected to be low — the rest stay *ikke kartlagt*.
 
 Two passes, cheapest first:
 
 1. **Zero-cost** — mine the third-party hosts the web axis already collected. No
-   new request; ~121/358 kommuner resolve to a vendor from this alone.
-2. **Probe** (opt-in, `SAK_PROBE=1`) — for the rest, fetch `/innsyn` +
-   `/postliste` and fingerprint the hosts they link. **Respectful:** robots-aware,
-   rate-limited, cached across runs (`.saksarkiv_probe_cache.json`, gitignored),
-   and it **backs off on the first 403** (the Apr-2026 vendor bot-blocking risk).
+   new request; ~121/358 kommuner resolve to a vendor from this alone (the
+   non-kommune categories have no web axis, so they resolve nothing here).
+2. **Probe** (opt-in, `SAK_PROBE=1`) — for the rest (every non-kommune body plus
+   any unresolved kommune), fetch `/innsyn` + `/postliste` and fingerprint the
+   hosts they link. **Respectful:** robots-aware, rate-limited, cached across runs
+   (`.saksarkiv_probe_cache.json`, gitignored), and it **backs off on the first
+   403** (the Apr-2026 vendor bot-blocking risk).
 
 ```bash
 python3 saksarkiv_probe.py             # zero-cost pass only (no network)
