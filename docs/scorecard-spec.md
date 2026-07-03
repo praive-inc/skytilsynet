@@ -230,12 +230,18 @@ answers to. It is a *distinct* axis, rendered in its own per-entity block and
 never conflated with the email verdict — and, like the email axis, it never
 enters the §8 score (which stays email + web + governance).
 
-- **Two sub-axes, different confidence.** The **vendor** is citable per body
-  (`data/saksbehandling.csv`, CC-BY, human-appendable as answers arrive; one row
-  per domain, each carrying a `vendor_source` + `vendor_date`). The **hosting**
-  jurisdiction is either *inferred* from an open vendor→hosting table (in
+- **Two sub-axes, different confidence.** The **vendor** is citable per body from
+  two merged sources: the human-curated `data/saksbehandling.csv` (CC-BY,
+  human-appendable as FOI answers arrive; one row per domain, each with a
+  `vendor_source` + `vendor_date`) **and** the machine-generated
+  `data/saksbehandling-auto.json`, auto-populated by the innsyn-portal fingerprint
+  probe (`scanner/saksarkiv_probe.py`, issue #61). `build.py` merges the auto file
+  *under* the CSV — **manual/FOI rows always win** — and each rendered vendor carries
+  its method (`vendor-statement` / `innsyn-foi` / `portal-fingerprint`) + source. The
+  **hosting** jurisdiction is either *inferred* from an open vendor→hosting table (in
   `build.py`: `VENDOR_HOSTING`, each row carrying a source + a confidence) or
-  *confirmed* per body against a **re-checkable source** the operator records.
+  *confirmed* per body against a **re-checkable source** the operator records — a
+  fingerprint identifies the *vendor* only, **never** hosting jurisdiction.
 - **Trust & verification: publish evidence, not claims (issue #55).** A hosting
   claim only becomes *bekreftet* if it carries a source a skeptic can
   independently re-check. Two ranked tiers, both stamped in the CSV's
@@ -252,14 +258,18 @@ enters the §8 score (which stays email + web + governance).
   `bekreftet – offentlig journal` › `bekreftet – innsyn på fil` ›
   `utledet (leverandør, <confidence>)` › `ikke kartlagt`. (Legacy rows using
   `hosting_method=innsyn-foi` map to the `innsyn-pa-fil` tier.)
-- **Automated cross-check with the portal fingerprint (issue #55 §3).** The
-  third-party innsyn-portal host a body's site loads is an independent signal of
-  its sakarkiv vendor (`*.onacos.no`/`*.acossky.no`→Acos, `*.elementscloud.no`→
-  Sikri, `*.360online.com`→Tietoevry, `ephinnsyn.*`→ePhorte). When a per-body
-  vendor claim agrees with the fingerprint the card shows *"bekreftet av to
-  uavhengige kilder"*; a conflict is **flagged for operator review and not
-  published**. (Larvik's Acos WebSak claim + its real `innsynpluss.onacos.no`
-  fingerprint is a live example of agreement.)
+- **Portal fingerprint — primary vendor source *and* cross-check (issues #55 §3, #61).**
+  The innsyn-portal host a body uses is a public signal of its sakarkiv vendor
+  (`*.onacos.no`/`*.acossky.no`→Acos, `*.elementscloud.no`→Sikri,
+  `*.360online.com`→Tietoevry, `ephinnsyn.*`→ePhorte). It plays two roles: (a) as a
+  **primary vendor source** it auto-populates bodies with no manual row (rendered
+  *"identifisert via innsynsportal"* — one source, **vendor only**; hosting stays
+  *utledet*/*Uavklart*); (b) as a **cross-check**, when an *independent* manual/FOI
+  vendor claim agrees with the fingerprint the card earns *"bekreftet av to
+  uavhengige kilder"* — a fingerprint-**only** vendor does not (vendor and portal are
+  the same source) — and a conflict is **flagged for operator review, not published**.
+  (Larvik: manual Acos WebSak claim + its real `innsynpluss.onacos.no` fingerprint =
+  two independent sources.)
 - **Public change log (issue #55 §4).** Every add/change to this axis — its
   method, source, and date — is recorded in `data/saksbehandling-endringslogg.json`
   (CC-BY, baked inline) and rendered under Om & metode, like the corrections log.
