@@ -4437,6 +4437,7 @@ _EMBED_GAUGE_TMPL = (
     "<figcaption id=\"cap\"></figcaption></figure><script>(function(){"
     "var p=new URLSearchParams(location.search);var L=Math.PI*150;"
     "var pct=parseFloat(p.get('pct')||'__PCT__');var date=p.get('date')||'__DATE__';"
+    "if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(date))date='__DATE__';"  # reject non-ISO ?date= (XSS guard, #64)
     "if(p.get('pct')){var frac=Math.max(0,Math.min(1,pct/100));"
     "var arc=document.getElementById('arc');"
     "if(arc)arc.setAttribute('stroke-dasharray',(frac*L).toFixed(1)+' '+L.toFixed(1));"
@@ -4454,6 +4455,7 @@ _EMBED_KART_TMPL = (
     "var CELLS=__CELLS__,VB=\"__VB__\",COLORS=__COLORS__;"
     "var p=new URLSearchParams(location.search);"
     "var d=(p.get('d')||'__D__');var date=p.get('date')||'__DATE__';"
+    "if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(date))date='__DATE__';"  # reject non-ISO ?date= (XSS guard, #64)
     "var ns='http://www.w3.org/2000/svg';"
     "var svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox',VB);"
     "svg.setAttribute('role','img');svg.setAttribute('aria-label',"
@@ -4480,7 +4482,8 @@ _EMBED_COMPONENT_TMPL = (
     "(function(){"
     "var CELLS=__CELLS__,VB=\"__VB__\",COLORS=__COLORS__;"
     "var GPCT='__PCT__',GD='__D__',GDATE='__DATE__';"
-    "function cap(date){return 'Per '+date+' · Kilde: <a href=\"https://skytilsynet.no/\" "
+    "function cap(date){if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(date))date=GDATE;"  # XSS guard (#64)
+    "return 'Per '+date+' · Kilde: <a href=\"https://skytilsynet.no/\" "
     "target=\"_blank\" rel=\"noopener\">Skytilsynet</a> (CC BY 4.0)';}"
     "var BASE='<style>:host{display:block;background:#0e1217;color:#eef2f6;"
     "font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;"

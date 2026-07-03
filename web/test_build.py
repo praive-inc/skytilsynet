@@ -1435,6 +1435,18 @@ class ForPresse(unittest.TestCase):
         self.assertIn("skytilsynet-gauge", comp)
         self.assertIn("skytilsynet-kart", comp)
 
+    def test_embed_date_param_is_iso_validated_not_reflected(self):
+        # #64: the ?date= / date="" value flows into the caption; it MUST be
+        # validated to an ISO shape before use so a crafted date can't inject
+        # markup (reflected DOM XSS on the canonical origin). Guard present in
+        # every embed surface (both iframe pages + the web-component cap()).
+        files = build.embed_files(self.cats, DATA["meta"])
+        guard = r"/^\d{4}-\d{2}-\d{2}$/.test(date)"
+        for name in ("embed/gauge.html", "embed/kart.html",
+                     "embed/skytilsynet-embed.js"):
+            self.assertIn(guard, files[name],
+                          "%s must ISO-validate the date param (XSS guard)" % name)
+
     def test_embeds_have_no_external_dependency(self):
         # No external host, CDN, font, map tile or script (RFC-001 P5). The only
         # off-site URL allowed is the same-origin skytilsynet.no citation link;
