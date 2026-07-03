@@ -636,6 +636,26 @@ def sak_aggregate(categories):
     return {"mapped": len(mapped), "total": len(ents), "confirmed": len(confirmed)}
 
 
+def sak_vendor_split(categories):
+    """The vendor split among bodies auto-mapped via the innsyn-portal fingerprint
+    (issue #61/#67): count portal-fingerprint rows by vendor family. `total` is the
+    fingerprint-mapped count; the per-family keys are the split. Only counts
+    vendor_method=portal-fingerprint — a curated/FOI row is not a fingerprint."""
+    split = {fam: 0 for fam in _VENDOR_FAMILIES}
+    total = 0
+    for c in categories:
+        for e in c["entities"]:
+            sb = e.get("saksbehandling")
+            if not sb or sb.get("vendor_method") != "portal-fingerprint":
+                continue
+            fam = vendor_family(sb.get("vendor"))
+            if fam:
+                split[fam] += 1
+                total += 1
+    split["total"] = total
+    return split
+
+
 # --------------------------------------------------------------------------
 # offentleglova FOI kit (issue #51): the campaign tooling that FILLS the
 # saksbehandling hosting axis. The operator (or a crowd) sends an innsyn request
@@ -1248,6 +1268,23 @@ def proof_names_en(categories):
     return out
 
 
+def sak_coverage_en(categories):
+    """The data-driven coverage sentence for the /en case-handling section: how many
+    bodies are auto-mapped from the innsyn-portal fingerprint (with the vendor
+    split), and how many have hosting confirmed via a citable FOI answer. Derived,
+    never hardcoded (rule 1) — the vendor split maps Sikri/Acos/Tietoevry."""
+    split = sak_vendor_split(categories)
+    agg = sak_aggregate(categories)
+    parts = ["{} {}".format(fam, split[fam])
+             for fam in ("Sikri", "Acos", "Tietoevry") if split.get(fam)]
+    breakdown = (" (" + " · ".join(parts) + ")") if parts else ""
+    return (
+        "So far <b>{total}</b> public bodies are auto-mapped from their public "
+        "innsyn-portal fingerprint{breakdown}; <b>{confirmed}</b> have their hosting "
+        "jurisdiction confirmed via a citable FOI answer.").format(
+            total=split["total"], breakdown=breakdown, confirmed=agg["confirmed"])
+
+
 def render_en_html(meta, categories):
     """Render the self-contained English entry page (/en/). Pure. Same data as the
     Norwegian site, English copy; links to the language-neutral CSV + embeds and to
@@ -1268,6 +1305,7 @@ def render_en_html(meta, categories):
             .replace("<!--__GAUGE__-->", gauge_svg_en(us_pct))
             .replace("<!--__PROOF__-->", proof_html)
             .replace("<!--__FIGURES__-->", press_figures_en_html(categories))
+            .replace("<!--__SAK_COVERAGE__-->", sak_coverage_en(categories))
             .replace("<!--__TOTAL__-->", str(combined["total"])))
 
 
@@ -4357,6 +4395,39 @@ _EN_TEMPLATE = r"""<!doctype html>
         <p>The lesson from Munich's LiMux is that this is a durable procurement and
            strategy choice, not a flippable IT decision — so the ask is a change in
            the rules, never a personal attack on any official.</p>
+      </div>
+    </section>
+
+    <!-- The second axis: case-handling / archive (sakarkiv) — issue #67 -->
+    <section>
+      <h2>A second axis: the case-handling system</h2>
+      <p>Email is only the front door. A second, distinct axis maps each body's
+         <b>case-handling and archive system</b> (its NOARK-5 <i>sakarkiv</i>) — the
+         system of record that holds correspondence, case files and decisions — and
+         the jurisdiction that system's hosting answers to. Three vendors dominate
+         the Norwegian market: <b>Acos WebSak</b>, <b>Sikri Elements</b> and
+         <b>Tietoevry Public 360</b>.</p>
+      <p><b>National coverage.</b> <!--__SAK_COVERAGE__--> The method is a public
+         <b>innsyn-portal fingerprint</b>: a body publishes its case journal through
+         a portal hosted by its sakarkiv vendor (e.g. <code>onacos.no</code>,
+         <code>elementscloud.no</code>, <code>360online.com</code>), so the portal
+         host anyone's browser loads identifies the vendor — no login, no private
+         data.</p>
+      <div class="panel keystone">
+        <h3>What the fingerprint proves — and what it doesn't</h3>
+        <p>The tiering is deliberately conservative, matching the Norwegian site:</p>
+        <ul class="good">
+          <li>A fingerprint identifies the <b>vendor only</b> — <b>never</b> the
+             hosting jurisdiction.</li>
+          <li>Hosting is then either <b>inferred</b> from an open vendor→hosting
+             table (always flagged as inferred, never asserted as a per-body fact) or
+             <b>confirmed</b> for a single body only via a citable <b>FOI answer</b>
+             under the Norwegian Freedom of Information Act (<i>offentleglova</i>).</li>
+          <li><b>State agencies</b> (<i>statlige organ</i>) are <b>masked</b>: they
+             publish through the shared national portal <code>einnsyn.no</code>, which
+             carries no vendor fingerprint — so they stay <b>not yet mapped</b> and
+             need an FOI request to identify their vendor at all.</li>
+        </ul>
       </div>
     </section>
 

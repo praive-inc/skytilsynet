@@ -1946,6 +1946,63 @@ class SaksbehandlingRender(unittest.TestCase):
         self.assertIsNone(oslo["saksbehandling"])
 
 
+class EnglishSaksbehandlingAxis(unittest.TestCase):
+    """Issue #67: the English /en page must also cover the case-handling
+    (sakarkiv) axis — what it is, national coverage + the fingerprint method, and
+    the honest limits (vendor-only, hosting inferred/FOI-confirmed, statlige
+    masked), consistent with the Norwegian site's tiering."""
+
+    def setUp(self):
+        self.cats = build.build_categories(DATA, STAT, WEB, sak=SAK)
+        self.html = build.render_en_html(DATA["meta"], self.cats)
+
+    def test_section_present_and_names_the_axis(self):
+        low = self.html.lower()
+        self.assertIn("case-handling", low)
+        self.assertIn("archive", low)
+        # The three vendors are named for an international reader.
+        for vendor in ("Acos WebSak", "Sikri Elements", "Tietoevry Public 360"):
+            self.assertIn(vendor, self.html)
+
+    def test_coverage_is_data_driven_from_the_fingerprint(self):
+        split = build.sak_vendor_split(self.cats)
+        # Oslo is the only portal-fingerprint row in the fixture (Tietoevry).
+        self.assertEqual(split["total"], 1)
+        self.assertEqual(split["Tietoevry"], 1)
+        # The coverage count is derived, never hardcoded.
+        self.assertIn(str(split["total"]), self.html)
+        self.assertIn("innsyn-portal", self.html.lower())
+
+    def test_states_the_honest_limits(self):
+        low = self.html.lower()
+        # A fingerprint identifies the vendor only — never hosting jurisdiction.
+        self.assertIn("vendor", low)
+        self.assertIn("inferred", low)
+        # Hosting is either inferred from a table or FOI-confirmed.
+        self.assertTrue("foi" in low or "innsyn" in low)
+        # State agencies are masked behind einnsyn.no and can't be fingerprinted.
+        self.assertIn("einnsyn.no", low)
+        self.assertTrue("statlige" in low or "state agenc" in low or "state bod" in low)
+        self.assertIn("not yet mapped", low)
+
+    def test_disclaimer_and_hreflang_unchanged(self):
+        self.assertIn('hreflang="en" href="https://skytilsynet.no/en/"', self.html)
+        self.assertIn('hreflang="nb" href="https://skytilsynet.no/"', self.html)
+        self.assertIn("not a government body", self.html.lower())
+
+    def test_no_external_dependency_added(self):
+        for bad in ("cdn.", "googleapis", "fonts.g", "unpkg", "jsdelivr"):
+            self.assertNotIn(bad, self.html)
+
+    def test_vendor_split_counts_only_fingerprint_rows(self):
+        # Bærum is vendor-statement (Documaster), NOT a portal fingerprint —
+        # it must not inflate the fingerprint coverage count.
+        split = build.sak_vendor_split(self.cats)
+        self.assertEqual(split["Acos"], 0)
+        self.assertEqual(split["Sikri"], 0)
+        self.assertNotIn("Documaster", str(split))
+
+
 class SaksbehandlingSeed(unittest.TestCase):
     """The committed seed CSV: citable rows only, parsed by the loader."""
 
