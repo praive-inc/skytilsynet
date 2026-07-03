@@ -8,16 +8,24 @@ a citable, no-auth signal. A portal fingerprint identifies the VENDOR only; it
 NEVER asserts a hosting jurisdiction (that stays "utledet/Uavklart" until an
 offentleglova FOI answer confirms it — see web/build.py).
 
+Spans every public-body category (issue #65): kommuner carry a web axis so the
+zero-cost pass mines it for free; the non-kommune categories (statlig, fylke,
+helse, uni) have NO web axis, so they resolve only via the direct portal fetch.
+Coverage is reported per category — and honestly: statlige organ are mandated onto
+einnsyn.no, which MASKS the underlying vendor (the same gateway problem as email),
+so their fingerprint rate is expected to be low and the rest stay ikke kartlagt.
+
 Two passes, cheapest first:
 
   1. ZERO-COST: mine the already-collected web-axis third_parties
      (data/kommune-web-sovereignty.latest.json). No new request — the homepage
-     resources were already fetched by web_scan.py.
-  2. PROBE (opt-in, network): for bodies the zero-cost pass missed, fetch the
-     /innsyn and /postliste paths and fingerprint the hosts they link to.
-     RESPECTFUL by design: honors robots.txt, rate-limited, cached across runs,
-     and BACKS OFF on the first 403 (the Apr-2026 vendor bot-blocking risk — we
-     do not hammer).
+     resources were already fetched by web_scan.py. Kommuner only (the non-kommune
+     categories have no web axis).
+  2. PROBE (opt-in, network): for bodies the zero-cost pass missed — every
+     non-kommune body plus any unresolved kommune — fetch the /innsyn and
+     /postliste paths and fingerprint the hosts they link to. RESPECTFUL by
+     design: honors robots.txt, rate-limited, cached across runs, and BACKS OFF
+     on the first 403 (the Apr-2026 vendor bot-blocking risk — we do not hammer).
 
 Output: data/saksbehandling-auto.json — per entity {domain, vendor,
 vendor_method=portal-fingerprint, vendor_source, vendor_date}. build.py merges
@@ -34,9 +42,23 @@ from datetime import datetime, timezone
 from urllib.parse import urlparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-WEB_DATA = os.path.join(HERE, os.pardir, "data", "kommune-web-sovereignty.latest.json")
-OUT = os.path.join(HERE, os.pardir, "data", "saksbehandling-auto.json")
+DATA = os.path.join(HERE, os.pardir, "data")
+WEB_DATA = os.path.join(DATA, "kommune-web-sovereignty.latest.json")
+OUT = os.path.join(DATA, "saksbehandling-auto.json")
 CACHE = os.path.join(HERE, ".saksarkiv_probe_cache.json")
+
+# The non-kommune public-body categories. Unlike kommuner they carry NO web axis
+# (no third_parties to mine for free), so the probe fetches their innsyn/postliste
+# portal DIRECTLY. Source is the email-axis roster (name + domain per body). Note:
+# statlige organ are mandated onto einnsyn.no, which MASKS the underlying vendor
+# (the same gateway problem as email) — expect low fingerprint coverage there, the
+# rest honestly stay ikke kartlagt (issue #65).
+ORGAN_FILES = [
+    ("stat", os.path.join(DATA, "statlige-organ-email-sovereignty.latest.json")),
+    ("fylke", os.path.join(DATA, "fylkeskommune-email-sovereignty.latest.json")),
+    ("helse", os.path.join(DATA, "helseforetak-email-sovereignty.latest.json")),
+    ("uni", os.path.join(DATA, "uh-sektor-email-sovereignty.latest.json")),
+]
 
 UA = "SkytilsynetBot/1.0 (+https://skytilsynet.no; civic transparency scan)"
 
@@ -96,12 +118,13 @@ def link_hosts(html):
     return sorted(out)
 
 
-def _record(name, domain, vendor, portal_host, date, evidence):
+def _record(name, domain, vendor, portal_host, date, evidence, category=None):
     """Assemble one auto record. Carries the VENDOR only — never a hosting
     jurisdiction (a fingerprint identifies the vendor, not where it runs)."""
     return {
         "domain": domain,
         "kommune": name,
+        "category": category,
         "vendor": vendor,
         "vendor_method": "portal-fingerprint",
         "vendor_source": "https://" + portal_host,
@@ -125,13 +148,13 @@ def mine_web_axis(records, date):
             vendor = fingerprint(host)
             if vendor:
                 out.append(_record(r.get("kommune"), dom, vendor, host, date,
-                                   evidence="web-axis"))
+                                   evidence="web-axis", category=r.get("category")))
                 break
     return out
 
 
 def probe_entity(name, domain, url, fetch, can_fetch=lambda u: True,
-                 paths=INNSYN_PATHS, date=None):
+                 paths=INNSYN_PATHS, date=None, category=None):
     """PROBE one body's innsyn/postliste paths for a portal fingerprint. Honors
     robots (can_fetch), and BACKS OFF on the first 403 — we do not hammer a
     vendor that bot-blocks us (issue #61 §1). Returns an auto record or None."""
@@ -151,7 +174,7 @@ def probe_entity(name, domain, url, fetch, can_fetch=lambda u: True,
             vendor = fingerprint(host)
             if vendor:
                 return _record(name, domain, vendor, host, date,
-                               evidence="probe:" + path)
+                               evidence="probe:" + path, category=category)
     return None
 
 
@@ -194,18 +217,63 @@ def probe_all(records, covered, fetch, cache, date, sleep=time.sleep,
         if cached and cached.get("vendor"):
             out.append(_record(r.get("kommune"), dom, cached["vendor"],
                                cached.get("vendor_host", ""), cached["date"],
-                               evidence="probe:cache"))
+                               evidence="probe:cache", category=r.get("category")))
             continue
         sleep(PROBE_DELAY)     # polite: a real delay before every network probe
         can_fetch = can_fetch_for(r.get("url")) if can_fetch_for else (lambda u: True)
         rec = probe_entity(r.get("kommune"), dom, r.get("url"), fetch,
-                           can_fetch=can_fetch, date=date)
+                           can_fetch=can_fetch, date=date, category=r.get("category"))
         cache[dom] = ({"date": date, "vendor": rec["vendor"],
                        "vendor_host": rec["vendor_host"]} if rec
                       else {"date": date, "vendor": None})
         if rec:
             out.append(rec)
     return out
+
+
+def _normalize_organ(rows, category):
+    """Non-kommune roster rows (email axis) -> probe-able records. They carry NO
+    web axis, so third_parties is empty (nothing to mine) and the portal base is
+    built from the website_domain — the probe fetches it directly (issue #65)."""
+    out = []
+    for r in rows:
+        dom = r.get("domain")
+        if not dom:
+            continue
+        out.append({
+            "kommune": r.get("name"),
+            "domain": dom,
+            "url": "https://" + (r.get("website_domain") or dom),
+            "category": category,
+            "third_parties": [],
+        })
+    return out
+
+
+def load_entities():
+    """Every public body the probe spans: kommuner (with their web axis, for the
+    zero-cost mine) plus the non-kommune categories normalised from the email-axis
+    rosters (statlig/fylke/helse/uni — direct portal fetch)."""
+    kommuner = [{**r, "category": "kommune"} for r in json.load(open(WEB_DATA))["kommuner"]]
+    out = list(kommuner)
+    for category, path in ORGAN_FILES:
+        out += _normalize_organ(json.load(open(path))["organ"], category)
+    return out
+
+
+def _coverage(records, recs):
+    """Honest coverage tally: overall + per category. Statlig organ are largely
+    einnsyn.no-masked, so their per-category rate is expected to be low — reported
+    as-is rather than overstated (issue #65)."""
+    cat_of = {r["domain"]: r.get("category") for r in records}
+    by_cat = {}
+    for r in records:
+        by_cat.setdefault(r.get("category"), {"fingerprinted": 0, "total": 0})["total"] += 1
+    for rec in recs:
+        c = cat_of.get(rec["domain"])
+        if c in by_cat:
+            by_cat[c]["fingerprinted"] += 1
+    return {"fingerprinted": len(recs), "total": len(records), "by_category": by_cat}
 
 
 def build_dataset(records, date, extra=None):
@@ -224,8 +292,11 @@ def build_dataset(records, date, extra=None):
             "note": ("Vendor identification ONLY, from the public innsyn/postliste "
                      "portal host — never a hosting-jurisdiction claim. Merged "
                      "UNDER the human-curated data/saksbehandling.csv (manual/FOI "
-                     "wins). See scanner/saksarkiv_probe.py."),
-            "coverage": {"fingerprinted": len(recs), "total": len(records)},
+                     "wins). Statlige organ are mandated onto einnsyn.no, which "
+                     "masks the underlying vendor, so their fingerprint coverage is "
+                     "honestly low — the rest stay ikke kartlagt. See "
+                     "scanner/saksarkiv_probe.py."),
+            "coverage": _coverage(records, recs),
         },
         "records": recs,
     }
@@ -233,8 +304,7 @@ def build_dataset(records, date, extra=None):
 
 def main():
     date = os.environ.get("SCAN_DATE") or datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    web = json.load(open(WEB_DATA))
-    records = web["kommuner"]
+    records = load_entities()
 
     zero = mine_web_axis(records, date)
     covered = {r["domain"] for r in zero}
@@ -259,6 +329,9 @@ def main():
     cov = dataset["meta"]["coverage"]
     print(f"Wrote {OUT}: {cov['fingerprinted']} of {cov['total']} bodies "
           "→ sakarkiv vendor via portal fingerprint.")
+    for cat, c in sorted(cov["by_category"].items()):
+        print(f"  {cat:8s} {c['fingerprinted']:3d} of {c['total']:3d} fingerprinted",
+              file=sys.stderr)
 
 
 if __name__ == "__main__":
