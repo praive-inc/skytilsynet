@@ -7,11 +7,11 @@
     "attribution": "Skytilsynet / BetterWorld, skytilsynet.no",
     "note": "Vendor identification ONLY, from the public innsyn/postliste portal host — never a hosting-jurisdiction claim. Merged UNDER the human-curated data/saksbehandling.csv (manual/FOI wins). Statlige organ are mandated onto einnsyn.no, which masks the underlying vendor, so their fingerprint coverage is honestly low — the rest stay ikke kartlagt. See scanner/saksarkiv_probe.py.",
     "coverage": {
-      "fingerprinted": 121,
+      "fingerprinted": 129,
       "total": 486,
       "by_category": {
         "kommune": {
-          "fingerprinted": 121,
+          "fingerprinted": 129,
           "total": 358
         },
         "stat": {
@@ -34,6 +34,17 @@
     }
   },
   "records": [
+    {
+      "domain": "alta.kommune.no",
+      "kommune": "Alta",
+      "category": "kommune",
+      "vendor": "Sikri Elements",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://prod02.elementscloud.no",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "prod02.elementscloud.no",
+      "vendor_evidence": "probe:/innsyn"
+    },
     {
       "domain": "andoy.kommune.no",
       "kommune": "Andøy",
@@ -530,6 +541,17 @@
       "vendor_evidence": "web-axis"
     },
     {
+      "domain": "kongsvinger.kommune.no",
+      "kommune": "Kongsvinger",
+      "category": "kommune",
+      "vendor": "Tietoevry Public 360",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://opengov.360online.com",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "opengov.360online.com",
+      "vendor_evidence": "probe:/innsyn"
+    },
+    {
       "domain": "krodsherad.kommune.no",
       "kommune": "Krødsherad kommune",
       "category": "kommune",
@@ -539,6 +561,28 @@
       "vendor_date": "2026-07-03",
       "vendor_host": "prod02.elementscloud.no",
       "vendor_evidence": "web-axis"
+    },
+    {
+      "domain": "kvinnherad.kommune.no",
+      "kommune": "Kvinnherad",
+      "category": "kommune",
+      "vendor": "Sikri Elements",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://prod01.elementscloud.no",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "prod01.elementscloud.no",
+      "vendor_evidence": "probe:/innsyn"
+    },
+    {
+      "domain": "kviteseid.kommune.no",
+      "kommune": "Kviteseid",
+      "category": "kommune",
+      "vendor": "Sikri Elements",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://prod02.elementscloud.no",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "prod02.elementscloud.no",
+      "vendor_evidence": "probe:/postliste"
     },
     {
       "domain": "larvik.kommune.no",
@@ -926,6 +970,17 @@
       "vendor_evidence": "web-axis"
     },
     {
+      "domain": "randaberg.kommune.no",
+      "kommune": "Randaberg",
+      "category": "kommune",
+      "vendor": "Tietoevry Public 360",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://randaberg.pj.360online.com",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "randaberg.pj.360online.com",
+      "vendor_evidence": "probe:/postliste"
+    },
+    {
       "domain": "rauma.kommune.no",
       "kommune": "Rauma",
       "category": "kommune",
@@ -990,6 +1045,17 @@
       "vendor_date": "2026-07-03",
       "vendor_host": "opengov.360online.com",
       "vendor_evidence": "web-axis"
+    },
+    {
+      "domain": "sarpsborg.com",
+      "kommune": "Sarpsborg",
+      "category": "kommune",
+      "vendor": "Tietoevry Public 360",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://opengov.360online.com",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "opengov.360online.com",
+      "vendor_evidence": "probe:/innsyn"
     },
     {
       "domain": "sel.kommune.no",
@@ -1144,6 +1210,17 @@
       "vendor_date": "2026-07-03",
       "vendor_host": "innsynpluss.onacos.no",
       "vendor_evidence": "web-axis"
+    },
+    {
+      "domain": "tana.kommune.no",
+      "kommune": "Tana",
+      "category": "kommune",
+      "vendor": "Sikri Elements",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://prod01.elementscloud.no",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "prod01.elementscloud.no",
+      "vendor_evidence": "probe:/innsyn"
     },
     {
       "domain": "tjeldsund.kommune.no",
@@ -1331,6 +1408,17 @@
       "vendor_date": "2026-07-03",
       "vendor_host": "ardal.acossky.no",
       "vendor_evidence": "web-axis"
+    },
+    {
+      "domain": "as.kommune.no",
+      "kommune": "Ås",
+      "category": "kommune",
+      "vendor": "Tietoevry Public 360",
+      "vendor_method": "portal-fingerprint",
+      "vendor_source": "https://as.pj.360online.com",
+      "vendor_date": "2026-07-03",
+      "vendor_host": "as.pj.360online.com",
+      "vendor_evidence": "probe:/innsyn"
     },
     {
       "domain": "aseral.kommune.no",
