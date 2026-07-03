@@ -195,6 +195,39 @@
       </div>
     </section>
 
+    <!-- The second axis: case-handling / archive (sakarkiv) — issue #67 -->
+    <section>
+      <h2>A second axis: the case-handling system</h2>
+      <p>Email is only the front door. A second, distinct axis maps each body's
+         <b>case-handling and archive system</b> (its NOARK-5 <i>sakarkiv</i>) — the
+         system of record that holds correspondence, case files and decisions — and
+         the jurisdiction that system's hosting answers to. Three vendors dominate
+         the Norwegian market: <b>Acos WebSak</b>, <b>Sikri Elements</b> and
+         <b>Tietoevry Public 360</b>.</p>
+      <p><b>National coverage.</b> So far <b>126</b> public bodies are auto-mapped from their public innsyn-portal fingerprint (Sikri 65 · Acos 38 · Tietoevry 23); <b>0</b> have their hosting jurisdiction confirmed via a citable FOI answer. The method is a public
+         <b>innsyn-portal fingerprint</b>: a body publishes its case journal through
+         a portal hosted by its sakarkiv vendor (e.g. <code>onacos.no</code>,
+         <code>elementscloud.no</code>, <code>360online.com</code>), so the portal
+         host anyone's browser loads identifies the vendor — no login, no private
+         data.</p>
+      <div class="panel keystone">
+        <h3>What the fingerprint proves — and what it doesn't</h3>
+        <p>The tiering is deliberately conservative, matching the Norwegian site:</p>
+        <ul class="good">
+          <li>A fingerprint identifies the <b>vendor only</b> — <b>never</b> the
+             hosting jurisdiction.</li>
+          <li>Hosting is then either <b>inferred</b> from an open vendor→hosting
+             table (always flagged as inferred, never asserted as a per-body fact) or
+             <b>confirmed</b> for a single body only via a citable <b>FOI answer</b>
+             under the Norwegian Freedom of Information Act (<i>offentleglova</i>).</li>
+          <li><b>State agencies</b> (<i>statlige organ</i>) are <b>masked</b>: they
+             publish through the shared national portal <code>einnsyn.no</code>, which
+             carries no vendor fingerprint — so they stay <b>not yet mapped</b> and
+             need an FOI request to identify their vendor at all.</li>
+        </ul>
+      </div>
+    </section>
+
     <!-- Method + open data -->
     <section>
       <h2>Method &amp; open data</h2>
