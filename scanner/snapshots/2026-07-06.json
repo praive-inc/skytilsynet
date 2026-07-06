@@ -1,13 +1,6 @@
 {
-  "meta": {
-    "title": "Norwegian municipality email-platform sovereignty",
-    "source": "public DNS (MX + SPF + autodiscover CNAME)",
-    "sourceDate": "2026-07-06",
-    "license": "CC BY 4.0",
-    "attribution": "Skytilsynet / BetterWorld, skytilsynet.no",
-    "method": "See ../docs/scorecard-spec.md §2 and scanner/README.md.",
-    "floor_note": "microsoft_pct and us_pct are a FLOOR, not a ceiling: 0 domain(s) sit behind a mail-security gateway whose backend SPF did not unmask — some are likely Microsoft too. The true US share is >= the figure shown."
-  },
+  "date": "2026-07-06",
+  "methodology_version": 2,
   "summary": {
     "methodology_version": 2,
     "total": 358,

@@ -22,5 +22,17 @@
     "third_party_trackers": 265,
     "unreachable": 8,
     "avg_us_resource_fraction": 0.198
+  },
+  {
+    "date": "2026-07-06",
+    "total": 358,
+    "us_hosted": 57,
+    "us_hosted_pct": 15.9,
+    "analytics": 59,
+    "analytics_pct": 16.5,
+    "us_cdn": 48,
+    "third_party_trackers": 200,
+    "unreachable": 76,
+    "avg_us_resource_fraction": 0.147
   }
 ]

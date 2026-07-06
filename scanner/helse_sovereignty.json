@@ -23,7 +23,7 @@
         "signal_type": "mx",
         "observation": "10 mail.so-hf.no",
         "source": "dig MX sykehuset-ostfold.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -32,13 +32,13 @@
         "signal_type": "getuserrealm",
         "observation": "Unknown",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@sykehuset-ostfold.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "getuserrealm=Unknown: ingen Microsoft-leietaker",
         "confidence": 0.1,
         "platform": null
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -72,7 +72,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX ahus.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -81,13 +81,13 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.sykehuspartner.no include:_spf.sndr.no -all\" \"v=spf1 ip4:83.118.180.10 ip4:83.118.180.114 ip4:83.118.180.115 ip4:153.110.241.86 ip4:153.110.241.87 include:_netblockssikt.sykehuspartner.no include:spf.qb-feedback.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
         "source": "dig TXT ahus.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -121,13 +121,13 @@
         "signal_type": "mx",
         "observation": "10 finnmarkssykehuset-no.mail.protection.outlook.com",
         "source": "dig MX finnmarkssykehuset.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -161,7 +161,7 @@
         "signal_type": "mx",
         "observation": "10 helgelandssykehuset-no.mail.protection.outlook.com",
         "source": "dig MX helgelandssykehuset.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -170,13 +170,13 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.hnikt.no -all\" \"v=spf1 include:spf.protection.outlook.com include:_spf.vendors.hnikt.no ip4:91.186.76.20 ip4:91.186.76.148 ip4:91.186.77.211 ip4:91.186.77.150 ip4:91.186.77.151 ip4:91.186.77.152/29 -all\"",
         "source": "dig TXT helgelandssykehuset.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -210,7 +210,7 @@
         "signal_type": "mx",
         "observation": "10 helsebergen-no01c.mail.protection.outlook.com",
         "source": "dig MX helse-bergen.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -219,7 +219,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:185.201.93.122 ip4:161.4.88.20/30 ip4:167.89.59.190 a:smtp.nethome.no include:_spf.nhn.no include:msg-out._spf.onevoice.no include:servers.mcsv.net include:_spf.sndr.no include:spf.protection.outlook.com include:mail.webropolsurveys.com -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
         "source": "dig TXT helse-bergen.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -228,13 +228,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.helse-bergen.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -268,7 +268,7 @@
         "signal_type": "mx",
         "observation": "10 helsefonna-no01c.mail.protection.outlook.com",
         "source": "dig MX helse-fonna.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -277,7 +277,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:185.201.93.122 ip4:161.4.88.20/30 include:_spf.nhn.no include:msg-out._spf.onevoice.no include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT helse-fonna.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -286,7 +286,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for helse-fonna.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -295,13 +295,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.helse-fonna.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -335,7 +335,7 @@
         "signal_type": "mx",
         "observation": "10 helseforde-no01c.mail.protection.outlook.com",
         "source": "dig MX helse-forde.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -344,7 +344,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:185.201.93.122  ip4:161.4.88.20/30 include:_spf.nhn.no include:msg-out._spf.onevoice.no include:_spf.anpdm.com include:spf.protection.outlook.com include:_spf.sndr.no -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT helse-forde.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -353,7 +353,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for helse-forde.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -362,13 +362,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.helse-forde.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -402,7 +402,7 @@
         "signal_type": "mx",
         "observation": "5 helsemidt-no01c.mail.protection.outlook.com",
         "source": "dig MX helse-midt.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -411,7 +411,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.helsemn.no include:_spf2.helsemn.no include:spf.protection.outlook.com ~all\" \"v=spf1 ip4:91.186.72.51 ip4:91.186.72.34 ip4:91.186.72.35 ip4:91.186.65.63 ip4:91.186.65.64 ip4:31.25.221.112 ip4:83.118.184.66 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 ip4:91.186.72.55 ~all\" \"v=spf1 include:_spf.questback.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT helse-midt.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -420,13 +420,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for helse-midt.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -460,7 +460,7 @@
         "signal_type": "mx",
         "observation": "5 helsemr-no01c.mail.protection.outlook.com",
         "source": "dig MX helse-mr.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -469,7 +469,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.helsemn.no include:_spf2.helsemn.no include:spf.protection.outlook.com ip4:195.244.107.235 ip4:195.244.107.236 ip4:195.244.107.237 ip4:217.144.78.98 -all\" \"v=spf1 ip4:91.186.72.51 ip4:91.186.72.34 ip4:91.186.72.35 ip4:91.186.65.63 ip4:91.186.65.64 ip4:31.25.221.112 ip4:83.118.184.66 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 ip4:91.186.72.55 ~all\" \"v=spf1 include:_spf.questback.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT helse-mr.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -478,13 +478,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for helse-mr.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -518,7 +518,7 @@
         "signal_type": "mx",
         "observation": "10 helsenord-no01c.mail.protection.outlook.com",
         "source": "dig MX helse-nord.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -527,13 +527,13 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.hnikt.no include:sendgrid.net -all\" \"v=spf1 include:spf.protection.outlook.com include:_spf.vendors.hnikt.no ip4:91.186.76.20 ip4:91.186.76.148 ip4:91.186.77.211 ip4:91.186.77.150 ip4:91.186.77.151 ip4:91.186.77.152/29 -all\"",
         "source": "dig TXT helse-nord.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -567,7 +567,7 @@
         "signal_type": "mx",
         "observation": "0 hnt-no.mail.protection.outlook.com",
         "source": "dig MX hnt.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -576,7 +576,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.helsemn.no include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.186.72.51 ip4:91.186.72.34 ip4:91.186.72.35 ip4:91.186.65.63 ip4:91.186.65.64 ip4:31.25.221.112 ip4:83.118.184.66 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 ip4:91.186.72.55 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT hnt.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -585,13 +585,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for hnt.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -625,7 +625,7 @@
         "signal_type": "mx",
         "observation": "10 sus-no.mail.protection.outlook.com",
         "source": "dig MX sus.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -634,7 +634,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:161.4.88.20/30 ip4:185.201.93.122 include:_spf.nhn.no include:msg-out._spf.onevoice.no ip4:192.254.125.69 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT sus.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -643,7 +643,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for sus.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -652,13 +652,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.sus.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -692,7 +692,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX helse-sorost.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -701,7 +701,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.sykehuspartner.no include:_spf.anpdm.com include:spf.protection.outlook.com include:_spf.enternett.no -all\" \"v=spf1 ip4:83.118.180.10 ip4:83.118.180.114 ip4:83.118.180.115 ip4:153.110.241.86 ip4:153.110.241.87 include:_netblockssikt.sykehuspartner.no include:spf.qb-feedback.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.93.252.70 ip4:193.93.253.37 ip4:193.93.253.38 ip4:193.93.253.36 ip4:193.93.253.35 ip4:193.93.253.34 ip4:185.145.190.37 ip4:185.145.190.38 ip4:193.93.253.33 ip4:193.93.253.32 ip4:193.93.253.48 ip4:193.93.253.49 ip4:49.13.104.96/27\"",
         "source": "dig TXT helse-sorost.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -710,7 +710,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for helse-sorost.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -719,13 +719,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.sykehuspartner.no",
         "source": "dig CNAME autodiscover.helse-sorost.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -759,7 +759,7 @@
         "signal_type": "mx",
         "observation": "10 helsevest-no01c.mail.protection.outlook.com",
         "source": "dig MX helse-vest.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -768,7 +768,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:185.201.93.122 ip4:161.4.88.20/30 include:_spf.nhn.no include:msg-out._spf.onevoice.no include:_spf.sndr.no include:_spf.anpdm.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\"",
         "source": "dig TXT helse-vest.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -777,13 +777,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.helse-vest.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -817,7 +817,7 @@
         "signal_type": "mx",
         "observation": "10 nordlandssykehuset-no.mail.protection.outlook.com",
         "source": "dig MX nordlandssykehuset.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -826,13 +826,13 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.hnikt.no ip4:91.186.76.69 include:spf.ilnet.se -all\" \"v=spf1 include:spf.protection.outlook.com include:_spf.vendors.hnikt.no ip4:91.186.76.20 ip4:91.186.76.148 ip4:91.186.77.211 ip4:91.186.77.150 ip4:91.186.77.151 ip4:91.186.77.152/29 -all\" \"v=spf1 ip4:93.190.199.140 ip4:93.190.199.141 ip4:192.71.135.177 ip4:192.71.135.178 ip4:192.71.135.179 ip4:192.71.135.180 ip4:192.71.135.181 ip4:192.71.135.182 ip4:93.190.199.157 ip4:93.190.199.177 ip4:93.190.199.178 ip4:139.116.71.0/25 ~all\"",
         "source": "dig TXT nordlandssykehuset.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -866,7 +866,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX oslo-universitetssykehus.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -875,7 +875,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
         "source": "dig TXT oslo-universitetssykehus.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -884,7 +884,7 @@
         "signal_type": "dkim",
         "observation": "selector1-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com selector2-oslouniversitetssykehus-no01b._domainkey.hsorhf.onmicrosoft.com",
         "source": "dig CNAME selector1/2._domainkey.oslo-universitetssykehus.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "DKIM-selektor → *.onmicrosoft.com: airtight Microsoft 365",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
@@ -893,13 +893,13 @@
         "signal_type": "getuserrealm",
         "observation": "Managed",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@oslo-universitetssykehus.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -933,7 +933,7 @@
         "signal_type": "mx",
         "observation": "5 stolav-no.mail.protection.outlook.com",
         "source": "dig MX stolav.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -942,7 +942,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.helsemn.no include:_spf.questback.com include:spf.protection.outlook.com include:spf.infostorm.no include:_spf.sndr.no ip4:217.144.78.98 ~all\" \"v=spf1 ip4:91.186.72.51 ip4:91.186.72.34 ip4:91.186.72.35 ip4:91.186.65.63 ip4:91.186.65.64 ip4:31.25.221.112 ip4:83.118.184.66 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 ip4:91.186.72.55 ~all\" \"v=spf1 ip4:91.217.141.0/24 ip4:87.79.30.0/25 ip4:193.66.190.13 ip4:89.250.60.42 ip4:5.250.160.26 ip4:89.250.48.136 ip4:194.116.128.11 ip4:82.147.60.210 ip4:130.61.132.10 ip4:193.122.14.67 ip4:152.70.162.25 ip4:51.120.120.172 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:195.254.214.0/28 ip4:146.192.177.0/27 include:spf-mr.infostorm.no include:spf.mailanyone.net ~all\"",
         "source": "dig TXT stolav.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -951,13 +951,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for stolav.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -991,7 +991,7 @@
         "signal_type": "mx",
         "observation": "0 sykehusapotekene-no.mail.protection.outlook.com",
         "source": "dig MX sykehusapotekene.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1000,7 +1000,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf.protection.outlook.com include:_spf.sndr.no include:_spf.atlassian.net include:msg-out._spf.onevoice.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:167.89.0.0/17 ip4:168.245.0.0/17 include:amazonses.com -all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
         "source": "dig TXT sykehusapotekene.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1009,7 +1009,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for sykehusapotekene.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1018,13 +1018,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.sykehusapotekene.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -1058,7 +1058,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX sykehuset-innlandet.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -1067,7 +1067,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spfmailgw.ntnu.no include:_spf.sykehuspartner.no -all\" \"v=spf1 ip4:129.241.14.142 ip4:129.241.34.135 ip4:129.241.34.136 ip4:129.241.34.138 ip4:129.241.34.133 ip4:129.241.56.7 ip6:2001:700:300:3::7 ip4:129.241.56.133 ip6:2001:700:300:3::133 ip4:129.241.56.134 ip6:2001:700:300:3::134 ip4:129.241.56.135 ip6:2001:\" \"700:300:3::135 ip4:129.241.56.136 ip6:2001:700:300:3::136 ip4:129.241.56.150 ip6:2001:700:300:3::150 ip4:129.241.56.174 ip6:2001:700:300:3::174 ip4:129.241.56.176 ip6:2001:700:300:3::176 ip4:129.241.56.177 ip6:2001:700:300:3::177 ip4:129.241.56.178 ip6:20\" \"01:700:300:3::178 ip4:129.241.56.179 ip6:2001:700:300:3::179 ip4:129.241.56.182 ip6:2001:700:300:3::182 ip4:129.241.56.215 ip6:2001:700:300:3::215 ip4:129.241.57.164 ip6:2001:700:300:31::164 ip4:129.241.56.183 ip6:2001:700:300:3::183 ip4:129.241.57.166 ip\" \"6:2001:700:300:31::166 -all\" \"v=spf1 ip4:83.118.180.10 ip4:83.118.180.114 ip4:83.118.180.115 ip4:153.110.241.86 ip4:153.110.241.87 include:_netblockssikt.sykehuspartner.no include:spf.qb-feedback.com include:spf.protection.outlook.com -all\"",
         "source": "dig TXT sykehuset-innlandet.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1076,13 +1076,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.sykehuspartner.no",
         "source": "dig CNAME autodiscover.sykehuset-innlandet.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -1116,7 +1116,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX sthf.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -1125,7 +1125,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
         "source": "dig TXT sthf.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -1134,7 +1134,7 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.sykehuspartner.no",
         "source": "dig CNAME autodiscover.sthf.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
@@ -1143,7 +1143,7 @@
         "signal_type": "dkim",
         "observation": "selector1-sthf-no._domainkey.hsorhf.onmicrosoft.com selector2-sthf-no._domainkey.hsorhf.onmicrosoft.com",
         "source": "dig CNAME selector1/2._domainkey.sthf.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "DKIM-selektor → *.onmicrosoft.com: airtight Microsoft 365",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
@@ -1152,13 +1152,13 @@
         "signal_type": "getuserrealm",
         "observation": "Federated",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@sthf.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "getuserrealm=Federated: Azure AD-leietaker finnes (e-post antatt, ikke ren sky-leietaker)",
         "confidence": 0.6,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -1192,7 +1192,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX siv.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -1201,7 +1201,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
         "source": "dig TXT siv.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -1210,7 +1210,7 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.sykehuspartner.no",
         "source": "dig CNAME autodiscover.siv.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
@@ -1219,7 +1219,7 @@
         "signal_type": "dkim",
         "observation": "selector1-siv-no._domainkey.hsorhf.onmicrosoft.com selector2-siv-no._domainkey.hsorhf.onmicrosoft.com",
         "source": "dig CNAME selector1/2._domainkey.siv.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "DKIM-selektor → *.onmicrosoft.com: airtight Microsoft 365",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
@@ -1228,13 +1228,13 @@
         "signal_type": "getuserrealm",
         "observation": "Federated",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@siv.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "getuserrealm=Federated: Azure AD-leietaker finnes (e-post antatt, ikke ren sky-leietaker)",
         "confidence": 0.6,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -1268,7 +1268,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX sykehuspartner.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -1277,7 +1277,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
         "source": "dig TXT sykehuspartner.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -1286,7 +1286,7 @@
         "signal_type": "dkim",
         "observation": "selector1-sykehuspartner-no._domainkey.hsorhf.onmicrosoft.com selector2-sykehuspartner-no._domainkey.hsorhf.onmicrosoft.com",
         "source": "dig CNAME selector1/2._domainkey.sykehuspartner.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "DKIM-selektor → *.onmicrosoft.com: airtight Microsoft 365",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
@@ -1295,13 +1295,13 @@
         "signal_type": "getuserrealm",
         "observation": "Federated",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@sykehuspartner.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "getuserrealm=Federated: Azure AD-leietaker finnes (e-post antatt, ikke ren sky-leietaker)",
         "confidence": 0.6,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -1335,7 +1335,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX sshf.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -1344,7 +1344,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.sykehuspartner.no include:spf-eu.exlibrisgroup.com -all\" \"v=spf1 ip4:83.118.180.10 ip4:83.118.180.114 ip4:83.118.180.115 ip4:153.110.241.86 ip4:153.110.241.87 include:_netblockssikt.sykehuspartner.no include:spf.qb-feedback.com include:spf.protection.outlook.com -all\" \"v=spf1 ip4:95.172.90.143 ip4:95.172.90.156 ip4:216.147.218.8/30 -all\"",
         "source": "dig TXT sshf.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1353,13 +1353,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.sykehuspartner.no",
         "source": "dig CNAME autodiscover.sshf.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -1393,7 +1393,7 @@
         "signal_type": "mx",
         "observation": "10 unn-no.mail.protection.outlook.com",
         "source": "dig MX unn.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1402,13 +1402,13 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.hnikt.no include:spf.ilnet.se -all\" \"v=spf1 include:spf.protection.outlook.com include:_spf.vendors.hnikt.no ip4:91.186.76.20 ip4:91.186.76.148 ip4:91.186.77.211 ip4:91.186.77.150 ip4:91.186.77.151 ip4:91.186.77.152/29 -all\" \"v=spf1 ip4:93.190.199.140 ip4:93.190.199.141 ip4:192.71.135.177 ip4:192.71.135.178 ip4:192.71.135.179 ip4:192.71.135.180 ip4:192.71.135.181 ip4:192.71.135.182 ip4:93.190.199.157 ip4:93.190.199.177 ip4:93.190.199.178 ip4:139.116.71.0/25 ~all\"",
         "source": "dig TXT unn.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   },
   {
     "category": "helse",
@@ -1442,7 +1442,7 @@
         "signal_type": "mx",
         "observation": "10 mx.sykehuspartner.no",
         "source": "dig MX vestreviken.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -1451,7 +1451,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 redirect=_spf.sykehuspartner.no\"",
         "source": "dig TXT vestreviken.no (v=spf1)",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -1460,7 +1460,7 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.sykehuspartner.no",
         "source": "dig CNAME autodiscover.vestreviken.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
@@ -1469,7 +1469,7 @@
         "signal_type": "dkim",
         "observation": "selector1-vestreviken-no._domainkey.hsorhf.onmicrosoft.com selector2-vestreviken-no._domainkey.hsorhf.onmicrosoft.com",
         "source": "dig CNAME selector1/2._domainkey.vestreviken.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "DKIM-selektor → *.onmicrosoft.com: airtight Microsoft 365",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
@@ -1478,12 +1478,12 @@
         "signal_type": "getuserrealm",
         "observation": "Federated",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@vestreviken.no",
-        "observed_at": "2026-06-29",
+        "observed_at": "2026-07-06",
         "inference": "getuserrealm=Federated: Azure AD-leietaker finnes (e-post antatt, ikke ren sky-leietaker)",
         "confidence": 0.6,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-06-29"
+    "sourceDate": "2026-07-06"
   }
 ]
