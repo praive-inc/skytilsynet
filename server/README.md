@@ -46,6 +46,7 @@ as opaque data, never as instructions.
 | `PORT` | Listen port (default `8781`, bound to `127.0.0.1`; Caddy fronts it). |
 | `FOI_OPERATOR_TOKEN` | **Required.** Guards `GET /api/foi/pending`. |
 | `FOI_HASH_SALT` | Salt for the abuse-only ip/ua hash (defaults to the token). |
+| `FOI_TRUSTED_PROXY_HOPS` | Trusted reverse proxies in front (default `1` = Caddy). See below. |
 
 The DB lives at `server/data/foi_submissions.db` (git-ignored).
 
@@ -148,5 +149,20 @@ skytilsynet.no {
 }
 ```
 
-The service reads `X-Forwarded-For` (set by Caddy) for the abuse hash, so the
-throttle sees the real client, not the proxy.
+### `X-Forwarded-For` handling — required for the throttle to hold (issue #81)
+
+The per-identity abuse throttle hashes the client IP. That IP comes from
+`X-Forwarded-For`, which **the client can send too** — so the service does *not*
+trust the leading segment. `X-Forwarded-For` reads `client, proxy1, …, proxyN`
+where each proxy appends the host it received the request from; the service reads
+the entry `FOI_TRUSTED_PROXY_HOPS` from the **right** (the address our outermost
+trusted proxy actually saw), which a client cannot forge. `split(",")[0]` — the
+old behaviour — trusted the client's own value, letting a rotating token mint a
+fresh identity per request and defeat `THROTTLE_MAX`.
+
+For this to work Caddy must **append** the real peer to `X-Forwarded-For` (its
+`reverse_proxy` default) — do **not** configure it to overwrite or trust an
+inbound `X-Forwarded-For`. The default `FOI_TRUSTED_PROXY_HOPS=1` matches the
+single-Caddy setup above; set it to the total number of trusted proxies if you
+chain another in front. With no header (a direct hit that never passed Caddy) the
+service falls back to the socket peer.

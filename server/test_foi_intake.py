@@ -141,6 +141,19 @@ class ServiceTest(unittest.TestCase):
         s, _, _ = self.post({"domain": "oslo.kommune.no", "vendor": "X"})
         self.assertEqual(s, 429)
 
+    def test_throttle_not_bypassed_by_spoofed_forwarded_for(self):
+        # Issue #81: a client rotating its own X-Forwarded-For must not mint a
+        # fresh identity each request. We model Caddy appending the real peer as
+        # the trusted last hop; that hop is constant, so the throttle still fires
+        # even though the client-chosen leading segment changes every time.
+        for i in range(foi_intake.THROTTLE_MAX):
+            s, _, _ = self.post({"domain": "oslo.kommune.no", "vendor": "X"},
+                                headers={"X-Forwarded-For": "10.9.9.%d, 203.0.113.7" % i})
+            self.assertEqual(s, 200)
+        s, _, _ = self.post({"domain": "oslo.kommune.no", "vendor": "X"},
+                            headers={"X-Forwarded-For": "10.9.9.250, 203.0.113.7"})
+        self.assertEqual(s, 429)
+
     # ---- form-encoded + no-JS fallback ---------------------------------
     def test_form_post_redirects_to_bidra(self):
         # No-JS fallback: a form post stores the row and 303-redirects the browser
@@ -274,6 +287,31 @@ class ReviewCliTest(unittest.TestCase):
         # A stored submission is 'new' until a human acts — never auto-accepted.
         self.assertEqual(self._sub()["status"], "new")
         self.assertEqual(len(foi_intake.pending(self.conn)), 1)
+
+
+class ClientIpTest(unittest.TestCase):
+    """The trusted-proxy XFF parsing that keys the abuse throttle (issue #81)."""
+
+    def test_uses_trusted_last_hop_not_spoofed_leading_segment(self):
+        # Caddy (1 hop) appends the real peer; the client's leading segment is
+        # untrusted and must be ignored.
+        self.assertEqual(
+            foi_intake.client_ip("1.2.3.4, 203.0.113.9", "127.0.0.1", hops=1),
+            "203.0.113.9")
+
+    def test_falls_back_to_peer_without_forwarded_header(self):
+        self.assertEqual(foi_intake.client_ip("", "203.0.113.9", hops=1),
+                         "203.0.113.9")
+
+    def test_falls_back_to_peer_when_xff_shorter_than_trusted_hops(self):
+        # Fewer entries than trusted proxies means the header can't be trusted.
+        self.assertEqual(foi_intake.client_ip("1.2.3.4", "10.0.0.1", hops=2),
+                         "10.0.0.1")
+
+    def test_counts_from_the_right_for_multiple_proxies(self):
+        self.assertEqual(
+            foi_intake.client_ip("client, 203.0.113.9, 10.0.0.2", "10.0.0.1", hops=2),
+            "203.0.113.9")
 
 
 class KnownEntitiesTest(unittest.TestCase):

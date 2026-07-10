@@ -48,6 +48,10 @@ HONEYPOT_FIELD = "company"
 MAX_BODY = 32 * 1024                      # reject oversized posts outright
 THROTTLE_WINDOW = 3600                    # seconds
 THROTTLE_MAX = 8                          # stored submissions per identity / window
+# How many trusted reverse proxies sit in front of us (Caddy = 1). X-Forwarded-For
+# is client-appendable, so only the rightmost TRUSTED_PROXY_HOPS entries — the ones
+# our own proxies added — are trustworthy. See client_ip() and server/README.md.
+TRUSTED_PROXY_HOPS = int(os.environ.get("FOI_TRUSTED_PROXY_HOPS", "1"))
 
 
 def known_entities(data_dir=DATA_DIR):
@@ -93,6 +97,23 @@ def init_db(path=DB_PATH):
            )""")
     conn.commit()
     return conn
+
+
+def client_ip(forwarded, peer, hops=TRUSTED_PROXY_HOPS):
+    """The real client address for the abuse hash, resistant to a spoofed
+    X-Forwarded-For (issue #81). `forwarded` is the raw XFF header, `peer` the
+    direct socket address, `hops` the number of trusted proxies that append to XFF.
+
+    XFF reads `client, proxy1, ..., proxyN`: each proxy appends the host it
+    received the request from, so the entry `hops` from the RIGHT is the address
+    our outermost trusted proxy actually saw. A client can forge leading segments
+    but not that position — taking split(',')[0] would trust the forged value and
+    let a rotating token defeat the per-identity throttle. With no/short XFF (a
+    direct hit that never passed the proxy) we trust the socket peer instead."""
+    parts = [p.strip() for p in forwarded.split(",") if p.strip()]
+    if hops > 0 and len(parts) >= hops:
+        return parts[-hops]
+    return peer
 
 
 def ident_hash(ip, ua, salt):
@@ -219,9 +240,10 @@ def make_app(conn, entities, token, salt):
             return "application/json" in accept or "application/json" in ctype
 
         def _client_ident(self):
-            # Behind Caddy the real client is in X-Forwarded-For; fall back to peer.
-            fwd = self.headers.get("X-Forwarded-For", "")
-            ip = fwd.split(",")[0].strip() if fwd else self.client_address[0]
+            # Behind Caddy the real client is the trusted last hop of X-Forwarded-For
+            # — NOT the client-appendable leading segment (issue #81). Peer is the
+            # fallback for a direct hit that never passed the proxy.
+            ip = client_ip(self.headers.get("X-Forwarded-For", ""), self.client_address[0])
             return ident_hash(ip, self.headers.get("User-Agent", ""), salt)
 
         # ---- routes ----
