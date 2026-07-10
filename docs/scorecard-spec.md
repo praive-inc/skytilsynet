@@ -327,6 +327,9 @@ enters the §8 score (which stays email + web + governance).
   shipped in §5/§8; the saksbehandling/arkiv axis in §9.)
 - Other public-body types (counties, state agencies, hospitals) and other EEA
   markets — the model is designed to generalize (RFC-016), built Norway-first.
+  (The Norwegian expansion shipped: fylkeskommuner, helseforetak, statlige organ
+  and the UH-sektor are scanned and scored alongside kommuner, and the §9
+  sakarkiv probe spans all five categories. Other EEA markets remain roadmap.)
 - The business/employer (private-company) scorecard — same engine, its own RFC.
 
 ## Consequences
