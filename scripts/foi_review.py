@@ -77,8 +77,10 @@ def saksbehandling_row(sub, entities, source_type=DEFAULT_SOURCE_TYPE):
 
 
 def _row_csv(row):
+    # Neutralize spreadsheet formula injection (issue #80): the untrusted answer
+    # fields end up in this pasted row and the operator opens the result.
     buf = io.StringIO()
-    csv.writer(buf).writerow(row)
+    csv.writer(buf).writerow([foi_intake.csv_safe(c) for c in row])
     return buf.getvalue().rstrip("\r\n")
 
 

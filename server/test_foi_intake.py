@@ -311,6 +311,45 @@ class KnownEntitiesTest(unittest.TestCase):
         self.assertTrue(ents["larvik.kommune.no"]["name"])
 
 
+class CsvInjectionTest(unittest.TestCase):
+    """Issue #80 (CWE-1236): untrusted answer fields must not become spreadsheet
+    formulas when the operator opens an exported CSV in Excel/LibreOffice/Sheets."""
+
+    def test_csv_safe_neutralizes_formula_leaders(self):
+        for bad in ("=1+1", "+1", "-1", "@SUM(A1)", "\tcmd", "\rx"):
+            out = foi_intake.csv_safe(bad)
+            self.assertTrue(out.startswith("'"), "%r not neutralized" % bad)
+            self.assertEqual(out[1:], bad)
+
+    def test_csv_safe_leaves_ordinary_values_untouched(self):
+        for ok in ("Acos WebSak", "Norge (EØS)", "https://ex.org/svar", "", None):
+            self.assertEqual(foi_intake.csv_safe(ok), "" if ok is None else ok)
+
+    def test_pending_csv_neutralizes_formula_fields(self):
+        rec = {"id": 1, "created_at": "2026-07-10T00:00:00Z",
+               "domain": "larvik.kommune.no", "entity_name": "Larvik kommune",
+               "vendor": "=HYPERLINK(\"http://evil\")", "hosting": "@evil",
+               "jurisdiction": "-2+3", "source": "+cmd|' /c calc'!A0",
+               "note": "\t=1", "status": "new"}
+        out = foi_intake._pending_csv([rec])
+        self.assertIn("'=HYPERLINK", out)
+        self.assertIn("'@evil", out)
+        self.assertIn("'-2+3", out)
+        self.assertNotIn(",=HYPERLINK", out)
+        self.assertNotIn(",@evil", out)
+
+    def test_row_csv_neutralizes_formula_fields(self):
+        row = ["larvik.kommune.no", "kommune", "=cmd|' /c calc'!A0", "innsyn-foi",
+               "+evil", "2026-07-10", "@x", "-y", "innsyn-foi", "ok",
+               "innsyn-pa-fil", "2026-07-10", "=1+1"]
+        out = foi_review._row_csv(row)
+        self.assertIn("'=cmd", out)
+        self.assertIn("'+evil", out)
+        self.assertIn("'@x", out)
+        self.assertIn("'-y", out)
+        self.assertNotIn(",=cmd", out)
+
+
 class _Args:
     def __init__(self, **kw):
         self.__dict__.update(kw)

@@ -182,6 +182,19 @@ def pending(conn):
     return [dict(zip(cols, r)) for r in rows]
 
 
+# Leading characters a spreadsheet treats as the start of a formula (CWE-1236).
+_CSV_FORMULA_LEADERS = ("=", "+", "-", "@", "\t", "\r")
+
+
+def csv_safe(value):
+    """Neutralize a single CSV cell against spreadsheet formula injection: prefix a
+    leading formula character with a `'` so Excel/LibreOffice/Sheets treat the cell
+    as text. Submissions are untrusted public input and the operator who exports and
+    opens the CSV is the intended victim, so apply this to every emitted cell."""
+    s = "" if value is None else str(value)
+    return "'" + s if s.startswith(_CSV_FORMULA_LEADERS) else s
+
+
 def _pending_csv(records):
     import csv
     import io
@@ -191,7 +204,7 @@ def _pending_csv(records):
     w = csv.DictWriter(buf, fieldnames=cols)
     w.writeheader()
     for r in records:
-        w.writerow(r)
+        w.writerow({k: csv_safe(v) for k, v in r.items()})
     return buf.getvalue()
 
 
