@@ -148,5 +148,9 @@ skytilsynet.no {
 }
 ```
 
-The service reads `X-Forwarded-For` (set by Caddy) for the abuse hash, so the
-throttle sees the real client, not the proxy.
+The service reads `X-Forwarded-For` for the abuse hash, so the throttle sees the
+real client, not the proxy. Because a client can prepend its own forged entries,
+the service trusts only the **last** hop — the address Caddy appends (`TRUSTED_PROXY_HOPS
+= 1`), never the client-supplied first entry (issue #84). If you ever chain more
+than one trusted proxy, bump `TRUSTED_PROXY_HOPS` to match, or have Caddy strip
+inbound `X-Forwarded-For` before proxying.

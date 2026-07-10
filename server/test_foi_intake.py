@@ -141,6 +141,19 @@ class ServiceTest(unittest.TestCase):
         s, _, _ = self.post({"domain": "oslo.kommune.no", "vendor": "X"})
         self.assertEqual(s, 429)
 
+    def test_throttle_ignores_forged_first_xff_hop(self):
+        # Issue #84: an attacker rotates the client-supplied FIRST X-Forwarded-For
+        # entry to dodge the per-identity cap. Caddy appends the real peer as the
+        # LAST entry, so identity keys off that — rotating the first hop must not help.
+        real = "203.0.113.9"
+        for i in range(foi_intake.THROTTLE_MAX):
+            s, _, _ = self.post({"domain": "oslo.kommune.no", "vendor": "X"},
+                                headers={"X-Forwarded-For": "10.0.0.%d, %s" % (i, real)})
+            self.assertEqual(s, 200)
+        s, _, _ = self.post({"domain": "oslo.kommune.no", "vendor": "X"},
+                            headers={"X-Forwarded-For": "10.0.0.250, " + real})
+        self.assertEqual(s, 429)
+
     # ---- form-encoded + no-JS fallback ---------------------------------
     def test_form_post_redirects_to_bidra(self):
         # No-JS fallback: a form post stores the row and 303-redirects the browser
@@ -274,6 +287,21 @@ class ReviewCliTest(unittest.TestCase):
         # A stored submission is 'new' until a human acts — never auto-accepted.
         self.assertEqual(self._sub()["status"], "new")
         self.assertEqual(len(foi_intake.pending(self.conn)), 1)
+
+
+class ClientIpTest(unittest.TestCase):
+    """The proxy-attested client IP used for abuse throttling (issue #84)."""
+
+    def test_takes_trusted_last_hop_not_client_first(self):
+        # "<forged>, <real peer Caddy appended>" → we key off the real one.
+        self.assertEqual(
+            foi_intake._client_ip("9.9.9.9, 203.0.113.5", "127.0.0.1"), "203.0.113.5")
+
+    def test_single_hop_is_the_client(self):
+        self.assertEqual(foi_intake._client_ip("203.0.113.5", "127.0.0.1"), "203.0.113.5")
+
+    def test_falls_back_to_peer_without_xff(self):
+        self.assertEqual(foi_intake._client_ip("", "198.51.100.2"), "198.51.100.2")
 
 
 class KnownEntitiesTest(unittest.TestCase):

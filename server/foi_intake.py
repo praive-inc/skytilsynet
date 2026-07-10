@@ -48,6 +48,11 @@ HONEYPOT_FIELD = "company"
 MAX_BODY = 32 * 1024                      # reject oversized posts outright
 THROTTLE_WINDOW = 3600                    # seconds
 THROTTLE_MAX = 8                          # stored submissions per identity / window
+# We sit behind exactly one trusted proxy (Caddy). It appends the real peer as
+# the LAST X-Forwarded-For entry; every earlier entry is client-supplied and
+# forgeable. Count the trusted hops from the right so we never key abuse
+# throttling off an attacker-chosen value (issue #84).
+TRUSTED_PROXY_HOPS = 1
 
 
 def known_entities(data_dir=DATA_DIR):
@@ -93,6 +98,17 @@ def init_db(path=DB_PATH):
            )""")
     conn.commit()
     return conn
+
+
+def _client_ip(fwd, peer):
+    """The proxy-attested client IP for throttling. Caddy appends the real peer as
+    the last X-Forwarded-For entry, so we take the TRUSTED_PROXY_HOPS-th hop from
+    the right — never index [0], which a client can forge. Falls back to the socket
+    peer when there is no usable XFF (direct connection, e.g. tests/local)."""
+    hops = [h.strip() for h in fwd.split(",") if h.strip()]
+    if len(hops) >= TRUSTED_PROXY_HOPS:
+        return hops[-TRUSTED_PROXY_HOPS]
+    return peer
 
 
 def ident_hash(ip, ua, salt):
@@ -219,9 +235,10 @@ def make_app(conn, entities, token, salt):
             return "application/json" in accept or "application/json" in ctype
 
         def _client_ident(self):
-            # Behind Caddy the real client is in X-Forwarded-For; fall back to peer.
-            fwd = self.headers.get("X-Forwarded-For", "")
-            ip = fwd.split(",")[0].strip() if fwd else self.client_address[0]
+            # Behind Caddy the real client is the proxy-attested X-Forwarded-For
+            # hop; fall back to the socket peer. Never trust the client-supplied
+            # first hop (issue #84).
+            ip = _client_ip(self.headers.get("X-Forwarded-For", ""), self.client_address[0])
             return ident_hash(ip, self.headers.get("User-Agent", ""), salt)
 
         # ---- routes ----
