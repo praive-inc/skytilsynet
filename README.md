@@ -36,8 +36,10 @@ even higher.
 ```
 scanner/   the DNS pipeline (MX + SPF + autodiscover) + dated snapshots + history
 web/       the public site — the live tracker (Skybarometeret), built by build.py
+server/    the FOI intake backend (skytilsynet-foi) + operator review
 data/      the published open dataset (CC BY 4.0)
-docs/      methodology / scope spec (originated as BetterWorld RFC-017)
+docs/      scorecard-spec.md — the why/RFC (originated as BetterWorld RFC-017);
+           reference/scorecard-system.md — the living what-exists/how-it-runs doc
 ```
 
 ## Run the scanner

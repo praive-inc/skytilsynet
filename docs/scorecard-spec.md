@@ -6,9 +6,17 @@
 > [BetterWorld](https://github.com/praive-inc/betterworld); this repo owns the
 > scanner ([`../scanner/`](../scanner/)) and the presentation.
 
-**Status:** Draft
+**Status:** Accepted — implemented (2026-07)
 **Author:** BetterWorld / Skytilsynet
 **Created:** 2026-06-27
+
+> **This RFC is implemented and deployed.** It is kept as the *why* — the
+> rationale, the strategic bet, and the guardrails that constrain the build. For
+> the current operational state (what exists, how each service and feature works,
+> how it is run) see the living reference doc:
+> [`reference/scorecard-system.md`](reference/scorecard-system.md). When the two
+> disagree, the reference doc is authoritative on *what is*; this RFC remains
+> authoritative on *why*.
 **Depends on (BetterWorld RFCs):** RFC-001 (vision, seven principles), RFC-006 (sovereignty scoring), RFC-011 (entity SovereigntyScore), RFC-016 (Norway-first market config)
 **Strategy:** BetterWorld `docs/strategy/making-the-world-better-2026-06.md` §5
 
@@ -322,14 +330,16 @@ enters the §8 score (which stays email + web + governance).
 
 ## Out of scope (roadmap)
 
-- Additional axes (procurement contracts via TED/Doffin, productivity-suite
-  detection) — additive once the surface exists. (The web-infrastructure axis
-  shipped in §5/§8; the saksbehandling/arkiv axis in §9.)
-- Other public-body types (counties, state agencies, hospitals) and other EEA
-  markets — the model is designed to generalize (RFC-016), built Norway-first.
-  (The Norwegian expansion shipped: fylkeskommuner, helseforetak, statlige organ
-  and the UH-sektor are scanned and scored alongside kommuner, and the §9
-  sakarkiv probe spans all five categories. Other EEA markets remain roadmap.)
+Much of what this RFC once deferred has since shipped — the current state lives in
+[`reference/scorecard-system.md`](reference/scorecard-system.md), not here. What
+genuinely remains roadmap:
+
+- Additional axes beyond email + web-infrastructure + saksbehandling/arkiv (e.g.
+  procurement contracts via TED/Doffin, productivity-suite detection) — additive
+  once the surface exists.
+- Other EEA markets — the model is designed to generalize (RFC-016) but is built
+  Norway-first. (The Norwegian expansion across the five public-body categories
+  already shipped.)
 - The business/employer (private-company) scorecard — same engine, its own RFC.
 
 ## Consequences
