@@ -201,6 +201,30 @@ class ServiceTest(unittest.TestCase):
         self.assertIn("text/csv", r.headers.get("Content-Type"))
         self.assertIn("larvik.kommune.no", r.read().decode())
 
+    def test_csv_export_neutralizes_formula_injection_end_to_end(self):
+        # Issue #90 (CWE-1236): an untrusted submission with formula-leading fields
+        # must come back inert from the real POST-intake → GET-csv seam, while the
+        # stored value stays byte-for-byte unchanged (only the CSV rendering differs).
+        import csv as _csv
+        import io as _io
+        self.post({"domain": "larvik.kommune.no",
+                   "vendor": "=HYPERLINK(\"http://evil\")", "hosting": "@evil",
+                   "source": "+cmd|' /c calc'!A0", "note": "-2+3"})
+        cred = base64.b64encode(b"operator:" + TOKEN.encode()).decode()
+        req = Request(self.url("/api/foi/pending?format=csv"),
+                      headers={"Authorization": "Basic " + cred})
+        body = urlopen(req).read().decode()
+
+        row = next(_csv.DictReader(_io.StringIO(body)))  # valid, correctly-quoted CSV
+        self.assertEqual(row["vendor"], "'=HYPERLINK(\"http://evil\")")
+        self.assertEqual(row["hosting"], "'@evil")
+        self.assertEqual(row["source"], "'+cmd|' /c calc'!A0")
+        self.assertEqual(row["note"], "'-2+3")
+        self.assertEqual(row["domain"], "larvik.kommune.no")  # ordinary value untouched
+
+        # Stored data is unchanged — neutralization is render-only.
+        self.assertEqual(self._rows()[0]["vendor"], "=HYPERLINK(\"http://evil\")")
+
     def test_wrong_token_rejected(self):
         req = Request(self.url("/api/foi/pending"),
                       headers={"Authorization": "Bearer wrong"})
