@@ -303,6 +303,28 @@ class ReviewCliTest(unittest.TestCase):
                                   _Args(id=self.sid, source_type="offentlig-journal"))
         self.assertIn("offentlig-journal", buf.getvalue())
 
+    def test_accept_neutralizes_formula_fields_in_emitted_row(self):
+        # Issue #95 (CWE-1236): a submission whose answer fields lead with a
+        # spreadsheet formula char must reach the pasteable row neutralized —
+        # exercised through the real review path (saksbehandling_row → _row_csv
+        # via cmd_accept), not a hand-built row.
+        import io
+        from contextlib import redirect_stdout
+        rec = {"domain": "larvik.kommune.no", "entity_name": "Larvik kommune",
+               "vendor": "=HYPERLINK(\"http://evil\")", "hosting": "@x",
+               "jurisdiction": "-y", "source": "https://ex.org/svar",
+               "note": "+cmd|' /c calc'!A0"}
+        sid = foi_intake.store(self.conn, rec, "identhash-formula")
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            foi_review.cmd_accept(self.conn, _Args(id=sid))
+        out = buf.getvalue()
+        self.assertIn("'=HYPERLINK", out)
+        self.assertIn("'@x", out)
+        self.assertIn("'-y", out)
+        self.assertIn("'+cmd", out)
+        self.assertNotIn(",=HYPERLINK", out)
+
     def test_reject_sets_status(self):
         foi_review.cmd_reject(self.conn, _Args(id=self.sid))
         self.assertEqual(self._sub()["status"], "rejected")
