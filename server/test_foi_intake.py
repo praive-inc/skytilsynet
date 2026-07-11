@@ -337,17 +337,10 @@ class KnownEntitiesTest(unittest.TestCase):
 
 class CsvInjectionTest(unittest.TestCase):
     """Issue #80 (CWE-1236): untrusted answer fields must not become spreadsheet
-    formulas when the operator opens an exported CSV in Excel/LibreOffice/Sheets."""
+    formulas when the operator opens an exported CSV in Excel/LibreOffice/Sheets.
 
-    def test_csv_safe_neutralizes_formula_leaders(self):
-        for bad in ("=1+1", "+1", "-1", "@SUM(A1)", "\tcmd", "\rx"):
-            out = foi_intake.csv_safe(bad)
-            self.assertTrue(out.startswith("'"), "%r not neutralized" % bad)
-            self.assertEqual(out[1:], bad)
-
-    def test_csv_safe_leaves_ordinary_values_untouched(self):
-        for ok in ("Acos WebSak", "Norge (EØS)", "https://ex.org/svar", "", None):
-            self.assertEqual(foi_intake.csv_safe(ok), "" if ok is None else ok)
+    The unit tests for the csv_safe helper itself live with it in
+    shared/test_csv_safe.py; these cover the exporters that apply it."""
 
     def test_pending_csv_neutralizes_formula_fields(self):
         rec = {"id": 1, "created_at": "2026-07-10T00:00:00Z",

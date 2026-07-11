@@ -22,12 +22,19 @@ import html
 import json
 import os
 import sqlite3
+import sys
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+# Run standalone as `python3 server/foi_intake.py` puts server/ on sys.path, not
+# the repo root, so add ROOT to reach the top-level shared package.
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+from shared.csv_safe import csv_safe  # noqa: E402
+
 DATA_DIR = os.path.join(ROOT, "data")
 DB_PATH = os.path.join(HERE, "data", "foi_submissions.db")
 
@@ -180,19 +187,6 @@ def pending(conn):
         "SELECT %s FROM submissions WHERE status = 'new' ORDER BY id" % ", ".join(cols)
     ).fetchall()
     return [dict(zip(cols, r)) for r in rows]
-
-
-# Leading characters a spreadsheet treats as the start of a formula (CWE-1236).
-_CSV_FORMULA_LEADERS = ("=", "+", "-", "@", "\t", "\r")
-
-
-def csv_safe(value):
-    """Neutralize a single CSV cell against spreadsheet formula injection: prefix a
-    leading formula character with a `'` so Excel/LibreOffice/Sheets treat the cell
-    as text. Submissions are untrusted public input and the operator who exports and
-    opens the CSV is the intended victim, so apply this to every emitted cell."""
-    s = "" if value is None else str(value)
-    return "'" + s if s.startswith(_CSV_FORMULA_LEADERS) else s
 
 
 def _pending_csv(records):
