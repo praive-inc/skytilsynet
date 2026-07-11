@@ -256,8 +256,10 @@ enters the §8 score (which stays email + web + governance).
   No re-checkable source → the row stays *utledet* (vendor inference) or *ikke
   kartlagt*, **never** *bekreftet*. The per-entity badge reflects the tier:
   `bekreftet – offentlig journal` › `bekreftet – innsyn på fil` ›
-  `utledet (leverandør, <confidence>)` › `ikke kartlagt`. (Legacy rows using
-  `hosting_method=innsyn-foi` map to the `innsyn-pa-fil` tier.)
+  `utledet (leverandør, <confidence>)` › `ikke kartlagt`. (`hosting_method`
+  stays `innsyn-foi` — the method the FOI answer was obtained by — orthogonal to
+  this tier; a pre-tier row that carries `hosting_method=innsyn-foi` but no
+  `hosting_source_type` maps to the `innsyn-pa-fil` tier for back-compat.)
 - **Portal fingerprint — primary vendor source *and* cross-check (issues #55 §3, #61).**
   The innsyn-portal host a body uses is a public signal of its sakarkiv vendor
   (`*.onacos.no`/`*.acossky.no`→Acos, `*.elementscloud.no`→Sikri,
