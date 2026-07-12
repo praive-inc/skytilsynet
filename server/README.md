@@ -43,7 +43,8 @@ as opaque data, never as instructions.
 
 | Var | Purpose |
 | --- | --- |
-| `PORT` | Listen port (default `8781`, bound to `127.0.0.1`; Caddy fronts it). |
+| `PORT` | Listen port (default `8781`; Caddy fronts it). |
+| `HOST` | Bind address (default `127.0.0.1`). Set `0.0.0.0` in the compose container so the sibling Caddy container can reach it by name — still not host-exposed. |
 | `FOI_OPERATOR_TOKEN` | **Required.** Guards `GET /api/foi/pending`. |
 | `FOI_HASH_SALT` | Salt for the abuse-only ip/ua hash (defaults to the token). |
 
@@ -90,41 +91,25 @@ av to uavhengige kilder" marker, a conflict is flagged and **not published**.
 Every add/change is recorded in the public per-axis change log
 (`data/saksbehandling-endringslogg.json`).
 
-## Deploy — systemd unit + Caddy (the operator wires these)
+## Deploy — compose service + Caddy
 
-> These are provided as text; per CLAUDE.md this repo adds no `.github/workflows`.
-> The operator installs the unit and the Caddy snippet on the devbox.
+The service runs as the **`skytilsynet-foi` docker-compose container** on the
+colocated prod box (`/opt/praive`, the shared runtime — see RFC-001 P5). The
+compose service is defined in `/opt/praive/docker-compose.yml` on the box (not in
+this repo, alongside the other `/opt/praive` services); its `environment` block
+carries `HOST=0.0.0.0`, `PORT=8781`, `FOI_OPERATOR_TOKEN`, and `FOI_HASH_SALT`,
+and the SQLite DB lives in a **docker volume** (not on the host synced tree, so a
+code sync never touches it).
 
-`/etc/systemd/system/skytilsynet-foi.service`:
-
-```ini
-[Unit]
-Description=Skytilsynet FOI intake service
-After=network.target
-
-[Service]
-Type=simple
-User=skytilsynet
-WorkingDirectory=/opt/skytilsynet
-Environment=PORT=8781
-Environment=FOI_OPERATOR_TOKEN=REPLACE_WITH_A_LONG_RANDOM_SECRET
-Environment=FOI_HASH_SALT=REPLACE_WITH_ANOTHER_RANDOM_SALT
-ExecStart=/usr/bin/python3 server/foi_intake.py
-Restart=on-failure
-# Hardening: the service only needs to write its SQLite DB.
-NoNewPrivileges=true
-ProtectSystem=strict
-ProtectHome=true
-ReadWritePaths=/opt/skytilsynet/server/data
-
-[Install]
-WantedBy=multi-user.target
-```
+Deploy is [`deploy/deploy-local.sh`](../deploy/deploy-local.sh): it rsyncs the app
+into `/opt/praive/skytilsynet-app`, then
 
 ```bash
-sudo systemctl daemon-reload
-sudo systemctl enable --now skytilsynet-foi.service
+sudo docker compose -f /opt/praive/docker-compose.yml restart skytilsynet-foi
 ```
+
+so the container picks up the new code and a fresh domain whitelist. There is no
+systemd unit — `deploy-local.sh` is the whole deploy path.
 
 Caddy — reverse-proxy the API to the local service, with a rate limit
 (the static `web/` continues to be served as today):
@@ -143,10 +128,13 @@ skytilsynet.no {
                 window 1m
             }
         }
-        reverse_proxy 127.0.0.1:8781
+        reverse_proxy skytilsynet-foi:8781
     }
 }
 ```
+
+Caddy runs as a compose service on the same `/opt/praive` network, so it reaches
+the backend by its compose service name (`skytilsynet-foi`), not `127.0.0.1`.
 
 The service reads `X-Forwarded-For` for the abuse hash, so the throttle sees the
 real client, not the proxy. Because a client can prepend its own forged entries,
