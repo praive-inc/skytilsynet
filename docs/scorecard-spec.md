@@ -54,9 +54,14 @@ Validated by research 2026-06-27 and a working data spike:
   email/office suite still runs on Google — sovereignty is won system by system.)
 - **The data spike already proves feasibility.** A zero-cost DNS scan
   ([kommune-sovereignty-scan](../scanner/)) classified
-  all 358 municipalities by email platform: **90.2% on Microsoft 365, 91.3% on a
-  US hyperscaler** — independently corroborating the minister's number, at the
-  email layer, for free.
+  all 358 municipalities by email platform. The **initial spike** (2026-06-27,
+  MX + SPF + autodiscover only) read **90.2% on Microsoft 365, 91.3% on a
+  US hyperscaler** — already enough to independently corroborate the minister's
+  number, at the email layer, for free. *(Historical figure, now superseded: the
+  DKIM / SPF-IP / getuserrealm deep-unmask probe added later resolved every
+  previously-`OTHER` row to a US tenant, so the measured reality is **98.6% Microsoft
+  365 / 99.7% US** — see [`scanner/README.md`](../scanner/README.md). The spike
+  understated the concentration; it did not overstate it.)*
 
 ## Decision
 
