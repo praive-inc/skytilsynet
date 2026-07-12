@@ -28,7 +28,8 @@ BetterWorld's leverage ladder is *me → my workplace → my institutions*. The 
 rung is the highest-leverage: a citizen who moves one municipality off Microsoft
 365 redirects more spending and sets more precedent than thousands of individual
 consumer swaps. This RFC specifies a **distinct public-facing surface** — a
-Norway-first scorecard ranking public bodies (municipalities first) on digital
+Norway-first scorecard ranking public bodies (municipalities first, since
+widened to all five categories) on digital
 sovereignty — and the activism funnel that turns a passive ranking into pressure.
 
 It is a **separate surface from the consumer app** (RFC-001's three-surfaces
