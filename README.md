@@ -3,8 +3,8 @@
 **A live, independent tracker of how dependent Norwegian public bodies are on
 foreign cloud technology — and a nudge in the right direction.**
 
-Skytilsynet maps which cloud services Norwegian municipalities (and, later, other
-public bodies) rely on — starting with email — derives the jurisdiction that data
+Skytilsynet maps which cloud services Norwegian public bodies rely on — starting
+with email — derives the jurisdiction that data
 answers to, and points to European alternatives. Every figure links to its
 evidence. The point is not to shame; it is to make visible something that is
 today invisible, so citizens, employees, and elected officials can make informed
