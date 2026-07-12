@@ -73,14 +73,24 @@ It consumes the entity SovereigntyScore (RFC-011) applied to public entities. Th
 consumer mobile app does **not** absorb this; the only crossing between surfaces
 is the employer-nudge bridge (separate issue), which *links out* here.
 
-### 2. MVP axis: email-platform sovereignty, from public DNS
+### 2. The opening axis: email-platform sovereignty, from public DNS
 
-V1 scores each municipality on a single, defensible, fully-automatable axis:
-which jurisdiction its **email platform** answers to, derived from public DNS
-(MX + SPF + autodiscover fingerprint — see the prototype's method). This is the
-cheapest credible axis and already discriminates 90/10. Output per body:
-platform, jurisdiction, evidence (the actual records), and the
-recommended European alternative.
+> **Historical framing — the V1 wedge, not the finished product.** This section
+> describes where the surface *started*: a single email axis over municipalities.
+> The shipped product has since grown past it — additional axes
+> (web-infrastructure §5/§8, saksbehandling/arkiv §9), a per-entity
+> suverenitetsscore (§8), and five public-body categories beyond municipalities.
+> Read §2 as *why email was the right wedge to start from*, not as the current
+> scope; the reference doc
+> ([`reference/scorecard-system.md`](reference/scorecard-system.md)) is
+> authoritative on what ships today.
+
+The first axis scores each municipality on a single, defensible,
+fully-automatable dimension: which jurisdiction its **email platform** answers
+to, derived from public DNS (MX + SPF + autodiscover fingerprint — see the
+prototype's method). This is the cheapest credible axis and already discriminates
+90/10 — which is why it was the wedge. Output per body: platform, jurisdiction,
+evidence (the actual records), and the recommended European alternative.
 
 > **Delivered — scope widened beyond kommuner.** The MVP framing above is
 > municipality-first because that was the highest-leverage starting point; the
@@ -345,7 +355,13 @@ enters the §8 score (which stays email + web + governance).
   public input, stored for human review only, and MUST NEVER enter any agent/LLM
   workflow** (prompt-injection safety). No per-citizen data is retained (rule 5).
 
-## MVP scope (what ships)
+## MVP scope (what V1 shipped)
+
+> **Historical framing.** This is the *original* V1 ship, kept as the record of
+> where the surface started. The live product has since broadened well past it
+> (§5/§8/§9 axes, per-entity score, five body categories) — for the current
+> shipped surface see [`reference/scorecard-system.md`](reference/scorecard-system.md),
+> not this list.
 
 1. DNS email-sovereignty pipeline (productionise the prototype: scheduled,
    versioned, evidence-linked; widen domain resolution to fix the few
