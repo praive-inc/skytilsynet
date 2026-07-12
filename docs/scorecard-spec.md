@@ -76,6 +76,14 @@ cheapest credible axis and already discriminates 90/10. Output per body:
 platform, jurisdiction, evidence (the actual records), and the
 recommended European alternative.
 
+> **Delivered — scope widened beyond kommuner.** The MVP framing above is
+> municipality-first because that was the highest-leverage starting point; the
+> email axis now runs the **same pipeline over five public-body categories**:
+> kommuner, fylkeskommuner (counties), helseforetak (health trusts), statlige
+> organ (state agencies) and the UH-sektor (universities/colleges). Each is a
+> separate published dataset with its own summary and history — see the reference
+> doc, [`reference/scorecard-system.md`](reference/scorecard-system.md).
+
 > **Principle 1 (factual over moralizing) is binding here.** Every score links to
 > its evidence (the DNS records, the contract). Copy states the fact — *"Email
 > runs on Microsoft 365 (United States; CLOUD Act jurisdiction)"* — never
@@ -333,15 +341,19 @@ enters the §8 score (which stays email + web + governance).
 ## Out of scope (roadmap)
 
 Much of what this RFC once deferred has since shipped — the current state lives in
-[`reference/scorecard-system.md`](reference/scorecard-system.md), not here. What
-genuinely remains roadmap:
+[`reference/scorecard-system.md`](reference/scorecard-system.md), not here. In
+particular, the other Norwegian public-body types this RFC once listed here as
+roadmap — counties (fylkeskommuner), state agencies (statlige organ), hospitals
+(helseforetak) and, added since, universities (UH-sektor) — are now **in
+production**: all five categories run through the same email pipeline and each is
+published as its own dataset (§2). What genuinely remains roadmap:
 
 - Additional axes beyond email + web-infrastructure + saksbehandling/arkiv (e.g.
   procurement contracts via TED/Doffin, productivity-suite detection) — additive
   once the surface exists.
 - Other EEA markets — the model is designed to generalize (RFC-016) but is built
-  Norway-first. (The Norwegian expansion across the five public-body categories
-  already shipped.)
+  Norway-first. The Norwegian expansion across all five body categories has
+  shipped; only *other countries* remain.
 - The business/employer (private-company) scorecard — same engine, its own RFC.
 
 ## Consequences
