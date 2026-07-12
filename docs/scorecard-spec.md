@@ -271,7 +271,8 @@ enters the §8 score (which stays email + web + governance).
 - **Portal fingerprint — primary vendor source *and* cross-check (issues #55 §3, #61).**
   The innsyn-portal host a body uses is a public signal of its sakarkiv vendor
   (`*.onacos.no`/`*.acossky.no`→Acos, `*.elementscloud.no`→Sikri,
-  `*.360online.com`→Tietoevry, `ephinnsyn.*`→ePhorte). It plays two roles: (a) as a
+  `*.360online.com`/`public.cloudservices.no`→Tietoevry Public 360,
+  `ephinnsyn.*`/bare `ephorte` host→ePhorte). It plays two roles: (a) as a
   **primary vendor source** it auto-populates bodies with no manual row (rendered
   *"identifisert via innsynsportal"* — one source, **vendor only**; hosting stays
   *utledet*/*Uavklart*); (b) as a **cross-check**, when an *independent* manual/FOI
