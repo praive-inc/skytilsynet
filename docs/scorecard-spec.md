@@ -82,6 +82,15 @@ recommended European alternative.
 > *"bad"*. The four-facts discipline from the consumer side applies: platform /
 > operator jurisdiction / data residency / contract value, each cited.
 
+> **This describes the V1 bet, not the current surface.** "One axis, municipalities
+> only" was the deliberate MVP starting line — the cheapest credible cut that still
+> discriminates 90/10. The live build has since grown past it: it scores 486 organ
+> across five public-body categories (kommuner, fylkeskommuner, helseforetak,
+> statlige organ, UH-sektor) on three axes (email + web-infrastructure +
+> saksbehandling/arkiv). This section is kept as the rationale for *where it
+> started*; for what exists now see
+> [`reference/scorecard-system.md`](reference/scorecard-system.md).
+
 ### 3. The US→EU switch map, with sovereignty-washing flags
 
 Each finding pairs with a concrete, adoptable alternative (M365 → openDesk /
