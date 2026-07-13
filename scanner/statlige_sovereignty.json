@@ -29,9 +29,9 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "1 aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 10 alt3.aspmx.l.google.com; 10 alt4.aspmx.l.google.com",
+        "observation": "10 alt4.aspmx.l.google.com; 10 alt3.aspmx.l.google.com; 5 alt1.aspmx.l.google.com; 5 alt2.aspmx.l.google.com; 1 aspmx.l.google.com",
         "source": "dig MX met.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Google Workspace",
         "confidence": 0.95,
         "platform": "US_GOOGLE"
@@ -40,13 +40,13 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.google.com include:_spf.uninett.no include:spf.topdesk.net  include:sendgrid.net a:msg-out.onevoice.no a:int.met.no ip4:157.249.0.0/16 ip4:185.56.185.241 ~all\" \"v=spf1 ip4:74.125.0.0/16 ip4:209.85.128.0/17 ip6:2001:4860:4864::/56 ip6:2404:6800:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2800:3f0:4864::/56 ip6:2a00:1450:4864::/56 ip6:2c0f:fb50:4864::/56 ~all\" \"v=spf1 ip6:2001:700:0:4120::50 ip4:158.36.8.50\" \" ip6:2001:700:0:804f::70 ip4:158.37.2.70\" \" ip6:2001:700:0:503:230:48ff:fef5:1580 ip4:158.38.0.175\" \"v=spf1 ip4:62.204.93.131 ip4:207.244.98.227 ip4:83.149.98.72 ip4:81.17.56.1 ip4:83.149.98.73 ip4:13.88.226.191 ip4:40.115.66.46 ip4:13.94.232.90 ip4:191.238.213.99 ip4:51.13.102.144 ip4:178.162.177.161 ip4:13.74.56.125 ip4:4.185.96.20 ip4:20.162.206.62 ip\" \"4:172.172.139.18 ip4:4.223.229.111 ip4:72.144.56.17 ip4:52.233.197.115 -all\"",
         "source": "dig TXT met.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Google",
         "confidence": 0.95,
         "platform": "US_GOOGLE"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -80,7 +80,7 @@
         "signal_type": "mx",
         "observation": "10 aid-dep-no.mail.protection.outlook.com",
         "source": "dig MX aid.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -89,7 +89,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 ip4:147.111.132.51 ip4:147.111.132.52 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT aid.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -98,13 +98,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for aid.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -138,7 +138,7 @@
         "signal_type": "mx",
         "observation": "10 arbeidstilsynet-no.mail.protection.outlook.com",
         "source": "dig MX arbeidstilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -147,7 +147,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:77.88.94.134 include:spf.protection.outlook.com include:amazonses.com include:_spf.sndr.no include:msg-out._spf.f24cim.com a:epost.arbeidstilsynet.no a:ai-p-s1-ext.ai.basefarm.net include:_spf_outbound.itxnorge.no include:spf.cm.puzzel.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
         "source": "dig TXT arbeidstilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -156,7 +156,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for arbeidstilsynet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -165,13 +165,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.arbeidstilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -205,7 +205,7 @@
         "signal_type": "mx",
         "observation": "0 bfd-dep-no.mail.protection.outlook.com",
         "source": "dig MX bfd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -214,7 +214,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT bfd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -223,7 +223,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for bfd.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -232,13 +232,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.bfd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -272,7 +272,7 @@
         "signal_type": "mx",
         "observation": "10 bufetat-no.mail.protection.outlook.com",
         "source": "dig MX bufetat.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -281,7 +281,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:195.204.145.91 mx include:spf.protection.outlook.com ip4:213.52.105.131 ip4:159.183.192.0 ip4:80.232.115.34 include:_spf.sndr.no ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
         "source": "dig TXT bufetat.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -290,7 +290,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for bufetat.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -299,13 +299,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.bufetat.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -339,7 +339,7 @@
         "signal_type": "mx",
         "observation": "5 brreg-no.mail.protection.outlook.com",
         "source": "dig MX brreg.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -348,7 +348,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx include:spf.protection.outlook.com a:smtprelay.brreg.no include:_spf.sndr.no a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
         "source": "dig TXT brreg.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -357,7 +357,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for brreg.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -366,13 +366,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.brreg.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -406,7 +406,7 @@
         "signal_type": "mx",
         "observation": "100 mx.datatilsynet.no",
         "source": "dig MX datatilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -415,7 +415,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 a:is-co-smtp02.isky.no a:mx.datatilsynet.no ip4:87.238.50.37 ip4:93.190.81.100 ip4:93.190.81.105 ip4:93.190.81.106 ip4:213.52.17.148 ip4:213.52.17.147 include:_spf.sndr.no include:spf.flowmailer.net -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:185.136.64.128/27 ip4:185.136.65.128/27 ~all\"",
         "source": "dig TXT datatilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -424,13 +424,13 @@
         "signal_type": "getuserrealm",
         "observation": "Managed",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@datatilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -464,7 +464,7 @@
         "signal_type": "mx",
         "observation": "1 digdir-no.mail.protection.outlook.com",
         "source": "dig MX digdir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -473,7 +473,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 a:smtp.difi.eon.no include:servers.mcsv.net include:_spf.anpdm.com include:spf.protection.outlook.com ip4:217.18.206.42 ip4:213.180.74.180 ip4:78.41.46.23 ip4:51.13.78.112 ip4:51.13.102.144 ip4:83.149.98.65 ~all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT digdir.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -482,7 +482,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for digdir.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -491,13 +491,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.digdir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -531,7 +531,7 @@
         "signal_type": "mx",
         "observation": "0 dfo-no.mail.protection.outlook.com",
         "source": "dig MX dfo.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -540,7 +540,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:195.18.142.39 ip4:159.216.119.146 ip4:161.38.206.55 include:spf.protection.outlook.com include:mailgun.org include:successfactors.eu include:_spf-dc12.successfactors.com include:cust1._spf.fairgroup.com include:sendgrid.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\"",
         "source": "dig TXT dfo.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -549,7 +549,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for dfo.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -558,13 +558,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.dfo.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -598,7 +598,7 @@
         "signal_type": "mx",
         "observation": "0 hkdir-no.mail.protection.outlook.com",
         "source": "dig MX hkdir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -607,7 +607,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:131.163.57.123 a:mailout.diku.no a:msg-out.onevoice.no a:tools01-prod-osl3.iktsenteret.c.bitbit.net include:spf.protection.outlook.com include:spf.topdesk.net include:_spf.sndr.no include:spf.puzzel.com\" \" include:spf.flowmailer.net include:spf.cm.puzzel.com include:spf.logicalware.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:62.204.93.131 ip4:207.244.98.227 ip4:83.149.98.72 ip4:81.17.56.1 ip4:83.149.98.73 ip4:13.88.226.191 ip4:40.115.66.46 ip4:13.94.232.90 ip4:191.238.213.99 ip4:51.13.102.144 ip4:178.162.177.161 ip4:13.74.56.125 ip4:4.185.96.20 ip4:20.162.206.62 ip\" \"4:172.172.139.18 ip4:4.223.229.111 ip4:72.144.56.17 ip4:52.233.197.115 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:54.246.247.240/28 ip4:54.77.200.126/32 ip4:54.154.234.46/32 ip4:54.72.85.15/32 ip4:23.251.238.30/31 ip4:23.251.238.32/31 ip4:212.89.52.11/32 ip4:212.89.52.12/32 -all\"",
         "source": "dig TXT hkdir.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -616,7 +616,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for hkdir.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -625,13 +625,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.hkdir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -665,7 +665,7 @@
         "signal_type": "mx",
         "observation": "0 dsb-no.mail.protection.outlook.com",
         "source": "dig MX dsb.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -674,7 +674,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:91.229.21.100 ip4:193.160.9.37 ip4:141.193.33.98 a:msg-out.onevoice.no a:smtp.no.ist.com include:spf.protection.outlook.com include:sendgrid.net include:_spf-dc12.successfactors.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\"",
         "source": "dig TXT dsb.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -683,7 +683,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for dsb.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -692,13 +692,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.dsb.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -732,7 +732,7 @@
         "signal_type": "mx",
         "observation": "0 domstol-no.mail.protection.outlook.com",
         "source": "dig MX domstol.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -741,7 +741,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:176.221.89.68 ip4:62.148.34.227 ip4:62.148.34.238 ip4:146.192.143.44 ip4:77.88.78.8 ip4:139.116.71.0/25 ip6:2a02:9c8:0:1001::/64 include:spf.protection.outlook.com include:amazonses.com include:_spf.proweb.no include:domstoleneinorge.s08.eu\" \"r1.teams-events.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:77.74.160.108/32 ip4:77.74.160.106/32 ip4:192.241.181.127/32 ip4:178.62.38.244/32 ~all\"",
         "source": "dig TXT domstol.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -750,7 +750,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for domstol.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -759,13 +759,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.domstol.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -799,7 +799,7 @@
         "signal_type": "mx",
         "observation": "0 ed-dep-no.mail.protection.outlook.com",
         "source": "dig MX ed.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -808,7 +808,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf.protection.outlook.com include:msg-out._spf.f24cim.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
         "source": "dig TXT ed.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -817,7 +817,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for ed.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -826,13 +826,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.ed.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -866,7 +866,7 @@
         "signal_type": "mx",
         "observation": "0 fin-dep-no.mail.protection.outlook.com",
         "source": "dig MX fin.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -875,7 +875,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 include:spf.protection.outlook.com include:msg-out.onevoice.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT fin.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -884,7 +884,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for fin.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -893,13 +893,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.fin.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -933,7 +933,7 @@
         "signal_type": "mx",
         "observation": "2 finanstilsynet-no.mail.protection.outlook.com",
         "source": "dig MX finanstilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -942,7 +942,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:89.250.123.21 ip4:195.159.150.70/31 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT finanstilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -951,7 +951,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for finanstilsynet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -960,13 +960,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.finanstilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1000,7 +1000,7 @@
         "signal_type": "mx",
         "observation": "10 fiskeridir-no.mail.protection.outlook.com",
         "source": "dig MX fiskeridir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1009,7 +1009,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:85.221.0.6 a:gw.fiskeridir.no include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT fiskeridir.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1018,7 +1018,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for fiskeridir.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1027,13 +1027,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.fiskeridir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1067,7 +1067,7 @@
         "signal_type": "mx",
         "observation": "0 fhi-no.mail.protection.outlook.com",
         "source": "dig MX fhi.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1076,7 +1076,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:212.16.185.16 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:194.71.205.0/24 ip4:91.213.250.91 include:_spf1.fhi.no include:spf.protection.outlook.com include:_spf.nhn.no include:_spf.ws.gurusoft.no include:_spf.sndr.no mx ip4:193.69.50.16/28 ip4\" \":193.71.134.192/28 ~all\" \"v=spf1 ip4:209.61.151.224 ip4:185.55.107.171 ip4:192.124.249.156 ip4:194.63.250.90 ip4:158.36.43.133 ip4:50.31.39.13 ip4:88.131.62.155 include:_spf.uninett.no a:msg-out.onevoice.no include:spf1.autodiscover.info include:spf2.autodiscover.info ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:91.186.65.63 ip4:91.186.65.64 ip4:83.118.184.66 ip4:83.118.185.225 ip4:83.118.166.62 ip4:83.118.166.63 ip4:83.118.189.225 ip4:83.118.189.126 ip4:83.118.189.127 ip4:83.118.189.114 ip4:83.118.189.115 ~all\" \"v=spf1 ip4:64.28.8.39 ip4:81.175.41.241 -all\"",
         "source": "dig TXT fhi.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1085,7 +1085,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for fhi.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1094,13 +1094,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.fhi.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1134,7 +1134,7 @@
         "signal_type": "mx",
         "observation": "10 mil-no.mail.protection.outlook.com",
         "source": "dig MX mil.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1143,7 +1143,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx a:smtp.extend.no ip4:158.112.20.19 ip4:158.112.20.35 ip4:158.112.20.36 include:fd.dep.no include:spf.protection.outlook.com include:spf-mr.infostorm.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:195.254.214.112/24 ip4:146.192.250.128/28 ip4:62.148.40.240/28 ip4:217.18.206.64/28 ip4:217.18.206.0/24 ~all\"",
         "source": "dig TXT mil.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1152,13 +1152,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for mil.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1192,7 +1192,7 @@
         "signal_type": "mx",
         "observation": "20 mx2.fd.dep.no; 20 mx1.fd.dep.no",
         "source": "dig MX fd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -1201,7 +1201,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx -all\"",
         "source": "dig TXT fd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -1210,13 +1210,13 @@
         "signal_type": "getuserrealm",
         "observation": "Managed",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@fd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1250,7 +1250,7 @@
         "signal_type": "mx",
         "observation": "10 dss-dep-no.mail.protection.outlook.com",
         "source": "dig MX hod.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1259,7 +1259,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT hod.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1268,7 +1268,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for hod.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1277,13 +1277,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.hod.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1317,7 +1317,7 @@
         "signal_type": "mx",
         "observation": "0 helsedirektoratet-no.mail.protection.outlook.com",
         "source": "dig MX helsedirektoratet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1326,7 +1326,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf1.helsedirektoratet.no include:spf2.helsedirektoratet.no ~all\" \"v=spf1 ip4:178.21.131.158 ip4:188.94.219.41 ip4:91.186.79.137 ip4:62.92.2.88 ip4:81.93.160.118 ip4:89.250.123.21 include:msg-out._spf.onevoice.no include:_spf.questback.net include:spf.protection.outlook.com include:_spf.nhn.no ~all\" \"v=spf1 ip4:185.56.184.0/22 ip4:89.250.113.144 include:spf.sndr.no ~all\"",
         "source": "dig TXT helsedirektoratet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1335,13 +1335,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.helsedirektoratet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1375,7 +1375,7 @@
         "signal_type": "mx",
         "observation": "5 husbanken-no.mail.protection.outlook.com",
         "source": "dig MX husbanken.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1384,7 +1384,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx include:spf.protection.outlook.com include:stspg-customer.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT husbanken.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1393,7 +1393,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for husbanken.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1402,13 +1402,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.husbanken.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1442,7 +1442,7 @@
         "signal_type": "mx",
         "observation": "0 imdi-no.mail.protection.outlook.com",
         "source": "dig MX imdi.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1451,7 +1451,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:dqzzy3k3fi.powerspf.com  -all\" \"v=spf1 exists:%{i}.dqzzy3k3fi.macrospf.powerspf.com ~all\"",
         "source": "dig TXT imdi.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -1460,13 +1460,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.imdi.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1500,7 +1500,7 @@
         "signal_type": "mx",
         "observation": "0 jernbanedirektoratet-no.mail.protection.outlook.com",
         "source": "dig MX jernbanedirektoratet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1509,7 +1509,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:2xucq4j312.powerspf.com ~all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:159.183.0.0/16 ip4:149.72.0.0/16 ip4:54.240\" \".0.0/17 ip4:52.103.0.0/17 ip4:168.245.0.0/17 ip4:167.89.0.0/17 ip4:104.47.0.0/17 ip4:24.110.64.0/18 ip4:134.128.64.0/18 ip4:76.223.128.0/19 ip4:50.31.32.0/19 ip4:23.251.224.0/19 ip4:216.221.160.0/19 include:_s1.2xucq4j312.powerspf.com ~all\"",
         "source": "dig TXT jernbanedirektoratet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -1518,7 +1518,7 @@
         "signal_type": "spf_ip",
         "observation": "52.100.0.0/15",
         "source": "ip4 i SPF for jernbanedirektoratet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 52.100.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1527,13 +1527,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.jernbanedirektoratet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1565,9 +1565,9 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 mxb-008b4101.gslb.pphosted.com; 10 mxa-008b4101.gslb.pphosted.com",
+        "observation": "10 mxa-008b4101.gslb.pphosted.com; 10 mxb-008b4101.gslb.pphosted.com",
         "source": "dig MX jd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.2,
         "platform": null
@@ -1576,7 +1576,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf-008b4101.pphosted.com include:msg-out._spf.f24cim.com a:msg-out.onevoice.no include:mailgun.org -all\" \"v=spf1 ip4:66.159.232.175 ip4:143.55.150.66\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\"",
         "source": "dig TXT jd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.2,
         "platform": null
@@ -1585,13 +1585,13 @@
         "signal_type": "getuserrealm",
         "observation": "Managed",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@jd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1625,7 +1625,7 @@
         "signal_type": "mx",
         "observation": "10 kld-dep-no.mail.protection.outlook.com",
         "source": "dig MX kld.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1634,7 +1634,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23  include:servers.mcsv.net ip4:147.111.132.51 ip4:147.111.132.52 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT kld.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1643,7 +1643,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for kld.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1652,13 +1652,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.kld.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1692,7 +1692,7 @@
         "signal_type": "mx",
         "observation": "10 kdd-dep-no.mail.protection.outlook.com",
         "source": "dig MX kdd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1701,7 +1701,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:servers.mcsv.net include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT kdd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1710,13 +1710,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for kdd.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1750,7 +1750,7 @@
         "signal_type": "mx",
         "observation": "10 konkurransetilsynet-no.mail.eo.outlook.com",
         "source": "dig MX konkurransetilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1759,7 +1759,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 a mx include:_spf.vidi.no include:spf.protection.outlook.com ~all\" \"v=spf1 ip4:159.65.206.213 ip4:176.58.127.65 ip4:176.58.116.248 ip4:151.236.216.100 ip4:217.170.200.218 ip4:85.200.222.140 ip4:139.162.240.244 include:spf2.vidi.no include:spf3.vidi.no  ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT konkurransetilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1768,7 +1768,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for konkurransetilsynet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1777,13 +1777,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.konkurransetilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1815,9 +1815,9 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "10 kriminalomsorg.in.tmes.trendmicro.eu; 99 kriminalomsorg.in.tmes.trendmicro.com",
+        "observation": "99 kriminalomsorg.in.tmes.trendmicro.com; 10 kriminalomsorg.in.tmes.trendmicro.eu",
         "source": "dig MX kriminalomsorgen.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.2,
         "platform": null
@@ -1826,7 +1826,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf.tmes.trendmicro.com include:spf.protection.outlook.com ip4:139.117.13.196 -all\" \"v=spf1 ip4:18.208.22.64/26 ip4:18.208.22.128/25 ip4:18.185.115.128/26 ip4:18.185.115.0/25 ip4:13.238.202.0/25 ip4:13.238.202.128/26 ip4:18.176.203.128/25 ip4:13.213.174.128/25 ip4:18.177.156.0/25 ip4:13.213.220.0/25 include:spfb.tmes.trendmicro.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT kriminalomsorgen.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1835,13 +1835,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for kriminalomsorgen.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1875,7 +1875,7 @@
         "signal_type": "mx",
         "observation": "10 kud-dep-no.mail.protection.outlook.com",
         "source": "dig MX kud.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1884,7 +1884,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT kud.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1893,7 +1893,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for kud.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1902,13 +1902,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.kud.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1942,7 +1942,7 @@
         "signal_type": "mx",
         "observation": "0 kd-dep-no.mail.protection.outlook.com",
         "source": "dig MX kd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1951,7 +1951,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24  include:msg-out._spf.onevoice.no  include:spf.protection.outlook.com -all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT kd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1960,7 +1960,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for kd.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -1969,13 +1969,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.kd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -1995,12 +1995,12 @@
     },
     "alternative": "openDesk (Open-Xchange + Nextcloud) / LibreOffice",
     "behind_gateway": true,
-    "fingerprint": "mx/spf",
+    "fingerprint": "realm-managed",
     "flags": [],
     "verdict": {
       "platform": "US_MICROSOFT",
       "label": "Microsoft 365",
-      "confidence": 0.95,
+      "confidence": 1.0,
       "uavklart": false,
       "note": null
     },
@@ -2009,31 +2009,22 @@
         "signal_type": "mx",
         "observation": "5 kystverket.in.tmes.trendmicro.eu",
         "source": "dig MX kystverket.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.2,
         "platform": null
       },
       {
-        "signal_type": "spf",
-        "observation": "\"v=spf1 ip4:153.44.80.10 ip4:153.44.208.112 mx a:is-co-smtp02.isky.no include:spf.protection.outlook.com include:msg-out._spf.onevoice.no include:spf.mandrillapp.com include:spf.tmes.trendmicro.com include:_spf-dc12.successfactors.com include:_spf.qualtri\" \"cs.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:185.38.121.6 ip4:185.38.121.7 ip4:185.38.121.8 ip4:185.38.121.20/30 ip6:2a04:6fb0:121::/124 ip6:2a04:6fb0:121::21/126 ip4:194.187.25.111 ip4:151.252.13.148 -all\" \"v=spf1 ip4:198.2.128.0/24 ip4:198.2.132.0/22 ip4:198.2.136.0/23 ip4:198.2.145.0/24 ip4:198.2.186.0/23 ip4:205.201.131.0/24 ip4:205.201.134.128/25 ip4:205.201.136.0/23 ip4:205.201.139.0/24 ip4:198.2.177.0/24 ip4:198.2.178.0/23 ip4:198.2.180.0/24 ~all\" \"v=spf1 ip4:18.208.22.64/26 ip4:18.208.22.128/25 ip4:18.185.115.128/26 ip4:18.185.115.0/25 ip4:13.238.202.0/25 ip4:13.238.202.128/26 ip4:18.176.203.128/25 ip4:13.213.174.128/25 ip4:18.177.156.0/25 ip4:13.213.220.0/25 include:spfb.tmes.trendmicro.com ~all\"",
-        "source": "dig TXT kystverket.no (v=spf1)",
-        "observed_at": "2026-07-06",
-        "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
-        "confidence": 0.95,
-        "platform": "US_MICROSOFT"
-      },
-      {
-        "signal_type": "spf_ip",
-        "observation": "40.92.0.0/15",
-        "source": "ip4 i SPF for kystverket.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
-        "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
-        "confidence": 0.95,
+        "signal_type": "getuserrealm",
+        "observation": "Managed",
+        "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@kystverket.no",
+        "observed_at": "2026-07-13",
+        "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
+        "confidence": 1.0,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2067,7 +2058,7 @@
         "signal_type": "mx",
         "observation": "10 lmd-dep-no.mail.protection.outlook.com",
         "source": "dig MX lmd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2076,7 +2067,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT lmd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2085,7 +2076,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for lmd.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2094,13 +2085,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.lmd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2134,7 +2125,7 @@
         "signal_type": "mx",
         "observation": "0 landbruksdirektoratet-no.mail.protection.outlook.com",
         "source": "dig MX landbruksdirektoratet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2143,7 +2134,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.vendo.no include:_spf.nanolearning.com include:spf.protection.outlook.com ip4:185.120.100.67 ip4:185.120.100.68 include:spf-tc.telecomputing.no ip4:89.250.123.21 ~all\" \"v=spf1 ip4:109.239.230.208/29 ?all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:84.17.192.128/26 ip4:84.17.205.0/27 ip4:217.173.240.0/20 ip4:95.128.104.0/20 ip4:176.221.93.128/26\" \" ip4:217.173.251.230 ip4:217.173.254.69 ip4:185.7.137.132 ip4:185.7.137.133 ip4:185.7.137.134 ip4:185.7.137.135 ip4:185.7.137.136 ip4:185.7.137.137 ip4:185.7.137.138 ip4:185.7.137.139 ip4:185.7.137.14\" \" ip4:195.18.168.128/25 ip4:212.20.223.0/24 ip4:212.125.205.0/24 ip4:212.4.42.0/24 ip4:212.4.49.0/24 ip4:195.245.210.31 ip4:193.75.104.0/24 ip4:176.221.94.64/27 ip4:77.88.97.128/29 ip4:77.88.64.0/24 ~all\"",
         "source": "dig TXT landbruksdirektoratet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2152,7 +2143,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for landbruksdirektoratet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2161,13 +2152,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.landbruksdirektoratet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2201,7 +2192,7 @@
         "signal_type": "mx",
         "observation": "10 luftfartstilsynet-no.mail.protection.outlook.com",
         "source": "dig MX luftfartstilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2210,7 +2201,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:193.69.65.102 include:spf.protection.outlook.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT luftfartstilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2219,7 +2210,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for luftfartstilsynet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2228,13 +2219,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.luftfartstilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2268,31 +2259,22 @@
         "signal_type": "mx",
         "observation": "10 mattilsynet-no.mail.protection.outlook.com",
         "source": "dig MX mattilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       },
       {
-        "signal_type": "spf",
-        "observation": "\"v=spf1 include:53z54mvgra.powerspf.com -all\" \"v=spf1 exists:%{i}.53z54mvgra.macrospf.powerspf.com -all\"",
-        "source": "dig TXT mattilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
-        "inference": "SPF uten gjenkjent plattform",
-        "confidence": 0.3,
-        "platform": null
-      },
-      {
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.mattilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2326,7 +2308,7 @@
         "signal_type": "mx",
         "observation": "10 medietilsynet-no.mail.protection.outlook.com",
         "source": "dig MX medietilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2335,7 +2317,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:sendgrid.net include:_spf.intility.com ip4:77.40.254.90 ip4:195.159.227.71 include:spf.protection.outlook.com include:_spf.sndr.no include:_spf.questback.net -all\" \"v=spf1 ip4:137.221.30.0/28 ip4:137.221.26.0/28 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\"",
         "source": "dig TXT medietilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2344,7 +2326,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for medietilsynet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2353,13 +2335,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.medietilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2393,7 +2375,7 @@
         "signal_type": "mx",
         "observation": "0 miljodir-no.mail.protection.outlook.com",
         "source": "dig MX miljodir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2402,7 +2384,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:i0ir46nyzr.powerspf.com -all\" \"v=spf1 exists:%{i}.i0ir46nyzr.macrospf.powerspf.com -all\"",
         "source": "dig TXT miljodir.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -2411,13 +2393,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.miljodir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2449,9 +2431,9 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "5 mxb-003ba702.gslb.pphosted.com; 5 mxa-003ba702.gslb.pphosted.com",
+        "observation": "5 mxa-003ba702.gslb.pphosted.com; 5 mxb-003ba702.gslb.pphosted.com",
         "source": "dig MX nav.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.2,
         "platform": null
@@ -2460,7 +2442,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:155.55.50.204 ip4:155.55.50.205 ip4:155.55.50.24 include:spf.protection.outlook.com include:_spf.salesforce.com include:spf-003ba702.pphosted.com a:ai-p-s1-ext.ai.basefarm.net ip4:195.43.63.191/32 ip4:195.43.63.192/32 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 exists:%{i}._spf.mta.salesforce.com -all\" \"v=spf1 ip4:185.132.183.132 ip4:185.183.30.137\"",
         "source": "dig TXT nav.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2469,13 +2451,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for nav.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2509,7 +2491,7 @@
         "signal_type": "mx",
         "observation": "0 nkom-no.mail.protection.outlook.com",
         "source": "dig MX nkom.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2518,7 +2500,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf.protection.outlook.com a:msg-out.onevoice.no ip4:109.233.6.13 ip4:109.233.6.8 include:servers.mcsv.net include:_spf.machina.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 a:smarthost2.machina.no\"",
         "source": "dig TXT nkom.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2527,7 +2509,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for nkom.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2536,13 +2518,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.nkom.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2576,7 +2558,7 @@
         "signal_type": "mx",
         "observation": "0 norad-no.mail.protection.outlook.com",
         "source": "dig MX norad.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2585,7 +2567,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf.protection.outlook.com include:_spf.anpdm.com include:spf.eu.exclaimer.net include:spf.flowmailer.net include:_spf.machina.no include:sendgrid.net -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:91.227.208.0/24 ip4:185.64.72.0/24 ip4:185.64.73.0/24 ip4:185.64.74.0/24 ip4:52.17.51.198 -all\" \"v=spf1 ip4:104.40.229.156 ip4:52.169.0.179 ip4:20.50.220.144/28 ip4:40.127.253.48/28 ~all\" \"v=spf1 ip4:185.136.64.128/27 ip4:185.136.65.128/27 ~all\"",
         "source": "dig TXT norad.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2594,7 +2576,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for norad.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2603,13 +2585,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.norad.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2643,7 +2625,7 @@
         "signal_type": "mx",
         "observation": "10 nve-no.mail.protection.outlook.com",
         "source": "dig MX nve.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2652,7 +2634,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 a:mx-relay.nve.no include:spf.protection.outlook.com a:bsmtp.vhosting.no a:msg-out.onevoice.no ip4:195.204.216.48 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT nve.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2661,7 +2643,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for nve.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2670,13 +2652,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.nve.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2710,7 +2692,7 @@
         "signal_type": "mx",
         "observation": "10 nfd-dep-no.mail.protection.outlook.com",
         "source": "dig MX nfd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2719,7 +2701,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT nfd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2728,7 +2710,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for nfd.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2737,13 +2719,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.nfd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2775,9 +2757,9 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "30 dk.mx3.mailanyone.net; 20 dk.mx2.mx25.net; 10 dk.mx1.mailanyone.net; 40 dk.mx4.mx25.net",
+        "observation": "10 dk.mx1.mailanyone.net; 30 dk.mx3.mailanyone.net; 20 dk.mx2.mx25.net; 40 dk.mx4.mx25.net",
         "source": "dig MX patentstyret.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -2786,7 +2768,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 a:ai-p-s1-ext.ai.basefarm.net include:spf.comendosystems.com include:spf.protection.outlook.com include:27069830.spf10.hubspotemail.net ip4:217.144.244.135 -all\" \"v=spf1 include:oa.spf.comendosystems.com include:ob.spf.comendosystems.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:3.93.157.0/24 ip4:3.210.190.0/24 ip4:18.208.124.128/25 ip4:54.174.52.0/24 ip4:54.174.57.0/24 ip4:54.174.59.0/24 ip4:54.174.60.0/23 ip4:54.174.63.0/24 ip4:108.179.144.0/20 ip4:139.180.17.0/24 ip4:141.193.184.32/27 ip4:141.193.184.64/26 ip4:141.1\" \"93.184.128/25 ip4:141.193.185.32/27 ip4:141.193.185.64/26 ip4:141.193.185.128/25 ip4:143.244.80.0/20 ip4:158.247.16.0/20 ip4:216.139.64.0/19 -all\"",
         "source": "dig TXT patentstyret.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2795,7 +2777,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for patentstyret.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2804,13 +2786,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.patentstyret.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2844,7 +2826,7 @@
         "signal_type": "mx",
         "observation": "5 mailgw4.politiet.no; 5 mailgw3.politiet.no",
         "source": "dig MX politiet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -2853,7 +2835,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_u.politiet.no._spf.smart.ondmarc.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:52.100.0.0/15 ip4:40.107.0.0/16 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 ip4:163.1\" \"74.97.45 ip4:163.174.97.46 ip4:163.174.97.55 ip4:163.174.97.56 ip4:163.174.121.35 ip4:163.174.121.36 include:_p.1.38zydk._u.politiet.no._spf.smart.ondmarc.com ~all\"",
         "source": "dig TXT politiet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -2862,7 +2844,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for politiet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2871,13 +2853,13 @@
         "signal_type": "autodiscover",
         "observation": "mail.politiet.no",
         "source": "dig CNAME autodiscover.politiet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2911,7 +2893,7 @@
         "signal_type": "mx",
         "observation": "10 riksantikvaren-no.mail.protection.outlook.com",
         "source": "dig MX riksantikvaren.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2920,7 +2902,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.sndr.no a:plenmeller.machina.no a:wigan.machina.no include:spf.protection.outlook.com ip4:158.37.161.9 ip4:167.71.72.133 ~all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT riksantikvaren.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2929,7 +2911,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for riksantikvaren.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2938,13 +2920,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.riksantikvaren.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -2978,7 +2960,7 @@
         "signal_type": "mx",
         "observation": "0 riksrevisjonen-no.mail.protection.outlook.com",
         "source": "dig MX riksrevisjonen.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2987,7 +2969,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:178.21.131.158 include:spf.protection.outlook.com include:_spf.questback.net include:_spf.grade.se -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:141.147.10.7 ip4:132.226.204.117 ip4:129.159.250.38 ip4:193.122.53.174 ip4:129.159.252.119 ip4:130.61.132.10 ip4:193.122.14.67 ip4:91.217.141.0/24 ip4:87.79.30.0/25 ip4:51.120.120.172 -all\" \"v=spf1\" \" ip4:192.121.252.80\" \" ip4:81.91.10.248\" \" ip4:37.221.227.204\" \" ip4:37.221.227.203\" \" ip4:37.221.229.129\" \" ip4:37.221.229.132\" \" ip4:37.221.229.133\" \" ip4:37.221.229.135\" \" ip4:37.221.229.136\" \" ip4:37.221.229.139\" \" ip4:37.221.229.140\" \" ip4:37.221.229.142\" \" ip4:37.221.231.248\" \" -all\"",
         "source": "dig TXT riksrevisjonen.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -2996,7 +2978,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for riksrevisjonen.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3005,13 +2987,13 @@
         "signal_type": "autodiscover",
         "observation": "owa.riksrevisjonen.no",
         "source": "dig CNAME autodiscover.riksrevisjonen.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover-CNAME uten Microsoft-mål",
         "confidence": 0.3,
         "platform": null
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3045,7 +3027,7 @@
         "signal_type": "mx",
         "observation": "10 sd-dep-no.mail.protection.outlook.com",
         "source": "dig MX sd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3054,7 +3036,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx ip4:132.150.12.0/26 ip4:132.150.166.112 ip4:217.18.206.0/24 ip4:185.38.121.21 ip4:185.38.121.22 ip4:185.38.121.23 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT sd.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3063,7 +3045,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for sd.dep.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3072,13 +3054,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.sd.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3112,7 +3094,7 @@
         "signal_type": "mx",
         "observation": "0 sdir-no.mail.protection.outlook.com",
         "source": "dig MX sdir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3121,7 +3103,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:_spf.sdir.no -all\" \"v=spf1 include:msg-out._spf.onevoice.no include:spf.infostorm.no include:servers.mcsv.net include:spf.messagelabs.com include:spf.protection.outlook.com ip4:89.250.123.21 ip4:146.192.200.192 ip4:146.192.200.193 ip4:167.89.0.0/17 ip4:208.117.48.0/20 ip4:50\" \".31.32.0/19 ip4:198.37.144.0/20 ip4:198.21.0.0/21 ip4:192.254.112.0/20 ip4:168.245.0.0/17 ip4:149.72.0.0/16 ip4:176.221.93.128/26 -all\"",
         "source": "dig TXT sdir.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3130,13 +3112,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.sdir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3170,7 +3152,7 @@
         "signal_type": "mx",
         "observation": "10 skatteetaten-no.mail.protection.outlook.com",
         "source": "dig MX skatteetaten.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3179,7 +3161,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 a:smtp.skatteetaten.no a:smtp2.skatteetaten.no a:mail.sismo.no a:smtp01.emea.sabacloud.com a:msg-out.onevoice.no a:ai-p-s1-ext.ai.basefarm.net  a:cre-p2-ext.p2.osl.basefarm.net ip4:151.187.161.76 include:spf.protection.outlook.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT skatteetaten.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3188,7 +3170,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for skatteetaten.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3197,13 +3179,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.skatteetaten.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3237,7 +3219,7 @@
         "signal_type": "mx",
         "observation": "0 helsetilsynet-no.mail.protection.outlook.com",
         "source": "dig MX helsetilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3246,7 +3228,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx a:hts-p1-ext.hts1.osl.basefarm.net a:hts-p-ext.p2.osl.basefarm.net include:spf.protection.outlook.com ip4:91.186.79.93 ip4:85.19.193.39 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT helsetilsynet.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3255,7 +3237,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for helsetilsynet.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3264,13 +3246,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com.helsetilsynet.no",
         "source": "dig CNAME autodiscover.helsetilsynet.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3304,7 +3286,7 @@
         "signal_type": "mx",
         "observation": "10 kartverket-no.mail.protection.outlook.com",
         "source": "dig MX kartverket.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3313,7 +3295,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx  ip4:159.162.28.87 include:_spf.sndr.no include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:_spf-dc33.sapsf.eu -all\" \"v=spf1 ip4:193.69.50.16/28 ip4:193.71.134.192/28 ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.193.85/32 ip4:130.214.156.205/32 ip4:130.214.156.249/32 -all\"",
         "source": "dig TXT kartverket.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3322,7 +3304,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for kartverket.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3331,13 +3313,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.kartverket.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3371,7 +3353,7 @@
         "signal_type": "mx",
         "observation": "0 lanekassen-no.mail.protection.outlook.com",
         "source": "dig MX lanekassen.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3380,7 +3362,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:ceuiwyr7ky.powerspf.com -all\" \"v=spf1 exists:%{i}.ceuiwyr7ky.macrospf.powerspf.com ~all\"",
         "source": "dig TXT lanekassen.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -3389,13 +3371,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.lanekassen.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3429,7 +3411,7 @@
         "signal_type": "mx",
         "observation": "10 spk-no.mail.protection.outlook.com",
         "source": "dig MX spk.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3438,7 +3420,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:81.175.27.18 include:spf.logicalware.com include:spf.protection.outlook.com include:_spf.signicat.cloud include:_spf.nanolearning.com -all\" \"v=spf1 ip4:54.246.247.240/28 ip4:23.251.238.30/31 ip4:23.251.238.32/31 ip4:54.240.104.177/32 ip4:54.240.104.178/31 ip4:212.89.52.12/32 ip4:212.89.52.11/32 ip4:212.89.52.46/31 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:81.93.166.36 ip4:81.93.166.37 ip4:89.250.114.179 ip4:89.250.114.180 ip4:195.225.6.203 ip4:195.225.6.204 ip4:81.93.175.236 ip4:81.93.175.237 ~all\" \"v=spf1 ip4:178.21.131.158 ip4:13.82.183.201 ip4:52.232.27.151 ip4:52.143.59.192 ~all\"",
         "source": "dig TXT spk.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3447,7 +3429,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for spk.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3456,13 +3438,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.spk.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3496,7 +3478,7 @@
         "signal_type": "mx",
         "observation": "0 vegvesen-no.mail.protection.outlook.com",
         "source": "dig MX vegvesen.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3505,7 +3487,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:espf01.vegvesen.no include:espf02.vegvesen.no ip4:146.2.0.0/16 include:spf.protection.outlook.com -all\" \"v=spf1 a:ai-p-s1-ext.ai.basefarm.net ip4:195.244.102.234 ip4:193.71.49.0/24 ip4:193.75.93.34 ip4:52.143.59.192 ip4:91.217.141.0/24 ip4:185.38.121.0/24 ip4:81.93.163.120 -all\" \"v=spf1 a:c.spf.service-now.com -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT vegvesen.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3514,13 +3496,13 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for vegvesen.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3554,7 +3536,7 @@
         "signal_type": "mx",
         "observation": "10 ssbno.mail.protection.outlook.com",
         "source": "dig MX ssb.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3563,7 +3545,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:542fqsidvj.powerspf.com -all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip4:185.56.\" \"184.0/24 ip4:185.249.220.0/24 ip4:185.225.161.0/24 ip4:193.71.134.192/28 ip4:193.69.50.16/28 ip6:2a00:1b60:0:4::26 ip4:89.250.123.21 ip4:52.232.27.151 ip4:52.143.59.192 ip4:34.120.101.109 include:_s1.542fqsidvj.powerspf.com ~all\"",
         "source": "dig TXT ssb.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -3572,7 +3554,7 @@
         "signal_type": "spf_ip",
         "observation": "52.100.0.0/15",
         "source": "ip4 i SPF for ssb.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 52.100.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3581,13 +3563,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.ssb.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3621,7 +3603,7 @@
         "signal_type": "mx",
         "observation": "2 statsbygg-no.mail.protection.outlook.com",
         "source": "dig MX statsbygg.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3630,7 +3612,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:e3xkivfsng.powerspf.com ~all\" \"v=spf1 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:f000::/52 ip4:52.100.0.0/15 ip4:40.92.0.0/15 ip4:52.102.0.0/16 ip4:40.107.0.0/16 ip4:159.183.0.0/16 ip4:149.72.0.0/16 ip4:148.10\" \"5.0.0/16 ip4:54.240.0.0/17 ip4:52.103.0.0/17 ip4:168.245.0.0/17 ip4:167.89.0.0/17 ip4:104.47.0.0/17 ip4:24.110.64.0/18 ip4:198.2.128.0/18 ip4:134.128.64.0/18 ip4:76.223.128.0/19 ip4:50.31.32.0/19 include:_s1.e3xkivfsng.powerspf.com ~all\"",
         "source": "dig TXT statsbygg.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -3639,7 +3621,7 @@
         "signal_type": "spf_ip",
         "observation": "52.100.0.0/15",
         "source": "ip4 i SPF for statsbygg.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 52.100.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3648,13 +3630,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.statsbygg.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3686,9 +3668,9 @@
     "evidence": [
       {
         "signal_type": "mx",
-        "observation": "20 mx1.fd.dep.no; 20 mx2.fd.dep.no",
+        "observation": "20 mx2.fd.dep.no; 20 mx1.fd.dep.no",
         "source": "dig MX smk.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -3697,7 +3679,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx -all\"",
         "source": "dig TXT smk.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -3706,13 +3688,13 @@
         "signal_type": "getuserrealm",
         "observation": "Managed",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@smk.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3746,7 +3728,7 @@
         "signal_type": "mx",
         "observation": "20 toll-no.mail.protection.outlook.com",
         "source": "dig MX toll.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3755,7 +3737,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 include:spf.protection.outlook.com include:_spf-dc12.successfactors.com include:spf-a.telia.com include:spf-b.telia.com a:mailout.osl.basefarm.net a:is-co-smtp02.isky.no a:ta-smtp-mailout1.p2.osl.basefarm.net ip4:193.71.134.205 ip4:161.38.206.55 i\" \"p4:188.240.90.1 -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\" \"v=spf1 ip4:155.56.221.13/32 ip4:155.56.221.14/32 ip4:155.56.220.141/32 ip4:155.56.220.142/32 ip4:155.56.221.15/32 ip4:155.56.221.16/32 ip4:155.56.222.26/32 ip4:155.56.222.27/32 ip4:130.214.193.83/32 ip4:130.214.193.93/32 ip4:130.214.193.78/32 ip4:130.214.\" \"193.85/32 -all\" \"v=spf1 ip4:81.236.60.128/26 ip4:81.236.60.192/28 ip4:81.227.116.74 ip4:81.227.116.81 ip4:81.236.55.0/24 ~all\" \"v=spf1 -all\"",
         "source": "dig TXT toll.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3764,7 +3746,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for toll.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3773,13 +3755,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.toll.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3813,7 +3795,7 @@
         "signal_type": "mx",
         "observation": "0 udir-no.mail.protection.outlook.com",
         "source": "dig MX udir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3822,7 +3804,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:158.37.1.176 ip4:158.37.1.177 ip4:158.36.21.146 ip4:159.183.192.187 ip4:40.118.87.46 ip4:195.225.29.240 ip4:149.72.200.207 include:spf.protection.outlook.com include:em894.udir.no include:em1329.udir.no -all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT udir.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3831,7 +3813,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for udir.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3840,13 +3822,13 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.udir.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3880,7 +3862,7 @@
         "signal_type": "mx",
         "observation": "10 mail.mfa.no",
         "source": "dig MX ud.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Ukjent eller gateway-maskert MX — plattform ikke avgjort",
         "confidence": 0.3,
         "platform": null
@@ -3889,7 +3871,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 mx -all\"",
         "source": "dig TXT ud.dep.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF uten gjenkjent plattform",
         "confidence": 0.3,
         "platform": null
@@ -3898,13 +3880,13 @@
         "signal_type": "getuserrealm",
         "observation": "Managed",
         "source": "GET login.microsoftonline.com/getuserrealm.srf?login=test@ud.dep.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "getuserrealm=Managed: aktiv Microsoft 365 sky-leietaker",
         "confidence": 1.0,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   },
   {
     "category": "stat",
@@ -3938,7 +3920,7 @@
         "signal_type": "mx",
         "observation": "1 udi-no.mail.protection.outlook.com",
         "source": "dig MX udi.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "MX leverer e-post til Microsoft 365",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3947,7 +3929,7 @@
         "signal_type": "spf",
         "observation": "\"v=spf1 ip4:195.88.106.0/27 ip4:85.31.192.42 ip4:85.31.193.42 ip4:168.245.3.4 ip4:195.88.107.133 ip4:195.88.107.134 ip4:52.232.27.151 include:spf.messagelabs.com include:sendgrid.net include:spf.protection.outlook.com -all\" \"v=spf1 include:nets1.spf.messagelabs.com include:nets2.spf.messagelabs.com ~all\" \"v=spf1 ip4:40.92.0.0/15 ip4:40.107.0.0/16 ip4:52.100.0.0/15 ip4:52.102.0.0/16 ip4:52.103.0.0/17 ip4:104.47.0.0/17 ip6:2a01:111:f400::/48 ip6:2a01:111:f403::/49 ip6:2a01:111:f403:8000::/51 ip6:2a01:111:f403:c000::/51 ip6:2a01:111:f403:f000::/52 -all\"",
         "source": "dig TXT udi.no (v=spf1)",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "SPF autoriserer Microsoft (spf.protection.outlook.com)",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3956,7 +3938,7 @@
         "signal_type": "spf_ip",
         "observation": "40.92.0.0/15",
         "source": "ip4 i SPF for udi.no ∈ Microsoft EOP-områder",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "Microsoft EOP-IP 40.92.0.0/15 inlinet i flatet SPF — bevis for Microsoft",
         "confidence": 0.95,
         "platform": "US_MICROSOFT"
@@ -3965,12 +3947,12 @@
         "signal_type": "autodiscover",
         "observation": "autodiscover.outlook.com",
         "source": "dig CNAME autodiscover.udi.no",
-        "observed_at": "2026-07-06",
+        "observed_at": "2026-07-13",
         "inference": "autodiscover → outlook.com: Microsoft 365-leietaker",
         "confidence": 0.8,
         "platform": "US_MICROSOFT"
       }
     ],
-    "sourceDate": "2026-07-06"
+    "sourceDate": "2026-07-13"
   }
 ]
