@@ -36,6 +36,10 @@ if [ -d "$ROOT/server" ]; then
   step "Sync FOI intake backend + restart the service"
   run "sudo mkdir -p '$RUNTIME/skytilsynet-app'"
   run "sudo rsync -a --delete '$ROOT/server/' '$RUNTIME/skytilsynet-app/server/'"
+  # The backend adds the repo root to sys.path and imports the top-level shared
+  # package (server/foi_intake.py: `from shared.csv_safe import csv_safe`), so it
+  # must ship alongside server/ or the container crashes at import on restart (#110).
+  run "sudo rsync -a --delete '$ROOT/shared/' '$RUNTIME/skytilsynet-app/shared/'"
   run "sudo rsync -a '$ROOT/data/' '$RUNTIME/skytilsynet-app/data/'"
   run "sudo rsync -a '$ROOT/scripts/' '$RUNTIME/skytilsynet-app/scripts/'"
   run "sudo rm -f '$RUNTIME/skytilsynet-app/server/data/foi_submissions.db'"
