@@ -104,10 +104,16 @@ code and the domain whitelist are rsync'd into a mounted app dir; the SQLite DB
 lives in a **docker volume** so it survives every code sync.
 
 [`deploy/deploy-local.sh`](../../deploy/deploy-local.sh) is the deploy: it swaps
-the static `web/` into `/opt/praive/skytilsynet-dist`, syncs `server/`, `data/`,
-and `scripts/` into `/opt/praive/skytilsynet-app`, deletes any stale DB from the
-synced app dir (the volume copy is authoritative), then
+the static `web/` into `/opt/praive/skytilsynet-dist`, syncs `server/`, `shared/`,
+`data/`, and `scripts/` into `/opt/praive/skytilsynet-app`, deletes any stale DB
+from the synced app dir (the volume copy is authoritative), then
 `docker compose restart skytilsynet-foi` and reloads Caddy.
+
+`shared/` ships **alongside** `server/`: the backend adds the mounted app root
+(`/app`) to `sys.path` and imports the top-level `shared` package
+(`from shared.csv_safe import csv_safe`), so it must be present in the app dir or
+the container fails at import time on restart (#110). An image built from this
+repo must `COPY` `shared/` too, for the same reason.
 
 The compose file and the Caddyfile live **on the prod box** (`/opt/praive`), not
 in this repo (per CLAUDE.md this repo adds no `.github/workflows`). The service
