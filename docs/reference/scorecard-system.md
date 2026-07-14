@@ -176,7 +176,10 @@ Deploy is a plain rsync of `web/` behind Caddy — no build step in prod, so the
 generated `index.html` and `web/data/*.json` are committed. The FOI backend runs
 as the `skytilsynet-foi` compose container behind Caddy;
 [`deploy/deploy-local.sh`](../../deploy/deploy-local.sh) swaps the static files,
-syncs the backend, and restarts the service each deploy. Re-run `build.py` after
+syncs the backend (`server/` **plus the top-level `shared/` package** it imports —
+`server/foi_intake.py` does `from shared.csv_safe import csv_safe`, so `shared/`
+must ship alongside `server/` or the container crashes at import on restart, #110),
+and restarts the service each deploy. Re-run `build.py` after
 each scan to refresh the page; the operator wires that alongside the scheduled
 `scan.py` (the agent does not add GitHub Actions).
 
