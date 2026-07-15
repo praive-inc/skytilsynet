@@ -147,7 +147,8 @@ axis can move a body's hosting to *bekreftet*.
 
 Submissions are stored **inert** in SQLite — domain-whitelisted, capped, honeypot-
 and throttle-guarded. See [`../../server/README.md`](../../server/README.md) for
-config and the systemd unit.
+config and how it runs — the `skytilsynet-foi` compose service (with a host
+systemd unit as the alternative).
 
 > **Binding security rule.** FOI submissions are untrusted public input, stored
 > for human review only, and **MUST NEVER enter any agent/LLM workflow**
