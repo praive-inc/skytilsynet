@@ -149,6 +149,19 @@ Submissions are stored **inert** in SQLite — domain-whitelisted, capped, honey
 and throttle-guarded. See [`../../server/README.md`](../../server/README.md) for
 config and the systemd unit.
 
+**Privacy controls (issue #114).** In addition to storing no requester identity
+and hashing ip+ua for the throttle:
+
+- **Retention:** rows are purged 30 days after an accept/reject decision, with a
+  180-day backstop for undecided rows. `purge_expired()` runs on server start and
+  via `foi_review.py purge` — nothing persists indefinitely.
+- **Minimization:** e-mail addresses are stripped from the free-text `source`/`note`
+  at intake, and the form warns against pasting personal data.
+- **Encryption at rest:** set `FOI_ENCRYPTION_KEY` to field-encrypt `source`/`note`
+  with Fernet (opt-in; plaintext default keeps the stdlib-only deploy dependency-free).
+- **Operator-access audit:** every review read/decision is logged to an
+  `operator_access_log` table (who/when/what).
+
 > **Binding security rule.** FOI submissions are untrusted public input, stored
 > for human review only, and **MUST NEVER enter any agent/LLM workflow**
 > (prompt-injection safety). No per-citizen data is retained (RFC-007 aggregate
@@ -163,6 +176,7 @@ python3 scripts/foi_review.py list          # the queue (--all to include handle
 python3 scripts/foi_review.py show <id>     # one submission
 python3 scripts/foi_review.py accept <id>   # emit a saksbehandling.csv row → bekreftet
 python3 scripts/foi_review.py reject <id>
+python3 scripts/foi_review.py purge         # delete rows past their retention window
 ```
 
 `accept` writes a `data/saksbehandling.csv` row that flips the body's hosting to

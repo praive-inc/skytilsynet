@@ -12,6 +12,7 @@ import sqlite3
 import sys
 import tempfile
 import threading
+import time
 import unittest
 from http.server import ThreadingHTTPServer
 from urllib.error import HTTPError
@@ -19,8 +20,12 @@ from urllib.request import Request, urlopen
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
+from server import foi_crypto  # noqa: E402
 from server import foi_intake  # noqa: E402
 from scripts import foi_review  # noqa: E402
+
+# A deterministic 32-byte urlsafe-base64 Fernet key for the encryption tests.
+ENC_KEY = base64.urlsafe_b64encode(b"k" * 32).decode("ascii")
 
 ENTITIES = {
     "larvik.kommune.no": {"name": "Larvik kommune", "category": "kommune"},
@@ -121,6 +126,20 @@ class ServiceTest(unittest.TestCase):
         rows = self._rows()
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["vendor"], payload[:foi_intake.FIELD_CAPS["vendor"]])
+
+    # ---- free-text PII minimization (#114) ------------------------------
+    def test_emails_redacted_from_free_text_on_intake(self):
+        # A submitter may paste an official's e-mail out of an innsyn answer into
+        # the free-text fields. We strip e-mails at the boundary so no such PII is
+        # ever stored (GDPR Art. 5(1)(c) data minimization).
+        self.post({"domain": "oslo.kommune.no", "vendor": "Acos",
+                   "source": "sjå svaret frå ola.nordmann@oslo.kommune.no",
+                   "note": "ring Kari (kari.hansen@example.com) for meir"})
+        row = self._rows()[0]
+        self.assertNotIn("@", row["source"])
+        self.assertNotIn("@", row["note"])
+        self.assertIn(foi_intake.EMAIL_PLACEHOLDER, row["source"])
+        self.assertIn(foi_intake.EMAIL_PLACEHOLDER, row["note"])
 
     # ---- abuse controls -------------------------------------------------
     def test_honeypot_accepts_but_drops(self):
@@ -387,6 +406,169 @@ class CsvInjectionTest(unittest.TestCase):
         self.assertIn("'@x", out)
         self.assertIn("'-y", out)
         self.assertNotIn(",=cmd", out)
+
+
+class EncryptionTest(unittest.TestCase):
+    """Field-level encryption at rest for source/note (#114). Opt-in via a key."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.db = os.path.join(self.tmp, "foi.db")
+        self.conn = foi_intake.init_db(self.db)
+        self.cipher = foi_crypto.Cipher(ENC_KEY)
+        self.rec = {"domain": "larvik.kommune.no", "entity_name": "Larvik kommune",
+                    "vendor": "Acos WebSak", "hosting": "Norge",
+                    "jurisdiction": "Norge (EØS)", "source": "https://ex.org/svar",
+                    "note": "eit notat"}
+
+    def _raw(self, sid):
+        return self.conn.execute(
+            "SELECT source, note FROM submissions WHERE id = ?", (sid,)).fetchone()
+
+    def test_source_note_ciphertext_at_rest_plaintext_on_read(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident", cipher=self.cipher)
+        raw_source, raw_note = self._raw(sid)
+        # On disk: marked ciphertext, no readable value.
+        self.assertTrue(raw_source.startswith(foi_crypto.ENC_PREFIX))
+        self.assertNotIn("ex.org", raw_source)
+        self.assertNotIn("notat", raw_note)
+        # Through the read path with the key: transparent plaintext.
+        row = foi_intake.pending(self.conn, cipher=self.cipher)[0]
+        self.assertEqual(row["source"], "https://ex.org/svar")
+        self.assertEqual(row["note"], "eit notat")
+
+    def test_other_columns_are_not_encrypted(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident", cipher=self.cipher)
+        vendor, = self.conn.execute(
+            "SELECT vendor FROM submissions WHERE id = ?", (sid,)).fetchone()
+        self.assertEqual(vendor, "Acos WebSak")
+
+    def test_legacy_plaintext_rows_read_through(self):
+        # A row written before a key was configured (plaintext) must still read
+        # back correctly once encryption is switched on.
+        sid = foi_intake.store(self.conn, self.rec, "ident")           # no cipher
+        row = foi_intake.pending(self.conn, cipher=self.cipher)[0]
+        self.assertEqual(row["source"], "https://ex.org/svar")
+        # And the review CLI fetch decrypts too.
+        sub = foi_review._fetch(self.conn, sid, cipher=self.cipher)
+        self.assertEqual(sub["source"], "https://ex.org/svar")
+
+    def test_review_fetch_decrypts_encrypted_rows(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident", cipher=self.cipher)
+        sub = foi_review._fetch(self.conn, sid, cipher=self.cipher)
+        self.assertEqual(sub["source"], "https://ex.org/svar")
+        self.assertEqual(sub["note"], "eit notat")
+
+    def test_cipher_from_env_off_by_default(self):
+        self.assertIsNone(foi_crypto.cipher_from_env({}))
+        self.assertIsNotNone(foi_crypto.cipher_from_env({"FOI_ENCRYPTION_KEY": ENC_KEY}))
+
+
+class RetentionTest(unittest.TestCase):
+    """TTL purge: submissions are deleted N days after a decision, with a backstop
+    for undecided rows so nothing persists indefinitely (#114, GDPR Art. 5(1)(e))."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.db = os.path.join(self.tmp, "foi.db")
+        self.conn = foi_intake.init_db(self.db)
+        self.rec = {"domain": "larvik.kommune.no", "entity_name": "Larvik kommune",
+                    "vendor": "Acos", "hosting": "Norge", "jurisdiction": "Norge",
+                    "source": "https://ex.org/svar", "note": "n"}
+
+    def _ids(self):
+        return [r[0] for r in self.conn.execute("SELECT id FROM submissions")]
+
+    def test_decision_stamps_decided_at(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident")
+        foi_review.cmd_reject(self.conn, _Args(id=sid))
+        decided, = self.conn.execute(
+            "SELECT decided_at FROM submissions WHERE id = ?", (sid,)).fetchone()
+        self.assertTrue(decided)
+
+    def test_purge_deletes_decided_past_retention(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident")
+        foi_review.cmd_reject(self.conn, _Args(id=sid))
+        later = time.time() + (foi_intake.RETENTION_DECIDED_DAYS + 1) * 86400
+        n = foi_intake.purge_expired(self.conn, now=later)
+        self.assertEqual(n, 1)
+        self.assertEqual(self._ids(), [])
+
+    def test_purge_keeps_recently_decided(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident")
+        foi_review.cmd_accept(self.conn, _Args(id=sid))
+        n = foi_intake.purge_expired(self.conn)                 # now = today
+        self.assertEqual(n, 0)
+        self.assertEqual(self._ids(), [sid])
+
+    def test_purge_keeps_recent_undecided(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident")
+        n = foi_intake.purge_expired(self.conn)
+        self.assertEqual(n, 0)
+        self.assertEqual(self._ids(), [sid])
+
+    def test_purge_deletes_stale_undecided_backstop(self):
+        sid = foi_intake.store(self.conn, self.rec, "ident")
+        later = time.time() + (foi_intake.RETENTION_NEW_DAYS + 1) * 86400
+        n = foi_intake.purge_expired(self.conn, now=later)
+        self.assertEqual(n, 1)
+        self.assertEqual(self._ids(), [])
+
+
+class OperatorAuditTest(unittest.TestCase):
+    """Every operator read/decision in the review CLI is logged with who/when/what
+    (#114 MED — operator-access audit)."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.db = os.path.join(self.tmp, "foi.db")
+        self.conn = foi_intake.init_db(self.db)
+        rec = {"domain": "larvik.kommune.no", "entity_name": "Larvik kommune",
+               "vendor": "Acos", "hosting": "Norge", "jurisdiction": "Norge",
+               "source": "https://ex.org/svar", "note": "n"}
+        self.sid = foi_intake.store(self.conn, rec, "ident")
+
+    def _log(self):
+        return self.conn.execute(
+            "SELECT action, sub_id, actor, at FROM operator_access_log ORDER BY id"
+        ).fetchall()
+
+    def test_accept_is_audited(self):
+        foi_review.cmd_accept(self.conn, _Args(id=self.sid))
+        entries = self._log()
+        self.assertIn(("accept", self.sid), [(a, s) for a, s, _, _ in entries])
+        self.assertTrue(all(actor and at for _, _, actor, at in entries))
+
+    def test_reject_is_audited(self):
+        foi_review.cmd_reject(self.conn, _Args(id=self.sid))
+        self.assertIn(("reject", self.sid), [(a, s) for a, s, _, _ in self._log()])
+
+    def test_show_read_is_audited(self):
+        foi_review.cmd_show(self.conn, _Args(id=self.sid))
+        self.assertIn(("show", self.sid), [(a, s) for a, s, _, _ in self._log()])
+
+    def test_list_read_is_audited(self):
+        foi_review.cmd_list(self.conn, _Args(all=False))
+        self.assertIn("list", [a for a, _, _, _ in self._log()])
+
+    def test_actor_recorded_from_env(self):
+        os.environ["FOI_OPERATOR"] = "alice"
+        try:
+            foi_review.cmd_reject(self.conn, _Args(id=self.sid))
+        finally:
+            del os.environ["FOI_OPERATOR"]
+        self.assertEqual(self._log()[-1][2], "alice")
+
+
+class FormWarningTest(unittest.TestCase):
+    """The intake form must warn submitters off pasting personal data (#114)."""
+
+    def test_form_carries_pii_warning(self):
+        path = os.path.join(os.path.dirname(HERE), "web", "bidra", "index.html")
+        html = open(path, encoding="utf-8").read()
+        self.assertIn("personopplysningar", html.lower())
+        # The warning is explicit about not pasting names/e-mails.
+        self.assertIn("Ikkje lim inn", html)
 
 
 class _Args:

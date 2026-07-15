@@ -21,6 +21,7 @@ import hashlib
 import html
 import json
 import os
+import re
 import sqlite3
 import sys
 import time
@@ -33,6 +34,7 @@ ROOT = os.path.dirname(HERE)
 # the repo root, so add ROOT to reach the top-level shared package.
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
+from server import foi_crypto  # noqa: E402
 from shared.csv_safe import csv_safe  # noqa: E402
 
 DATA_DIR = os.path.join(ROOT, "data")
@@ -60,6 +62,34 @@ THROTTLE_MAX = 8                          # stored submissions per identity / wi
 # forgeable. Count the trusted hops from the right so we never key abuse
 # throttling off an attacker-chosen value (issue #84).
 TRUSTED_PROXY_HOPS = 1
+
+# Retention (issue #114, GDPR Art. 5(1)(e) storage limitation). A submission is a
+# throwaway once the operator has decided it: the accepted answer already lives in
+# the human-curated data/saksbehandling.csv, so we delete the row this many days
+# after the decision. The NEW backstop caps how long an undecided row can sit in
+# the queue so nothing is retained indefinitely. purge_expired() enforces both;
+# the server runs it at startup and scripts/foi_review.py exposes a `purge` command.
+RETENTION_DECIDED_DAYS = 30
+RETENTION_NEW_DAYS = 180
+
+# Free-text minimization (issue #114, Art. 5(1)(c)). `source`/`note` are free text a
+# submitter may paste an official's e-mail into; strip e-mail addresses at intake so
+# that PII is never stored. Deliberately conservative — it only touches obvious
+# addresses, leaving the rest of the answer intact for the operator to read.
+_EMAIL_RE = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}")
+EMAIL_PLACEHOLDER = "[e-post fjerna]"
+
+
+def redact_emails(text):
+    """Replace every e-mail address in a free-text field with EMAIL_PLACEHOLDER."""
+    if not text:
+        return text
+    return _EMAIL_RE.sub(EMAIL_PLACEHOLDER, text)
+
+
+def now_iso(now=None):
+    """UTC timestamp in the same ISO-8601 form used for created_at."""
+    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now))
 
 
 def known_entities(data_dir=DATA_DIR):
@@ -101,10 +131,49 @@ def init_db(path=DB_PATH):
                source       TEXT,
                note         TEXT,
                status       TEXT NOT NULL DEFAULT 'new',
-               ident_hash   TEXT
+               ident_hash   TEXT,
+               decided_at   TEXT
+           )""")
+    # decided_at is newer than the original schema (issue #114); add it to any
+    # pre-existing DB on the volume so the retention purge has a decision timestamp.
+    _ensure_column(conn, "submissions", "decided_at", "TEXT")
+    # Operator-access audit log (issue #114): who read/decided what, and when. The
+    # review CLI appends here; nothing ever deletes from it.
+    conn.execute(
+        """CREATE TABLE IF NOT EXISTS operator_access_log (
+               id      INTEGER PRIMARY KEY AUTOINCREMENT,
+               at      TEXT NOT NULL,
+               actor   TEXT NOT NULL,
+               action  TEXT NOT NULL,
+               sub_id  INTEGER
            )""")
     conn.commit()
     return conn
+
+
+def _ensure_column(conn, table, column, decl):
+    """ALTER TABLE ADD COLUMN only when the column is missing — a tiny forward
+    migration for DBs created before the column existed."""
+    have = {r[1] for r in conn.execute("PRAGMA table_info(%s)" % table)}
+    if column not in have:
+        conn.execute("ALTER TABLE %s ADD COLUMN %s %s" % (table, column, decl))
+
+
+def purge_expired(conn, now=None):
+    """Delete submissions past their retention window and return how many went:
+    decided rows RETENTION_DECIDED_DAYS after the decision, and undecided rows
+    RETENTION_NEW_DAYS after they arrived (the backstop). Idempotent — safe to run
+    on every startup (issue #114)."""
+    now = time.time() if now is None else now
+    decided_cutoff = now_iso(now - RETENTION_DECIDED_DAYS * 86400)
+    new_cutoff = now_iso(now - RETENTION_NEW_DAYS * 86400)
+    cur = conn.execute(
+        """DELETE FROM submissions
+               WHERE (decided_at IS NOT NULL AND decided_at < ?)
+                  OR (decided_at IS NULL AND created_at < ?)""",
+        (decided_cutoff, new_cutoff))
+    conn.commit()
+    return cur.rowcount
 
 
 def _client_ip(fwd, peer):
@@ -144,23 +213,31 @@ def validate(fields, entities):
     if ent is None:
         return None, "ukjent domene — vi tek berre imot svar om organ vi sporer"
     rec = {k: _clean(fields.get(k), cap) for k, cap in FIELD_CAPS.items()}
+    # Minimize PII in the free-text fields: strip e-mail addresses before storage
+    # (issue #114). The structured fields (domain/vendor/hosting) are not free text.
+    rec["source"] = redact_emails(rec["source"])
+    rec["note"] = redact_emails(rec["note"])
     rec["domain"] = domain
     rec["entity_name"] = ent["name"]
     rec["category"] = ent["category"]
     return rec, None
 
 
-def store(conn, rec, ident):
+def store(conn, rec, ident, cipher=None):
     """Insert one validated record. Parameterized query ONLY — the untrusted values
-    are bound, never string-formatted into SQL."""
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    are bound, never string-formatted into SQL. When a cipher is configured the
+    free-text source/note are encrypted at rest (issue #114)."""
+    now = now_iso()
+    source, note = rec["source"], rec["note"]
+    if cipher is not None:
+        source, note = cipher.encrypt(source), cipher.encrypt(note)
     cur = conn.execute(
         """INSERT INTO submissions
                (created_at, domain, entity_name, vendor, hosting, jurisdiction,
                 source, note, status, ident_hash)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'new', ?)""",
         (now, rec["domain"], rec["entity_name"], rec["vendor"], rec["hosting"],
-         rec["jurisdiction"], rec["source"], rec["note"], ident))
+         rec["jurisdiction"], source, note, ident))
     conn.commit()
     return cur.lastrowid
 
@@ -178,15 +255,21 @@ def throttled(conn, ident, now=None):
     return n >= THROTTLE_MAX
 
 
-def pending(conn):
+def pending(conn, cipher=None):
     """New (unreviewed) submissions as a list of dicts, oldest first — the operator
-    review queue. Excludes ident_hash (abuse-only, never surfaced)."""
+    review queue. Excludes ident_hash (abuse-only, never surfaced). Decrypts the
+    at-rest source/note when a cipher is configured (issue #114)."""
     cols = ["id", "created_at", "domain", "entity_name", "vendor", "hosting",
             "jurisdiction", "source", "note", "status"]
     rows = conn.execute(
         "SELECT %s FROM submissions WHERE status = 'new' ORDER BY id" % ", ".join(cols)
     ).fetchall()
-    return [dict(zip(cols, r)) for r in rows]
+    out = [dict(zip(cols, r)) for r in rows]
+    if cipher is not None:
+        for d in out:
+            d["source"] = cipher.decrypt(d["source"])
+            d["note"] = cipher.decrypt(d["note"])
+    return out
 
 
 def _pending_csv(records):
@@ -215,9 +298,10 @@ personopplysningar om deg.</p>
 </body></html>"""
 
 
-def make_app(conn, entities, token, salt):
+def make_app(conn, entities, token, salt, cipher=None):
     """Build a BaseHTTPRequestHandler bound to this DB/config. Kept as a factory so
-    tests can spin it up on an ephemeral port against a temp DB (real seam)."""
+    tests can spin it up on an ephemeral port against a temp DB (real seam). An
+    optional cipher encrypts source/note at rest (issue #114)."""
 
     class Handler(BaseHTTPRequestHandler):
         server_version = "SkytilsynetFOI/1"
@@ -286,7 +370,7 @@ def make_app(conn, entities, token, salt):
             if throttled(conn, ident):
                 return self._send(429, json.dumps({"error": "for mange innsendingar, prov igjen seinare"}))
 
-            new_id = store(conn, rec, ident)
+            new_id = store(conn, rec, ident, cipher)
             return self._thanks(wants_json, new_id)
 
         def _thanks(self, wants_json, new_id=None):
@@ -300,7 +384,7 @@ def make_app(conn, entities, token, salt):
                 return self._send(401, json.dumps({"error": "operator secret required"}),
                                   "application/json; charset=utf-8",
                                   {"WWW-Authenticate": 'Basic realm="foi"'})
-            recs = pending(conn)
+            recs = pending(conn, cipher)
             if urlparse(self.path).query and "format=csv" in urlparse(self.path).query:
                 return self._send(200, _pending_csv(recs), "text/csv; charset=utf-8")
             self._send(200, json.dumps({"pending": recs}, ensure_ascii=False))
@@ -356,7 +440,11 @@ def run():
     if not token:
         raise SystemExit("FOI_OPERATOR_TOKEN must be set (guards /api/foi/pending)")
     conn = init_db()
-    handler = make_app(conn, known_entities(), token, salt)
+    purged = purge_expired(conn)          # enforce retention on every start (#114)
+    if purged:
+        print("purged %d expired submission(s) past retention" % purged)
+    cipher = foi_crypto.cipher_from_env()  # None unless FOI_ENCRYPTION_KEY is set
+    handler = make_app(conn, known_entities(), token, salt, cipher)
     httpd = ThreadingHTTPServer((host, port), handler)
     print("FOI intake listening on %s:%d" % (host, port))
     httpd.serve_forever()

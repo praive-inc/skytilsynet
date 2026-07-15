@@ -17,11 +17,13 @@ Usage:
 
 import argparse
 import csv
+import getpass
 import io
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from server import foi_crypto  # noqa: E402
 from server import foi_intake  # noqa: E402
 
 # Mirrors data/saksbehandling.csv exactly so an accepted row pastes straight in.
@@ -42,11 +44,33 @@ _COLS = ["id", "created_at", "domain", "entity_name", "vendor", "hosting",
          "jurisdiction", "source", "note", "status"]
 
 
-def _fetch(conn, sub_id):
+def _fetch(conn, sub_id, cipher=None):
     row = conn.execute(
         "SELECT %s FROM submissions WHERE id = ?" % ", ".join(_COLS), (sub_id,)
     ).fetchone()
-    return dict(zip(_COLS, row)) if row else None
+    if not row:
+        return None
+    sub = dict(zip(_COLS, row))
+    if cipher is not None:                       # decrypt at-rest source/note (#114)
+        sub["source"] = cipher.decrypt(sub["source"])
+        sub["note"] = cipher.decrypt(sub["note"])
+    return sub
+
+
+def _actor():
+    """Who is running the CLI, for the audit log. FOI_OPERATOR overrides the OS
+    user (handy when several people share one shell account)."""
+    return os.environ.get("FOI_OPERATOR") or getpass.getuser()
+
+
+def _audit(conn, action, sub_id=None):
+    """Append one operator-access entry: who did what, to which row, and when
+    (issue #114). Every read (list/show) and decision (accept/reject/purge)
+    records here."""
+    conn.execute(
+        "INSERT INTO operator_access_log (at, actor, action, sub_id) VALUES (?, ?, ?, ?)",
+        (foi_intake.now_iso(), _actor(), action, sub_id))
+    conn.commit()
 
 
 def saksbehandling_row(sub, entities, source_type=DEFAULT_SOURCE_TYPE):
@@ -85,6 +109,7 @@ def _row_csv(row):
 
 
 def cmd_list(conn, args):
+    _audit(conn, "list")
     where = "" if args.all else "WHERE status = 'new'"
     rows = conn.execute(
         "SELECT %s FROM submissions %s ORDER BY id" % (", ".join(_COLS), where)
@@ -100,18 +125,22 @@ def cmd_list(conn, args):
 
 
 def cmd_show(conn, args):
-    sub = _fetch(conn, args.id)
+    sub = _fetch(conn, args.id, getattr(args, "cipher", None))
     if not sub:
         sys.exit("fann ikkje innsending #%d" % args.id)
+    _audit(conn, "show", args.id)
     for k in _COLS:
         print("%-12s %s" % (k, sub[k]))
 
 
-def _set_status(conn, sub_id, status):
-    sub = _fetch(conn, sub_id)
+def _set_status(conn, sub_id, status, cipher=None):
+    sub = _fetch(conn, sub_id, cipher)
     if not sub:
         sys.exit("fann ikkje innsending #%d" % sub_id)
-    conn.execute("UPDATE submissions SET status = ? WHERE id = ?", (status, sub_id))
+    # decided_at anchors the retention purge (#114): the row is deleted a fixed
+    # window after the operator decides it.
+    conn.execute("UPDATE submissions SET status = ?, decided_at = ? WHERE id = ?",
+                 (status, foi_intake.now_iso(), sub_id))
     conn.commit()
     return sub
 
@@ -119,7 +148,7 @@ def _set_status(conn, sub_id, status):
 def cmd_accept(conn, args):
     # Issue #55: no verdict reaches the published dataset without a re-checkable
     # source — the operator SEES the source and must have one before accept.
-    sub = _fetch(conn, args.id)
+    sub = _fetch(conn, args.id, getattr(args, "cipher", None))
     if not sub:
         sys.exit("fann ikkje innsending #%d" % args.id)
     source = (sub.get("source") or "").strip()
@@ -130,7 +159,8 @@ def cmd_accept(conn, args):
     if not source:
         sys.exit("nekta: innsending #%d har inga kjelde — kan ikkje bli «bekreftet» "
                  "(issue #55). Avvis, eller be om ei etterprøvbar kjelde." % args.id)
-    _set_status(conn, args.id, "accepted")
+    _set_status(conn, args.id, "accepted", getattr(args, "cipher", None))
+    _audit(conn, "accept", args.id)
     entities = foi_intake.known_entities()
     row = saksbehandling_row(sub, entities, source_type)
     print("# lim denne raden inn i data/saksbehandling.csv (menneske-kurert):",
@@ -139,8 +169,17 @@ def cmd_accept(conn, args):
 
 
 def cmd_reject(conn, args):
-    _set_status(conn, args.id, "rejected")
+    _set_status(conn, args.id, "rejected", getattr(args, "cipher", None))
+    _audit(conn, "reject", args.id)
     print("avvist #%d" % args.id, file=sys.stderr)
+
+
+def cmd_purge(conn, args):
+    n = foi_intake.purge_expired(conn)
+    _audit(conn, "purge")
+    print("sletta %d utgåtte innsendingar (retensjon: %d/%d dagar)" % (
+        n, foi_intake.RETENTION_DECIDED_DAYS, foi_intake.RETENTION_NEW_DAYS),
+        file=sys.stderr)
 
 
 def main(argv=None):
@@ -148,6 +187,7 @@ def main(argv=None):
     p.add_argument("--db", default=foi_intake.DB_PATH, help="sti til SQLite-basen")
     sub = p.add_subparsers(dest="cmd", required=True)
     lp = sub.add_parser("list"); lp.add_argument("--all", action="store_true")
+    sub.add_parser("purge", help="delete submissions past their retention window")
     for name in ("show", "accept", "reject"):
         sp = sub.add_parser(name); sp.add_argument("id", type=int)
         if name == "accept":
@@ -156,10 +196,12 @@ def main(argv=None):
                             help="re-checkable-source tier for the emitted row "
                                  "(default: %s)" % DEFAULT_SOURCE_TYPE)
     args = p.parse_args(argv)
+    # Decrypt at-rest source/note when FOI_ENCRYPTION_KEY is configured (#114).
+    args.cipher = foi_crypto.cipher_from_env()
 
     conn = foi_intake.init_db(args.db)
-    {"list": cmd_list, "show": cmd_show,
-     "accept": cmd_accept, "reject": cmd_reject}[args.cmd](conn, args)
+    {"list": cmd_list, "show": cmd_show, "accept": cmd_accept,
+     "reject": cmd_reject, "purge": cmd_purge}[args.cmd](conn, args)
 
 
 if __name__ == "__main__":
