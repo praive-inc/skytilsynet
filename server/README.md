@@ -47,6 +47,8 @@ as opaque data, never as instructions.
 | `HOST` | Bind address (default `127.0.0.1`). Set `0.0.0.0` in a container on an internal-only docker network so the sibling Caddy container can reach it by name — see Deploy. |
 | `FOI_OPERATOR_TOKEN` | **Required.** Guards `GET /api/foi/pending`. |
 | `FOI_HASH_SALT` | Salt for the abuse-only ip/ua hash (defaults to the token). |
+| `FOI_ENCRYPTION_KEY` | **Optional.** Fernet key that encrypts the free-text `source`/`note` at rest (see Privacy). Unset ⇒ plaintext (the stdlib-only default). |
+| `FOI_OPERATOR` | **Optional.** Name recorded in the operator-access audit log (defaults to the OS user running `foi_review.py`). |
 
 The DB lives at `server/data/foi_submissions.db` (git-ignored) when run standalone.
 In the compose deploy that path is a **docker volume**, so the database survives
@@ -67,7 +69,41 @@ python3 scripts/foi_review.py show 3
 python3 scripts/foi_review.py accept 3         # marks accepted + prints a CSV row
 python3 scripts/foi_review.py accept 3 --source-type offentlig-journal
 python3 scripts/foi_review.py reject 4
+python3 scripts/foi_review.py purge          # delete rows past their retention
 ```
+
+Every `list`/`show`/`accept`/`reject`/`purge` writes a **who/when/what** row to the
+`operator_access_log` table (issue #114). Inspect it with:
+
+```bash
+sqlite3 server/data/foi_submissions.db 'SELECT at, actor, action, sub_id FROM operator_access_log ORDER BY id'
+```
+
+## Privacy / GDPR (issue #114)
+
+The intake deliberately collects **no requester identity** (the form says so), and
+the abuse throttle keys off a **salted hash** of ip+ua, never a raw address. On top
+of that:
+
+- **Retention (Art. 5(1)(e)).** A submission is deleted `RETENTION_DECIDED_DAYS`
+  (30) days after the operator accepts/rejects it — by then an accepted answer
+  already lives in the curated `data/saksbehandling.csv`. A backstop deletes any
+  still-undecided row after `RETENTION_NEW_DAYS` (180) days, so nothing is retained
+  indefinitely. `purge_expired()` runs **on every server start** and on
+  `foi_review.py purge` (wire that to cron/systemd-timer for a box that rarely
+  restarts). Both windows are constants at the top of `server/foi_intake.py`.
+- **Free-text minimization (Art. 5(1)(c)).** The form warns submitters off pasting
+  personal data, and the server **strips e-mail addresses** from `source`/`note` at
+  intake (replaced with `[e-post fjerna]`) before anything is stored.
+- **Encryption at rest (Art. 32).** Set `FOI_ENCRYPTION_KEY` to encrypt the
+  free-text `source`/`note` columns with Fernet (AES-128-CBC + HMAC). Generate a key
+  with `python3 -m server.foi_crypto keygen` and keep it **only** in the service
+  environment — losing it makes those fields unrecoverable. Encryption is opt-in:
+  with no key the fields stay plaintext (dev/test), and legacy plaintext rows still
+  read back after a key is added (each ciphertext carries a `fernet:` marker). This
+  is the one place the backend reaches past the stdlib — the `cryptography` package
+  is imported **lazily**, only when a key is set, so the default deploy needs no new
+  dependency. A box that enables it must have `cryptography` installed in the image.
 
 `accept` prints a ready `data/saksbehandling.csv` row (`vendor` + `hosting` +
 `source` + date, `*_method=innsyn-foi`) to **stdout**. The operator pastes it into
