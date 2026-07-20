@@ -62,5 +62,21 @@
     "microsoft_pct": 98.4,
     "federated": 0,
     "backend_unmasked": 0
+  },
+  {
+    "date": "2026-07-20",
+    "methodology_version": 2,
+    "total": 62,
+    "us_microsoft": 61,
+    "us_google": 1,
+    "us_mixed": 0,
+    "eu_sovereign": 0,
+    "other": 0,
+    "none": 0,
+    "us_total": 62,
+    "us_pct": 100.0,
+    "microsoft_pct": 98.4,
+    "federated": 0,
+    "backend_unmasked": 0
   }
 ]
