@@ -194,9 +194,14 @@ as the `skytilsynet-foi` compose container behind Caddy;
 syncs the backend (`server/` **plus the top-level `shared/` package** it imports —
 `server/foi_intake.py` does `from shared.csv_safe import csv_safe`, so `shared/`
 must ship alongside `server/` or the container crashes at import on restart, #110),
-and restarts the service each deploy. Re-run `build.py` after
-each scan to refresh the page; the operator wires that alongside the scheduled
-`scan.py` (the agent does not add GitHub Actions).
+and restarts the service each deploy.
+
+The weekly refresh is automated by the
+[`.github/workflows/scan.yml`](../../.github/workflows/scan.yml) GitHub Actions
+workflow (cron `17 5 * * 1` — Mondays 05:17 UTC, plus manual dispatch): it runs
+`scanner/scan.py` + `scanner/web_scan.py`, rebuilds the site with `web/build.py`,
+and commits the refreshed `scanner/`, `data/` and `web/index.html` as
+`skytilsynet-bot`. Deploy then serves those committed files.
 
 ---
 
